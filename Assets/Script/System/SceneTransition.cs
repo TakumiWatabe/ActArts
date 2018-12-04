@@ -13,11 +13,11 @@ public class SceneTransition : MonoBehaviour {
     DataRetention datare;
 
     PlayMenuSystem sys;
-
+    MenuEvent menu;
     bool p1 = true;
     bool p2 = true;
     bool sceneFlagMenu = false;
-
+    bool fadeFlag = true;
     int state = 0;
 
 	// Use this for initialization
@@ -26,12 +26,17 @@ public class SceneTransition : MonoBehaviour {
         fade = GameObject.Find("FadePanel").GetComponent<FadeScript>();
         if (SceneManager.GetActiveScene().name == "SelectScene")
         {
+            menu = GameObject.Find("SelectSceneObj").GetComponent<MenuEvent>();
             select = GameObject.Find("P1Image").GetComponent<CharacterSelect>();
             select2 = GameObject.Find("P2Image").GetComponent<CharacterSelect>();
         }
         datare = GameObject.Find("GameSystem").GetComponent<DataRetention>();
-        sys = GameObject.Find("PlayMenuSystemObj").GetComponent<PlayMenuSystem>();
-
+        if (SceneManager.GetActiveScene().name == "PlayScene"|| SceneManager.GetActiveScene().name == "PlayMenuScene")
+        {
+            sys = GameObject.Find("PlayMenuSystemObj").GetComponent<PlayMenuSystem>();
+        }
+        Debug.Log("sys:" + sys);
+        Debug.Log("datare:" + datare);
         sceneFlagMenu = false;
     }
 
@@ -87,10 +92,39 @@ public class SceneTransition : MonoBehaviour {
 
         if (SceneManager.GetActiveScene().name != "TitleScene")
         {
+            if(fadeFlag)
+            {
+                if (fade.GetAlpha() >= 1.0f)
+                {
+                    fade.FadeInFlag();
+                    fadeFlag = false;
+                }
+            }
+        }
+        if(menu.GetSceneFlag())
+        {
+            if (!fadeFlag)
+            {
+                fade.FadeOutFlag();
+            }
             if (fade.GetAlpha() >= 1.0f)
             {
-                fade.FadeInFlag();
+                scene.SceneChange("menu");
             }
+        }
+    }
+    public void FadeEvent(string name)
+    {
+        if (!fadeFlag)
+        {
+            fade.FadeOutFlag();
+        }
+        Debug.Log(fade.GetAlpha());
+        if (fade.GetAlpha() >= 1.0f)
+        {
+            Debug.Log("１２３");
+            scene.SceneChange(name);
+
         }
     }
 }

@@ -7,11 +7,14 @@ using System;
 using UnityEngine.SceneManagement;
 
 public class CharacterSelect : MonoBehaviour {
+    public const int SCREEN_TOP = 385;
+    public const int SCREEN_SIDE = 210;
+
     [SerializeField]
     public int controller=0;
 
     static int pvcController = 0;
-
+    //385,210
     
     static int pvcCount = 0;
     [SerializeField]
@@ -81,6 +84,10 @@ public class CharacterSelect : MonoBehaviour {
     {
         if (gameData.Mode == 0)
         {
+            //========================================================================================================
+            //========================================================================================================
+
+            //アケコンの時
             if (controllerName == "Arcade Stick (MadCatz FightStick Neo)")
             {
                 if (controller == 1)
@@ -113,6 +120,7 @@ public class CharacterSelect : MonoBehaviour {
                             {
                                 return;
                             }
+                            MoveLimit();
                             //　移動先を計算
                             pos += new Vector2(Input.GetAxis("Horizontal") * iconSpeed, Input.GetAxis("Vertical") * iconSpeed) * Time.deltaTime;
                             //　アイコン位置を設定
@@ -161,6 +169,7 @@ public class CharacterSelect : MonoBehaviour {
                         {
                             return;
                         }
+                        MoveLimit();
                         //　移動先を計算
                         pos += new Vector2(Input.GetAxis("Horizontal2") * iconSpeed, Input.GetAxis("Vertical2") * iconSpeed) * Time.deltaTime;
                         //　アイコン位置を設定
@@ -172,6 +181,10 @@ public class CharacterSelect : MonoBehaviour {
                     }
                 }
             }
+            //========================================================================================================
+            //========================================================================================================
+
+            //XBOXの時
             else
             {
                 if (controller == 1)
@@ -202,6 +215,7 @@ public class CharacterSelect : MonoBehaviour {
                         {
                             return;
                         }
+                        MoveLimit();
                         //　移動先を計算
                         pos += new Vector2(Input.GetAxis("Horizontal") * iconSpeed, -Input.GetAxis("Vertical") * iconSpeed) * Time.deltaTime;
                         //　アイコン位置を設定
@@ -250,6 +264,7 @@ public class CharacterSelect : MonoBehaviour {
                         {
                             return;
                         }
+                        MoveLimit();
                         //　移動先を計算
                         pos += new Vector2(Input.GetAxis("Horizontal2") * iconSpeed, -Input.GetAxis("Vertical2") * iconSpeed) * Time.deltaTime;
                         //　アイコン位置を設定
@@ -263,6 +278,8 @@ public class CharacterSelect : MonoBehaviour {
             }
 
         }
+//========================================================================================================
+//========================================================================================================
         else if (gameData.Mode == 1)
         {
             if (controllerName == "Arcade Stick (MadCatz FightStick Neo)")
@@ -298,6 +315,7 @@ public class CharacterSelect : MonoBehaviour {
                         {
                             return;
                         }
+                        MoveLimit();
                         //　移動先を計算
                         pos += new Vector2(Input.GetAxis("Horizontal") * iconSpeed, Input.GetAxis("Vertical") * iconSpeed) * Time.deltaTime;
                         //　アイコン位置を設定
@@ -342,6 +360,7 @@ public class CharacterSelect : MonoBehaviour {
                         {
                             return;
                         }
+                        MoveLimit();
                         //　移動先を計算
                         pos += new Vector2(Input.GetAxis("Horizontal2") * iconSpeed, Input.GetAxis("Vertical2") * iconSpeed) * Time.deltaTime;
                         //　アイコン位置を設定
@@ -388,6 +407,7 @@ public class CharacterSelect : MonoBehaviour {
                         {
                             return;
                         }
+                        MoveLimit();
                         //　移動先を計算
                         pos += new Vector2(Input.GetAxis("Horizontal") * iconSpeed, -Input.GetAxis("Vertical") * iconSpeed) * Time.deltaTime;
                         //　アイコン位置を設定
@@ -441,6 +461,7 @@ public class CharacterSelect : MonoBehaviour {
                         {
                             return;
                         }
+                        MoveLimit();
                         //　移動先を計算
                         pos += new Vector2(Input.GetAxis("Horizontal") * iconSpeed, -Input.GetAxis("Vertical") * iconSpeed) * Time.deltaTime;
                         //　アイコン位置を設定
@@ -472,7 +493,6 @@ public class CharacterSelect : MonoBehaviour {
                 selectName = charName;
             }
         }
-
         //Debug.Log("sceneFlag1" + sceneFlag1 + "sceneFlag2" + sceneFlag2);
     }
     public Vector2 GetFramePos(string name)
@@ -527,4 +547,27 @@ public class CharacterSelect : MonoBehaviour {
     }
 
     public string GetSelectName { get { return selectName; } }
+    public void MoveLimit()
+    {
+        //if (transform.localPosition.x >= SCREEN_SIDE || transform.localPosition.x <= -SCREEN_SIDE)
+        //{
+        //    iconSpeedX = 0;
+        //    Debug.Log("0");
+        //}
+        //else
+        //{
+        //    iconSpeedX = Screen.width;
+        //}
+        //if (transform.localPosition.y >= SCREEN_TOP || transform.localPosition.y <= -SCREEN_TOP)
+        //{
+        //    iconSpeedY = 0;
+        //}
+        //else
+        //{
+        //    iconSpeedY = Screen.width;
+        //}
+    }
+    void Clamp()
+    {
+    }
 }
