@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TimeManager : MonoBehaviour {
+public class OverReact : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {

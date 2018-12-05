@@ -5,8 +5,8 @@ using UnityEngine.UI;
 using GamepadInput;
 using System;
 
-public class PlayerController : MonoBehaviour
-{
+public class DebugPlayerControlScript : MonoBehaviour {
+
     float speed = 0;
     //歩くスピード
     public float walkSpeed = 0.03f;
@@ -57,7 +57,7 @@ public class PlayerController : MonoBehaviour
     private GameObject hadokenObject;
 
     //相手スクリプト
-    PlayerController enemyScript;
+    DebugPlayerControlScript enemyScript;
 
     //ガードする距離
     public float distanceToGuard = 0.7f;
@@ -103,7 +103,6 @@ public class PlayerController : MonoBehaviour
 
     ColliderEvent CEvent = null;
     TestChar TChar = null;
-    BattleDirector battleDirector;
 
     GameObject parent;
 
@@ -139,7 +138,7 @@ public class PlayerController : MonoBehaviour
         }
 
         Debug.Log(enemy.tag);
-        enemyScript = enemy.GetComponent<PlayerController>();
+        enemyScript = enemy.GetComponent<DebugPlayerControlScript>();
 
 
         animator = GetComponent<Animator>();
@@ -243,7 +242,7 @@ public class PlayerController : MonoBehaviour
                 break;
         }
 
-        
+
 
         FinallyMove();
 
@@ -257,7 +256,7 @@ public class PlayerController : MonoBehaviour
 
         CheckGuard();
 
-        if(isModel) CheckDamage();
+        if (isModel) CheckDamage();
 
         inputDKeyOld = inputDKey;
 
@@ -293,7 +292,7 @@ public class PlayerController : MonoBehaviour
             state = "Stand";
         }
 
-        damageCount++; 
+        damageCount++;
 
     }
 
@@ -717,13 +716,13 @@ public class PlayerController : MonoBehaviour
         {
             //必殺
             case "Hadoken":
-               
+
                 finalMove = new Vector3(0, 0, 0);
                 animator.SetInteger("Special", 1);
                 break;
             //必殺
             case "Syoryuken":
-                if(charName == "Aoi")
+                if (charName == "Aoi")
                 {
                     finalMove = new Vector3(0, 0, 0);
                     animator.SetInteger("Special", 2);
@@ -738,7 +737,7 @@ public class PlayerController : MonoBehaviour
                 break;
         }
 
-        if(charName == "Aoi")
+        if (charName == "Aoi")
         {
             if (animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1 && animator.GetInteger("Special") != 0)
             //if (animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1 && animator.GetInteger("Special") == 1)
@@ -935,10 +934,8 @@ public class PlayerController : MonoBehaviour
                                 hado.transform.SetParent(this.transform);
 
                                 hado.GetComponent<HadouController>().direction = direction;
-                                
-                            } 
 
-                            //Instantiate(hadokenObject, GetComponent<ColliderEvent>().GetHitBoxs[9].center + this.transform.parent.transform.position, Quaternion.identity);
+                            }
                         }
                         return;
                     }
@@ -1005,7 +1002,7 @@ public class PlayerController : MonoBehaviour
 
             int dashCount = 0;
 
-            for (int i = commandCount/2; i < commandCount; i++)
+            for (int i = commandCount / 2; i < commandCount; i++)
             {
                 if (dash[dashCount] == history[i])
                 {
@@ -1261,7 +1258,7 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     void SitGuard()
     {
-        
+
         gameObject.transform.position = new Vector3(gameObject.transform.position.x, 0, 0);
         finalMove = new Vector3(0, 0, 0);
         animator.SetBool("StandGuard", false);
@@ -1282,7 +1279,7 @@ public class PlayerController : MonoBehaviour
 
             if (jumpCount == 0 && state != "JumpingDamage") gameObject.transform.position = new Vector3(gameObject.transform.position.x, 0, 0);
 
-            if(gameObject.transform.position.y <= 0 && jumpCount == 0) gameObject.transform.position = new Vector3(gameObject.transform.position.x, 0, gameObject.transform.position.z);
+            if (gameObject.transform.position.y <= 0 && jumpCount == 0) gameObject.transform.position = new Vector3(gameObject.transform.position.x, 0, gameObject.transform.position.z);
         }
         else
         {
@@ -1315,40 +1312,40 @@ public class PlayerController : MonoBehaviour
 
     public void HitDamage(int dmg)
     {
-        if((state == "Stand" || state == "Sit" || state == "Guard" || state == "SitGuard" || state == "StandGuard") && state != "Jump" && (inputDKey == 1 || inputDKey == 4))
+        if ((state == "Stand" || state == "Sit" || state == "Guard" || state == "SitGuard" || state == "StandGuard") && state != "Jump" && (inputDKey == 1 || inputDKey == 4))
         {
 
             Debug.Log(state);
             animator.SetBool("Guard", true);
             state = "Guard";
-            
-            parent.GetComponent<PlayerController>().state = "Guard";
-            damageTime = (dmg / 500 + 15)/3;
+
+            parent.GetComponent<DebugPlayerControlScript>().state = "Guard";
+            damageTime = (dmg / 500 + 15) / 3;
             damageDir = direction * -1;
-            parent.GetComponent<PlayerController>().damageTime = (dmg / 500 + 15) / 3;
-            parent.GetComponent<PlayerController>().damageDir = direction * -1;
+            parent.GetComponent<DebugPlayerControlScript>().damageTime = (dmg / 500 + 15) / 3;
+            parent.GetComponent<DebugPlayerControlScript>().damageDir = direction * -1;
         }
         else
         {
             animator.SetInteger("Damage", dmg);
-            if(jumpCount == 0)
+            if (jumpCount == 0)
             {
                 state = "Damage";
 
-                parent.GetComponent<PlayerController>().state = "Damage";
+                parent.GetComponent<DebugPlayerControlScript>().state = "Damage";
             }
             else
             {
                 state = "JumpingDamage";
 
-                parent.GetComponent<PlayerController>().state = "JumpingDamage";
+                parent.GetComponent<DebugPlayerControlScript>().state = "JumpingDamage";
             }
 
             backDistance = dmg;
             damageTime = dmg / 500 + 15;
             damageDir = direction * -1;
-            parent.GetComponent<PlayerController>().damageTime = dmg / 500 + 15;
-            parent.GetComponent<PlayerController>().damageDir = direction * -1;
+            parent.GetComponent<DebugPlayerControlScript>().damageTime = dmg / 500 + 15;
+            parent.GetComponent<DebugPlayerControlScript>().damageDir = direction * -1;
 
             AudioClip sound;
 
@@ -1363,73 +1360,87 @@ public class PlayerController : MonoBehaviour
 
     public int InputDKey
     {
-        get {
+        get
+        {
             return inputDKey;
         }
-        set {
+        set
+        {
             inputDKey = value;
         }
     }
 
     public bool PunchKey
     {
-        get {
+        get
+        {
             return punchKey;
         }
-        set {
+        set
+        {
             punchKey = value;
         }
     }
 
     public bool KickKey
     {
-        get {
+        get
+        {
             return kickKey;
         }
-        set {
+        set
+        {
             kickKey = value;
         }
     }
 
     public string ControllerName
     {
-        get {
+        get
+        {
             return controllerName;
         }
-        set {
+        set
+        {
             controllerName = value;
         }
     }
 
     public string State
     {
-        get {
+        get
+        {
             return state;
         }
-        set {
+        set
+        {
             state = value;
         }
     }
 
     public string SpecialState
     {
-        get {
+        get
+        {
             return specialState;
         }
-        set {
+        set
+        {
             specialState = value;
         }
     }
 
     public int Direction
     {
-        get {
+        get
+        {
             return direction;
         }
-        set {
+        set
+        {
             direction = value;
         }
     }
 
-    public GameObject fightEnemy{get{ return enemy; }    }
+    public GameObject fightEnemy { get { return enemy; } }
 }

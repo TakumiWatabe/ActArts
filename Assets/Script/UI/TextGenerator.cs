@@ -85,14 +85,13 @@ public class TextGenerator : MonoBehaviour
     private GameObject contl;
     private InstanceScript InScript;
     GameObject dir;
-    BattleDirector BtDir;
+
 
     void Awake()
     {
         contl = GameObject.Find("FighterComtrol");
         InScript = contl.GetComponent<InstanceScript>();
         dir = GameObject.Find("BattleDirecter");
-        BtDir = dir.GetComponent<BattleDirector>();
     }
 
     // Use this for initialization

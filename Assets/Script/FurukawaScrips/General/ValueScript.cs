@@ -28,6 +28,16 @@ public class ValueScript : MonoBehaviour {
         ATK_NUM,
     };
 
+    //コントローラー用変数
+    public enum Controller
+    {
+        CONTROLLER_OTHER,
+        CONTROLLER_1,
+        CONTROLLER_2,
+
+        CONTROLLER_NUM,
+    }
+
     //技の初段ダメージ計算
     public int ArtsDame(int damage, float FPro)
     {

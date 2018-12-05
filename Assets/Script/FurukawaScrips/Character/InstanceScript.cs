@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEditor;
 
 public class InstanceScript : MonoBehaviour {
 
@@ -25,7 +26,6 @@ public class InstanceScript : MonoBehaviour {
     private DataRetention datas;
     private string[] receive = new string[2];
 
-
     // Use this for initialization
     void Awake ()
     {
@@ -34,7 +34,20 @@ public class InstanceScript : MonoBehaviour {
             datas = GameObject.Find("GameSystem").GetComponent<DataRetention>();
         }
 
+        JudgeCreateChar();
+    }
 
+    //キャラクター生成関数
+    private void CreateChar(int charID,int InputID)
+    {
+        fight[charID].fighter = Instantiate(charcter[InputID]);
+        fight[charID].playerTag = charID + 1;
+        if (this.modes == 1 && fight[charID].playerTag == 2) fight[charID].fighter.AddComponent<EnemyAI>();
+    }
+
+    //生成キャラ判別関数
+    private void JudgeCreateChar()
+    {
         for (int i = 0; i < fight.Length; i++)
         {
             if (datas != null)
@@ -48,16 +61,10 @@ public class InstanceScript : MonoBehaviour {
                 {
                     //一致したキャラを登録
                     case "Aoi":
-                        fight[i].fighter = Instantiate(charcter[0]);
-                        fight[i].playerTag = i + 1;
-                        Debug.Log("流法" + this.modes);
-                        if (this.modes == 1 && fight[i].playerTag == 2) fight[i].fighter.AddComponent<EnemyAI>();
+                        CreateChar(i, 0);
                         break;
                     case "Hikari":
-                        fight[i].fighter = Instantiate(charcter[1]);
-                        fight[i].playerTag = i + 1;
-                        Debug.Log("流法" + this.modes);
-                        if (this.modes == 1 && fight[i].playerTag == 2) fight[i].fighter.AddComponent<EnemyAI>();
+                        CreateChar(i, 1);
                         break;
                     default:
                         fight[i].fighter = null;
@@ -67,32 +74,19 @@ public class InstanceScript : MonoBehaviour {
             }
             else
             {
-                //選択されたキャラクターの名前で検索
-                switch (names[i])
-                {
-                    //一致したキャラを登録
-                    case "Aoi":
-                        fight[i].fighter = Instantiate(charcter[0]);
-                        fight[i].playerTag = i + 1;
-                        Debug.Log("流法" + this.modes);
-                        if(this.modes==1 && fight[i].playerTag == 2) fight[i].fighter.AddComponent<EnemyAI>();
-                        break;
-                    case "Hikari":
-                        fight[i].fighter = Instantiate(charcter[1]);
-                        fight[i].playerTag = i + 1;
-                        if (this.modes == 1 && fight[i].playerTag == 2) fight[i].fighter.AddComponent<EnemyAI>();
-                        break;
-                    default:
-                        fight[i].fighter = null;
-                        fight[i].playerTag = 0;
-                        break;
-                }
+                //デバッグ用に先頭のキャラを登録
+                CreateChar(i, 0);
             }
 
             if (fight[i].fighter != null)
             {
                 fight[i].fighter.tag = "P" + fight[i].playerTag.ToString();
                 fight[i].fighter.transform.GetChild(0).tag = "P" + fight[i].playerTag.ToString();
+            }
+            else
+            {
+                //エラー終了
+                EditorApplication.Exit(0);
             }
         }
     }

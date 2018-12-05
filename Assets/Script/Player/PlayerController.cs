@@ -5,7 +5,10 @@ using UnityEngine.UI;
 using GamepadInput;
 using System;
 
-public class PlayerControllerTest : MonoBehaviour {
+public class PlayerController : MonoBehaviour
+{
+    //コントローラー番号
+    private int controller = 0;
     float speed = 0;
     //歩くスピード
     public float walkSpeed = 0.03f;
@@ -21,10 +24,17 @@ public class PlayerControllerTest : MonoBehaviour {
     public int commandCount = 20;
     //入力履歴の数
     public int numInputHistory = 10;
-    //コントローラー番号
-    private int controller = 0;
     //ダメージ
     public int damage = 0;
+    //ジャンプのスピード
+    public float jumpSpeed = 0.15f;
+    //昇竜のスピード
+    public float syoryuSpeed = 0.175f;
+
+    //キャラ分別
+    [SerializeField]
+    string charName;
+
     //ダメージ受けたときに下がる距離
     float backDistance = 0;
     float backingDistance = 0;
@@ -41,8 +51,13 @@ public class PlayerControllerTest : MonoBehaviour {
     int direction = 1;
     //相手
     private GameObject enemy;
+
+    //は同県
+    [SerializeField]
+    private GameObject hadokenObject;
+
     //相手スクリプト
-    PlayerControllerTest enemyScript;
+    PlayerController enemyScript;
 
     //ガードする距離
     public float distanceToGuard = 0.7f;
@@ -53,6 +68,14 @@ public class PlayerControllerTest : MonoBehaviour {
 
     //これがモデルかどうか
     public bool isModel = false;
+
+    //効果音
+    private AudioSource audio;
+
+    public AudioClip largeDmg;
+    public AudioClip midiumDmg;
+    public AudioClip lowDmg;
+
 
     //public Text text;
     //入力履歴
@@ -82,6 +105,8 @@ public class PlayerControllerTest : MonoBehaviour {
     TestChar TChar = null;
 
     GameObject parent;
+
+    bool wasStand = false;
 
     //キャラクター生成オブジェクト
     private GameObject contl;
@@ -113,7 +138,8 @@ public class PlayerControllerTest : MonoBehaviour {
         }
 
         Debug.Log(enemy.tag);
-        enemyScript = enemy.GetComponent<PlayerControllerTest>();
+        enemyScript = enemy.GetComponent<PlayerController>();
+
 
         animator = GetComponent<Animator>();
 
@@ -133,29 +159,51 @@ public class PlayerControllerTest : MonoBehaviour {
         inputDKey = 5;
         inputDKeyOld = inputDKey;
 
+        if (controller > 0) controllerName = Input.GetJoystickNames()[controller - 1];
+
+        Debug.Log(Input.GetJoystickNames()[0]);
+        Debug.Log(Input.GetJoystickNames()[1]);
+
+
+
+
         if (isModel)
         {
             CEvent = this.GetComponent<ColliderEvent>();
             TChar = this.GetComponent<TestChar>();
+            audio = GetComponent<AudioSource>();
             parent = this.transform.parent.gameObject;
+            //battleDirector = this.GetComponent<BattleDirector>();
+
         }
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
+        //text.text = "";
+
+        //gameObject.transform.position = new Vector3(gameObject.transform.position.x + speed, 0, 0);
+
         SetDirection();
-        InputKey();
+
+        //コントローラーがAIじゃないなら入力を検知する
+        if (controllerName != "AI")
+        {
+            InputKey();
+        }
 
         switch (state)
         {
             case "Stand":
+                //SetDirection();
                 Stand();
                 break;
             case "Dash":
                 Dashing();
                 break;
             case "Sit":
+                //SetDirection();
                 Sit();
                 break;
             case "Jump":
@@ -189,17 +237,29 @@ public class PlayerControllerTest : MonoBehaviour {
             case "Damage":
                 Damage();
                 break;
-
+            case "JumpingDamage":
+                JumpingDamage();
+                break;
         }
 
 
+
         FinallyMove();
+
         InputCommand();
+
         InputKeyHistory();
+
         SyoryukenCommand();
+
         HadokenCommand();
+
         CheckGuard();
+
+        if (isModel) CheckDamage();
+
         inputDKeyOld = inputDKey;
+
     }
 
     /// <summary>
@@ -209,21 +269,27 @@ public class PlayerControllerTest : MonoBehaviour {
     {
         float m = animator.GetInteger("Damage");
         state = "Damage";
+        //if(direction == 1)finalMove = new Vector3(-0.2f, 0, 0);
+        //else finalMove = new Vector3(0.2f, 0, 0);
+
         speed = 0.0f;
 
         animator.SetInteger("Move", 0);
         animator.SetInteger("Special", 0);
         animator.SetBool("Guard", false);
+        //animator.SetBool("Sit", false);
         animator.SetBool("Punch", false);
         animator.SetBool("Kick", false);
         animator.SetBool("Dash", false);
         animator.SetBool("Jump", false);
+
+        //Debug.Log(damageTime);
+
         if (damageCount >= damageTime)
         {
             damageCount = 0;
             animator.SetInteger("Damage", 0);
             state = "Stand";
-            Debug.Log("ダダダ戻れたぞ");
         }
 
         damageCount++;
@@ -239,9 +305,13 @@ public class PlayerControllerTest : MonoBehaviour {
 
         speed = 0.0f;
 
+        //if (direction == 1) finalMove = new Vector3(-0.075f, 0, 0);
+        //else finalMove = new Vector3(0.075f, 0, 0);
+
         animator.SetInteger("Move", 0);
         animator.SetInteger("Special", 0);
         animator.SetBool("Guard", true);
+        //animator.SetBool("Sit", false);
         animator.SetBool("Punch", false);
         animator.SetBool("Kick", false);
         animator.SetBool("Dash", false);
@@ -277,6 +347,8 @@ public class PlayerControllerTest : MonoBehaviour {
         {
             direction = -1;
         }
+
+        //if (dirold != direction) Debug.Log("振り返った");
     }
 
     /// <summary>
@@ -445,12 +517,14 @@ public class PlayerControllerTest : MonoBehaviour {
         animator.SetBool("Punch", false);
         animator.SetBool("Kick", false);
         animator.SetBool("Dash", false);
+        animator.SetInteger("Damage", 0);
 
         //上が押されたらジャンプ
         if (inputDKey >= 7)
         {
             nowGravity = 0;
             state = "Jump";
+            //animator.SetBool("Jump", true);
         }
 
         //立ち状態時にZを押すとパンチ
@@ -478,6 +552,7 @@ public class PlayerControllerTest : MonoBehaviour {
         animator.SetBool("Sit", true);
         animator.SetBool("Punch", false);
         animator.SetBool("Kick", false);
+        animator.SetInteger("Damage", 0);
         gameObject.transform.position = new Vector3(gameObject.transform.position.x, 0, 0);
         finalMove = new Vector3(0, 0, 0);
 
@@ -647,17 +722,46 @@ public class PlayerControllerTest : MonoBehaviour {
                 break;
             //必殺
             case "Syoryuken":
+                if (charName == "Aoi")
+                {
+                    finalMove = new Vector3(0, 0, 0);
+                    animator.SetInteger("Special", 2);
+                }
+                else
+                {
+                    animator.SetInteger("Special", 2);
+                    JumpSyoryu();
+                    JumpingSyoryu();
+                }
 
-                finalMove = new Vector3(0, 0, 0);
-                animator.SetInteger("Special", 2);
                 break;
         }
-        //アニメ終了でもどる
-        if (animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1 && animator.GetInteger("Special") != 0)
+
+        if (charName == "Aoi")
         {
-            animator.SetInteger("Special", 0);
-            state = "Stand";
+            if (animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1 && animator.GetInteger("Special") != 0)
+            //if (animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1 && animator.GetInteger("Special") == 1)
+            {
+                animator.SetInteger("Special", 0);
+                state = "Stand";
+            }
         }
+        else
+        {
+            //if (animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1 && animator.GetInteger("Special") != 0)
+            if (animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1 && animator.GetInteger("Special") == 1)
+            {
+                animator.SetInteger("Special", 0);
+                state = "Stand";
+            }
+        }
+        ////アニメ終了でもどる
+        //if (animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1 && animator.GetInteger("Special") != 0)
+        ////if (animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1 && animator.GetInteger("Special") == 1)
+        //{
+        //    animator.SetInteger("Special", 0);
+        //    state = "Stand";
+        //}
 
     }
 
@@ -666,13 +770,15 @@ public class PlayerControllerTest : MonoBehaviour {
     /// </summary>
     void Jumping()
     {
-
+        animator.SetInteger("Damage", 0);
         //ジャンプしているときに地面に触っておらず一定時間経過していたら終了
         bool jumpEnd = gameObject.transform.position.y <= 0 && jumpCount > jumpTime;
         if (jumpEnd)
         {
             jumpCount = 0;
             state = "Stand";
+            //freeze = true;
+            //recoveryState = "JumpEnd";
         }
         //ジャンプしているときに重力をかける
         bool jumping = gameObject.transform.position.y >= 0 && state == "Jump";
@@ -682,11 +788,12 @@ public class PlayerControllerTest : MonoBehaviour {
         if (state == "Jump")
         {
             animator.SetBool("Jump", true);
-            ySpeed = 0.15f;
+            ySpeed = jumpSpeed;
 
             //ジャンプキック
             if (punchKey && !animator.GetBool("Punch") && !animator.GetBool("Kick"))
             {
+                //animator.SetBool("Punch", true);
                 animator.SetBool("Punch", true);
                 damage = 300;
             }
@@ -765,6 +872,11 @@ public class PlayerControllerTest : MonoBehaviour {
             history.RemoveAt(0);
             history.Add("K");
         }
+
+        for (int i = 0; i < commandCount; i++)
+        {
+            //text.text += history[i];
+        }
     }
 
     /// <summary>
@@ -786,7 +898,7 @@ public class PlayerControllerTest : MonoBehaviour {
     void HadokenCommand()
     {
         //は同県
-        if (state != "Special")
+        if (state != "Special" && animator.GetInteger("Damage") == 0)
         {
             string[] hadoken = new string[4];
             hadoken[0] = "2";
@@ -812,8 +924,20 @@ public class PlayerControllerTest : MonoBehaviour {
                             {
                                 history.Add("");
                             }
-                            Debug.Log("波動拳");
 
+                            if (isModel)
+                            {
+                                GameObject hado = Instantiate(hadokenObject, GetComponent<ColliderEvent>().GetHitBoxs[9].center + this.transform.parent.transform.position, Quaternion.identity);
+                                if (direction == 1) hado.transform.Rotate(0, 0, 0);
+                                else hado.transform.Rotate(0, 180, 0);
+                                hado.name = "HadoukenA";
+                                hado.transform.SetParent(this.transform);
+
+                                hado.GetComponent<HadouController>().direction = direction;
+
+                            }
+
+                            //Instantiate(hadokenObject, GetComponent<ColliderEvent>().GetHitBoxs[9].center + this.transform.parent.transform.position, Quaternion.identity);
                         }
                         return;
                     }
@@ -828,7 +952,7 @@ public class PlayerControllerTest : MonoBehaviour {
     void SyoryukenCommand()
     {
         //昇竜拳
-        if (state != "Special")
+        if (state != "Special" && animator.GetInteger("Damage") == 0)
         {
             string[] syoryu = new string[4];
             syoryu[0] = "6";
@@ -855,6 +979,8 @@ public class PlayerControllerTest : MonoBehaviour {
                                 history.Add("");
                             }
                             Debug.Log("昇龍拳");
+                            nowGravity = 0;
+                            //break;
                         }
                         return;
                     }
@@ -885,11 +1011,15 @@ public class PlayerControllerTest : MonoBehaviour {
                     dashCount++;
                     if (dashCount > 2)
                     {
-                        state = "Dash";
-                        history.Clear();
-                        for (int j = 0; j < commandCount; j++)
+                        //if (state != "Jump")
                         {
-                            history.Add("");
+                            state = "Dash";
+                            history.Clear();
+                            for (int j = 0; j < commandCount; j++)
+                            {
+                                history.Add("");
+                            }
+
                         }
                         break;
                     }
@@ -915,11 +1045,18 @@ public class PlayerControllerTest : MonoBehaviour {
         {
             if (inputDKey == 6 || inputDKey == 9) move = 1;
             if (inputDKey == 4 || inputDKey == 7) move = -1;
+
+            //右向き
+            //if (!isModel) transform.localScale = new Vector3(transform.localScale.x, transform.localScale.y, 1);
+
         }
         else
         {
             if (inputDKey == 6 || inputDKey == 9) move = -1;
             if (inputDKey == 4 || inputDKey == 7) move = 1;
+
+            //左向き
+            //if (!isModel) transform.localScale = new Vector3(transform.localScale.x, transform.localScale.y, -1);
         }
 
         //下が押されたらしゃがみ
@@ -957,11 +1094,131 @@ public class PlayerControllerTest : MonoBehaviour {
             state = "Kick";
         }
 
-        if (inputDKey == 5)
+        if (inputDKey == 5 || inputDKey == 4)
         {
             state = "Stand";
             animator.SetBool("Dash", false);
         }
+    }
+
+    /// <summary>
+    /// ジャンプする昇竜
+    /// </summary>
+    void JumpSyoryu()
+    {
+        jumpCount++;
+    }
+
+    /// <summary>
+    /// ジャンプ中にダメージ受けたとき
+    /// </summary>++;
+    void JumpingDamage()
+    {
+        jumpCount++;
+        damageCount++;
+
+
+        animator.SetInteger("Move", 0);
+        animator.SetInteger("Special", 0);
+        animator.SetBool("Guard", false);
+        //animator.SetBool("Sit", false);
+        animator.SetBool("Punch", false);
+        animator.SetBool("Kick", false);
+        animator.SetBool("Dash", false);
+        animator.SetBool("Jump", false);
+
+
+        //ジャンプしているときに地面に触っておらず一定時間経過していたら終了
+        bool jumpEnd = gameObject.transform.position.y <= 0 && jumpCount > jumpTime && damageCount >= damageTime;
+        if (jumpEnd)
+        {
+            jumpCount = 0;
+            state = "Stand";
+        }
+        //ジャンプしているときに重力をかける
+        bool jumping = gameObject.transform.position.y >= 0 && state == "JumpingDamage";
+        if (jumping) nowGravity -= gravity;
+
+        //ジャンプしたときのアニメ、ジャンプする動作
+        if (state == "JumpingDamage")
+        {
+            //animator.SetBool("Jump", true);
+            ySpeed = jumpSpeed;
+        }
+        else
+        {
+            //ジャンプ終わり
+            damageCount = 0;
+            animator.SetInteger("Damage", 0);
+            ySpeed = 0;
+            gameObject.transform.position = new Vector3(gameObject.transform.position.x, 0, 0);
+            state = "Stand";
+            Debug.Log("aaaaaa");
+        }
+
+        finalMove.y = ySpeed + nowGravity;
+
+
+
+    }
+
+    /// <summary>
+    /// ジャンプ中の昇竜
+    /// </summary>
+    void JumpingSyoryu()
+    {
+
+        //ジャンプしているときに地面に触っておらず一定時間経過していたら終了
+        bool jumpEnd = gameObject.transform.position.y <= 0 && jumpCount > jumpTime;
+        if (jumpEnd)
+        {
+            jumpCount = 0;
+            state = "Stand";
+            //freeze = true;
+            //recoveryState = "JumpEnd";
+        }
+        //ジャンプしているときに重力をかける
+        bool jumping = gameObject.transform.position.y >= 0 && state == "Special" && specialState == "Syoryuken";
+        if (jumping) nowGravity -= gravity;
+
+        //ジャンプしたときのアニメ、ジャンプする動作
+        if (state == "Special" && specialState == "Syoryuken")
+        {
+            //animator.SetBool("Jump", true);
+            ySpeed = jumpSpeed;
+        }
+        else
+        {
+            //ジャンプ終わり
+            animator.SetInteger("Special", 0);
+            ySpeed = 0;
+            gameObject.transform.position = new Vector3(gameObject.transform.position.x, 0, 0);
+        }
+
+        finalMove.y = ySpeed + nowGravity;
+
+        ////ジャンプしているときに地面に触っておらず一定時間経過していたら終了
+        //bool jumpEnd = gameObject.transform.position.y <= 0 && jumpCount > jumpTime;
+        //if (jumpEnd)
+        //{
+        //    jumpCount = 0;
+        //    state = "Stand";
+        //}
+        ////ジャンプしているときに重力をかける
+        //bool jumping = gameObject.transform.position.y >= 0;
+        //if (jumping) nowGravity -= gravity;
+
+        //ySpeed = syoryuSpeed;
+
+        //if (state == "Stand")
+        //{
+        //    //ジャンプ終わり
+        //    animator.SetInteger("Special", 0);
+        //    ySpeed = 0;
+        //    gameObject.transform.position = new Vector3(gameObject.transform.position.x, 0, 0);
+        //}
+
+        //finalMove.y = ySpeed + nowGravity;
     }
 
     /// <summary>
@@ -1018,40 +1275,175 @@ public class PlayerControllerTest : MonoBehaviour {
     {
         //最終的な移動
         Vector3 finalPos = finalMove + gameObject.transform.position;
-        gameObject.transform.position = finalPos;
+        if (finalPos.x <= 3.0f && finalPos.x >= -3.0f)
+        {
+            gameObject.transform.position = finalPos;
 
-        if (state != "Jump") gameObject.transform.position = new Vector3(gameObject.transform.position.x, 0, 0);
+            if (jumpCount == 0 && state != "JumpingDamage") gameObject.transform.position = new Vector3(gameObject.transform.position.x, 0, 0);
 
+            if (gameObject.transform.position.y <= 0 && jumpCount == 0) gameObject.transform.position = new Vector3(gameObject.transform.position.x, 0, gameObject.transform.position.z);
+        }
+        else
+        {
+            gameObject.transform.position = new Vector3(gameObject.transform.position.x, finalPos.y, finalPos.z);
+
+            if (jumpCount == 0 && state != "JumpingDamage") gameObject.transform.position = new Vector3(gameObject.transform.position.x, 0, 0);
+
+            if (gameObject.transform.position.y <= 0 && jumpCount == 0) gameObject.transform.position = new Vector3(gameObject.transform.position.x, 0, gameObject.transform.position.z);
+
+        }
     }
 
     /// <summary>
     /// ダメージ受けるかチェック
     /// </summary>
+    void CheckDamage()
+    {
+        //for (int i = 0; i < CEvent.HClid.Count; i++)
+        //{
+        //    if (TChar.HCObjChe(i) != null)
+        //    {
+        //        Debug.Log("おわー！！！");
+        //        animator.SetInteger("Damage", 50);
+        //        backDistance = 50;
+        //        state = "Damage";
+        //        if (TChar.HCObjChe(i) != null) preScript.state = "Damage";
+        //    }
+        //}
+    }
+
     public void HitDamage(int dmg)
     {
         if ((state == "Stand" || state == "Sit" || state == "Guard" || state == "SitGuard" || state == "StandGuard") && state != "Jump" && (inputDKey == 1 || inputDKey == 4))
         {
+
+            Debug.Log(state);
             animator.SetBool("Guard", true);
             state = "Guard";
 
-            parent.GetComponent<PlayerControllerTest>().state = "Guard";
+            parent.GetComponent<PlayerController>().state = "Guard";
             damageTime = (dmg / 500 + 15) / 3;
             damageDir = direction * -1;
-            parent.GetComponent<PlayerControllerTest>().damageTime = (dmg / 500 + 15) / 3;
-            parent.GetComponent<PlayerControllerTest>().damageDir = direction * -1;
+            parent.GetComponent<PlayerController>().damageTime = (dmg / 500 + 15) / 3;
+            parent.GetComponent<PlayerController>().damageDir = direction * -1;
         }
         else
         {
             animator.SetInteger("Damage", dmg);
-            state = "Damage";
+            if (jumpCount == 0)
+            {
+                state = "Damage";
 
-            parent.GetComponent<PlayerControllerTest>().state = "Damage";
+                parent.GetComponent<PlayerController>().state = "Damage";
+            }
+            else
+            {
+                state = "JumpingDamage";
+
+                parent.GetComponent<PlayerController>().state = "JumpingDamage";
+            }
+
             backDistance = dmg;
             damageTime = dmg / 500 + 15;
             damageDir = direction * -1;
-            parent.GetComponent<PlayerControllerTest>().damageTime = dmg / 500 + 15;
-            parent.GetComponent<PlayerControllerTest>().damageDir = direction * -1;
+            parent.GetComponent<PlayerController>().damageTime = dmg / 500 + 15;
+            parent.GetComponent<PlayerController>().damageDir = direction * -1;
+
+            AudioClip sound;
+
+            sound = lowDmg;
+            if (dmg > 500) sound = midiumDmg;
+            if (dmg > 800) sound = largeDmg;
+
+            audio.PlayOneShot(sound);
         }
 
     }
+
+    public int InputDKey
+    {
+        get
+        {
+            return inputDKey;
+        }
+        set
+        {
+            inputDKey = value;
+        }
+    }
+
+    public bool PunchKey
+    {
+        get
+        {
+            return punchKey;
+        }
+        set
+        {
+            punchKey = value;
+        }
+    }
+
+    public bool KickKey
+    {
+        get
+        {
+            return kickKey;
+        }
+        set
+        {
+            kickKey = value;
+        }
+    }
+
+    public string ControllerName
+    {
+        get
+        {
+            return controllerName;
+        }
+        set
+        {
+            controllerName = value;
+        }
+    }
+
+    public string State
+    {
+        get
+        {
+            return state;
+        }
+        set
+        {
+            state = value;
+        }
+    }
+
+    public string SpecialState
+    {
+        get
+        {
+            return specialState;
+        }
+        set
+        {
+            specialState = value;
+        }
+    }
+
+    public int Direction
+    {
+        get
+        {
+            return direction;
+        }
+        set
+        {
+            direction = value;
+        }
+    }
+
+    public GameObject fightEnemy { get { return enemy; } }
+
 }
