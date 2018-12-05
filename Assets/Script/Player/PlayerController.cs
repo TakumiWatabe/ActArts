@@ -1444,6 +1444,15 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    public float thisSpeed
+    {
+        get { return speed; }
+        set { speed = value; }
+    }
+    public float thisGravity { get { return gravity; } }
+
+    public string animState { get { return state; } }
+
     public GameObject fightEnemy { get { return enemy; } }
 
 }

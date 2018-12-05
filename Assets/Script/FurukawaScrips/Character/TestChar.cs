@@ -87,6 +87,8 @@ public class TestChar : MonoBehaviour {
             //攻撃を食らっているなら
             if (react[i].CObj != null)
             {
+                react[i].CObj.SetActive(false);
+
                 //のけぞり時間中ならあたり判定しない
                 if (time >= timecCnt)
                 {

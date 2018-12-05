@@ -22,8 +22,6 @@ public class DebugPlayerControlScript : MonoBehaviour {
     public int commandCount = 20;
     //入力履歴の数
     public int numInputHistory = 10;
-    //コントローラー番号
-    private int controller = 0;
     //ダメージ
     public int damage = 0;
     //ジャンプのスピード
@@ -49,15 +47,10 @@ public class DebugPlayerControlScript : MonoBehaviour {
 
     //向き
     int direction = 1;
-    //相手
-    private GameObject enemy;
 
     //は同県
     [SerializeField]
     private GameObject hadokenObject;
-
-    //相手スクリプト
-    DebugPlayerControlScript enemyScript;
 
     //ガードする距離
     public float distanceToGuard = 0.7f;
@@ -112,35 +105,17 @@ public class DebugPlayerControlScript : MonoBehaviour {
     private GameObject contl;
     private InstanceScript InScript;
 
+    private DebugGetEnemyScript DGEScript; 
     void Awake()
     {
         contl = GameObject.Find("FighterComtrol");
         InScript = contl.GetComponent<InstanceScript>();
+        DGEScript = this.GetComponent<DebugGetEnemyScript>();
     }
 
     // Use this for initialization
     void Start()
     {
-        //キャラクター設定
-        switch (this.gameObject.tag)
-        {
-            case "P1":
-                enemy = InScript.Fighter(1);
-                controller = 1;
-                break;
-            case "P2":
-                enemy = InScript.Fighter(0);
-                controller = 2;
-                this.transform.position = new Vector3(1, this.transform.position.y, this.transform.position.z);
-                break;
-            default:
-                break;
-        }
-
-        Debug.Log(enemy.tag);
-        enemyScript = enemy.GetComponent<DebugPlayerControlScript>();
-
-
         animator = GetComponent<Animator>();
 
         //入力履歴の設定
@@ -159,10 +134,10 @@ public class DebugPlayerControlScript : MonoBehaviour {
         inputDKey = 5;
         inputDKeyOld = inputDKey;
 
-        if (controller > 0) controllerName = Input.GetJoystickNames()[controller - 1];
+        //if (controller > 0) controllerName = Input.GetJoystickNames()[controller - 1];
 
-        Debug.Log(Input.GetJoystickNames()[0]);
-        Debug.Log(Input.GetJoystickNames()[1]);
+        //Debug.Log(Input.GetJoystickNames()[0]);
+        //Debug.Log(Input.GetJoystickNames()[1]);
 
 
 
@@ -339,7 +314,7 @@ public class DebugPlayerControlScript : MonoBehaviour {
     {
         int dirold = direction;
 
-        if (enemy.transform.position.x >= transform.position.x)
+        if (DGEScript.EObj.transform.position.x >= transform.position.x)
         {
             direction = 1;
         }
@@ -363,7 +338,7 @@ public class DebugPlayerControlScript : MonoBehaviour {
         punchKey = false;
         kickKey = false;
 
-        if (controller == 1)
+        if (DGEScript.GetCont == 1)
         {
             // 右・左
             x = GamePad.GetAxis(GamePad.Axis.LeftStick, GamePad.Index.One).x;
@@ -390,7 +365,7 @@ public class DebugPlayerControlScript : MonoBehaviour {
                 kickKey = GamePad.GetButtonDown(GamePad.Button.Y, GamePad.Index.One);
             }
         }
-        else if (controller == 2)
+        else if (DGEScript.GetCont == 2)
         {
             // 右・左
             x = GamePad.GetAxis(GamePad.Axis.LeftStick, GamePad.Index.Two).x;
@@ -1225,16 +1200,16 @@ public class DebugPlayerControlScript : MonoBehaviour {
     void CheckGuard()
     {
         //敵との距離
-        float distanceToEnemy = enemy.transform.position.x - transform.position.x;
+        float distanceToEnemy = DGEScript.EObj.transform.position.x - transform.position.x;
 
         //立ちガード
-        if ((enemyScript.state == "Punch" || enemyScript.state == "Kick") && distanceToGuard > Mathf.Abs(distanceToEnemy) && inputDKey == 4 && (state == "Stand" || state == "Sit"))
+        if ((DGEScript.PCscript.state == "Punch" || DGEScript.PCscript.state == "Kick") && distanceToGuard > Mathf.Abs(distanceToEnemy) && inputDKey == 4 && (state == "Stand" || state == "Sit"))
         {
             animator.SetBool("Guard", true);
             state = "StandGuard";
         }
         //しゃがみガード
-        if ((enemyScript.state == "Punch" || enemyScript.state == "Kick") && distanceToGuard > Mathf.Abs(distanceToEnemy) && inputDKey == 1 && (state == "Stand" || state == "Sit"))
+        if ((DGEScript.PCscript.state == "Punch" || DGEScript.PCscript.state == "Kick") && distanceToGuard > Mathf.Abs(distanceToEnemy) && inputDKey == 1 && (state == "Stand" || state == "Sit"))
         {
             animator.SetBool("Guard", true);
             state = "SitGuard";
@@ -1249,7 +1224,7 @@ public class DebugPlayerControlScript : MonoBehaviour {
         gameObject.transform.position = new Vector3(gameObject.transform.position.x, 0, 0);
         finalMove = new Vector3(0, 0, 0);
         animator.SetBool("StandGuard", true);
-        if (enemyScript.state != "Punch" || enemyScript.state != "Kick") state = "Stand";
+        if (DGEScript.PCscript.state != "Punch" || DGEScript.PCscript.state != "Kick") state = "Stand";
         if (inputDKey != 4) state = "Stand";
     }
 
@@ -1262,7 +1237,7 @@ public class DebugPlayerControlScript : MonoBehaviour {
         gameObject.transform.position = new Vector3(gameObject.transform.position.x, 0, 0);
         finalMove = new Vector3(0, 0, 0);
         animator.SetBool("StandGuard", false);
-        if (enemyScript.state != "Punch" || enemyScript.state != "Kick") state = "Stand";
+        if (DGEScript.PCscript.state != "Punch" || DGEScript.PCscript.state != "Kick") state = "Stand";
         if (inputDKey != 1) state = "Stand";
     }
 
@@ -1441,6 +1416,4 @@ public class DebugPlayerControlScript : MonoBehaviour {
             direction = value;
         }
     }
-
-    public GameObject fightEnemy { get { return enemy; } }
 }

@@ -15,6 +15,7 @@ public class InstanceScript : MonoBehaviour {
     [SerializeField]
     private List<GameObject> charcter;
 
+    //キャラクターの名前を格納する変数
     private InstantFighter[] fight = new InstantFighter[2];
     private string[] names = new string[3]
     {
@@ -23,7 +24,13 @@ public class InstanceScript : MonoBehaviour {
         "none"
     };
 
+    //キャラクターの名前を取得する用
     private DataRetention datas;
+    private int dataState;
+    //エラー変数
+    private const int exceptionData = 100;
+
+    //取得したキャラクターの名前を格納する変数
     private string[] receive = new string[2];
 
     // Use this for initialization
@@ -34,6 +41,7 @@ public class InstanceScript : MonoBehaviour {
             datas = GameObject.Find("GameSystem").GetComponent<DataRetention>();
         }
 
+        //キャラクター生成
         JudgeCreateChar();
     }
 
@@ -42,7 +50,7 @@ public class InstanceScript : MonoBehaviour {
     {
         fight[charID].fighter = Instantiate(charcter[InputID]);
         fight[charID].playerTag = charID + 1;
-        if (this.modes == 1 && fight[charID].playerTag == 2) fight[charID].fighter.AddComponent<EnemyAI>();
+        if (this.modes() == 1 && fight[charID].playerTag == 2) fight[charID].fighter.AddComponent<EnemyAI>();
     }
 
     //生成キャラ判別関数
@@ -98,5 +106,13 @@ public class InstanceScript : MonoBehaviour {
     //キャラクターID
     public int FighterID(int ID) { return fight[ID].playerTag; }
 
-    public int modes { get { return datas.Mode; } }
+    //対戦モード取得用変数
+    public int modes()
+    {
+        if (datas != null)
+        {
+            return datas.Mode;
+        }
+        return exceptionData;
+    }
 }

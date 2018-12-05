@@ -6,7 +6,7 @@ public class DebugGetEnemyScript : MonoBehaviour
 {
     //対戦相手
     private GameObject enemy;
-    private PlayerController enemyScript;
+    private DebugPlayerControlScript enemyScript;
 
     [SerializeField]
     private GameObject debugEnemy;
@@ -40,7 +40,7 @@ public class DebugGetEnemyScript : MonoBehaviour
 
         Debug.Log(enemy.tag);
         //対戦相手のコントローラー取得
-        enemyScript = enemy.GetComponent<PlayerController>();
+        enemyScript = enemy.GetComponentInChildren<DebugPlayerControlScript>();
     }
 
     // Update is called once per frame
@@ -95,7 +95,9 @@ public class DebugGetEnemyScript : MonoBehaviour
     //対戦相手を取得
     public GameObject EObj { get { return enemy; } }
     //コントローラー取得
-    public PlayerController PCscript { get { return enemyScript; } }
+    public DebugPlayerControlScript PCscript { get { return enemyScript; } }
     //向きを取得
     public bool GetDir { get { return direction; } }
+    //コントローラー番号取得
+    public int GetCont { get { return controller; } }
 }

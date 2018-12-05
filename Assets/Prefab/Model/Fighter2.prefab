@@ -50,10 +50,10 @@ GameObject:
   m_Component:
   - component: {fileID: 4221525789423642}
   - component: {fileID: 65145259508132650}
-  - component: {fileID: 114676383918469340}
+  - component: {fileID: 114454387756922954}
   m_Layer: 0
   m_Name: OverlapCollider_2
-  m_TagString: Untagged
+  m_TagString: OverLap
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -235,7 +235,7 @@ GameObject:
   - component: {fileID: 114435488989434670}
   m_Layer: 0
   m_Name: HitCollider_2
-  m_TagString: Untagged
+  m_TagString: Hit
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -358,7 +358,7 @@ GameObject:
   - component: {fileID: 114424816242718290}
   m_Layer: 0
   m_Name: HitCollider_1
-  m_TagString: Untagged
+  m_TagString: Hit
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -510,6 +510,7 @@ GameObject:
   - component: {fileID: 95072403688454584}
   - component: {fileID: 114273624102454540}
   - component: {fileID: 114705521944757304}
+  - component: {fileID: 114659480452105082}
   m_Layer: 0
   m_Name: HikariTest
   m_TagString: Untagged
@@ -900,7 +901,11 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4451610365776842}
-  - component: {fileID: 114480636494703664}
+  - component: {fileID: 95645139619804784}
+  - component: {fileID: 114010483522696508}
+  - component: {fileID: 114603040114309746}
+  - component: {fileID: 114575721074553540}
+  - component: {fileID: 114792163054175716}
   m_Layer: 0
   m_Name: Fighter2
   m_TagString: Untagged
@@ -948,10 +953,10 @@ GameObject:
   m_Component:
   - component: {fileID: 4661792070565752}
   - component: {fileID: 65927624886469434}
-  - component: {fileID: 114694871274244010}
+  - component: {fileID: 114213269727317856}
   m_Layer: 0
   m_Name: OverlapCollider_1
-  m_TagString: Untagged
+  m_TagString: OverLap
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1074,7 +1079,7 @@ GameObject:
   - component: {fileID: 114781631790278536}
   m_Layer: 0
   m_Name: AtkCollider_1
-  m_TagString: Untagged
+  m_TagString: Attack
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1769,7 +1774,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1685073621957874}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -1, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4356912367556162}
@@ -2239,7 +2244,7 @@ BoxCollider:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1310262547066952}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 0.25, y: 1.55, z: 0.65}
@@ -2263,7 +2268,7 @@ BoxCollider:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1214464750273364}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 0.25, y: 1.1, z: 0.6}
@@ -2275,7 +2280,7 @@ BoxCollider:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1880765624345086}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 0.25, y: 0.6, z: 0.4}
@@ -2309,6 +2314,48 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!95 &95645139619804784
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1685073621957874}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 60b3efb8068e10a48b6ad00b45f13f37, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114010483522696508
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1685073621957874}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 92dbba86834761746a8a664147d0e76f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PushCollider:
+  - {fileID: 1740083536268594}
+  - {fileID: 1041129931913118}
+--- !u!114 &114213269727317856
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1740083536268594}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91577596ac063ce428fa753b20cbb97e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114273624102454540
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2345,7 +2392,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e8913cf80c8e1041bf93c6058035296, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &114480636494703664
+--- !u!114 &114454387756922954
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1041129931913118}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91577596ac063ce428fa753b20cbb97e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &114575721074553540
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -2353,7 +2411,35 @@ MonoBehaviour:
   m_GameObject: {fileID: 1685073621957874}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: adf0ff7cc3a1d894eb90aff7f39a326c, type: 3}
+  m_Script: {fileID: 11500000, guid: f4ad2cafdab7aad4ba642ddd2a496466, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  debugEnemy: {fileID: 0}
+--- !u!114 &114603040114309746
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1685073621957874}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4cf515cc68c1b70409b14356d639077e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  HitCollider:
+  - {fileID: 1310262547066952}
+  - {fileID: 1214464750273364}
+  AtkCollider:
+  - {fileID: 1880765624345086}
+--- !u!114 &114659480452105082
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1446703385803822}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ede33128dc1d9a4485e80d9408a8189, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   walkSpeed: 0.03
@@ -2370,33 +2456,11 @@ MonoBehaviour:
   controllerName: 
   hadokenObject: {fileID: 0}
   distanceToGuard: 0.7
-  isModel: 0
+  isModel: 1
   largeDmg: {fileID: 0}
   midiumDmg: {fileID: 0}
   lowDmg: {fileID: 0}
   history: []
---- !u!114 &114676383918469340
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1041129931913118}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2e8913cf80c8e1041bf93c6058035296, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &114694871274244010
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1740083536268594}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2e8913cf80c8e1041bf93c6058035296, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &114705521944757304
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2424,6 +2488,36 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e8913cf80c8e1041bf93c6058035296, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114792163054175716
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1685073621957874}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ede33128dc1d9a4485e80d9408a8189, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  walkSpeed: 0.03
+  dashSpeed: 0.08
+  gravity: 0.008
+  state: Stand
+  specialState: 
+  commandCount: 20
+  numInputHistory: 10
+  damage: 0
+  jumpSpeed: 0.15
+  syoryuSpeed: 0.175
+  charName: 
+  controllerName: 
+  hadokenObject: {fileID: 0}
+  distanceToGuard: 0.7
+  isModel: 0
+  largeDmg: {fileID: 0}
+  midiumDmg: {fileID: 0}
+  lowDmg: {fileID: 0}
+  history: []
 --- !u!114 &114882934107162886
 MonoBehaviour:
   m_ObjectHideFlags: 1
