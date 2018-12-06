@@ -1282,7 +1282,7 @@ public class PlayerController : MonoBehaviour
 
             if (jumpCount == 0 && state != "JumpingDamage") gameObject.transform.position = new Vector3(gameObject.transform.position.x, 0, 0);
 
-            if(gameObject.transform.position.y <= 0 && jumpCount == 0) gameObject.transform.position = new Vector3(gameObject.transform.position.x, 0, gameObject.transform.position.z);
+            if(gameObject.transform.position.y <= 0) gameObject.transform.position = new Vector3(gameObject.transform.position.x, 0, gameObject.transform.position.z);
         }
         else
         {
@@ -1290,7 +1290,7 @@ public class PlayerController : MonoBehaviour
 
             if (jumpCount == 0 && state != "JumpingDamage") gameObject.transform.position = new Vector3(gameObject.transform.position.x, 0, 0);
 
-            if (gameObject.transform.position.y <= 0 && jumpCount == 0) gameObject.transform.position = new Vector3(gameObject.transform.position.x, 0, gameObject.transform.position.z);
+            if (gameObject.transform.position.y < 0) gameObject.transform.position = new Vector3(gameObject.transform.position.x, 0, gameObject.transform.position.z);
 
         }
     }
