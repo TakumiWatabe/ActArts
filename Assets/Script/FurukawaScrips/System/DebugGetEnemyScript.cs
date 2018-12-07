@@ -54,12 +54,12 @@ public class DebugGetEnemyScript : MonoBehaviour
     //相手の位置から方向を決める関数
     private bool SetDirection()
     {
-        //(自身が)右向き
+        //(自身が)右側
         if (enemy.transform.position.x >= transform.position.x)
         {
             direction = true;
         }
-        //(自身が)左向き
+        //(自身が)左側
         else
         {
             direction = false;
