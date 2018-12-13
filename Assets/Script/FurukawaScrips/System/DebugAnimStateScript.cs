@@ -8,9 +8,7 @@ public class DebugAnimStateScript : MonoBehaviour
     //プレイヤーのアニメーションの管理をするスクリプト
 
     //アニメーション判別用変数
-    private string MoveAniSta = "NONE";
-    private string AtkAniSta = "NONE";
-    private string HitAniSta = "NONE";
+    private string AniState = "NONE";
 
     //各種アニメーション時の処理を行うスクリプト
 
@@ -24,21 +22,36 @@ public class DebugAnimStateScript : MonoBehaviour
     {
         switch (state)
         {
-            //case "Stand":
-            //    Stand();
+            //case "Neutral":
+            //    StandPro();
+            //    StandAnim();
             //    break;
-            //case "Walk":
-            //    Walk();
+            //case "FrontWalk":
+            //    FrontWalkPro();
+            //    FrontWalkAnim();
             //    break;
-            //case "Dash":
-            //    Dashing();
+            //case "BackWalk":
+            //    BackWalkPro();
+            //    BackWalkAnim();
             //    break;
             //case "Sit":
-            //    Sit();
+            //    SitPro();
+            //    SitAnim();
             //    break;
             //case "Jump":
-            //    Jump();
-            //    Jumping();
+            //    JumpPro();
+            //    JumpingPro();
+            //    JumpAnim();
+            //    break;
+            //case "BackJump":
+            //    JumpPro();
+            //    JumpingPro();
+            //    JumpAnim();
+            //    break;
+            //case "FrontJump":
+            //    JumpPro();
+            //    JumpingPro();
+            //    JumpAnim();
             //    break;
             //default:
             //    break;
@@ -51,28 +64,28 @@ public class DebugAnimStateScript : MonoBehaviour
         switch (state)
         {
             //case "5A":
-            //    Punch();
+            //    PunchPro();
+            //    PunchAnim();
             //    break;
             //case "5B":
-            //    Kick();
+            //    KickPro();
+            //    KickAnim();
             //    break;
             //case "2A":
-            //    SitPunch();
+            //    SitPunchPro();
+            //    SitPunchAnim();
             //    break;
             //case "2B":
-            //    SitKick();
+            //    SitKickPro();
+            //    SitKickAnim();
             //    break;
             //case "JA":
-            //    Punch();
+            //    JumpPunchPro();
+            //    JumpPunchAnim();
             //    break;
             //case "JB":
-            //    Kick();
-            //    break;
-            //case "236A":
-            //    SitPunch();
-            //    break;
-            //case "623A":
-            //    SitKick();
+            //    JumpKickPro();
+            //    JumpKickAnim();
             //    break;
             //default:
             //    break;
@@ -82,44 +95,75 @@ public class DebugAnimStateScript : MonoBehaviour
     //食らいアニメーション群
     public void HitAnimProces(string state)
     {
-        switch (state)
-        {
-            //case "StandGuard":
-            //    StandGuard();
-            //    break;
-            //case "SitGuard":
-            //    SitGuard();
-            //    break;
-            //case "Damage":
-            //    Damage();
-            //    break;
-            //case "JumpingDamage":
-            //    JumpingDamage();
-            //    break;
-            //case "SitDamage":
-            //    SitDamage();
-            //    break;
-            //default:
-            //    break;
-        }
+        //switch (state)
+        //{
+        //    case "StandGuard":
+        //        StandGuardPro();
+        //        StandGuardAnim();
+        //        break;
+        //    case "SitGuard":
+        //        SitGuardPro();
+        //        SitGuardAnim();
+        //        break;
+        //    case "Damage":
+        //        DamagePro();
+        //        DamageAnim();
+        //        break;
+        //    case "JumpingDamage":
+        //        JumpingDamagePro();
+        //        JumpingDamageAnim();
+        //        break;
+        //    case "SitDamage":
+        //        SitDamagePro();
+        //        SitDamageAnim();
+        //        break;
+        //    default:
+        //        break;
+        //}
     }
 
-    //変数取得用
-    public string StateMove
+    //特殊アニメーション群
+    public void SpecialAnimProces()
     {
-        get { return MoveAniSta; }
-        set { MoveAniSta = value; }
+        //switch (state)
+        //{
+        //    case "Dash":
+        //        DashPro();
+        //        DashAnim();
+        //        break;
+        //    case "236A":
+        //        HadouPro();
+        //        HadouAnim();
+        //        break;
+        //    case "623A":
+        //        ShoryuPro();
+        //        ShoryuAnim();
+        //        break;
+        //}
     }
 
-    public string StateAtk
-    {
-        get { return AtkAniSta; }
-        set { AtkAniSta = value; }
-    }
+    ////変数取得用
+    //public string StateMove
+    //{
+    //    get { return MoveAniSta; }
+    //    set { MoveAniSta = value; }
+    //}
 
-    public string StateHit
-    {
-        get { return HitAniSta; }
-        set { HitAniSta = value; }
-    }
+    //public string StateAtk
+    //{
+    //    get { return AtkAniSta; }
+    //    set { AtkAniSta = value; }
+    //}
+
+    //public string StateHit
+    //{
+    //    get { return HitAniSta; }
+    //    set { HitAniSta = value; }
+    //}
+
+    //public string StateSpe
+    //{
+    //    get { return SpeAniSta; }
+    //    set { SpeAniSta = value; }
+    //}
 }

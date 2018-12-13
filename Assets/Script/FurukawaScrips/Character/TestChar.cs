@@ -6,6 +6,13 @@ public class TestChar : MonoBehaviour {
 
     //攻撃ヒット時処理スクリプト
 
+    //ヒット時攻撃判定ステータス取得用
+    private struct HitState
+    {
+
+    };
+
+
     //コライダーイベント
     ColliderEvent CEvent;
     //HPディレクター
@@ -116,6 +123,15 @@ public class TestChar : MonoBehaviour {
         }
     }
 
+    private void CreateArtsSatet(GameObject artsObj)
+    {
+
+    }
+
     //変数取得関数
-    public bool hitDamage { get { return hitatk; } }
+    public bool hitDamage
+    {
+        get { return hitatk; }
+        set { hitatk = value; }
+    }
 }
