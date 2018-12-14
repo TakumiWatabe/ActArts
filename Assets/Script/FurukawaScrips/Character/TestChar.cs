@@ -9,7 +9,13 @@ public class TestChar : MonoBehaviour {
     //ヒット時攻撃判定ステータス取得用
     private struct HitState
     {
-
+        public int damage;
+        public string attri;
+        public float startCorr;
+        public float comboCorr;
+        public int atkLev;
+        public int blockStun;
+        public int hitStun; 
     };
 
 
