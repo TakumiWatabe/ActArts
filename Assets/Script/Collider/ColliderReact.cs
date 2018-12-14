@@ -63,21 +63,21 @@ public class ColliderReact : MonoBehaviour {
 
     void Awake()
     {
-        dir = GameObject.Find("BattleDirecter");
-        csv = dir.GetComponent<ReadCSV>();
-        contl= GameObject.Find("FighterComtrol");
-        InScript = contl.GetComponent<InstanceScript>();
+        //dir = GameObject.Find("BattleDirecter");
+        //csv = dir.GetComponent<ReadCSV>();
+        //contl= GameObject.Find("FighterComtrol");
+        //InScript = contl.GetComponent<InstanceScript>();
         colliderTag = this.gameObject.tag;
     }
 
     // Use this for initialization
     void Start()
     {
-        //CSV読み込みスクリプト取得
-        csv = dir.GetComponent<ReadCSV>();
+        ////CSV読み込みスクリプト取得
+        //csv = dir.GetComponent<ReadCSV>();
         //Debug.Log(this.transform.root.tag);
         //キャラクターの技データ集を取得
-        artsData = csv.readCSVData(playerName);
+        //artsData = csv.readCSVData(playerName);
     
 
         if (colliderTag == "Attack")
