@@ -7,6 +7,9 @@ public class ComProcessScript : MonoBehaviour {
     //入力によるキャラクターの状態を設定するスクリプト
     //プレイヤーの挙動の根幹を担うように設計
 
+    //キャラクタースクリプト
+    private TestChar TChar;
+
     //コマンド取得用
     private CommandScript comm;
     private string inputCom;
@@ -26,6 +29,7 @@ public class ComProcessScript : MonoBehaviour {
     // Use this for initialization
     void Start ()
     {
+        TChar = this.GetComponentInChildren<TestChar>();
         comm = this.GetComponent<CommandScript>();	
 	}
 	
@@ -38,6 +42,7 @@ public class ComProcessScript : MonoBehaviour {
 
         movement(inputCom);
         attackment(inputCom);
+        damagement();
 
         Debug.Log(state);
         Debug.Log(shoryuF);
@@ -112,13 +117,40 @@ public class ComProcessScript : MonoBehaviour {
         state = motionstate;
     }
 
+    private void damagement()
+    {
+        //ダメージ前の状態
+        string damagestate = state;
+
+        if (TChar.hitDamage)
+        {
+            //立ちガード
+            if (state == "BackWalk") { damagestate = "StandGuard"; }
+            //しゃがみガード
+            if (state == "SitGuard") { damagestate = "SitGuard"; }
+
+            //しゃがみのけぞり
+            if (state == "Sit") { damagestate = "SitDamege"; }
+            //通常のけぞり
+            if (state != "SitGuard" || state != "Sit" || state == "BackWalk") { damagestate = "Damage"; }
+        }
+
+        //フラグを戻す
+        TChar.hitDamage = false;
+        state = damagestate;
+    }
+
     //画面にデバック表示
     private void OnGUI()
     {
         GUILayout.Label("\nState: " + state);
     }
 
-    public string motionState { get { return state; } }
+    public string motionState
+    {
+        get { return state; }
+        set { state = value; }
+    }
 
     public bool dashMot { get { return dashFlag; } }
     public bool hadouMot

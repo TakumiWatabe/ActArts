@@ -11,10 +11,31 @@ public class DebugAnimStateScript : MonoBehaviour
     private string AniState = "NONE";
 
     //各種アニメーション時の処理を行うスクリプト
+    private ComProcessScript CPScript;
+
+    private DamageProInfoScript DPInfo;
 
     void Awake()
     {
         //スクリプト取得
+        CPScript = this.GetComponent<ComProcessScript>();
+
+        DPInfo = this.GetComponentInChildren<DamageProInfoScript>();
+    }
+
+    void Update()
+    {
+        //状態の取得
+        AniState = CPScript.motionState;
+
+        //移動関係
+        MoveAnimProces(AniState);
+        //攻撃関係
+        AttackAnimProces(AniState);
+        //食らい関係
+        HitAnimProces(AniState);
+        //特殊関係
+        SpecialAnimProces();
     }
 
     //移動アニメーション群
@@ -95,75 +116,55 @@ public class DebugAnimStateScript : MonoBehaviour
     //食らいアニメーション群
     public void HitAnimProces(string state)
     {
-        //switch (state)
-        //{
-        //    case "StandGuard":
-        //        StandGuardPro();
-        //        StandGuardAnim();
-        //        break;
-        //    case "SitGuard":
-        //        SitGuardPro();
-        //        SitGuardAnim();
-        //        break;
-        //    case "Damage":
-        //        DamagePro();
-        //        DamageAnim();
-        //        break;
-        //    case "JumpingDamage":
-        //        JumpingDamagePro();
-        //        JumpingDamageAnim();
-        //        break;
-        //    case "SitDamage":
-        //        SitDamagePro();
-        //        SitDamageAnim();
-        //        break;
-        //    default:
-        //        break;
-        //}
+        switch (state)
+        {
+            case "StandGuard":
+                DPInfo.StandGuardPro();
+                //    StandGuardAnim();
+                break;
+            case "SitGuard":
+                DPInfo.SitGuardPro();
+                //    SitGuardAnim();
+                break;
+            case "Damage":
+                DPInfo.DamagePro();
+                //    DamageAnim();
+                break;
+            //case "JumpingDamage":
+            //    JumpingDamagePro();
+            //    JumpingDamageAnim();
+            //    break;
+            case "SitDamage":
+                DPInfo.SitDamagePro();
+                //    SitDamageAnim();
+                break;
+            default:
+                break;
+        }
     }
 
     //特殊アニメーション群
     public void SpecialAnimProces()
     {
-        //switch (state)
+        ////走り状態
+        //if (CPScript.dashMot)
         //{
-        //    case "Dash":
-        //        DashPro();
-        //        DashAnim();
-        //        break;
-        //    case "236A":
-        //        HadouPro();
-        //        HadouAnim();
-        //        break;
-        //    case "623A":
-        //        ShoryuPro();
-        //        ShoryuAnim();
-        //        break;
+        //    DashPro();
+        //    DashAnim();
+        //}
+        ////波動拳状態
+        //if (CPScript.hadouMot)
+        //{
+        //    HadouPro();
+        //    HadouAnim();
+        //    CPScript.hadouMot = false;
+        //}
+        ////昇竜拳状態
+        //if (CPScript.shoryuMot)
+        //{
+        //    ShoryuPro();
+        //    ShoryuAnim();
+        //    CPScript.shoryuMot = false;
         //}
     }
-
-    ////変数取得用
-    //public string StateMove
-    //{
-    //    get { return MoveAniSta; }
-    //    set { MoveAniSta = value; }
-    //}
-
-    //public string StateAtk
-    //{
-    //    get { return AtkAniSta; }
-    //    set { AtkAniSta = value; }
-    //}
-
-    //public string StateHit
-    //{
-    //    get { return HitAniSta; }
-    //    set { HitAniSta = value; }
-    //}
-
-    //public string StateSpe
-    //{
-    //    get { return SpeAniSta; }
-    //    set { SpeAniSta = value; }
-    //}
 }

@@ -18,7 +18,6 @@ public class TestChar : MonoBehaviour {
         public int hitStun; 
     };
 
-
     //コライダーイベント
     ColliderEvent CEvent;
     //HPディレクター
@@ -31,6 +30,9 @@ public class TestChar : MonoBehaviour {
     //あたり判定群
     List<GameObject> col = new List<GameObject>();
     List<ColliderReact> react = new List<ColliderReact>();
+
+    //あたり判定ID
+    private int collID;
 
     //操作キャラクター番号
     private int numID = 0;
@@ -46,6 +48,10 @@ public class TestChar : MonoBehaviour {
     //技情報取得用
     private GameObject Opponent;
     private ArtsStateScript ASScript;
+
+    //技性能
+    private HitState hitColSta;
+
 
     void Awake()
     {
@@ -90,6 +96,8 @@ public class TestChar : MonoBehaviour {
                 react[i].hiting = false;
                 //ダメージ分HPゲージを減らす
                 HPDir.hitDmage(ASScript.Damage((int)CEvent.GetType));
+                //攻撃を食らったあたり判定のIDを取得
+                collID = i;
                 //飛び道具消失
                 toolVoid();
                 //エフェクト発生位置計算
@@ -111,6 +119,7 @@ public class TestChar : MonoBehaviour {
                 {
                     //のけぞり時間外になったらあたり判定する
                     timecCnt = 0;
+                    collID = CEvent.HClid.Count;
                     react[i].CObj = null;
                 }
             }
@@ -129,9 +138,16 @@ public class TestChar : MonoBehaviour {
         }
     }
 
-    private void CreateArtsSatet(GameObject artsObj)
+    //攻撃時の性能を取得
+    private void CreateArtsSatet(ArtsStateScript arts,int type)
     {
-
+        hitColSta.damage = arts.Damage(type);
+        hitColSta.attri = arts.Attri(type);
+        hitColSta.startCorr = arts.StartCorr(type);
+        hitColSta.comboCorr = arts.CombCorr(type);
+        hitColSta.atkLev = arts.AtkLev(type);
+        hitColSta.blockStun = arts.BlockStun(type);
+        hitColSta.hitStun = arts.HitStun(type);
     }
 
     //変数取得関数
@@ -140,4 +156,14 @@ public class TestChar : MonoBehaviour {
         get { return hitatk; }
         set { hitatk = value; }
     }
+    public int CID { get { return collID; } }
+
+    //データ取得
+    public int Damage(int ID) { return hitColSta.damage; }
+    public string Attri(int ID) { return hitColSta.attri; }
+    public float StartCorr(int ID) { return hitColSta.startCorr; }
+    public float CombCorr(int ID) { return hitColSta.comboCorr; }
+    public int AtkLev(int ID) { return hitColSta.atkLev; }
+    public int BlockStun(int ID) { return hitColSta.blockStun; }
+    public int HitStun(int ID) { return hitColSta.hitStun; }
 }
