@@ -5,7 +5,6 @@ using GamepadInput;
 using UnityEngine.UI;
 
 public class PlayMenuSystem : MonoBehaviour {
-
     [SerializeField]
     private Sprite[] selectMenuSprite;
     [SerializeField]
