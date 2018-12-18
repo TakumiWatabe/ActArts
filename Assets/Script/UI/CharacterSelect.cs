@@ -24,14 +24,11 @@ public class CharacterSelect : MonoBehaviour
     //コントローラーの名前
     [SerializeField]
     public string controllerName = "";
-    [SerializeField]
-    GameObject aoiModel;
-    [SerializeField]
-    GameObject hikariModel;
-    [SerializeField]
-    GameObject aoiModel2;
-    [SerializeField]
-    GameObject hikariModel2;
+    //選択時に表示するモデル
+    private GameObject aoiModel;
+    private GameObject hikariModel;
+    private GameObject aoiModel2;
+    private GameObject hikariModel2;
     float modelPosX = 7.5f;
     float modelPosY = -3.5f;
     //　アイコンのサイズ取得で使用
@@ -66,6 +63,10 @@ public class CharacterSelect : MonoBehaviour
     private MenuEvent menuFlag;
     void Start()
     {
+        aoiModel = (GameObject)Resources.Load("Model/Aoi");
+        aoiModel2 = (GameObject)Resources.Load("Model/Aoi2");
+        hikariModel = (GameObject)Resources.Load("Model/Hikari");
+        hikariModel2 = (GameObject)Resources.Load("Model/Hikari2");
         gameData = GameObject.Find("GameSystem").GetComponent<DataRetention>();
         sceneFlag1 = true;
         sceneFlag2 = true;
@@ -332,13 +333,11 @@ public class CharacterSelect : MonoBehaviour
             {
                 aoiModel.transform.position = new Vector3(-modelPosX, modelPosY, 0);
                 Instantiate(aoiModel);
-                pvcController = 1;
             }
             else if (GetCharName() == "Hikari")
             {
-                Instantiate(hikariModel);
                 hikariModel2.transform.position = new Vector3(-modelPosX, modelPosY, 0);
-                pvcController = 1;
+                Instantiate(hikariModel);
             }
             else
             {

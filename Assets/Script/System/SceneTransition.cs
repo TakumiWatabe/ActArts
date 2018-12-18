@@ -30,19 +30,14 @@ public class SceneTransition : MonoBehaviour {
             select = GameObject.Find("P1Image").GetComponent<CharacterSelect>();
             select2 = GameObject.Find("P2Image").GetComponent<CharacterSelect>();
         }
-        datare = GameObject.Find("GameSystem").GetComponent<DataRetention>();
-<<<<<<< HEAD
         if (SceneManager.GetActiveScene().name == "PlayMenuScene")
-            sys = GameObject.Find("PlayMenuSystemObj").GetComponent<PlayMenuSystem>();
-
-=======
+            datare = GameObject.Find("GameSystem").GetComponent<DataRetention>();
         if (SceneManager.GetActiveScene().name == "PlayScene"|| SceneManager.GetActiveScene().name == "PlayMenuScene")
         {
             sys = GameObject.Find("PlayMenuSystemObj").GetComponent<PlayMenuSystem>();
         }
         Debug.Log("sys:" + sys);
         Debug.Log("datare:" + datare);
->>>>>>> バグ直し
         sceneFlagMenu = false;
     }
 
@@ -109,12 +104,11 @@ public class SceneTransition : MonoBehaviour {
 
         if (SceneManager.GetActiveScene().name != "TitleScene")
         {
-<<<<<<< HEAD
-            if (fade.GetAlpha() >= 1.0f && fadeFlag==true)
+            if (fade.GetAlpha() >= 1.0f && fadeFlag == true)
             {
                 fade.FadeInFlag();
                 fadeFlag = false;
-=======
+            }
             if(fadeFlag)
             {
                 if (fade.GetAlpha() >= 1.0f)
@@ -122,7 +116,6 @@ public class SceneTransition : MonoBehaviour {
                     fade.FadeInFlag();
                     fadeFlag = false;
                 }
->>>>>>> バグ直し
             }
         }
     }
