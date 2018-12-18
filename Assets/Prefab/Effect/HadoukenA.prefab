@@ -20,9 +20,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4042411221472250}
   - component: {fileID: 33297339863465128}
-  - component: {fileID: 135981408217064150}
   - component: {fileID: 23308544574577892}
-  m_Layer: 16
+  m_Layer: 10
   m_Name: CoreA
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -39,7 +38,7 @@ GameObject:
   - component: {fileID: 4023584375057040}
   - component: {fileID: 198836845850914494}
   - component: {fileID: 199302538550742810}
-  m_Layer: 16
+  m_Layer: 10
   m_Name: MoyaA
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -58,7 +57,7 @@ GameObject:
   - component: {fileID: 114995002986933148}
   - component: {fileID: 65880846211967756}
   - component: {fileID: 114421981986472064}
-  m_Layer: 16
+  m_Layer: 10
   m_Name: HadoukenA
   m_TagString: Attack
   m_Icon: {fileID: 0}
@@ -195,18 +194,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   time: 100
---- !u!135 &135981408217064150
-SphereCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1629029950236662}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!198 &198836845850914494
 ParticleSystem:
   m_ObjectHideFlags: 1

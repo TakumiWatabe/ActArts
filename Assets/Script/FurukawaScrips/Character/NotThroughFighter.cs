@@ -41,7 +41,7 @@ public class NotThroughFighter : MonoBehaviour {
             over.Add(OScript.PClid[i].GetComponent<OverReact>());
         }
         PContr = this.GetComponent<PlayerController>();
-        EContr = DGEScript.EObj.GetComponent<PlayerController>();
+        EContr = this.GetComponent<PlayerController>().fightEnemy.GetComponent<PlayerController>();
     }
 	
 	// Update is called once per frame

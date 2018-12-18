@@ -102,9 +102,9 @@ public class InstanceScript : MonoBehaviour {
         if (Fighter(0).name == Fighter(1).name)
         {
             var change = gameObject.GetComponent<ChangeMaterialColor>();
-            change.ChangeColor(Color.red, Fighter(1).transform.GetChild(0).GetChild(3).GetChild(0).gameObject);
-            change.ChangeColor(Color.black, Fighter(1).transform.GetChild(0).GetChild(1).gameObject);
-            change.ChangeColor(Color.black, Fighter(1).transform.GetChild(0).GetChild(0).gameObject);
+            change.ChangeColor(Color.red, Fighter(1).transform.GetChild(3).GetChild(0).gameObject);
+            change.ChangeColor(Color.black, Fighter(1).transform.GetChild(1).gameObject);
+            change.ChangeColor(Color.black, Fighter(1).transform.GetChild(0).gameObject);
         }
     }
 

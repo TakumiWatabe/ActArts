@@ -15,6 +15,10 @@ public class ColliderEvent : MonoBehaviour {
     [SerializeField]
     private List<GameObject> AtkCollider;
 
+    //飛び道具判定
+    [SerializeField]
+    private GameObject ToolCollider;
+
     //コライダー
     private List<BoxCollider> HitBox = new List<BoxCollider>();
     private List<BoxCollider> AtkBox = new List<BoxCollider>();
@@ -39,7 +43,9 @@ public class ColliderEvent : MonoBehaviour {
         //初期化
         HitColliderActive(0);
         AtkColliderActive(0);
+        ToolCollider.SetActive(true);
         InitCollider();
+
     }
 
     //-------------------------------------------------------------------------------------------------------------------
@@ -55,7 +61,7 @@ public class ColliderEvent : MonoBehaviour {
     {
         //初期化
         HitColliderActive(1);
-        AtkColliderActive(1);
+        AtkColliderActive(0);
 
         //基本くらい判定
         SetBoxState(HitBox[0],
@@ -72,7 +78,7 @@ public class ColliderEvent : MonoBehaviour {
     {
         //初期化
         HitColliderActive(1);
-        AtkColliderActive(1);
+        AtkColliderActive(0);
 
         //基本しゃがみ判定
         SetBoxState(HitBox[0],
@@ -100,8 +106,8 @@ public class ColliderEvent : MonoBehaviour {
             new Vector3(CSizeZ, 0.25f, 0.4f));
 
         SetBoxState(AtkBox[0],
-            new Vector3(0, 0.85f, 0.05f),
-            new Vector3(CSizeZ, 1.6f, 0.7f));
+            new Vector3(0, 1, 0.4f),
+            new Vector3(CSizeZ, 0.45f, 0.5f));
 
         //弱
         atkType = ValueScript.AtkVal.PUNCH;
@@ -262,6 +268,7 @@ public class ColliderEvent : MonoBehaviour {
         SetBoxState(HitBox[2],
             new Vector3(0, 1.5f, 0.3f),
             new Vector3(CSizeZ, 0.3f, 0.4f));
+
     }
     void BasicHadouCollider3()
     {
@@ -542,6 +549,8 @@ public class ColliderEvent : MonoBehaviour {
     }
     void JumpKickCollider3()
     {
+        AtkColliderActive(2);
+
         SetBoxState(HitBox[0],
             new Vector3(0, 1.05f, -0.05f),
             new Vector3(CSizeZ, 1.1f, 0.45f));
@@ -1427,16 +1436,12 @@ public class ColliderEvent : MonoBehaviour {
         {
             //判定非動作
             AtkCollider[i].SetActive(false);
-            if(AtkCollider[i].layer==10)
-            {
-                AtkCollider[i].SetActive(true);
-            }
         }
 
         for (int i = 0; i < val; i++)
         {
             //判定非動作
-            HitCollider[i].SetActive(true);
+            AtkCollider[i].SetActive(true);
         }
     }
 
@@ -1450,6 +1455,7 @@ public class ColliderEvent : MonoBehaviour {
     //変数取得
     public List<GameObject> HClid { get { return HitCollider; } }
     public List<GameObject> AClid { get { return AtkCollider; } }
+    public GameObject TClid { get { return ToolCollider; } }
     public List<BoxCollider> GetHitBoxs { get { return HitBox; } }
     public List<BoxCollider> GetAtkBoxs { get { return AtkBox; } }
     public new ValueScript.AtkVal GetType { get { return atkType; } }

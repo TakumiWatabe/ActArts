@@ -14,9 +14,15 @@ public class OverReact : MonoBehaviour {
     //重なり判定接触時
     private bool contact = false;
 
+    void OnTriggerEnter(Collider other)
+    {
+        Debug.Log("ｳﾞｪｯ⁈");
+    }
+
     //重なり判定に当たったら
     void OnCollisionEnter(Collision collision)
     {
+        Debug.Log("フッ...");
         //重なり判定なら
         if(colliderTag=="OverLap")
         {

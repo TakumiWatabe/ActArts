@@ -17,7 +17,7 @@ public class SceneTransition : MonoBehaviour {
     bool p1 = true;
     bool p2 = true;
     bool sceneFlagMenu = false;
-
+    bool fadeFlag = true;
     int state = 0;
 
 	// Use this for initialization
@@ -30,7 +30,8 @@ public class SceneTransition : MonoBehaviour {
             select2 = GameObject.Find("P2Image").GetComponent<CharacterSelect>();
         }
         datare = GameObject.Find("GameSystem").GetComponent<DataRetention>();
-        sys = GameObject.Find("PlayMenuSystemObj").GetComponent<PlayMenuSystem>();
+        if (SceneManager.GetActiveScene().name == "PlayMenuScene")
+            sys = GameObject.Find("PlayMenuSystemObj").GetComponent<PlayMenuSystem>();
 
         sceneFlagMenu = false;
     }
@@ -65,7 +66,6 @@ public class SceneTransition : MonoBehaviour {
                 {
                     scene.SceneChange("play");
                 }
-
             }
         }
 
@@ -87,9 +87,10 @@ public class SceneTransition : MonoBehaviour {
 
         if (SceneManager.GetActiveScene().name != "TitleScene")
         {
-            if (fade.GetAlpha() >= 1.0f)
+            if (fade.GetAlpha() >= 1.0f && fadeFlag==true)
             {
                 fade.FadeInFlag();
+                fadeFlag = false;
             }
         }
     }

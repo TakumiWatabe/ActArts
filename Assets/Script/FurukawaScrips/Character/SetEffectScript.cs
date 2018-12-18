@@ -25,9 +25,9 @@ public class SetEffectScript : MonoBehaviour {
     // Use this for initialization
     void Start ()
     {
-        dirSys = GameObject.Find("TextFactory");
-        textGene = dirSys.GetComponent<TextGenerator>();
-        BattleText = GameObject.Find("GameText");
+        //dirSys = GameObject.Find("TextFactory");
+        //textGene = dirSys.GetComponent<TextGenerator>();
+        //BattleText = GameObject.Find("GameText");
 
         //エフェクトを止めておく
         effectStr.GetComponent<ParticleSystem>().Stop();

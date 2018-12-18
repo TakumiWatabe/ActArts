@@ -30,7 +30,10 @@ public class GameDirector : MonoBehaviour {
     Image P1Image;
     [SerializeField]
     Image P2Image;
-
+    [SerializeField]
+    Text P1Name;
+    [SerializeField]
+    Text P2Name;
 
     float timer;
     bool hp;
@@ -59,25 +62,29 @@ public class GameDirector : MonoBehaviour {
             {
                 case "P1":
                     player1 = InScript.Fighter(0);
-                    switch(player1.transform.GetChild(0).gameObject.name)
+                    switch(player1.name)
                     {
-                        case "Aoi":
+                        case "Aoi(Clone)":
                             P1Image.sprite = AoiImage;
+                            P1Name.text = "Aoi";
                             break;
-                        case "Hikari":
+                        case "Hikari(Clone)":
                             P1Image.sprite = HikariImage;
+                            P1Name.text = "Hikari";
                             break;
                     }
                     break;
                 case "P2":
                     player2 = InScript.Fighter(1);
-                    switch (player2.transform.GetChild(0).gameObject.name)
+                    switch (player2.name)
                     {
-                        case "Aoi":
+                        case "Aoi(Clone)":
                             P2Image.sprite = AoiImage;
+                            P2Name.text = "Aoi";
                             break;
-                        case "Hikari":
+                        case "Hikari(Clone)":
                             P2Image.sprite = HikariImage;
+                            P2Name.text = "Hikari";
                             break;
                     }
                     break;
@@ -90,8 +97,8 @@ public class GameDirector : MonoBehaviour {
         textScript = GameObject.Find("TextFactory").GetComponent<TextGenerator>();
         sceneManager = GameObject.Find("SceneManager").GetComponent<SceneManagement>();
 
-        HP1 = player1.transform.GetChild(0).gameObject.GetComponent<HPDirectorScript>();
-        HP2 = player2.transform.GetChild(0).gameObject.GetComponent<HPDirectorScript>();
+        HP1 = player1.GetComponent<HPDirectorScript>();
+        HP2 = player2.GetComponent<HPDirectorScript>();
 
         initPos1 = player1.transform.position;
         initPos2 = player2.transform.position;

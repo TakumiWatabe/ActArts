@@ -120,8 +120,8 @@ public class TextGenerator : MonoBehaviour
         flag = true;
 
         pause = playerObj1.GetComponent<PlayerController>();
-        hp1 = playerObj1.transform.GetChild(0).gameObject.GetComponent<HPDirectorScript>();
-        hp2 = playerObj2.transform.GetChild(0).gameObject.GetComponent<HPDirectorScript>();
+        hp1 = playerObj1.GetComponent<HPDirectorScript>();
+        hp2 = playerObj2.GetComponent<HPDirectorScript>();
         timer = dir.GetComponent<TimerScript>();
         getGame = gameDirecter.GetComponent<GetGameScript>();
         directer = gameDirecter.GetComponent<GameDirector>();

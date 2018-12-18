@@ -18,8 +18,11 @@ public class TestChar : MonoBehaviour {
         public int hitStun; 
     };
 
+    //敵取得用
+    PlayerController Pcont;
     //コライダーイベント
-    ColliderEvent CEvent;
+    ColliderEvent CEvent;   //自身
+    ColliderEvent CEventEne;   //敵
     //HPディレクター
     HPDirectorScript HPDir;
     //対戦相手取得用
@@ -46,8 +49,8 @@ public class TestChar : MonoBehaviour {
     private bool hitatk;
 
     //技情報取得用
-    private GameObject Opponent;
     private ArtsStateScript ASScript;
+    private ArtsStateScript ASScriptEne;
 
     //技性能
     private HitState hitColSta;
@@ -55,14 +58,17 @@ public class TestChar : MonoBehaviour {
 
     void Awake()
     {
-        ASScript = Opponent.GetComponent<ArtsStateScript>();
+        Pcont = this.GetComponent<PlayerController>();
+        ASScript = this.GetComponent<ArtsStateScript>();
     }
 
     // Use this for initialization
     void Start()
     {
         //ディレクタースクリプト取得
+        ASScriptEne = Pcont.fightEnemy.GetComponent<ArtsStateScript>();
         CEvent = this.GetComponent<ColliderEvent>();
+        CEventEne = Pcont.fightEnemy.GetComponent<ColliderEvent>();
         HPDir = this.GetComponent<HPDirectorScript>();
         DEGScript = this.GetComponent<DebugGetEnemyScript>();
         SEScript = this.GetComponent<SetEffectScript>();
@@ -95,20 +101,24 @@ public class TestChar : MonoBehaviour {
                 hitatk = true;
                 react[i].hiting = false;
                 //ダメージ分HPゲージを減らす
-                HPDir.hitDmage(ASScript.Damage((int)CEvent.GetType));
+                HPDir.hitDmage(ASScriptEne.Damage((int)CEventEne.GetType));
+                Pcont.HitDamage(ASScriptEne.Damage((int)CEventEne.GetType));
                 //攻撃を食らったあたり判定のIDを取得
                 collID = i;
                 //飛び道具消失
                 toolVoid();
                 //エフェクト発生位置計算
                 SEScript.caluclation(CEvent.GetHitBoxs[i], react[i].CObj.GetComponent<BoxCollider>());
-                SEScript.appearEffe(ASScript.AtkLev((int)CEvent.GetType));
+                SEScript.appearEffe(ASScriptEne.AtkLev((int)CEventEne.GetType));
+
+                //受けた攻撃のステータス
+                CreateArtsSatet(ASScriptEne, (int)CEventEne.GetType);
             }
 
             //攻撃を食らっているなら
             if (react[i].CObj != null)
             {
-                react[i].CObj.SetActive(false);
+                //react[i].CObj.SetActive(false);
 
                 //のけぞり時間中ならあたり判定しない
                 if (time >= timecCnt)
@@ -130,11 +140,11 @@ public class TestChar : MonoBehaviour {
     void toolVoid()
     {
         //攻撃判定が飛び道具なら
-        if (CEvent.GetType == ValueScript.AtkVal.HADOUKEN)
+        if (CEventEne.GetType == ValueScript.AtkVal.HADOUKEN)
         {
-            ////飛び道具を消す
-            //Debug.Log(/*シリアライズで取ってくる予定の波動拳君をここまで引っ張ってくる*/);
-            //Destroy(/*シリアライズで取ってくる予定の波動拳君をここまで引っ張ってくる*/);
+            //飛び道具を消す
+            Debug.Log(Pcont.fightEnemy.GetComponent<PlayerController>().GetHadou.name);
+            Destroy(Pcont.fightEnemy.GetComponent<PlayerController>().GetHadou);
         }
     }
 

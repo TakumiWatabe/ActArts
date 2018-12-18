@@ -31,8 +31,8 @@ public class DamageProInfoScript : MonoBehaviour {
         //コライダーのスクリプトを取得
         for (int i = 0; i < CEvent.HClid.Count; i++)
         {
-            col.Add(CEvent.HClid[i]);
-            react.Add(col[i].GetComponent<ColliderReact>());
+            //col.Add(CEvent.HClid[i]);
+            //react.Add(col[i].GetComponent<ColliderReact>());
         }
     }
 
@@ -42,9 +42,9 @@ public class DamageProInfoScript : MonoBehaviour {
         Debug.Log("ガードした！");
         //ダメージ分HPゲージを減らす
         HPDir.hitDmage(nonDamage);
-        //エフェクト発生位置計算
-        SEScript.caluclation(CEvent.GetHitBoxs[i], react[i].CObj.GetComponent<BoxCollider>());
-        SEScript.appearEffe(ASScript.AtkLev((int)CEvent.GetType));
+        ////エフェクト発生位置計算
+        //SEScript.caluclation(CEvent.GetHitBoxs[i], react[i].CObj.GetComponent<BoxCollider>());
+        //SEScript.appearEffe(ASScript.AtkLev((int)CEvent.GetType));
     }
 
     //しゃがみガード処理

@@ -66,9 +66,6 @@ public class PlayerController : MonoBehaviour
     int inputDKey;
     int inputDKeyOld;
 
-    //これがモデルかどうか
-    public bool isModel = false;
-
     //効果音
     private AudioSource audio;
 
@@ -112,6 +109,7 @@ public class PlayerController : MonoBehaviour
     private GameObject contl;
     private InstanceScript InScript;
 
+    GameObject hado;
     void Awake()
     {
         contl = GameObject.Find("FighterComtrol");
@@ -159,23 +157,17 @@ public class PlayerController : MonoBehaviour
         inputDKey = 5;
         inputDKeyOld = inputDKey;
 
-        if (controller > 0) controllerName = Input.GetJoystickNames()[controller - 1];
+        //if (controller > 0) controllerName = Input.GetJoystickNames()[controller - 1];
 
-        Debug.Log(Input.GetJoystickNames()[0]);
-        Debug.Log(Input.GetJoystickNames()[1]);
-
-
+        //Debug.Log(Input.GetJoystickNames()[0]);
+        //Debug.Log(Input.GetJoystickNames()[1]);
 
 
-        if (isModel)
-        {
-            CEvent = this.GetComponent<ColliderEvent>();
-            TChar = this.GetComponent<TestChar>();
-            audio = GetComponent<AudioSource>();
-            parent = this.transform.parent.gameObject;
-            //battleDirector = this.GetComponent<BattleDirector>();
-
-        }
+        CEvent = this.GetComponent<ColliderEvent>();
+        TChar = this.GetComponent<TestChar>();
+        audio = GetComponent<AudioSource>();
+        //parent = this.transform.parent.gameObject;
+        //battleDirector = this.GetComponent<BattleDirector>();
     }
 
     // Update is called once per frame
@@ -256,7 +248,7 @@ public class PlayerController : MonoBehaviour
 
         CheckGuard();
 
-        if (isModel) CheckDamage();
+        CheckDamage();
 
         inputDKeyOld = inputDKey;
 
@@ -488,7 +480,7 @@ public class PlayerController : MonoBehaviour
             if (inputDKey == 6 || inputDKey == 9) move = 1;
             if (inputDKey == 4 || inputDKey == 7) move = -1;
             //右向き
-            if (!isModel) transform.localScale = new Vector3(transform.localScale.x, transform.localScale.y, 1);
+            transform.localScale = new Vector3(transform.localScale.x, transform.localScale.y, 1);
 
         }
         else
@@ -497,7 +489,7 @@ public class PlayerController : MonoBehaviour
             if (inputDKey == 4 || inputDKey == 7) move = 1;
 
             //左向き
-            if (!isModel) transform.localScale = new Vector3(transform.localScale.x, transform.localScale.y, -1);
+            transform.localScale = new Vector3(transform.localScale.x, transform.localScale.y, -1);
         }
 
         //下が押されたらしゃがみ
@@ -559,13 +551,13 @@ public class PlayerController : MonoBehaviour
         if (direction == 1)
         {
             //右向き
-            if (!isModel) transform.localScale = new Vector3(transform.localScale.x, transform.localScale.y, 1);
+            transform.localScale = new Vector3(transform.localScale.x, transform.localScale.y, 1);
 
         }
         else
         {
             //左向き
-            if (!isModel) transform.localScale = new Vector3(transform.localScale.x, transform.localScale.y, -1);
+            transform.localScale = new Vector3(transform.localScale.x, transform.localScale.y, -1);
         }
 
         //下が離されたら立つ
@@ -925,17 +917,13 @@ public class PlayerController : MonoBehaviour
                                 history.Add("");
                             }
 
-                            if (isModel)
-                            {
-                                GameObject hado = Instantiate(hadokenObject, GetComponent<ColliderEvent>().GetHitBoxs[9].center + this.transform.parent.transform.position, Quaternion.identity);
-                                if (direction == 1) hado.transform.Rotate(0, 0, 0);
-                                else hado.transform.Rotate(0, 180, 0);
-                                hado.name = "HadoukenA";
-                                hado.transform.SetParent(this.transform);
+                            hado = Instantiate(hadokenObject, GetComponent<ColliderEvent>().GetHitBoxs[2].center + this.transform.position, Quaternion.identity);
+                            if (direction == 1) hado.transform.Rotate(0, 0, 0);
+                            else hado.transform.Rotate(0, 180, 0);
+                            hado.name = "HadoukenA";
+                            hado.transform.SetParent(this.transform);
 
-                                hado.GetComponent<HadouController>().direction = direction;
-
-                            }
+                            hado.GetComponent<HadouController>().direction = direction;
 
                             //Instantiate(hadokenObject, GetComponent<ColliderEvent>().GetHitBoxs[9].center + this.transform.parent.transform.position, Quaternion.identity);
                         }
@@ -1334,20 +1322,20 @@ public class PlayerController : MonoBehaviour
             {
                 state = "Damage";
 
-                parent.GetComponent<PlayerController>().state = "Damage";
+                //parent.GetComponent<PlayerController>().state = "Damage";
             }
             else
             {
                 state = "JumpingDamage";
 
-                parent.GetComponent<PlayerController>().state = "JumpingDamage";
+                //parent.GetComponent<PlayerController>().state = "JumpingDamage";
             }
 
             backDistance = dmg;
             damageTime = dmg / 500 + 15;
             damageDir = direction * -1;
-            parent.GetComponent<PlayerController>().damageTime = dmg / 500 + 15;
-            parent.GetComponent<PlayerController>().damageDir = direction * -1;
+            //parent.GetComponent<PlayerController>().damageTime = dmg / 500 + 15;
+            //parent.GetComponent<PlayerController>().damageDir = direction * -1;
 
             AudioClip sound;
 
@@ -1454,5 +1442,5 @@ public class PlayerController : MonoBehaviour
     public string animState { get { return state; } }
 
     public GameObject fightEnemy { get { return enemy; } }
-
+    public GameObject GetHadou { get { return hado; } }
 }

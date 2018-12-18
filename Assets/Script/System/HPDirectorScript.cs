@@ -16,10 +16,6 @@ public class HPDirectorScript : MonoBehaviour {
     [SerializeField]
     private int moveHP = 10000;
 
-    [SerializeField]
-    private GameObject opponent;
-    PlayerController script;
-
     // Use this for initialization
     void Start()
     {
@@ -38,7 +34,6 @@ public class HPDirectorScript : MonoBehaviour {
         }
 
         nowHP = maxHP;
-        script = opponent.GetComponent<PlayerController>();
     }
 
     public void hitDmage(int dmage)
