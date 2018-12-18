@@ -17,6 +17,7 @@ public class MenuEvent : MonoBehaviour {
     private float oldCuosorButton = 0.0f;
     private bool menuFlag;
     private bool sceneFlag;
+    private int controllerNum = 0;
     // Use this for initialization
     void Start () {
         controllerName = Input.GetJoystickNames()[0];
@@ -35,6 +36,13 @@ public class MenuEvent : MonoBehaviour {
             //戻るメニューを消す
             if (GamePad.GetButtonDown(GamePad.Button.B, GamePad.Index.One))
             {
+                controllerNum = 0;
+                returnMenu.SetActive(false);
+                menuFlag = false;
+            }
+            else if(GamePad.GetButtonDown(GamePad.Button.B,GamePad.Index.Two))
+            {
+                controllerNum = 0;
                 returnMenu.SetActive(false);
                 menuFlag = false;
             }
@@ -44,94 +52,35 @@ public class MenuEvent : MonoBehaviour {
             //戻るメニューを開く
             if (GamePad.GetButtonDown(GamePad.Button.B, GamePad.Index.One))
             {
+                controllerNum = 1;
+                returnMenu.SetActive(true);
+                menuFlag = true;
+            }
+            else if (GamePad.GetButtonDown(GamePad.Button.B, GamePad.Index.Two))
+            {
+                controllerNum = 2;
                 returnMenu.SetActive(true);
                 menuFlag = true;
             }
         }
         //メニューを開いていたら操作する
-        if(menuFlag)
+        if (menuFlag)
         {
             //XBOXコントローラーの時
             if (controllerName == "")
             {
-                //上
-                if ((GamePad.GetAxis(GamePad.Axis.LeftStick, GamePad.Index.One).y >= 1.0f && GamePad.GetAxis(GamePad.Axis.LeftStick, GamePad.Index.One).y != oldStick) ||
-                    (GamePad.GetAxis(GamePad.Axis.Dpad, GamePad.Index.One).y >= 1.0f && GamePad.GetAxis(GamePad.Axis.Dpad, GamePad.Index.One).y != oldCuosorButton))
-                {
-                    choiceMenu--;
-                    if (choiceMenu < 0)
-                    {
-                        choiceMenu = 1;
-                        MoveImage(choiceMenu);
-                    }
-                }
-
-                //下
-                if ((GamePad.GetAxis(GamePad.Axis.LeftStick, GamePad.Index.One).y <= -1.0f && GamePad.GetAxis(GamePad.Axis.LeftStick, GamePad.Index.One).y != oldStick) ||
-                    (GamePad.GetAxis(GamePad.Axis.Dpad, GamePad.Index.One).y <= -1.0f && GamePad.GetAxis(GamePad.Axis.Dpad, GamePad.Index.One).y != oldCuosorButton))
-                {
-                    choiceMenu++;
-                    if (choiceMenu > 1)
-                    {
-                        choiceMenu = 0;
-                        MoveImage(choiceMenu);
-                    }
-                }
-                // 選んだメニューに応じたアクション
-                if (GamePad.GetButtonDown(GamePad.Button.A, GamePad.Index.One))
-                {
-                    if (choiceMenu == 0)
-                    {
-                        returnMenu.SetActive(false);
-                        menuFlag = false;
-                    }
-                    else if (choiceMenu == 1)
-                    {
-                        sceneFlag = true;
-                    }
-                }
-                
-                //トリガー処理
-                oldStick = GamePad.GetAxis(GamePad.Axis.LeftStick, GamePad.Index.One).y;
-                oldCuosorButton = GamePad.GetAxis(GamePad.Axis.Dpad, GamePad.Index.One).y;
+                if (controllerNum == 1)
+                    MenuMove(controllerName, GamePad.Index.One);
+                else if (controllerNum == 2)
+                    MenuMove(controllerName, GamePad.Index.Two);
             }
             //アケコンの時
-            if (controllerName == "Arcade Stick (MadCatz FightStick Neo)")
+            else
             {
-                //上
-                if ((GamePad.GetAxis(GamePad.Axis.LeftStick, GamePad.Index.One).y <= -1.0f &&
-                    GamePad.GetAxis(GamePad.Axis.LeftStick, GamePad.Index.One).y != oldStick))
-                {
-                    choiceMenu--;
-                    if (choiceMenu < 0)
-                    {
-                        choiceMenu = 1;
-                        MoveImage(choiceMenu);
-                    }
-                }
-
-                //下
-                if ((GamePad.GetAxis(GamePad.Axis.LeftStick, GamePad.Index.One).y >= 1.0f &&
-                    GamePad.GetAxis(GamePad.Axis.LeftStick, GamePad.Index.One).y != oldStick))
-                {
-                    choiceMenu++;
-                    if (choiceMenu > 1)
-                    {
-                        choiceMenu = 0;
-                        MoveImage(choiceMenu);
-                    }
-                }
-
-                ////ボタンを押すとシーンチェンジ
-                //if (GamePad.GetButtonDown(GamePad.Button.B, GamePad.Index.Two))
-                //{
-                //    dr.Mode = choiceMenu;
-                //    sm.SceneChange("select");
-                //}
-
-                //トリガー処理
-                oldStick = GamePad.GetAxis(GamePad.Axis.LeftStick, GamePad.Index.One).y;
-                oldCuosorButton = GamePad.GetAxis(GamePad.Axis.Dpad, GamePad.Index.One).y;
+                if (controllerNum == 1)
+                    MenuMove(controllerName, GamePad.Index.One);
+                else if (controllerNum == 2)
+                    MenuMove(controllerName, GamePad.Index.Two);
             }
         }
 
@@ -157,5 +106,96 @@ public class MenuEvent : MonoBehaviour {
     public bool GetSceneFlag()
     {
         return sceneFlag;
+    }
+    public void MenuMove(string contName,GamePad.Index num)
+    {
+        if(contName == "")
+        {
+            //上
+            if ((GamePad.GetAxis(GamePad.Axis.LeftStick, num).y >= 1.0f && GamePad.GetAxis(GamePad.Axis.LeftStick, num).y != oldStick) ||
+                (GamePad.GetAxis(GamePad.Axis.Dpad, num).y >= 1.0f && GamePad.GetAxis(GamePad.Axis.Dpad, num).y != oldCuosorButton))
+            {
+                choiceMenu--;
+                if (choiceMenu <= 0)
+                {
+                    choiceMenu = 1;
+                    MoveImage(choiceMenu);
+                }
+            }
+
+            //下
+            if ((GamePad.GetAxis(GamePad.Axis.LeftStick, num).y <= -1.0f && GamePad.GetAxis(GamePad.Axis.LeftStick, num).y != oldStick) ||
+                (GamePad.GetAxis(GamePad.Axis.Dpad, num).y <= -1.0f && GamePad.GetAxis(GamePad.Axis.Dpad, num).y != oldCuosorButton))
+            {
+                choiceMenu++;
+                if (choiceMenu >= 1)
+                {
+                    choiceMenu = 0;
+                    MoveImage(choiceMenu);
+                }
+            }
+            // 選んだメニューに応じたアクション
+            if (GamePad.GetButtonDown(GamePad.Button.A, num))
+            {
+                if (choiceMenu == 0)
+                {
+                    returnMenu.SetActive(false);
+                    menuFlag = false;
+                }
+                else if (choiceMenu == 1)
+                {
+                    sceneFlag = true;
+                }
+            }
+
+            //トリガー処理
+            oldStick = GamePad.GetAxis(GamePad.Axis.LeftStick, num).y;
+            oldCuosorButton = GamePad.GetAxis(GamePad.Axis.Dpad, num).y;
+        }
+        else
+        {
+            //上
+            if ((GamePad.GetAxis(GamePad.Axis.LeftStick, num).y <= -1.0f &&
+                GamePad.GetAxis(GamePad.Axis.LeftStick, num).y != oldStick))
+
+            {
+                choiceMenu--;
+                if (choiceMenu <= 0)
+                {
+                    choiceMenu = 1;
+                    MoveImage(choiceMenu);
+                }
+            }
+
+            //下
+            if ((GamePad.GetAxis(GamePad.Axis.LeftStick, num).y >= 1.0f &&
+                GamePad.GetAxis(GamePad.Axis.LeftStick, num).y != oldStick))
+            {
+                choiceMenu++;
+                if (choiceMenu >= 1)
+                {
+                    choiceMenu = 0;
+                    MoveImage(choiceMenu);
+                }
+
+            }
+            // 選んだメニューに応じたアクション
+            if (GamePad.GetButtonDown(GamePad.Button.A, num))
+            {
+                if (choiceMenu == 0)
+                {
+                    returnMenu.SetActive(false);
+                    menuFlag = false;
+                }
+                else if (choiceMenu == 1)
+                {
+                    sceneFlag = true;
+                }
+            }
+
+            //トリガー処理
+            oldStick = GamePad.GetAxis(GamePad.Axis.LeftStick, num).y;
+            oldCuosorButton = GamePad.GetAxis(GamePad.Axis.Dpad, num).y;
+        }
     }
 }

@@ -72,11 +72,23 @@ public class SceneTransition : MonoBehaviour {
                 }
 
             }
+            if (menu.GetSceneFlag())
+            {
+                if (!fadeFlag)
+                {
+                    fade.FadeOutFlag();
+                }
+                if (fade.GetAlpha() >= 1.0f)
+                {
+                    scene.SceneChange("menu");
+                }
+            }
+
         }
 
         if (SceneManager.GetActiveScene().name == "PlayMenuScene")
         {
-            if (Input.GetButtonDown("AButton"))
+            if (Input.GetButtonDown("AButton") && sceneFlagMenu == false)
             {
                 fade.FadeOutFlag();
                 sceneFlagMenu = true;
@@ -99,17 +111,6 @@ public class SceneTransition : MonoBehaviour {
                     fade.FadeInFlag();
                     fadeFlag = false;
                 }
-            }
-        }
-        if(menu.GetSceneFlag())
-        {
-            if (!fadeFlag)
-            {
-                fade.FadeOutFlag();
-            }
-            if (fade.GetAlpha() >= 1.0f)
-            {
-                scene.SceneChange("menu");
             }
         }
     }
