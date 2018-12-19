@@ -25,21 +25,11 @@ public class SetEffectScript : MonoBehaviour {
     // Use this for initialization
     void Start ()
     {
-        //dirSys = GameObject.Find("TextFactory");
-        //textGene = dirSys.GetComponent<TextGenerator>();
-        //BattleText = GameObject.Find("GameText");
-
         //エフェクトを止めておく
         effectStr.GetComponent<ParticleSystem>().Stop();
         effectMid.GetComponent<ParticleSystem>().Stop();
         effectWeak.GetComponent<ParticleSystem>().Stop();
     }
-
-    // Update is called once per frame
-    void Update ()
-    {
-        
-	}
 
     //エフェクト計算関数
     public void caluclation(BoxCollider hitBox, BoxCollider atkBox)
