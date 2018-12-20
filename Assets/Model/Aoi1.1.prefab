@@ -3215,7 +3215,7 @@ Transform:
   m_Father: {fileID: 4901105969943300}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!90 &90922293279089598
+--- !u!90 &90258030320929708
 Avatar:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
@@ -5021,7 +5021,7 @@ Animator:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1072322751400798}
   m_Enabled: 1
-  m_Avatar: {fileID: 90922293279089598}
+  m_Avatar: {fileID: 90258030320929708}
   m_Controller: {fileID: 0}
   m_CullingMode: 0
   m_UpdateMode: 0
@@ -5168,6 +5168,31 @@ MonoBehaviour:
   - {fileID: 114829808616599362}
   - {fileID: 114110416002012540}
   - {fileID: 114130002886621074}
+--- !u!114 &114126960330076720
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63b589176a34b344b9ccbee2b7e7114a, type: 3}
+  m_Name: Meta
+  m_EditorClassIdentifier: 
+  ExporterVersion: UniVRM-0.44
+  Title: Aoi
+  Version: 
+  Author: 
+  ContactInformation: 
+  Reference: 
+  Thumbnail: {fileID: 2800000, guid: c4c69130cfe2780428ebde1debaaeb34, type: 3}
+  AllowedUser: 0
+  ViolentUssage: 1
+  SexualUssage: 1
+  CommercialUssage: 1
+  OtherPermissionUrl: 
+  LicenseType: 0
+  OtherLicenseUrl: 
 --- !u!114 &114130002886621074
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5453,7 +5478,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 690ea0146224b8b4694a1925dddeb352, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Meta: {fileID: 114657721217110164}
+  Meta: {fileID: 114126960330076720}
 --- !u!114 &114552319577651928
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5560,7 +5585,58 @@ MonoBehaviour:
       e33: 1
   m_yaw: 0
   m_pitch: 0
---- !u!114 &114617945584933636
+--- !u!114 &114629708191975214
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1747159714132238}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 646b65a4a57afd34d8c4ed557efb46a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Colliders:
+  - Offset: {x: 0, y: 0, z: -0.0000000018626451}
+    Radius: 0.029999997
+  - Offset: {x: 0.049830437, y: -0.00010883808, z: 0.004113085}
+    Radius: 0.034999996
+  - Offset: {x: 0.09966084, y: -0.00021779537, z: 0.008226172}
+    Radius: 0.029999997
+  - Offset: {x: 0.14949128, y: -0.00032663345, z: 0.012339259}
+    Radius: 0.029999997
+  m_gizmoColor: {r: 1, g: 0, b: 1, a: 1}
+--- !u!114 &114632716785816418
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1200561745739454}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00ea06e1753e16f4ca870c39c067c86b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_comment: Body
+  m_drawGizmo: 0
+  m_gizmoColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+  m_stiffnessForce: 3
+  m_gravityPower: 0
+  m_gravityDir: {x: 0, y: -1, z: 0}
+  m_dragForce: 0.05
+  m_center: {fileID: 0}
+  RootBones:
+  - {fileID: 4363606930367924}
+  - {fileID: 4781921104957542}
+  - {fileID: 4201995817621208}
+  - {fileID: 4118677285284884}
+  - {fileID: 4376432909513600}
+  - {fileID: 4637151282606328}
+  - {fileID: 4172032928421598}
+  - {fileID: 4866131930006910}
+  m_hitRadius: 0.02
+  ColliderGroups: []
+--- !u!114 &114639894261345342
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
@@ -5958,57 +6034,6 @@ MonoBehaviour:
     max: {x: 0, y: 0, z: 0}
     center: {x: 0, y: 0, z: 0}
     axisLength: 0
---- !u!114 &114629708191975214
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1747159714132238}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 646b65a4a57afd34d8c4ed557efb46a5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Colliders:
-  - Offset: {x: 0, y: 0, z: -0.0000000018626451}
-    Radius: 0.029999997
-  - Offset: {x: 0.049830437, y: -0.00010883808, z: 0.004113085}
-    Radius: 0.034999996
-  - Offset: {x: 0.09966084, y: -0.00021779537, z: 0.008226172}
-    Radius: 0.029999997
-  - Offset: {x: 0.14949128, y: -0.00032663345, z: 0.012339259}
-    Radius: 0.029999997
-  m_gizmoColor: {r: 1, g: 0, b: 1, a: 1}
---- !u!114 &114632716785816418
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1200561745739454}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 00ea06e1753e16f4ca870c39c067c86b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_comment: Body
-  m_drawGizmo: 0
-  m_gizmoColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
-  m_stiffnessForce: 3
-  m_gravityPower: 0
-  m_gravityDir: {x: 0, y: -1, z: 0}
-  m_dragForce: 0.05
-  m_center: {fileID: 0}
-  RootBones:
-  - {fileID: 4363606930367924}
-  - {fileID: 4781921104957542}
-  - {fileID: 4201995817621208}
-  - {fileID: 4118677285284884}
-  - {fileID: 4376432909513600}
-  - {fileID: 4637151282606328}
-  - {fileID: 4172032928421598}
-  - {fileID: 4866131930006910}
-  m_hitRadius: 0.02
-  ColliderGroups: []
 --- !u!114 &114642657709255212
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -6042,31 +6067,6 @@ MonoBehaviour:
   - {fileID: 114829808616599362}
   - {fileID: 114110416002012540}
   - {fileID: 114130002886621074}
---- !u!114 &114657721217110164
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 63b589176a34b344b9ccbee2b7e7114a, type: 3}
-  m_Name: Meta
-  m_EditorClassIdentifier: 
-  ExporterVersion: UniVRM-0.44
-  Title: Aoi
-  Version: 
-  Author: 
-  ContactInformation: 
-  Reference: 
-  Thumbnail: {fileID: 2800000, guid: c4c69130cfe2780428ebde1debaaeb34, type: 3}
-  AllowedUser: 0
-  ViolentUssage: 1
-  SexualUssage: 1
-  CommercialUssage: 1
-  OtherPermissionUrl: 
-  LicenseType: 0
-  OtherLicenseUrl: 
 --- !u!114 &114699350122034472
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -6427,8 +6427,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3869812175467a143ab9cd865752b4a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Avatar: {fileID: 90922293279089598}
-  Description: {fileID: 114617945584933636}
+  Avatar: {fileID: 90258030320929708}
+  Description: {fileID: 114639894261345342}
 --- !u!114 &114891698252004760
 MonoBehaviour:
   m_ObjectHideFlags: 1
