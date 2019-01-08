@@ -32,7 +32,11 @@ public class SceneTransition : MonoBehaviour {
         }
         if (SceneManager.GetActiveScene().name == "PlayMenuScene")
             datare = GameObject.Find("GameSystem").GetComponent<DataRetention>();
-        if (SceneManager.GetActiveScene().name == "PlayScene"|| SceneManager.GetActiveScene().name == "PlayMenuScene")
+        if (SceneManager.GetActiveScene().name == "PlayScene" || SceneManager.GetActiveScene().name == "PlayMenuScene")
+        {
+            sys = GameObject.Find("GameSystem").GetComponent<PlayMenuSystem>();
+        }
+        if (SceneManager.GetActiveScene().name == "PlayMenuScene")
         {
             sys = GameObject.Find("PlayMenuSystemObj").GetComponent<PlayMenuSystem>();
         }
