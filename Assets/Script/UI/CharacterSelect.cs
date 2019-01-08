@@ -65,7 +65,7 @@ public class CharacterSelect : MonoBehaviour
     {
         aoiModel = (GameObject)Resources.Load("Model/Aoi");
         aoiModel2 = (GameObject)Resources.Load("Model/Aoi2");
-        hikariModel = (GameObject)Resources.Load("Model/Hikari");
+        hikariModel = (GameObject)Resources.Load("Model/Hikari1");
         hikariModel2 = (GameObject)Resources.Load("Model/Hikari2");
         gameData = GameObject.Find("GameSystem").GetComponent<DataRetention>();
         sceneFlag1 = true;
@@ -331,12 +331,12 @@ public class CharacterSelect : MonoBehaviour
         {
             if (GetCharName() == "Aoi")
             {
-                aoiModel.transform.position = new Vector3(-modelPosX, modelPosY, 0);
+                //aoiModel.transform.position = new Vector3(-modelPosX, modelPosY, 0);
                 Instantiate(aoiModel);
             }
             else if (GetCharName() == "Hikari")
             {
-                hikariModel2.transform.position = new Vector3(-modelPosX, modelPosY, 0);
+                //hikariModel2.transform.position = new Vector3(-modelPosX, modelPosY, 0);
                 Instantiate(hikariModel);
             }
             else
@@ -350,12 +350,12 @@ public class CharacterSelect : MonoBehaviour
         {
             if (GetCharName() == "Aoi")
             {
-                aoiModel2.transform.position = new Vector3(modelPosX, modelPosY, 0);
+                //aoiModel2.transform.position = new Vector3(modelPosX, modelPosY, 0);
                 Instantiate(aoiModel2);
             }
             else if (GetCharName() == "Hikari")
             {
-                hikariModel2.transform.position = new Vector3(modelPosX, modelPosY, 0);
+                //hikariModel2.transform.position = new Vector3(modelPosX, modelPosY, 0);
                 Instantiate(hikariModel2);
             }
             else
