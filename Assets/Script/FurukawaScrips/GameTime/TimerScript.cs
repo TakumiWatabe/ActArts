@@ -8,6 +8,7 @@ public class TimerScript : MonoBehaviour
     [SerializeField]
     private GameObject BattleText;
 
+    private float fps = 0;
     private float gameTimer = 99;
     private float timer = 0;
     //private Text text;
@@ -31,14 +32,17 @@ public class TimerScript : MonoBehaviour
         // ゲームが始まっていたら
         if (stopFlag && BattleText.activeSelf == false)
         {
+            fps += Time.unscaledDeltaTime;
             // 制限時間が0でなければ
-            if (gameTimer >= 0)
+            if (fps >= 60)
             {
+                fps = 0;
                 // 制限時間を減少
-                gameTimer -= Time.unscaledDeltaTime;
+                gameTimer--;;
             }
-            else
+            else if (gameTimer <= 0)
             {
+                gameTimer = 99;
                 endFlag = true;
             }
         }

@@ -803,8 +803,8 @@ public class PlayerController : MonoBehaviour
             ySpeed = 0;
             gameObject.transform.position = new Vector3(gameObject.transform.position.x, 0, 0);
         }
-
-        finalMove.y = ySpeed + nowGravity;
+        ySpeed = ySpeed + nowGravity;
+        finalMove.y = ySpeed;
     }
 
     /// <summary>
@@ -1143,8 +1143,8 @@ public class PlayerController : MonoBehaviour
             state = "Stand";
             Debug.Log("aaaaaa");
         }
-
-        finalMove.y = ySpeed + nowGravity;
+        ySpeed = ySpeed + nowGravity;
+        finalMove.y = ySpeed;
 
 
 
@@ -1182,8 +1182,8 @@ public class PlayerController : MonoBehaviour
             ySpeed = 0;
             gameObject.transform.position = new Vector3(gameObject.transform.position.x, 0, 0);
         }
-
-        finalMove.y = ySpeed + nowGravity;
+        ySpeed = ySpeed + nowGravity;
+        finalMove.y = ySpeed;
 
         ////ジャンプしているときに地面に触っておらず一定時間経過していたら終了
         //bool jumpEnd = gameObject.transform.position.y <= 0 && jumpCount > jumpTime;
@@ -1437,6 +1437,8 @@ public class PlayerController : MonoBehaviour
         get { return speed; }
         set { speed = value; }
     }
+    public float jumpS { get { return ySpeed; } }
+
     public float thisGravity { get { return gravity; } }
 
     public string animState { get { return state; } }

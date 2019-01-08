@@ -47,7 +47,7 @@ public class NotThroughFighter : MonoBehaviour {
         //画面外に出ないようにする
         Mathf.Clamp(this.transform.position.x, leftWall, -rightWall);
         inStage();
-        //Debug.Log(EContr.transform.position.x);
+        //Debug.Log(PContr.jumpS);
 
         //重なり判定に触れているなら
         if (over.contacting)
@@ -57,7 +57,7 @@ public class NotThroughFighter : MonoBehaviour {
             castumSpeed(PContr);
 
             //ジャンプ時に触れているなら左右に落とす
-            if (PContr.animState == "Jump")
+            if (PContr.jumpS < 0)
             {
                 //落とす
                 contactMove();
@@ -66,26 +66,21 @@ public class NotThroughFighter : MonoBehaviour {
             //貫通しない処理
             noThrough(PContr);
         }
-
-        //めり込んだ場合押し返す
-        noCross();
     }
 
     //ジャンプ時に押し出す処理
     private void contactMove()
     {
-        //消しちゃダメ
-        //if (this.transform.position.x >= DGEScript.EObj.transform.position.x)
-        if (this.transform.position.x >= enemyF.transform.position.x)
+        if (enemyF.transform.position.x >= leftWall || enemyF.transform.position.x <= -rightWall)
         {
-            //左に落とす
-            PContr.thisSpeed = PContr.thisGravity;
-        }
-        //else if (this.transform.position.x <= DGEScript.EObj.transform.position.x)
-        else if (this.transform.position.x <= enemyF.transform.position.x)
-        {
-            //右に落とす
-            PContr.thisSpeed = PContr.thisGravity * conversion;
+            if (enemyF.transform.position.x >= leftWall)
+            {
+                this.transform.position += new Vector3(-0.05f, 0, 0);
+            }
+            if (enemyF.transform.position.x <= -rightWall)
+            {
+                this.transform.position += new Vector3(0.05f, 0, 0);
+            }
         }
     }
 
@@ -94,13 +89,13 @@ public class NotThroughFighter : MonoBehaviour {
     {
         if (this.transform.position.x >= leftWall || this.transform.position.x <= -rightWall)
         {
-            if (this.transform.position.x >= leftWall)
+            if (this.transform.position.x > leftWall)
             {
-                this.transform.position = new Vector3(2.95f, this.transform.position.y, this.transform.position.z);
+                this.transform.position = new Vector3(leftWall, this.transform.position.y, this.transform.position.z);
             }
-            if (this.transform.position.x <= -rightWall)
+            if (this.transform.position.x < -rightWall)
             {
-                this.transform.position = new Vector3(-2.95f, this.transform.position.y, this.transform.position.z);
+                this.transform.position = new Vector3(-rightWall, this.transform.position.y, this.transform.position.z);
             }
             Debug.Log("ダメです");
         }
@@ -124,45 +119,7 @@ public class NotThroughFighter : MonoBehaviour {
         }
     }
 
-    //キャラ同士がめり込んだ時の処理
-    private void noCross()
-    {
-        //相対距離を算出
-        float distance = Mathf.Abs(this.transform.position.x - enemyF.transform.position.x);
+    public float LWall { get { return leftWall; } }
+    public float RWall { get { return rightWall; } }
 
-        //相対距離が近かったら
-        if (distance < contactArea)
-        {
-            //壁に接しているのなら
-            if (this.transform.position.x >= leftWall || this.transform.position.x <= -rightWall)
-            {
-                if (this.transform.position.x >= leftWall)
-                {
-                    //相手を押し戻す
-                    enemyF.transform.position = new Vector3(enemyF.transform.position.x - (contactArea - distance), enemyF.transform.position.y, enemyF.transform.position.z);
-                }
-                if (this.transform.position.x <= -rightWall)
-                {
-                    //相手を押し戻す
-                    enemyF.transform.position = new Vector3(enemyF.transform.position.x + (contactArea - distance), enemyF.transform.position.y, enemyF.transform.position.z);
-                }
-            }
-            //壁に接していないなら
-            else
-            {
-                //右側なら
-                if (PContr.Direction == 1)
-                {
-                    //お互いを少し戻す
-                    this.transform.position = new Vector3(this.transform.position.x + (contactArea - distance) / 2, this.transform.position.y, this.transform.position.z);
-                }
-                //左側なら
-                else
-                {
-                    //お互いを少し戻す
-                    this.transform.position = new Vector3(this.transform.position.x - (contactArea - distance) / 2, this.transform.position.y, this.transform.position.z);
-                }
-            }
-        }
-    }
 }

@@ -89,7 +89,7 @@ public class OverlapScript : MonoBehaviour {
     {
         //基本押し合い判定
         SetBoxState(PushBox,
-            new Vector3(0, 1f, 0),
+            new Vector3(0, 0.55f, 0.05f),
             new Vector3(CSizeZ, 1.1f, 0.4f));
     }
 
@@ -102,8 +102,8 @@ public class OverlapScript : MonoBehaviour {
     {
         //基本押し合い判定
         SetBoxState(PushBox,
-            new Vector3(0, 1.2f, 0.2f),
-            new Vector3(CSizeZ, 0.6f, 0.45f));
+            new Vector3(0, 0.85f, 0.05f),
+            new Vector3(CSizeZ, 1.1f, 0.4f));
     }
      /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //-------------------------------------------------------------------------------------------------------------------

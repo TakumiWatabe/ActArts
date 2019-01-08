@@ -12,6 +12,8 @@ public class ColliderReact : MonoBehaviour {
     //攻撃判定オブジェクト
     private GameObject collid = null;
 
+    private Vector3 hitPoint;
+
     //あたり判定に当たったら
     void OnTriggerEnter(Collider other)
     {
@@ -25,6 +27,9 @@ public class ColliderReact : MonoBehaviour {
                 hitAtk = true;
                 //攻撃判定を記憶
                 collid = other.gameObject;
+
+                //判定の衝突位置を取得
+                hitPoint = other.ClosestPointOnBounds(this.transform.position);
 
                 Debug.Log("攻撃が当たった！！！");
             }
@@ -47,5 +52,6 @@ public class ColliderReact : MonoBehaviour {
         set { collid = value; }
         get { return collid; }
     }
+    public Vector3 point { get { return hitPoint; } }
 }
 

@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEditor;
 
 public class InstanceScript : MonoBehaviour {
 
@@ -94,7 +93,7 @@ public class InstanceScript : MonoBehaviour {
             else
             {
                 //エラー終了
-                EditorApplication.Exit(0);
+                Application.Quit();
             }
         }
 

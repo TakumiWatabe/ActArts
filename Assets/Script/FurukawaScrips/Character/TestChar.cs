@@ -29,6 +29,8 @@ public class TestChar : MonoBehaviour {
     DebugGetEnemyScript DEGScript;
     //エフェクト発生用
     SetEffectScript SEScript;
+    //ガード時の処理用
+    GuardScript GScript;
 
     //あたり判定群
     List<GameObject> col = new List<GameObject>();
@@ -46,7 +48,8 @@ public class TestChar : MonoBehaviour {
     //経過時間
     private float timecCnt = 0;
 
-    private bool hitatk;
+    private bool hitatk = false;
+    private bool guardatk = false;
 
     //技情報取得用
     private ArtsStateScript ASScript;
@@ -72,6 +75,7 @@ public class TestChar : MonoBehaviour {
         HPDir = this.GetComponent<HPDirectorScript>();
         DEGScript = this.GetComponent<DebugGetEnemyScript>();
         SEScript = this.GetComponent<SetEffectScript>();
+        GScript = this.GetComponent<GuardScript>();
 
         //コライダーのスクリプトを取得
         for (int i = 0; i < CEvent.HClid.Count; i++)
@@ -80,13 +84,27 @@ public class TestChar : MonoBehaviour {
             react.Add(col[i].GetComponent<ColliderReact>());
         }
     }
-	
-	// Update is called once per frame
-	void Update ()
+
+    // Update is called once per frame
+    void Update()
     {
         //攻撃くらい判定
         hitJudg();
-	}
+
+        //ガード時判定
+        if (Pcont.animState == "Guard" ||
+            Pcont.animState == "StandGuard" ||
+            Pcont.animState == "SitGuard")
+        {
+            guardatk = true;
+        }
+        else
+        {
+            guardatk = false;
+            //コルーチン処理
+            StartCoroutine(waitRegene(0.5f));
+        }
+    }
 
     //攻撃ヒット判定
     private void hitJudg()
@@ -95,21 +113,29 @@ public class TestChar : MonoBehaviour {
         for (int i = 0; i < CEvent.HClid.Count; i++)
         {
             //攻撃が当たっているなら
-            if (react[i].hiting && react[i].CObj != null)
+            if (react[i].hiting/* && react[i].CObj != null*/)
             {
                 Debug.Log("ダメージを与えた!!");
                 hitatk = true;
                 react[i].hiting = false;
-                //ダメージ分HPゲージを減らす
-                HPDir.hitDmage(ASScriptEne.Damage((int)CEventEne.GetType));
-                Pcont.HitDamage(ASScriptEne.Damage((int)CEventEne.GetType));
+                //ガードしているなら
+                if (guardatk)
+                {
+                    //ダメージ分ガードゲージを減らす
+                    GScript.hitGuard(ASScriptEne.Damage((int)CEventEne.GetType));
+                }
+                else
+                {
+                    //ダメージ分HPゲージを減らす
+                    HPDir.hitDmage(ASScriptEne.Damage((int)CEventEne.GetType));
+                    Pcont.HitDamage(ASScriptEne.Damage((int)CEventEne.GetType));
+                    //エフェクト発生
+                    SEScript.appearEffe(ASScriptEne.AtkLev((int)CEventEne.GetType), react[i].point);
+                }
                 //攻撃を食らったあたり判定のIDを取得
                 collID = i;
                 //飛び道具消失
                 toolVoid();
-                //エフェクト発生位置計算
-                SEScript.caluclation(CEvent.GetHitBoxs[i], react[i].CObj.GetComponent<BoxCollider>());
-                SEScript.appearEffe(ASScriptEne.AtkLev((int)CEventEne.GetType));
 
                 //受けた攻撃のステータス
                 CreateArtsSatet(ASScriptEne, (int)CEventEne.GetType);
@@ -134,6 +160,8 @@ public class TestChar : MonoBehaviour {
                 }
             }
         }
+        //エフェクトを止める
+        SEScript.disappearEffe();
     }
 
     //飛び道具消失判定
@@ -145,6 +173,19 @@ public class TestChar : MonoBehaviour {
             //飛び道具を消す
             Debug.Log(Pcont.fightEnemy.GetComponent<PlayerController>().GetHadou.name);
             Destroy(Pcont.fightEnemy.GetComponent<PlayerController>().GetHadou);
+        }
+    }
+
+    //ガード値を徐々に回復させるための遅延時間
+    private IEnumerator waitRegene(float waitTime)
+    {
+        yield return new WaitForSeconds(waitTime);
+
+        if (GScript.NowGuardVal < 1000)
+        {
+            Debug.Log("リジェネ発動");
+            //ガード値を徐々に回復
+            GScript.guardRegene();
         }
     }
 
@@ -166,14 +207,15 @@ public class TestChar : MonoBehaviour {
         get { return hitatk; }
         set { hitatk = value; }
     }
+
     public int CID { get { return collID; } }
 
     //データ取得
-    public int Damage(int ID) { return hitColSta.damage; }
-    public string Attri(int ID) { return hitColSta.attri; }
-    public float StartCorr(int ID) { return hitColSta.startCorr; }
-    public float CombCorr(int ID) { return hitColSta.comboCorr; }
-    public int AtkLev(int ID) { return hitColSta.atkLev; }
-    public int BlockStun(int ID) { return hitColSta.blockStun; }
-    public int HitStun(int ID) { return hitColSta.hitStun; }
+    public int Damage { get { return hitColSta.damage; } }
+    public string Attri { get { return hitColSta.attri; } }
+    public float StartCorr { get { return hitColSta.startCorr; } }
+    public float CombCorr { get { return hitColSta.comboCorr; } }
+    public int AtkLev { get { return hitColSta.atkLev; } }
+    public int BlockStun { get { return hitColSta.blockStun; } }
+    public int HitStun { get { return hitColSta.hitStun; } }
 }
