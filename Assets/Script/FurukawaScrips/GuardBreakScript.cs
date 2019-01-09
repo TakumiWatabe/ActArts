@@ -10,6 +10,7 @@ public class GuardBreakScript : MonoBehaviour {
     private GuardScript GScript;
 
     private int guard;
+    private bool local = false;
     private bool breakFlag = false;
 
     private string state;
@@ -26,25 +27,25 @@ public class GuardBreakScript : MonoBehaviour {
     {
         //ガード値を取得
         guard = GScript.NowGuardVal;
-
         guardBreak();
 
-        Debug.Log(this.tag + "Guard : " + guard);
+        //Debug.Log(this.tag + "Guard : " + guard);
     }
 
     //ガードブレイクを行う判定を行う関数
     private void guardBreak()
     {
         //ガード値が無くなってしまったら
-        if (guard <= 0)
+        if (guard <= 0 && !local)
         {
             Debug.Log("ガードブレイクしたー！");
             //ガードブレイクを行う(モーション)
             breakFlag = true;
+            local = true;
             //ガード値の回復
             refreshGuard();
         }
-        else
+        else if(guard > 0)
         {
             breakFlag = false;
         }
@@ -57,20 +58,22 @@ public class GuardBreakScript : MonoBehaviour {
         StartCoroutine("refresh");
     }
 
-    //ガードブレイク中操作を受け付けないようにする
-    private void notControll()
-    {
-        //操作をできなくさせる
-    }
-
     //コルーチン処理
     IEnumerator refresh()
     {
         //1秒待つ
         yield return new WaitForSeconds(1.0f);
+        local = false;
         //ガード値を全回復
         Debug.Log("ガード値が回復しました");
         guard = GScript.MaxGuardVal;
         GScript.NowGuardVal = guard;
+    }
+
+    //デバッグ表示
+    void OnGUI()
+    {
+        if(this.tag=="P1")
+        GUI.Label(new Rect(50, 50, 50, 50), GScript.NowGuardVal.ToString());
     }
 }

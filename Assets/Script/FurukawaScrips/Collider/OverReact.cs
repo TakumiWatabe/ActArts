@@ -19,7 +19,6 @@ public class OverReact : MonoBehaviour {
             {
                 //重なる
                 contact = true;
-                Debug.Log("重なってます");
             }
     }
 
@@ -31,7 +30,6 @@ public class OverReact : MonoBehaviour {
         {
             //離れる
             contact = false;
-            Debug.Log("離れてます");
         }
     }
 

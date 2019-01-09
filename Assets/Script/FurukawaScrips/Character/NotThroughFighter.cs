@@ -97,7 +97,6 @@ public class NotThroughFighter : MonoBehaviour {
             {
                 this.transform.position = new Vector3(-rightWall, this.transform.position.y, this.transform.position.z);
             }
-            Debug.Log("ダメです");
         }
     }
 
@@ -115,7 +114,6 @@ public class NotThroughFighter : MonoBehaviour {
         {
             //若干の速度対抗
             enemyF.GetComponent<PlayerController>().thisSpeed = PcontrObj.thisSpeed / correctionSpd;
-            Debug.Log("ﾌｫｯ?!");
         }
     }
 

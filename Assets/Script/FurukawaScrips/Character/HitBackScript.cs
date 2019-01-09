@@ -124,13 +124,11 @@ public class HitBackScript : MonoBehaviour
     private void knockBack()
     {
         this.transform.position = Vector3.Lerp(startPos, endPos, diff);
-        Debug.Log("危険を感知。後退します。");
     }
 
     //ダメージ時自分が壁にいる際の処理
     private void apWallDam()
     {
         PCon.fightEnemy.transform.position = Vector3.Lerp(startPos, endPos, diff);
-        Debug.Log("壁際を確認。相手を押し出します。");
     }
 }

@@ -45,6 +45,8 @@ public class TestChar : MonoBehaviour {
     //のけぞり判定時間
     [SerializeField,Range(1,60)]
     private int time = 30;
+    int htime = 0;
+
     //経過時間
     private float timecCnt = 0;
 
@@ -101,9 +103,10 @@ public class TestChar : MonoBehaviour {
         else
         {
             guardatk = false;
-            //コルーチン処理
-            StartCoroutine(waitRegene(0.5f));
         }
+
+        //コルーチン処理
+        waitRegene(30);
     }
 
     //攻撃ヒット判定
@@ -115,7 +118,6 @@ public class TestChar : MonoBehaviour {
             //攻撃が当たっているなら
             if (react[i].hiting/* && react[i].CObj != null*/)
             {
-                Debug.Log("ダメージを与えた!!");
                 hitatk = true;
                 react[i].hiting = false;
                 //ガードしているなら
@@ -177,15 +179,25 @@ public class TestChar : MonoBehaviour {
     }
 
     //ガード値を徐々に回復させるための遅延時間
-    private IEnumerator waitRegene(float waitTime)
+    private void waitRegene(int waitTime)
     {
-        yield return new WaitForSeconds(waitTime);
-
-        if (GScript.NowGuardVal < 1000)
+        if (GScript.fFlag)
         {
-            Debug.Log("リジェネ発動");
-            //ガード値を徐々に回復
-            GScript.guardRegene();
+            htime = 0;
+        }
+
+        if (waitTime > htime)
+        {
+            htime++;
+        }
+        else if (waitTime <= htime)
+        {
+            if (GScript.NowGuardVal < 1000 && GScript.NowGuardVal > 0)
+            {
+                Debug.Log("リジェネ発動");
+                //ガード値を徐々に回復
+                GScript.guardRegene();
+            }
         }
     }
 

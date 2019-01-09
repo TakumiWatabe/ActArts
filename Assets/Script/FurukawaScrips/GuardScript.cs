@@ -18,6 +18,7 @@ public class GuardScript : MonoBehaviour {
 
     //ガード値自動回復判定
     private bool reGuard = false;
+    private bool f = false;
 
 	// Use this for initialization
 	void Start ()
@@ -40,6 +41,7 @@ public class GuardScript : MonoBehaviour {
 
     void Update()
     {
+        f = false;
         //ゲージを増減させる
         transeGage();
     }
@@ -48,6 +50,7 @@ public class GuardScript : MonoBehaviour {
     public void hitGuard(int damage)
     {
         Debug.Log("防いでいます");
+        f = true;
         nowGuard = nowGuard - damage;
         nowGuard = Mathf.Clamp(nowGuard, 0, maxGuard);
     }
@@ -87,5 +90,11 @@ public class GuardScript : MonoBehaviour {
     {
         get { return guardImage.transform.localScale; }
         set { guardImage.transform.localScale = value; }
+    }
+
+    public bool fFlag
+    {
+        get { return f; }
+        set { f = value; }
     }
 }

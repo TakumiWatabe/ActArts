@@ -164,7 +164,7 @@ public class PlayerController : MonoBehaviour
         //text.text = "";
 
         //gameObject.transform.position = new Vector3(gameObject.transform.position.x + speed, 0, 0);
-        Debug.Log(gameObject.name + "update1");
+        //Debug.Log(gameObject.name + "update1");
 
         SetDirection();
 
@@ -232,7 +232,7 @@ public class PlayerController : MonoBehaviour
         FinallyMove();
         CheckGuard();
 
-        Debug.Log(gameObject.name + "update");
+        //Debug.Log(gameObject.name + "update");
 
     }
 
@@ -667,8 +667,8 @@ public class PlayerController : MonoBehaviour
             ySpeed = 0;
             gameObject.transform.position = new Vector3(gameObject.transform.position.x, 0, 0);
         }
-
-        finalMove.y = ySpeed + nowGravity;
+        ySpeed = ySpeed + nowGravity;
+        finalMove.y = ySpeed;
     }
 
     /// <summary>
@@ -797,11 +797,8 @@ public class PlayerController : MonoBehaviour
             state = "Stand";
             Debug.Log("aaaaaa");
         }
-
-        finalMove.y = ySpeed + nowGravity;
-
-
-
+        ySpeed = ySpeed + nowGravity;
+        finalMove.y = ySpeed;
     }
 
     /// <summary>
@@ -836,8 +833,8 @@ public class PlayerController : MonoBehaviour
             ySpeed = 0;
             gameObject.transform.position = new Vector3(gameObject.transform.position.x, 0, 0);
         }
-
-        finalMove.y = ySpeed + nowGravity;
+        ySpeed = ySpeed + nowGravity;
+        finalMove.y = ySpeed;
     }
 
     /// <summary>
@@ -1111,6 +1108,9 @@ public class PlayerController : MonoBehaviour
         get { return speed; }
         set { speed = value; }
     }
+
+    public float jumpS { get { return ySpeed; } }
+
     public float thisGravity { get { return gravity; } }
 
     public string animState { get { return state; } }

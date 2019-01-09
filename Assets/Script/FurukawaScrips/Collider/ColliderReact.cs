@@ -31,7 +31,6 @@ public class ColliderReact : MonoBehaviour {
                 //判定の衝突位置を取得
                 hitPoint = other.ClosestPointOnBounds(this.transform.position);
 
-                Debug.Log("攻撃が当たった！！！");
             }
         }
     }
