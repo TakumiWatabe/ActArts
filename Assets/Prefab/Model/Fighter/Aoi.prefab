@@ -417,6 +417,7 @@ GameObject:
   - component: {fileID: 114409140728905434}
   - component: {fileID: 114982815175758180}
   - component: {fileID: 114741470528358086}
+  - component: {fileID: 114825514531391512}
   - component: {fileID: 114686744395248086}
   - component: {fileID: 95129602464543392}
   - component: {fileID: 114413279075606094}
@@ -3747,8 +3748,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Avatar: {fileID: 90344086762106554, guid: 9bb5f5ba7e1140c48bf519d2468063b4, type: 2}
-  Description: {fileID: 114585503593797396, guid: 9bb5f5ba7e1140c48bf519d2468063b4,
-    type: 2}
+  Description: {fileID: 0}
 --- !u!114 &114089799828480148
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4415,25 +4415,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: adf0ff7cc3a1d894eb90aff7f39a326c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isTest: 0
   walkSpeed: 0.03
   dashSpeed: 0.08
-  gravity: 0.008
   state: Stand
-  specialState: 
-  commandCount: 20
-  numInputHistory: 10
-  damage: 0
   jumpSpeed: 0.15
   syoryuSpeed: 0.175
   charName: 
-  controllerName: 
-  hadokenObject: {fileID: 1870906395412772, guid: 1acc25e935595a34096faa936e5f8026,
-    type: 2}
+  enemy: {fileID: 0}
   distanceToGuard: 0.7
   largeDmg: {fileID: 8300000, guid: 400b7139a329b2e49b13ad10b6884ef6, type: 3}
   midiumDmg: {fileID: 8300000, guid: 04f35937fa3609547bec39e596a72818, type: 3}
   lowDmg: {fileID: 8300000, guid: cc88295c5ac5bc44a92bdef9ee67ce7c, type: 3}
-  history: []
+  canControll: 1
+  guardCrashTime: 120
+  guardGaugePoint: 5000
+  isHadouCommandMissile: 1
+  isSyoryuCommandJump: 0
 --- !u!114 &114727095588017164
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4652,7 +4650,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 690ea0146224b8b4694a1925dddeb352, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Meta: {fileID: 114617933130401090, guid: 9bb5f5ba7e1140c48bf519d2468063b4, type: 2}
+  Meta: {fileID: 0}
 --- !u!114 &114776808345780532
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4744,6 +4742,24 @@ MonoBehaviour:
   effectStr: {fileID: 1680862758961744, guid: c2bf0a45094d9104e99b781a60a29764, type: 2}
   effectMid: {fileID: 1289611684772068, guid: fc854581da1f3304894bfa4569d0f5d0, type: 2}
   effectWeak: {fileID: 1848129787870010, guid: b553b46c70ade4141b6057ee00937929, type: 2}
+--- !u!114 &114825514531391512
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1227065159806144}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d7d3509fe83ca8043a024e7969052842, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hadokenObject: {fileID: 1870906395412772, guid: 1acc25e935595a34096faa936e5f8026,
+    type: 2}
+  commandCount: 20
+  numInputHistory: 10
+  controller: 0
+  controllerName: 
+  history: []
 --- !u!114 &114841913419925382
 MonoBehaviour:
   m_ObjectHideFlags: 1
