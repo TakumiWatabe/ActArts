@@ -7,7 +7,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyAI : MonoBehaviour {
+public class EnemyAI : MonoBehaviour
+{
 
     private GameObject enemy;
     private float enemyDis = 0.0f;
@@ -16,13 +17,12 @@ public class EnemyAI : MonoBehaviour {
     private bool isJump = false;
     private int elapsedTime = 0;
     private Animator animator;
-    private Animator cAnimator;     //子のアニメーター
     private PlayerController pc;
-    private PlayerController cpc;   //子のスクリプト
+    private PlayerCommand pcc;
 
-    [SerializeField,Header("移動系行動の判定間隔")]
+    [SerializeField, Header("移動系行動の判定間隔")]
     private int judgTime = 20;
-    [SerializeField,Header("移動系行動の割合(％)")]
+    [SerializeField, Header("移動系行動の割合(％)")]
     private int neutralProbability = 5;
     [SerializeField]
     private int advanceProbability = 50;
@@ -30,9 +30,9 @@ public class EnemyAI : MonoBehaviour {
     private int dashProbability = 10;
     [SerializeField]
     private int backProbability = 35;
-    [SerializeField,Header("ジャンプの割合(％)")]
+    [SerializeField, Header("ジャンプの割合(％)")]
     private int jumpProbability = 10;
-    [SerializeField,Header("攻撃系行動の判定距離")]
+    [SerializeField, Header("攻撃系行動の判定距離")]
     private float wStandAttackDis = 0.0f;
     [SerializeField]
     private float sStandAttackDis = 0.0f;
@@ -54,14 +54,14 @@ public class EnemyAI : MonoBehaviour {
     private float defendDis = 0.0f;
 
     // Use this for initialization
-    void Start () {
+    void Start()
+    {
         pc = gameObject.GetComponent<PlayerController>();
-        cpc = gameObject.transform.GetChild(0).GetComponent<PlayerController>();
+        pcc = gameObject.GetComponent<PlayerCommand>();
         enemy = pc.fightEnemy;
         pc.ControllerName = "AI";
-        cpc.ControllerName = "AI";
+        pcc.controllerName = "AI";
         animator = GetComponent<Animator>();
-        cAnimator = gameObject.transform.GetChild(0).GetComponent<Animator>();
     }
 
     public void Initialize()
@@ -69,11 +69,13 @@ public class EnemyAI : MonoBehaviour {
         pc = gameObject.GetComponent<PlayerController>();
         enemy = pc.fightEnemy;
         pc.ControllerName = "AI";
+        pcc.controllerName = "AI";
         //animator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
-    void Update () {
+    void Update()
+    {
         //相手との距離を計算
         enemyDis = gameObject.transform.position.x - enemy.transform.position.x;
         if (enemyDis < 0.0f)
@@ -82,9 +84,7 @@ public class EnemyAI : MonoBehaviour {
         elapsedTime++;
 
         pc.PunchKey = false;
-        cpc.PunchKey = false;
         pc.KickKey = false;
-        cpc.KickKey = false;
 
         //ガードモーション中は動かない
         if (pc.State == "StandGuard" || pc.State == "SitGuard")
@@ -96,13 +96,13 @@ public class EnemyAI : MonoBehaviour {
             isRigor = false;
         }
 
-        if(isRigor)
+        if (isRigor)
         {
             //ガード継続
         }
-        else if(!isGap)
+        else if (!isGap)
         {
-            
+
             if (Random.Range(0, 2) == 0)
             {
                 //攻撃系行動の決定
@@ -115,14 +115,14 @@ public class EnemyAI : MonoBehaviour {
             else
             {
                 //防御行動の決定
-                if(!JudgGuard() && elapsedTime >= judgTime)
+                if (!JudgGuard() && elapsedTime >= judgTime)
                 {
                     //移動系行動の決定
                     MoveAI();
                 }
             }
         }
-	}
+    }
 
     /// <summary>
     /// 移動系行動の決定
@@ -137,29 +137,24 @@ public class EnemyAI : MonoBehaviour {
         {
             //待機
             pc.InputDKey = 5;
-            cpc.InputDKey = 5;
             elapsedTime = 10;
         }
         else if (n < neutralProbability + dashProbability)
         {
             //ダッシュ
             pc.InputDKey = 6;
-            cpc.InputDKey = 6;
             pc.State = "Dash";
-            cpc.State = "Dash";
             elapsedTime = 10;
         }
         else if (n < neutralProbability + dashProbability + advanceProbability)
         {
             //前進
             pc.InputDKey = 6;
-            cpc.InputDKey = 6;
         }
         else
         {
             //後退
             pc.InputDKey = 4;
-            cpc.InputDKey = 4;
         }
 
         //ジャンプのT/F判定
@@ -174,23 +169,20 @@ public class EnemyAI : MonoBehaviour {
     /// </summary>
     private void JumpAI()
     {
-        if(Random.Range(0,100) <= 10)
+        if (Random.Range(0, 100) <= 10)
         {
             switch (pc.InputDKey)
             {
                 //後ジャンプ
                 case 4:
                     pc.InputDKey = 7;
-                    cpc.InputDKey = 7;
                     break;
                 //ジャンプ
                 case 5:
                     pc.InputDKey = 8;
-                    cpc.InputDKey = 8;
                     break;
                 case 6:
                     pc.InputDKey = 9;
-                    cpc.InputDKey = 9;
                     //前ジャンプ
                     break;
             }
@@ -198,7 +190,7 @@ public class EnemyAI : MonoBehaviour {
             isJump = true;
         }
     }
-    
+
     /// <summary>
     /// ガードのT/F判定
     /// </summary>
@@ -210,15 +202,13 @@ public class EnemyAI : MonoBehaviour {
         {
             //20フレームガード継続
             //立ちかしゃがみガード
-            if(Random.Range(0,2) == 0)
+            if (Random.Range(0, 2) == 0)
             {
                 pc.InputDKey = 4;
-                cpc.InputDKey = 4;
             }
             else
             {
                 pc.InputDKey = 1;
-                cpc.InputDKey = 1;
             }
             elapsedTime = 0;
         }
@@ -232,7 +222,8 @@ public class EnemyAI : MonoBehaviour {
     private bool ChoiceAttack()
     {
         //ジャンプ攻撃の判定
-        if (isJump){
+        if (isJump)
+        {
             if (JudgWeekJumpAttack())
                 return true;
             if (JudgStrongJumpAttack())
@@ -240,34 +231,39 @@ public class EnemyAI : MonoBehaviour {
         }
 
         //昇竜の判定
-        if(enemy.transform.position.y >= shouryuKenDis)
+        if (enemy.transform.position.y >= shouryuKenDis)
         {
             if (JudgShouryuKenAttack())
                 return true;
         }
 
         //弱攻撃の判定
-        if (Random.Range(0,2) == 0){
+        if (Random.Range(0, 2) == 0)
+        {
             if (JudgWeekStandAttack())
                 return true;
         }
-        else {
+        else
+        {
             if (JudgWeekSitAttack())
                 return true;
         }
 
         //強攻撃の判定
-        if (Random.Range(0, 2) == 0) {
+        if (Random.Range(0, 2) == 0)
+        {
             if (JudgStrongStandAttack())
                 return true;
         }
-        else {
+        else
+        {
             if (JudgStrongSitAttack())
                 return true;
         }
 
         //波動拳の判定
-        if(Random.Range(0,61) == 0) {
+        if (Random.Range(0, 61) == 0)
+        {
             if (JudgHadouKenAttack())
                 return true;
         }
@@ -286,13 +282,11 @@ public class EnemyAI : MonoBehaviour {
             //立ち弱
             pc.InputDKey = 5;
             pc.PunchKey = true;
-            cpc.InputDKey = 5;
-            cpc.PunchKey = true;
             return true;
         }
         return false;
     }
-    
+
     private bool JudgStrongStandAttack()
     {
         if (enemyDis < sStandAttackDis)
@@ -300,13 +294,11 @@ public class EnemyAI : MonoBehaviour {
             //立ち強
             pc.InputDKey = 5;
             pc.KickKey = true;
-            cpc.InputDKey = 5;
-            cpc.KickKey = true;
             return true;
         }
         return false;
     }
-    
+
     private bool JudgWeekSitAttack()
     {
         if (enemyDis < wSitAttackDis)
@@ -314,13 +306,11 @@ public class EnemyAI : MonoBehaviour {
             //しゃがみ弱
             pc.InputDKey = 2;
             pc.PunchKey = true;
-            cpc.InputDKey = 2;
-            cpc.PunchKey = true;
             return true;
         }
         return false;
     }
-    
+
     private bool JudgStrongSitAttack()
     {
         if (enemyDis < sSitAttackDis)
@@ -328,8 +318,6 @@ public class EnemyAI : MonoBehaviour {
             //しゃがみ強
             pc.InputDKey = 2;
             pc.KickKey = true;
-            cpc.InputDKey = 2;
-            cpc.KickKey = true;
             return true;
         }
         return false;
@@ -342,8 +330,6 @@ public class EnemyAI : MonoBehaviour {
             //ジャンプ弱
             pc.InputDKey = 5;
             pc.PunchKey = true;
-            cpc.InputDKey = 5;
-            cpc.PunchKey = true;
             return true;
         }
         return false;
@@ -356,8 +342,6 @@ public class EnemyAI : MonoBehaviour {
             //ジャンプ強
             pc.InputDKey = 5;
             pc.KickKey = true;
-            cpc.InputDKey = 5;
-            cpc.KickKey = true;
             return true;
         }
         return false;
@@ -371,9 +355,6 @@ public class EnemyAI : MonoBehaviour {
             pc.InputDKey = 5;
             pc.State = "Special";
             pc.SpecialState = "Hadoken";
-            cpc.InputDKey = 5;
-            cpc.State = "Special";
-            cpc.SpecialState = "Hadoken";
             return true;
         }
         return false;
@@ -387,9 +368,6 @@ public class EnemyAI : MonoBehaviour {
             pc.InputDKey = 5;
             pc.State = "Special";
             pc.SpecialState = "Syoryuken";
-            cpc.InputDKey = 5;
-            cpc.State = "Special";
-            cpc.SpecialState = "Syoryuken";
             return true;
         }
         return false;
