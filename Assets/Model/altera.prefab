@@ -2051,7 +2051,7 @@ Transform:
   m_Father: {fileID: 4876575958282012}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!90 &90868013871349954
+--- !u!90 &90794267742636108
 Avatar:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
@@ -3506,7 +3506,7 @@ Animator:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1817312949452444}
   m_Enabled: 1
-  m_Avatar: {fileID: 90868013871349954}
+  m_Avatar: {fileID: 90794267742636108}
   m_Controller: {fileID: 0}
   m_CullingMode: 0
   m_UpdateMode: 0
@@ -3515,6 +3515,31 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114112525137109974
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63b589176a34b344b9ccbee2b7e7114a, type: 3}
+  m_Name: Meta
+  m_EditorClassIdentifier: 
+  ExporterVersion: UniVRM-0.43
+  Title: altera
+  Version: 1.0
+  Author: aki
+  ContactInformation: 
+  Reference: 
+  Thumbnail: {fileID: 0}
+  AllowedUser: 2
+  ViolentUssage: 1
+  SexualUssage: 0
+  CommercialUssage: 0
+  OtherPermissionUrl: 
+  LicenseType: 0
+  OtherLicenseUrl: 
 --- !u!114 &114210160271882080
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3526,7 +3551,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 690ea0146224b8b4694a1925dddeb352, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Meta: {fileID: 114657209847024864}
+  Meta: {fileID: 114112525137109974}
 --- !u!114 &114318782835139490
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3560,54 +3585,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3869812175467a143ab9cd865752b4a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Avatar: {fileID: 90868013871349954}
-  Description: {fileID: 114691471761155454}
---- !u!114 &114657209847024864
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 63b589176a34b344b9ccbee2b7e7114a, type: 3}
-  m_Name: Meta
-  m_EditorClassIdentifier: 
-  ExporterVersion: UniVRM-0.43
-  Title: altera
-  Version: 1.0
-  Author: aki
-  ContactInformation: 
-  Reference: 
-  Thumbnail: {fileID: 2800000, guid: ae1f3bb33ae71b24687c2e0300ea4dc5, type: 3}
-  AllowedUser: 2
-  ViolentUssage: 1
-  SexualUssage: 0
-  CommercialUssage: 0
-  OtherPermissionUrl: 
-  LicenseType: 0
-  OtherLicenseUrl: 
---- !u!114 &114691363397840390
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1817312949452444}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dedba1309bdf12b42af2362f52eea134, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  FirstPersonBone: {fileID: 4259657021143974}
-  FirstPersonOffset: {x: 0, y: 0.06, z: 0}
-  Renderers:
-  - Renderer: {fileID: 137697770720364140}
-    FirstPersonFlag: 0
-  - Renderer: {fileID: 137801409582795218}
-    FirstPersonFlag: 0
-  - Renderer: {fileID: 137051967633677076}
-    FirstPersonFlag: 0
---- !u!114 &114691471761155454
+  Avatar: {fileID: 90794267742636108}
+  Description: {fileID: 114480645375799566}
+--- !u!114 &114480645375799566
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
@@ -4005,6 +3985,26 @@ MonoBehaviour:
     max: {x: 0, y: 0, z: 0}
     center: {x: 0, y: 0, z: 0}
     axisLength: 0
+--- !u!114 &114691363397840390
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1817312949452444}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dedba1309bdf12b42af2362f52eea134, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  FirstPersonBone: {fileID: 4259657021143974}
+  FirstPersonOffset: {x: 0, y: 0.06, z: 0}
+  Renderers:
+  - Renderer: {fileID: 137697770720364140}
+    FirstPersonFlag: 0
+  - Renderer: {fileID: 137801409582795218}
+    FirstPersonFlag: 0
+  - Renderer: {fileID: 137051967633677076}
+    FirstPersonFlag: 0
 --- !u!114 &114738883424050502
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4051,7 +4051,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b678c1df50cfb547990db24a32856da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BlendShapeAvatar: {fileID: 11400000, guid: 6321c9f18795cf54fa8980f78007bb88, type: 2}
+  BlendShapeAvatar: {fileID: 0}
 --- !u!114 &114904314328844224
 MonoBehaviour:
   m_ObjectHideFlags: 1

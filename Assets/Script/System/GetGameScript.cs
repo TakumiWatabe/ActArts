@@ -30,17 +30,8 @@ public class GetGameScript : MonoBehaviour {
 
     TextGenerator textScript;
 
-    GameObject dir;
-    BattleDirector BtDir;
-
-    void Awake()
-    {
-        dir = GameObject.Find("BattleDirecter");
-        BtDir = dir.GetComponent<BattleDirector>();
-    }
-
-        // Use this for initialization
-        void Start ()
+    // Use this for initialization
+    void Start()
     {
         game_P1 = new Image[gameNum];
         game_P2 = new Image[gameNum];

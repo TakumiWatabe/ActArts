@@ -85,14 +85,13 @@ public class TextGenerator : MonoBehaviour
     private GameObject contl;
     private InstanceScript InScript;
     GameObject dir;
-    BattleDirector BtDir;
+
 
     void Awake()
     {
         contl = GameObject.Find("FighterComtrol");
         InScript = contl.GetComponent<InstanceScript>();
         dir = GameObject.Find("BattleDirecter");
-        BtDir = dir.GetComponent<BattleDirector>();
     }
 
     // Use this for initialization
@@ -121,8 +120,8 @@ public class TextGenerator : MonoBehaviour
         flag = true;
 
         pause = playerObj1.GetComponent<PlayerController>();
-        hp1 = playerObj1.transform.GetChild(0).gameObject.GetComponent<HPDirectorScript>();
-        hp2 = playerObj2.transform.GetChild(0).gameObject.GetComponent<HPDirectorScript>();
+        hp1 = playerObj1.GetComponent<HPDirectorScript>();
+        hp2 = playerObj2.GetComponent<HPDirectorScript>();
         timer = dir.GetComponent<TimerScript>();
         getGame = gameDirecter.GetComponent<GetGameScript>();
         directer = gameDirecter.GetComponent<GameDirector>();
