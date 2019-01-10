@@ -176,6 +176,8 @@ public class PlayerController : MonoBehaviour
             if (canControll) playerCommand.InputKey();
         }
 
+        if(state != "GuardCrash") guardCrashCount = 0;
+
 
         switch (state)
         {
@@ -244,6 +246,14 @@ public class PlayerController : MonoBehaviour
         animator.SetBool("GuardCrash", true);
         canControll = false;
         guardCrashCount++;
+        animator.SetInteger("Move", 0);
+        animator.SetInteger("Special", 0);
+        animator.SetBool("Guard", false);
+        animator.SetBool("Sit", false);
+        animator.SetBool("Punch", false);
+        animator.SetBool("Kick", false);
+        animator.SetBool("Dash", false);
+        animator.SetInteger("Damage", 0);
         if (guardCrashCount > guardCrashTime)
         {
             state = "Stand";
@@ -281,6 +291,7 @@ public class PlayerController : MonoBehaviour
             damageCount = 0;
             animator.SetInteger("Damage", 0);
             state = "Stand";
+            canControll = true;
         }
 
         damageCount++;
@@ -317,6 +328,7 @@ public class PlayerController : MonoBehaviour
             animator.SetInteger("Damage", 0);
             state = "Stand";
             Debug.Log("ガガガ戻れたぞ");
+            canControll = true;
         }
 
         damageCount++;
@@ -796,6 +808,7 @@ public class PlayerController : MonoBehaviour
             gameObject.transform.position = new Vector3(gameObject.transform.position.x, 0, 0);
             state = "Stand";
             Debug.Log("aaaaaa");
+            canControll = true;
         }
         ySpeed = ySpeed + nowGravity;
         finalMove.y = ySpeed;
@@ -920,6 +933,7 @@ public class PlayerController : MonoBehaviour
         else
         {
             SpecialMove();
+            animator.SetBool("GuardCrash", false);
             animator.SetInteger("Damage", dmg);
             if (jumpCount == 0)
             {
