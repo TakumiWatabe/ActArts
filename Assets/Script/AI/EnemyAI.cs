@@ -56,21 +56,25 @@ public class EnemyAI : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        pc = gameObject.GetComponent<PlayerController>();
-        pcc = gameObject.GetComponent<PlayerCommand>();
-        enemy = pc.fightEnemy;
-        pc.ControllerName = "AI";
-        pcc.controllerName = "AI";
-        animator = GetComponent<Animator>();
+        //pc = gameObject.GetComponent<PlayerController>();
+        //pcc = gameObject.GetComponent<PlayerCommand>();
+        //enemy = pc.fightEnemy;
+        //pc.ControllerName = "AI";
+        //pcc.controllerName = "AI";
+        //animator = GetComponent<Animator>();
     }
 
     public void Initialize()
     {
         pc = gameObject.GetComponent<PlayerController>();
+        pcc = gameObject.GetComponent<PlayerCommand>();
         enemy = pc.fightEnemy;
-        pc.ControllerName = "AI";
-        pcc.controllerName = "AI";
-        //animator = GetComponent<Animator>();
+        if (pcc.ControllerName == "")
+        {
+            pc.ControllerName = "AI";
+            pcc.controllerName = "AI";
+        }
+        animator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
