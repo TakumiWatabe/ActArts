@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class NotThroughFighter : MonoBehaviour {
+public class NotThroughFighter : MonoBehaviour
+{
 
     //重なり判定処理(PlayerControllerの仕様によって変更あり)
 
@@ -26,6 +27,7 @@ public class NotThroughFighter : MonoBehaviour {
     [SerializeField, Range(1, 0)]
     private float contactArea = 0.5f;
 
+    private Camera mainCamera;
 
     void Awake()
     {
@@ -33,10 +35,12 @@ public class NotThroughFighter : MonoBehaviour {
     }
 
     // Use this for initialization
-    void Start ()
+    void Start()
     {
+        GameObject obj = GameObject.Find("Main Camera");
+        mainCamera = obj.GetComponent<Camera>();
         over = OScript.PClid.GetComponent<OverReact>();
-        
+
         PContr = this.GetComponent<PlayerController>();
         enemyF = PContr.fightEnemy;
     }
@@ -45,8 +49,8 @@ public class NotThroughFighter : MonoBehaviour {
     void Update()
     {
         //画面外に出ないようにする
-        Mathf.Clamp(this.transform.position.x, leftWall, -rightWall);
-        inStage();
+        //Mathf.Clamp(this.transform.position.x, leftWall, -rightWall);
+        //inStage();
         //Debug.Log(PContr.jumpS);
 
         //重なり判定に触れているなら
@@ -119,5 +123,21 @@ public class NotThroughFighter : MonoBehaviour {
 
     public float LWall { get { return leftWall; } }
     public float RWall { get { return rightWall; } }
+    //private Vector3 getScreenTopLeft()
+    //{
+    //    // 画面の左上を取得
+    //    Vector3 topLeft = mainCamera.ScreenToWorldPoint(Vector3.zero);
+    //    // 上下反転させる
+    //    topLeft.Scale(new Vector3(1f, -1f, 1f));
+    //    return topLeft;
+    //}
 
+    //private Vector3 getScreenBottomRight()
+    //{
+    //    // 画面の右下を取得
+    //    Vector3 bottomRight = mainCamera.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, 0.0f));
+    //    // 上下反転させる
+    //    bottomRight.Scale(new Vector3(1f, -1f, 1f));
+    //    return bottomRight;
+    //}
 }

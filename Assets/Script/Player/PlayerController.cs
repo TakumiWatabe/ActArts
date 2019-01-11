@@ -109,6 +109,8 @@ public class PlayerController : MonoBehaviour
     private GameObject contl;
     private InstanceScript InScript;
 
+    private Camera mainCamera;
+
     void Awake()
     {
         if (!isTest)
@@ -123,8 +125,9 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         playerCommand = GetComponent<PlayerCommand>();
-        
 
+        GameObject obj = GameObject.Find("Main Camera");
+        mainCamera = obj.GetComponent<Camera>();
 
         animator = GetComponent<Animator>();
 
@@ -904,10 +907,20 @@ public class PlayerController : MonoBehaviour
     {
         SpecialMove();
 
+        // 画面の右下を取得
+        Vector3 bottomRight = mainCamera.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, 0.0f));
+        // 上下反転させる
+        bottomRight.Scale(new Vector3(1f, -1f, 1f));
+
+        // 画面の左上を取得
+        Vector3 topLeft = mainCamera.ScreenToWorldPoint(Vector3.zero);
+        // 上下反転させる
+        topLeft.Scale(new Vector3(1f, -1f, 1f));
+
         //最終的な移動
         Vector3 finalPos = finalMove + gameObject.transform.position;
         finalPos.z = 0;
-        if (finalPos.x <= 3.0f && finalPos.x >= -3.0f) gameObject.transform.position = finalPos;
+        if (finalPos.x <= bottomRight.x && finalPos.x >= topLeft.x) gameObject.transform.position = finalPos;
         else gameObject.transform.position = new Vector3(gameObject.transform.position.x, finalPos.y, 0);
 
         if (jumpCount == 0 && state != "JumpingDamage") gameObject.transform.position = new Vector3(gameObject.transform.position.x, 0, 0);
@@ -966,14 +979,24 @@ public class PlayerController : MonoBehaviour
     {
         if (state == "Special")
         {
+            // 画面の右下を取得
+            Vector3 bottomRight = mainCamera.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, 0.0f));
+            // 上下反転させる
+            bottomRight.Scale(new Vector3(1f, -1f, 1f));
+
+            // 画面の左上を取得
+            Vector3 topLeft = mainCamera.ScreenToWorldPoint(Vector3.zero);
+            // 上下反転させる
+            topLeft.Scale(new Vector3(1f, -1f, 1f));
+
             Vector3 pos = transform.position;
             if (gameObject.transform.position.x + transform.GetChild(2).localPosition.z * direction >= 3.0f)
             {
-                pos.x = 3.0f - transform.GetChild(2).localPosition.z * direction;
+                pos.x = topLeft.x - transform.GetChild(2).localPosition.z * direction;
             }
             if (gameObject.transform.position.x + transform.GetChild(2).localPosition.z * direction <= -3.0f)
             {
-                pos.x = -3.0f + transform.GetChild(2).localPosition.z;
+                pos.x = bottomRight.x + transform.GetChild(2).localPosition.z;
             }
             transform.position = pos;
         }
