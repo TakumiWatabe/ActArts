@@ -9,6 +9,8 @@ public class GuardBreakScript : MonoBehaviour {
     //ガード値取得用
     private GuardScript GScript;
 
+    private PlayerController playerController;
+
     private int guard;
     private bool local = false;
     private bool breakFlag = false;
@@ -20,6 +22,7 @@ public class GuardBreakScript : MonoBehaviour {
     {
         //スクリプト取得
         GScript = this.GetComponent<GuardScript>();
+        playerController = this.GetComponent<PlayerController>();
     }
 	
 	// Update is called once per frame
@@ -42,6 +45,9 @@ public class GuardBreakScript : MonoBehaviour {
             //ガードブレイクを行う(モーション)
             breakFlag = true;
             local = true;
+
+            playerController.State = "GuardCrash";
+
             //ガード値の回復
             refreshGuard();
         }

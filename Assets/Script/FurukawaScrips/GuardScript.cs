@@ -24,6 +24,7 @@ public class GuardScript : MonoBehaviour {
 	void Start ()
     {
         PCont = this.GetComponent<PlayerController>();
+        nowGuard = maxGuard;
 
         //プレイヤーによって使用するゲージを設定
         switch (this.tag)
@@ -35,8 +36,6 @@ public class GuardScript : MonoBehaviour {
                 guardImage = GameObject.Find("2PGuard").GetComponent<Image>();
                 break;
         }
-
-        nowGuard = maxGuard;
 	}
 
     void Update()
