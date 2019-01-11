@@ -511,27 +511,7 @@ Prefab:
       propertyPath: limit.Array.data[1]
       value: 
       objectReference: {fileID: 419702995}
-    - target: {fileID: 114914797891846512, guid: bcfd7bbb722abb14fb2f9ed5603fb9d5,
-        type: 2}
-      propertyPath: contl
-      value: 
-      objectReference: {fileID: 1712784041}
-    - target: {fileID: 114920467591006338, guid: bcfd7bbb722abb14fb2f9ed5603fb9d5,
-        type: 2}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 114669807328452402, guid: bcfd7bbb722abb14fb2f9ed5603fb9d5,
-        type: 2}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1253437278037456, guid: bcfd7bbb722abb14fb2f9ed5603fb9d5, type: 2}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 114914797891846512, guid: bcfd7bbb722abb14fb2f9ed5603fb9d5, type: 2}
+    m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: bcfd7bbb722abb14fb2f9ed5603fb9d5, type: 2}
   m_IsPrefabParent: 0
 --- !u!1001 &1660940440
@@ -647,11 +627,6 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: a343eb3bda68657478069fb9a572ec4a, type: 2}
   m_IsPrefabParent: 0
---- !u!1 &1712784041 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 1504665749963396, guid: 8ef7e693f28be0c4db472ce4508b9375,
-    type: 2}
-  m_PrefabInternal: {fileID: 340509389}
 --- !u!114 &1728807681 stripped
 MonoBehaviour:
   m_PrefabParentObject: {fileID: 114357712182573358, guid: a343eb3bda68657478069fb9a572ec4a,
