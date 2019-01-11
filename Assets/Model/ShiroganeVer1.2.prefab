@@ -3600,7 +3600,7 @@ Transform:
   m_Father: {fileID: 4160808530268678}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!90 &90177817930216294
+--- !u!90 &90951045034663878
 Avatar:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
@@ -5523,7 +5523,7 @@ Animator:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1811329692382902}
   m_Enabled: 1
-  m_Avatar: {fileID: 90177817930216294}
+  m_Avatar: {fileID: 90951045034663878}
   m_Controller: {fileID: 0}
   m_CullingMode: 0
   m_UpdateMode: 0
@@ -6072,189 +6072,7 @@ MonoBehaviour:
   - {fileID: 114014110531336888}
   - {fileID: 114029251203141824}
   - {fileID: 114849346715276192}
---- !u!114 &114305992698949864
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1139690949943436}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 646b65a4a57afd34d8c4ed557efb46a5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Colliders:
-  - Offset: {x: 0.01993233, y: -0.0001142025, z: 0.0016402546}
-    Radius: 0.030000003
-  m_gizmoColor: {r: 1, g: 0, b: 1, a: 1}
---- !u!114 &114317980382127562
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1506701987668386}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 646b65a4a57afd34d8c4ed557efb46a5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Colliders:
-  - Offset: {x: -0.000000029802322, y: 0, z: 0.000000004656613}
-    Radius: 0.029999997
-  - Offset: {x: 0.049830407, y: -0.00010883808, z: 0.004113095}
-    Radius: 0.034999996
-  - Offset: {x: 0.099660814, y: -0.00021779537, z: 0.008226185}
-    Radius: 0.029999997
-  - Offset: {x: 0.14949125, y: -0.00032663345, z: 0.012339275}
-    Radius: 0.029999997
-  m_gizmoColor: {r: 1, g: 0, b: 1, a: 1}
---- !u!114 &114331112165200342
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1345224361757308}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 00ea06e1753e16f4ca870c39c067c86b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_comment: 
-  m_drawGizmo: 0
-  m_gizmoColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
-  m_stiffnessForce: 0.4
-  m_gravityPower: 0.0820517
-  m_gravityDir: {x: 0, y: -1, z: 0}
-  m_dragForce: 0.4
-  m_center: {fileID: 0}
-  RootBones:
-  - {fileID: 4656875770048760}
-  m_hitRadius: 0.012307734
-  ColliderGroups:
-  - {fileID: 114849453159725028}
-  - {fileID: 114397363201300642}
-  - {fileID: 114035363448137762}
-  - {fileID: 114489331323515802}
-  - {fileID: 114317980382127562}
-  - {fileID: 114987730074891990}
-  - {fileID: 114305992698949864}
-  - {fileID: 114014110531336888}
-  - {fileID: 114029251203141824}
-  - {fileID: 114849346715276192}
---- !u!114 &114347292294364894
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 63b589176a34b344b9ccbee2b7e7114a, type: 3}
-  m_Name: Meta
-  m_EditorClassIdentifier: 
-  ExporterVersion: UniVRM-0.44
-  Title: Shirogane
-  Version: 1.2
-  Author: Yamagishi
-  ContactInformation: 
-  Reference: 
-  Thumbnail: {fileID: 2800000, guid: 2b9ce81a6f038b7459713d61253a8641, type: 3}
-  AllowedUser: 0
-  ViolentUssage: 1
-  SexualUssage: 0
-  CommercialUssage: 0
-  OtherPermissionUrl: 
-  LicenseType: 0
-  OtherLicenseUrl: 
---- !u!114 &114397363201300642
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1582512386752654}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 646b65a4a57afd34d8c4ed557efb46a5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Colliders:
-  - Offset: {x: 0.00045453757, y: -0.009940386, z: -0.0009915824}
-    Radius: 0.05000001
-  - Offset: {x: -0.074461676, y: -0.013428688, z: -0.00036307285}
-    Radius: 0.05000001
-  - Offset: {x: -0.14937788, y: -0.01691699, z: 0.0002654367}
-    Radius: 0.05000001
-  m_gizmoColor: {r: 1, g: 0, b: 1, a: 1}
---- !u!114 &114422872341249470
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1811329692382902}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 690ea0146224b8b4694a1925dddeb352, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Meta: {fileID: 114347292294364894}
---- !u!114 &114438539113332966
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1345224361757308}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 00ea06e1753e16f4ca870c39c067c86b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_comment: 
-  m_drawGizmo: 0
-  m_gizmoColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
-  m_stiffnessForce: 0.2017094
-  m_gravityPower: 0.41367522
-  m_gravityDir: {x: 0, y: -1, z: 0}
-  m_dragForce: 0.4
-  m_center: {fileID: 0}
-  RootBones:
-  - {fileID: 4124213373004948}
-  m_hitRadius: 0.0075213676
-  ColliderGroups:
-  - {fileID: 114849453159725028}
-  - {fileID: 114397363201300642}
-  - {fileID: 114035363448137762}
-  - {fileID: 114489331323515802}
-  - {fileID: 114317980382127562}
-  - {fileID: 114987730074891990}
-  - {fileID: 114305992698949864}
-  - {fileID: 114014110531336888}
-  - {fileID: 114029251203141824}
-  - {fileID: 114849346715276192}
---- !u!114 &114439583429097588
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1345224361757308}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 00ea06e1753e16f4ca870c39c067c86b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_comment: 
-  m_drawGizmo: 0
-  m_gizmoColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
-  m_stiffnessForce: 0.75
-  m_gravityPower: 0
-  m_gravityDir: {x: 0, y: -1, z: 0}
-  m_dragForce: 0.05
-  m_center: {fileID: 0}
-  RootBones:
-  - {fileID: 4989427260202836}
-  - {fileID: 4814783013360734}
-  m_hitRadius: 0.02
-  ColliderGroups: []
---- !u!114 &114465103714775768
+--- !u!114 &114305220353023956
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
@@ -6652,6 +6470,163 @@ MonoBehaviour:
     max: {x: 0, y: 0, z: 0}
     center: {x: 0, y: 0, z: 0}
     axisLength: 0
+--- !u!114 &114305992698949864
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1139690949943436}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 646b65a4a57afd34d8c4ed557efb46a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Colliders:
+  - Offset: {x: 0.01993233, y: -0.0001142025, z: 0.0016402546}
+    Radius: 0.030000003
+  m_gizmoColor: {r: 1, g: 0, b: 1, a: 1}
+--- !u!114 &114317980382127562
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1506701987668386}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 646b65a4a57afd34d8c4ed557efb46a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Colliders:
+  - Offset: {x: -0.000000029802322, y: 0, z: 0.000000004656613}
+    Radius: 0.029999997
+  - Offset: {x: 0.049830407, y: -0.00010883808, z: 0.004113095}
+    Radius: 0.034999996
+  - Offset: {x: 0.099660814, y: -0.00021779537, z: 0.008226185}
+    Radius: 0.029999997
+  - Offset: {x: 0.14949125, y: -0.00032663345, z: 0.012339275}
+    Radius: 0.029999997
+  m_gizmoColor: {r: 1, g: 0, b: 1, a: 1}
+--- !u!114 &114331112165200342
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1345224361757308}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00ea06e1753e16f4ca870c39c067c86b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_comment: 
+  m_drawGizmo: 0
+  m_gizmoColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+  m_stiffnessForce: 0.4
+  m_gravityPower: 0.0820517
+  m_gravityDir: {x: 0, y: -1, z: 0}
+  m_dragForce: 0.4
+  m_center: {fileID: 0}
+  RootBones:
+  - {fileID: 4656875770048760}
+  m_hitRadius: 0.012307734
+  ColliderGroups:
+  - {fileID: 114849453159725028}
+  - {fileID: 114397363201300642}
+  - {fileID: 114035363448137762}
+  - {fileID: 114489331323515802}
+  - {fileID: 114317980382127562}
+  - {fileID: 114987730074891990}
+  - {fileID: 114305992698949864}
+  - {fileID: 114014110531336888}
+  - {fileID: 114029251203141824}
+  - {fileID: 114849346715276192}
+--- !u!114 &114397363201300642
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1582512386752654}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 646b65a4a57afd34d8c4ed557efb46a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Colliders:
+  - Offset: {x: 0.00045453757, y: -0.009940386, z: -0.0009915824}
+    Radius: 0.05000001
+  - Offset: {x: -0.074461676, y: -0.013428688, z: -0.00036307285}
+    Radius: 0.05000001
+  - Offset: {x: -0.14937788, y: -0.01691699, z: 0.0002654367}
+    Radius: 0.05000001
+  m_gizmoColor: {r: 1, g: 0, b: 1, a: 1}
+--- !u!114 &114422872341249470
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1811329692382902}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 690ea0146224b8b4694a1925dddeb352, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Meta: {fileID: 114836528717215038}
+--- !u!114 &114438539113332966
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1345224361757308}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00ea06e1753e16f4ca870c39c067c86b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_comment: 
+  m_drawGizmo: 0
+  m_gizmoColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+  m_stiffnessForce: 0.2017094
+  m_gravityPower: 0.41367522
+  m_gravityDir: {x: 0, y: -1, z: 0}
+  m_dragForce: 0.4
+  m_center: {fileID: 0}
+  RootBones:
+  - {fileID: 4124213373004948}
+  m_hitRadius: 0.0075213676
+  ColliderGroups:
+  - {fileID: 114849453159725028}
+  - {fileID: 114397363201300642}
+  - {fileID: 114035363448137762}
+  - {fileID: 114489331323515802}
+  - {fileID: 114317980382127562}
+  - {fileID: 114987730074891990}
+  - {fileID: 114305992698949864}
+  - {fileID: 114014110531336888}
+  - {fileID: 114029251203141824}
+  - {fileID: 114849346715276192}
+--- !u!114 &114439583429097588
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1345224361757308}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00ea06e1753e16f4ca870c39c067c86b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_comment: 
+  m_drawGizmo: 0
+  m_gizmoColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+  m_stiffnessForce: 0.75
+  m_gravityPower: 0
+  m_gravityDir: {x: 0, y: -1, z: 0}
+  m_dragForce: 0.05
+  m_center: {fileID: 0}
+  RootBones:
+  - {fileID: 4989427260202836}
+  - {fileID: 4814783013360734}
+  m_hitRadius: 0.02
+  ColliderGroups: []
 --- !u!114 &114467786498293446
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -7090,6 +7065,31 @@ MonoBehaviour:
   - {fileID: 114014110531336888}
   - {fileID: 114029251203141824}
   - {fileID: 114849346715276192}
+--- !u!114 &114836528717215038
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63b589176a34b344b9ccbee2b7e7114a, type: 3}
+  m_Name: Meta
+  m_EditorClassIdentifier: 
+  ExporterVersion: UniVRM-0.44
+  Title: Shirogane
+  Version: 1.2
+  Author: Yamagishi
+  ContactInformation: 
+  Reference: 
+  Thumbnail: {fileID: 2800000, guid: 2b9ce81a6f038b7459713d61253a8641, type: 3}
+  AllowedUser: 0
+  ViolentUssage: 1
+  SexualUssage: 0
+  CommercialUssage: 0
+  OtherPermissionUrl: 
+  LicenseType: 0
+  OtherLicenseUrl: 
 --- !u!114 &114849346715276192
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -7216,8 +7216,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3869812175467a143ab9cd865752b4a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Avatar: {fileID: 90177817930216294}
-  Description: {fileID: 114465103714775768}
+  Avatar: {fileID: 90951045034663878}
+  Description: {fileID: 114305220353023956}
 --- !u!114 &114968049399316472
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -2693,7 +2693,7 @@ Transform:
   m_Father: {fileID: 4052394902978306}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!90 &90559806761549024
+--- !u!90 &90190320074458456
 Avatar:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
@@ -4346,7 +4346,7 @@ Animator:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1625420229192606}
   m_Enabled: 1
-  m_Avatar: {fileID: 90559806761549024}
+  m_Avatar: {fileID: 90190320074458456}
   m_Controller: {fileID: 0}
   m_CullingMode: 0
   m_UpdateMode: 0
@@ -4355,7 +4355,56 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
---- !u!114 &114030255620218390
+--- !u!114 &114154852536410648
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1399676187535924}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 646b65a4a57afd34d8c4ed557efb46a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Colliders:
+  - Offset: {x: 0, y: 0, z: -4.656613e-10}
+    Radius: 0.081
+  - Offset: {x: -0.0068972036, y: -0.11978233, z: -0.0021505468}
+    Radius: 0.081
+  - Offset: {x: -0.012644872, y: -0.21960092, z: -0.0039426684}
+    Radius: 0.081
+  m_gizmoColor: {r: 1, g: 0, b: 1, a: 1}
+--- !u!114 &114211760576034410
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1165831662911008}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00ea06e1753e16f4ca870c39c067c86b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_comment: Skirt
+  m_drawGizmo: 0
+  m_gizmoColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+  m_stiffnessForce: 0.75
+  m_gravityPower: 0
+  m_gravityDir: {x: 0, y: -1, z: 0}
+  m_dragForce: 0.05
+  m_center: {fileID: 0}
+  RootBones:
+  - {fileID: 4621389348584100}
+  - {fileID: 4428645870166584}
+  - {fileID: 4891573863585828}
+  - {fileID: 4308195431129802}
+  - {fileID: 4206104777267482}
+  - {fileID: 4461532662343606}
+  m_hitRadius: 0.02
+  ColliderGroups:
+  - {fileID: 114369088303608056}
+  - {fileID: 114154852536410648}
+--- !u!114 &114306302071368086
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
@@ -4753,55 +4802,6 @@ MonoBehaviour:
     max: {x: 0, y: 0, z: 0}
     center: {x: 0, y: 0, z: 0}
     axisLength: 0
---- !u!114 &114154852536410648
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1399676187535924}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 646b65a4a57afd34d8c4ed557efb46a5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Colliders:
-  - Offset: {x: 0, y: 0, z: -4.656613e-10}
-    Radius: 0.081
-  - Offset: {x: -0.0068972036, y: -0.11978233, z: -0.0021505468}
-    Radius: 0.081
-  - Offset: {x: -0.012644872, y: -0.21960092, z: -0.0039426684}
-    Radius: 0.081
-  m_gizmoColor: {r: 1, g: 0, b: 1, a: 1}
---- !u!114 &114211760576034410
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1165831662911008}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 00ea06e1753e16f4ca870c39c067c86b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_comment: Skirt
-  m_drawGizmo: 0
-  m_gizmoColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
-  m_stiffnessForce: 0.75
-  m_gravityPower: 0
-  m_gravityDir: {x: 0, y: -1, z: 0}
-  m_dragForce: 0.05
-  m_center: {fileID: 0}
-  RootBones:
-  - {fileID: 4621389348584100}
-  - {fileID: 4428645870166584}
-  - {fileID: 4891573863585828}
-  - {fileID: 4308195431129802}
-  - {fileID: 4206104777267482}
-  - {fileID: 4461532662343606}
-  m_hitRadius: 0.02
-  ColliderGroups:
-  - {fileID: 114369088303608056}
-  - {fileID: 114154852536410648}
 --- !u!114 &114342034870320274
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4813,7 +4813,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 690ea0146224b8b4694a1925dddeb352, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Meta: {fileID: 114640380058864918}
+  Meta: {fileID: 114365513947114222}
+--- !u!114 &114365513947114222
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63b589176a34b344b9ccbee2b7e7114a, type: 3}
+  m_Name: Meta
+  m_EditorClassIdentifier: 
+  ExporterVersion: UniVRM-0.44
+  Title: Shirogane
+  Version: 1.0
+  Author: Yamagishi
+  ContactInformation: erurai0621@yahoo.co.jp
+  Reference: 
+  Thumbnail: {fileID: 2800000, guid: aa0e82b172d7ba04b9f466f73955ed91, type: 3}
+  AllowedUser: 0
+  ViolentUssage: 1
+  SexualUssage: 0
+  CommercialUssage: 1
+  OtherPermissionUrl: 
+  LicenseType: 0
+  OtherLicenseUrl: 
 --- !u!114 &114369088303608056
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4844,8 +4869,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3869812175467a143ab9cd865752b4a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Avatar: {fileID: 90559806761549024}
-  Description: {fileID: 114030255620218390}
+  Avatar: {fileID: 90190320074458456}
+  Description: {fileID: 114306302071368086}
 --- !u!114 &114556648780527032
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4882,31 +4907,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BlendShapeAvatar: {fileID: 11400000, guid: d031e37e7b6e48e469097ff8591778ea, type: 2}
---- !u!114 &114640380058864918
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 63b589176a34b344b9ccbee2b7e7114a, type: 3}
-  m_Name: Meta
-  m_EditorClassIdentifier: 
-  ExporterVersion: UniVRM-0.44
-  Title: Shirogane
-  Version: 1.0
-  Author: Yamagishi
-  ContactInformation: erurai0621@yahoo.co.jp
-  Reference: 
-  Thumbnail: {fileID: 2800000, guid: aa0e82b172d7ba04b9f466f73955ed91, type: 3}
-  AllowedUser: 0
-  ViolentUssage: 1
-  SexualUssage: 0
-  CommercialUssage: 1
-  OtherPermissionUrl: 
-  LicenseType: 0
-  OtherLicenseUrl: 
 --- !u!114 &114741925783779160
 MonoBehaviour:
   m_ObjectHideFlags: 1
