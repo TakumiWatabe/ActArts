@@ -29,18 +29,15 @@ public class CameraWork : MonoBehaviour
         if ((player1.transform.position.x + player2.transform.position.x) / 2f >= -3.6f && (player1.transform.position.x + player2.transform.position.x) / 2f <= 3.6f)
         {
             cameraPos = (player1.transform.position.x + player2.transform.position.x) / 2f;
-            Debug.Log("カメラ座標a：" + cameraPos);
         }
 
         if (cameraPos < -3.6f)
         {
             cameraPos = -3.59f;
-            Debug.Log("カメラ座標b：" + cameraPos);
         }
         if (cameraPos > 3.6f)
         {
             cameraPos = 3.59f;
-            Debug.Log("カメラ座標b：" + cameraPos);
         }
 
         //cameraPos = (player1.transform.position.x + player2.transform.position.x) / 2f;
