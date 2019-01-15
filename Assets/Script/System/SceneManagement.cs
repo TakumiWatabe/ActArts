@@ -16,15 +16,6 @@ public class SceneManagement : MonoBehaviour {
     // リザルトシーン
     string resultScene = "ResultScene";
 
-    // Use this for initialization
-    void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	}
-
     ////----------------------------------------------------------------------
     ////! @brief シーン遷移
     ////!

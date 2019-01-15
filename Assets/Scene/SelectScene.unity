@@ -1330,7 +1330,6 @@ GameObject:
   - component: {fileID: 1307642328}
   - component: {fileID: 1307642325}
   - component: {fileID: 1307642327}
-  - component: {fileID: 1307642326}
   m_Layer: 0
   m_Name: UI Camera
   m_TagString: MainCamera
@@ -1374,13 +1373,6 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
---- !u!81 &1307642326
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1307642324}
-  m_Enabled: 1
 --- !u!124 &1307642327
 Behaviour:
   m_ObjectHideFlags: 0
@@ -1507,7 +1499,6 @@ GameObject:
   - component: {fileID: 1355064312}
   - component: {fileID: 1355064309}
   - component: {fileID: 1355064311}
-  - component: {fileID: 1355064310}
   m_Layer: 0
   m_Name: FadeCamera
   m_TagString: MainCamera
@@ -1551,13 +1542,6 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
---- !u!81 &1355064310
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1355064308}
-  m_Enabled: 1
 --- !u!124 &1355064311
 Behaviour:
   m_ObjectHideFlags: 0

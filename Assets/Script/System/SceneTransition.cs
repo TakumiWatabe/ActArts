@@ -87,7 +87,6 @@ public class SceneTransition : MonoBehaviour {
                     scene.SceneChange("menu");
                 }
             }
-
         }
 
         if (SceneManager.GetActiveScene().name == "PlayMenuScene")

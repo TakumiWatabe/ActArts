@@ -344,6 +344,7 @@ public class CharacterSelect : MonoBehaviour
                 pvcController = 0;
                 controlFlag1P = true;
             }
+            gameData.fighterName[0] = GetCharName();
         }
         // プレイヤー2が選んだキャラを生成
         else if (player == "player2")
@@ -362,6 +363,7 @@ public class CharacterSelect : MonoBehaviour
             {
                 controlFlag2P = true;
             }
+            gameData.fighterName[1] = GetCharName();
         }
     }
     public void IconMove(string conName,GamePad.Index num,GameObject player)

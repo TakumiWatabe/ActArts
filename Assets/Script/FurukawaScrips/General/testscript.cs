@@ -23,7 +23,7 @@ public class testscript : MonoBehaviour {
         nowtime += Time.deltaTime;
 
 
-        Debug.Log(nowtime);
+        //Debug.Log(nowtime);
 
         if(nowtime<time)
         {
