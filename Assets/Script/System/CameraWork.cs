@@ -4,10 +4,9 @@ using UnityEngine;
 
 public class CameraWork : MonoBehaviour
 {
-    public const float MINRANGE = 4.4f;
+    public const float MINRANGE = 4.8f;
 
-    public const float MAXRANGE = 7f;
-
+    public const float CAMERAPOS_X = 4f;
     private float cameraPos = 0f;
     private Camera cam;
     GameObject player1;
@@ -27,8 +26,30 @@ public class CameraWork : MonoBehaviour
 
     void Update()
     {
-        cameraPos = (player1.transform.position.x + player2.transform.position.x) / 2;
+        if ((player1.transform.position.x + player2.transform.position.x) / 2f >= -3.6f && (player1.transform.position.x + player2.transform.position.x) / 2f <= 3.6f)
+        {
+            cameraPos = (player1.transform.position.x + player2.transform.position.x) / 2f;
+            Debug.Log("カメラ座標a：" + cameraPos);
+        }
+
+        if (cameraPos < -3.6f)
+        {
+            cameraPos = -3.59f;
+            Debug.Log("カメラ座標b：" + cameraPos);
+        }
+        if (cameraPos > 3.6f)
+        {
+            cameraPos = 3.59f;
+            Debug.Log("カメラ座標b：" + cameraPos);
+        }
+
+        //cameraPos = (player1.transform.position.x + player2.transform.position.x) / 2f;
+
         transform.position = new Vector3(cameraPos, 1.4f, -10f);
+
+
+        //Debug.Log("カメラ：" + player1.transform.position.x + player2.transform.position.x);
+
         //if (player1.transform.position.x - player2.transform.position.x < 0)
         //{
         //    playerRange = (player1.transform.position.x - player2.transform.position.x) * -1f;
