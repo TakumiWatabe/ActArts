@@ -48,8 +48,10 @@ public class NotThroughFighter : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        rightWall = getScreenBottomRight().x;
+        leftWall = getScreenTopLeft().x;
         //画面外に出ないようにする
-        //Mathf.Clamp(this.transform.position.x, leftWall, -rightWall);
+        Mathf.Clamp(this.transform.position.x, leftWall, rightWall);
         //inStage();
         //Debug.Log(PContr.jumpS);
 
@@ -123,21 +125,21 @@ public class NotThroughFighter : MonoBehaviour
 
     public float LWall { get { return leftWall; } }
     public float RWall { get { return rightWall; } }
-    //private Vector3 getScreenTopLeft()
-    //{
-    //    // 画面の左上を取得
-    //    Vector3 topLeft = mainCamera.ScreenToWorldPoint(Vector3.zero);
-    //    // 上下反転させる
-    //    topLeft.Scale(new Vector3(1f, -1f, 1f));
-    //    return topLeft;
-    //}
+    private Vector3 getScreenTopLeft()
+    {
+        // 画面の左上を取得
+        Vector3 topLeft = mainCamera.ScreenToWorldPoint(Vector3.zero);
+        // 上下反転させる
+        topLeft.Scale(new Vector3(1f, -1f, 1f));
+        return topLeft;
+    }
 
-    //private Vector3 getScreenBottomRight()
-    //{
-    //    // 画面の右下を取得
-    //    Vector3 bottomRight = mainCamera.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, 0.0f));
-    //    // 上下反転させる
-    //    bottomRight.Scale(new Vector3(1f, -1f, 1f));
-    //    return bottomRight;
-    //}
+    private Vector3 getScreenBottomRight()
+    {
+        // 画面の右下を取得
+        Vector3 bottomRight = mainCamera.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, 0.0f));
+        // 上下反転させる
+        bottomRight.Scale(new Vector3(1f, -1f, 1f));
+        return bottomRight;
+    }
 }
