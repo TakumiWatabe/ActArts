@@ -60,6 +60,9 @@ public class TestChar : MonoBehaviour {
     //技性能
     private HitState hitColSta;
 
+    //搭載されているAI君
+    EnemyAI AI;
+
 
     void Awake()
     {
@@ -85,6 +88,8 @@ public class TestChar : MonoBehaviour {
             col.Add(CEvent.HClid[i]);
             react.Add(col[i].GetComponent<ColliderReact>());
         }
+
+        AI = gameObject.GetComponent<EnemyAI>();
     }
 
     // Update is called once per frame
@@ -125,6 +130,14 @@ public class TestChar : MonoBehaviour {
                 {
                     //ダメージ分ガードゲージを減らす
                     GScript.hitGuard(ASScriptEne.Damage((int)CEventEne.GetType));
+                    if(Pcont.ControllerName == "AI")
+                    {
+                        AI.JudgResult("Guard","");
+                    }
+                    else if(Pcont.fightEnemy.GetComponent<PlayerController>().ControllerName == "AI")
+                    {
+                        AI.JudgResult("WasGuarded",Pcont.State);
+                    }
                 }
                 else
                 {
@@ -133,6 +146,14 @@ public class TestChar : MonoBehaviour {
                     Pcont.HitDamage(ASScriptEne.Damage((int)CEventEne.GetType));
                     //エフェクト発生
                     SEScript.appearEffe(ASScriptEne.AtkLev((int)CEventEne.GetType), react[i].point);
+                    if (Pcont.ControllerName == "AI")
+                    {
+                        AI.JudgResult("Damage",Pcont.fightEnemy.GetComponent<PlayerController>().State);
+                    }
+                    else if (Pcont.fightEnemy.GetComponent<PlayerController>().ControllerName == "AI")
+                    {
+                        AI.JudgResult("Damaged", "");
+                    }
                 }
                 //攻撃を食らったあたり判定のIDを取得
                 collID = i;

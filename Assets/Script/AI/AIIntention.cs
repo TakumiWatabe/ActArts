@@ -44,13 +44,16 @@ public class AIIntention : MonoBehaviour {
     private PlayerController[] controller = new PlayerController[(int)CHARACTOR.SIZE];
 
     private List<float> situation = new List<float>();
-    private int intention = 0;
+    private int intention = -1;
     private int result = 0;
-    private List<float> teachValue = new List<float>();
+    private List<float> teachValue = new List<float> { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
     private NumYArray situationDatas = new NumYArray();
     private NumYArray teachDatas = new NumYArray();
 
     private NeuralNetwork nn;
+
+    private int learningSkipNum = 0;
+    private int nowSkip = 0;
 
     /// <summary>
     /// 初期化
@@ -71,14 +74,14 @@ public class AIIntention : MonoBehaviour {
         if (!System.IO.File.Exists(filePath))
         {
             //データを基にトレーニング
-            nn.Train(xData, yData, this.epochs, this.learningRate);
+            nn.Train(xData, yData, this.epochs, this.learningRate, false);
         }
     }
 
     /// <summary>
     /// 自身と敵の情報をセットする
     /// </summary>
-    public void SetPlayerAndEnemy(GameObject player, GameObject enemy)
+    public void Initialize(GameObject player, GameObject enemy, int skipNum)
     {
         pCommand = player.GetComponent<PlayerCommand>();
         pController = player.GetComponent<PlayerController>();
@@ -86,6 +89,7 @@ public class AIIntention : MonoBehaviour {
         eController = enemy.GetComponent<PlayerController>();
         controller[(int)CHARACTOR.PLAYER] = player.GetComponent<PlayerController>();
         controller[(int)CHARACTOR.ENEMY] = enemy.GetComponent<PlayerController>();
+        learningSkipNum = skipNum;
     }
 
     /// <summary>
@@ -201,24 +205,106 @@ public class AIIntention : MonoBehaviour {
             }
         }
 
-        situation = new List<float>();
         return this.intention;
-    }
-
-    /// <summary>
-    /// 結果判定
-    /// </summary>
-    public void JudgResult()
-    {
-
     }
 
     /// <summary>
     /// 意思と結果を基に教師値を算出
     /// </summary>
-    public void CalcTeachData()
+    public void CalcTeachData(string result, string state, float dis)
     {
+        if(intention == -1)
+        {
+            return;
+        }
+
         //教師値の算出
+        switch (result)
+        {
+            case "Guard":
+                teachValue[intention] = 1.0f;
+                break;
+            case "WasGuarded":
+                if(state == "StandGuard")
+                {
+                    teachValue[(int)EnemyAI.BEHAVE.swATTACK] = 1.0f;
+                    teachValue[(int)EnemyAI.BEHAVE.ssATTACK] = 1.0f;
+                }
+                else
+                {
+                    teachValue[intention] = 1.0f;
+                }
+                break;
+            case "Damage":
+                switch (state)
+                {
+                    case "StandGuard":
+                        teachValue[(int)EnemyAI.BEHAVE.sGUARD] = 1.0f;
+                        break;
+                    case "SitGuard":
+                        teachValue[(int)EnemyAI.BEHAVE.GUARD] = 1.0f;
+                        break;
+                    case "Kick":
+                        teachValue[(int)EnemyAI.BEHAVE.wATTACK] = 1.0f;
+                        break;
+                    case "SitKick":
+                        teachValue[(int)EnemyAI.BEHAVE.swATTACK] = 1.0f;
+                        break;
+                    default:
+                        teachValue[(int)EnemyAI.BEHAVE.sGUARD] = 1.0f;
+                        teachValue[(int)EnemyAI.BEHAVE.GUARD] = 1.0f;
+                        break;
+                }
+                break;
+            case "Damaged":
+                teachValue[intention] = 1.0f;
+                break;
+            default:
+                nowSkip++;
+                if (nowSkip < learningSkipNum)
+                {
+                    situation = new List<float>();
+                    return;
+                }
+                for (int i = 0; i < teachValue.Count; i++)
+                {
+                    if (dis <= 0.1f)
+                    {
+                        teachValue[(int)EnemyAI.BEHAVE.wATTACK] = 1.0f;
+                        teachValue[(int)EnemyAI.BEHAVE.sATTACK] = 1.0f;
+                        if (dis <= 0.3f)
+                        {
+
+                            teachValue[(int)EnemyAI.BEHAVE.swATTACK] = 1.0f;
+                            teachValue[(int)EnemyAI.BEHAVE.ssATTACK] = 1.0f;
+                        }
+                        break;
+                    }
+                    if (i != (int)EnemyAI.BEHAVE.wATTACK &&
+                        i != (int)EnemyAI.BEHAVE.sATTACK &&
+                        i != (int)EnemyAI.BEHAVE.swATTACK &&
+                        i != (int)EnemyAI.BEHAVE.ssATTACK)
+                    {
+                        if (i != (int)EnemyAI.BEHAVE.JUMP &&
+                            i != (int)EnemyAI.BEHAVE.fJUMP &&
+                            i != (int)EnemyAI.BEHAVE.bJUMP)
+                        {
+                            teachValue[i] = 1.0f;
+                        }
+                        else
+                        {
+                            teachValue[i] = 0.3f;
+                        }
+                    }
+                }
+                nowSkip = 0;
+                break;
+        }
+
+        if (situation.Count == 0)
+        {
+            JudgSituation(dis);
+        }
 
         //状況データと教師データを学習データに追加
         situationDatas.Add(situation);
@@ -226,19 +312,24 @@ public class AIIntention : MonoBehaviour {
 
         //入っているデータを削除
         situation = new List<float>();
-        teachValue = new List<float>();
+        teachValue = new List<float> { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
     }
 
     /// <summary>
     /// 保存したデータを基に学習開始
     /// </summary>
-    public void Learning()
+    public bool Learning(bool isNowTrain)
     {
-        nn.Train(situationDatas, teachDatas, epochs, learningRate);
-
-        //入っているデータを削除
-        situationDatas = new NumYArray();
-        teachDatas = new NumYArray();
+        if (nn.Train(situationDatas, teachDatas, epochs, learningRate, isNowTrain))
+        {
+            return true;
+        }
+        else
+        {
+            //入っているデータを削除
+            situationDatas = new NumYArray();
+            teachDatas = new NumYArray();
+            return false;
+        }
     }
-
 }
