@@ -20,6 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4818443968308468}
   - component: {fileID: 198999408329954738}
+  - component: {fileID: 114157741065269418}
   - component: {fileID: 199145403149511652}
   m_Layer: 0
   m_Name: Explode_hadou
@@ -41,6 +42,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114157741065269418
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1358002621736402}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: badfd6000ff9f8a47925cce3bf39cc9b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  time: 30
 --- !u!198 &198999408329954738
 ParticleSystem:
   m_ObjectHideFlags: 1
