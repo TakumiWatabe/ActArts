@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 33394107504200950}
   - component: {fileID: 135399170063457910}
   - component: {fileID: 23169558667577520}
+  - component: {fileID: 114881023419031516}
   m_Layer: 0
   m_Name: Shield
   m_TagString: Untagged
@@ -83,6 +84,18 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1776427504632426}
   m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &114881023419031516
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1776427504632426}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: badfd6000ff9f8a47925cce3bf39cc9b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  time: 12
 --- !u!135 &135399170063457910
 SphereCollider:
   m_ObjectHideFlags: 1
@@ -91,7 +104,7 @@ SphereCollider:
   m_GameObject: {fileID: 1776427504632426}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}

@@ -328,7 +328,9 @@ public class PlayerCommand : MonoBehaviour {
 
                             if (playerController.IsHadouCommandMissile)
                             {
-                                GameObject hado = Instantiate(hadokenObject, transform.position, Quaternion.identity);
+                                Vector3 hadoPos = transform.position;
+                                hadoPos.y += 0.5f;
+                                GameObject hado = Instantiate(hadokenObject, hadoPos, Quaternion.identity);
                                 //GameObject hado = Instantiate(hadokenObject, GetComponent<ColliderEvent>().GetHitBoxs[9].center + this.transform.parent.transform.position, Quaternion.identity);
                                 if (playerController.Direction == 1) hado.transform.Rotate(0, 0, 0);
                                 else hado.transform.Rotate(0, 180, 0);

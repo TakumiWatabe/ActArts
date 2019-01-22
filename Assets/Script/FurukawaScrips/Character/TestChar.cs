@@ -60,6 +60,12 @@ public class TestChar : MonoBehaviour {
     //技性能
     private HitState hitColSta;
 
+    //ガードのエフェクト
+    [SerializeField]
+    private GameObject guardEffect;
+    //波動が当たったときのエフェクト
+    [SerializeField]
+    private GameObject explodeHadouEffect;
 
     void Awake()
     {
@@ -118,22 +124,7 @@ public class TestChar : MonoBehaviour {
             //攻撃が当たっているなら
             if (react[i].hiting/* && react[i].CObj != null*/)
             {
-                hitatk = true;
-                react[i].hiting = false;
-                //ガードしているなら
-                if (guardatk)
-                {
-                    //ダメージ分ガードゲージを減らす
-                    GScript.hitGuard(ASScriptEne.Damage((int)CEventEne.GetType));
-                }
-                else
-                {
-                    //ダメージ分HPゲージを減らす
-                    HPDir.hitDmage(ASScriptEne.Damage((int)CEventEne.GetType));
-                    Pcont.HitDamage(ASScriptEne.Damage((int)CEventEne.GetType));
-                    //エフェクト発生
-                    SEScript.appearEffe(ASScriptEne.AtkLev((int)CEventEne.GetType), react[i].point);
-                }
+
                 //攻撃を食らったあたり判定のIDを取得
                 collID = i;
                 //飛び道具消失
@@ -141,6 +132,28 @@ public class TestChar : MonoBehaviour {
 
                 //受けた攻撃のステータス
                 CreateArtsSatet(ASScriptEne, (int)CEventEne.GetType);
+
+                hitatk = true;
+                react[i].hiting = false;
+                //ガードしているなら
+                if (guardatk)
+                {
+                    //ダメージ分ガードゲージを減らす
+                    GScript.hitGuard(ASScriptEne.Damage((int)CEventEne.GetType));
+                    Vector3 effectPos = transform.position;
+                    effectPos.y += 1.0f;
+                    Instantiate(guardEffect, effectPos, Quaternion.identity);
+                }
+                else
+                {
+                    //エフェクト発生
+                    SEScript.appearEffe(ASScriptEne.AtkLev((int)CEventEne.GetType), react[i].point);
+                    //ダメージ分HPゲージを減らす
+                    HPDir.hitDmage(ASScriptEne.Damage((int)CEventEne.GetType));
+                    Pcont.HitDamage(ASScriptEne.Damage((int)CEventEne.GetType));
+
+                }
+
             }
 
             //攻撃を食らっているなら
@@ -172,6 +185,8 @@ public class TestChar : MonoBehaviour {
         //攻撃判定が飛び道具なら
         if (CEventEne.GetType == ValueScript.AtkVal.HADOUKEN)
         {
+            Instantiate(explodeHadouEffect, transform.position, Quaternion.identity);
+
             //飛び道具を消す
             Debug.Log(Pcont.fightEnemy.GetComponent<PlayerController>().GetHadou.name);
             Destroy(Pcont.fightEnemy.GetComponent<PlayerController>().GetHadou);
