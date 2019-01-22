@@ -60,6 +60,9 @@ public class TestChar : MonoBehaviour {
     //技性能
     private HitState hitColSta;
 
+    //搭載されているAI君
+    EnemyAI AI;
+
     //ガードのエフェクト
     [SerializeField]
     private GameObject guardEffect;
@@ -91,6 +94,8 @@ public class TestChar : MonoBehaviour {
             col.Add(CEvent.HClid[i]);
             react.Add(col[i].GetComponent<ColliderReact>());
         }
+
+        AI = gameObject.GetComponent<EnemyAI>();
     }
 
     // Update is called once per frame
@@ -143,6 +148,14 @@ public class TestChar : MonoBehaviour {
                     Vector3 effectPos = transform.position;
                     effectPos.y += 1.0f;
                     Instantiate(guardEffect, effectPos, Quaternion.identity);
+                    if (Pcont.ControllerName == "AI")
+                    {
+                        AI.JudgResult("Guard", "");
+                    }
+                    else if (Pcont.fightEnemy.GetComponent<PlayerController>().ControllerName == "AI")
+                    {
+                        AI.JudgResult("WasGuarded", Pcont.State);
+                    }
                 }
                 else
                 {
@@ -151,6 +164,14 @@ public class TestChar : MonoBehaviour {
                     //ダメージ分HPゲージを減らす
                     HPDir.hitDmage(ASScriptEne.Damage((int)CEventEne.GetType));
                     Pcont.HitDamage(ASScriptEne.Damage((int)CEventEne.GetType));
+                    if (Pcont.ControllerName == "AI")
+                    {
+                        AI.JudgResult("Damage", Pcont.fightEnemy.GetComponent<PlayerController>().State);
+                    }
+                    else if (Pcont.fightEnemy.GetComponent<PlayerController>().ControllerName == "AI")
+                    {
+                        AI.JudgResult("Damaged", "");
+                    }
 
                 }
 
