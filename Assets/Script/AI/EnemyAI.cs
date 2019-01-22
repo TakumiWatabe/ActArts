@@ -126,31 +126,39 @@ public class EnemyAI : MonoBehaviour
         {
             case (int)BEHAVE.wATTACK:
                 pc.InputDKey = 5;
-                pc.PunchKey = true;
+                pcc.PunchKey = true;
                 break;
             case (int)BEHAVE.sATTACK:
                 pc.InputDKey = 5;
-                pc.KickKey = true;
+                pcc.KickKey = true;
                 break;
             case (int)BEHAVE.swATTACK:
                 pc.InputDKey = 2;
-                pc.PunchKey = true;
+                pcc.PunchKey = true;
                 break;
             case (int)BEHAVE.ssATTACK:
                 pc.InputDKey = 2;
-                pc.KickKey = true;
+                pcc.KickKey = true;
                 break;
             case (int)BEHAVE.HADOU:
-                pcc.history[0] = "2";
-                pcc.history[1] = "3";
-                pcc.history[2] = "6";
-                pcc.history[3] = "P";
+                pcc.history.RemoveAt(0);
+                pcc.history.Add("2");
+                pcc.history.RemoveAt(0);
+                pcc.history.Add("3");
+                pcc.history.RemoveAt(0);
+                pcc.history.Add("6");
+                pcc.history.RemoveAt(0);
+                pcc.history.Add("P");
                 break;
             case (int)BEHAVE.SHOURYU:
-                pcc.history[0] = "6";
-                pcc.history[1] = "2";
-                pcc.history[2] = "3";
-                pcc.history[3] = "P";
+                pcc.history.RemoveAt(0);
+                pcc.history.Add("6");
+                pcc.history.RemoveAt(0);
+                pcc.history.Add("2");
+                pcc.history.RemoveAt(0);
+                pcc.history.Add("3");
+                pcc.history.RemoveAt(0);
+                pcc.history.Add("P");
                 break;
             case (int)BEHAVE.GUARD:
                 pc.InputDKey = 4;

@@ -329,6 +329,7 @@ public class AIIntention : MonoBehaviour {
             //入っているデータを削除
             situationDatas = new NumYArray();
             teachDatas = new NumYArray();
+            nn.SaveLearningData(charName + "/");
             return false;
         }
     }
