@@ -11,7 +11,7 @@ public class HadouController : MonoBehaviour {
     public int direction = 1;
 
 	void Start () {
-		
+        transform.parent = null;
 	}
 	
 	// Update is called once per frame

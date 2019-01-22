@@ -55,6 +55,7 @@ GameObject:
   - component: {fileID: 4586947582648170}
   - component: {fileID: 198145757818171868}
   - component: {fileID: 199721825068247046}
+  - component: {fileID: 114719962741672876}
   m_Layer: 0
   m_Name: JumpingSmoke
   m_TagString: Untagged
@@ -103,6 +104,18 @@ Transform:
   m_Father: {fileID: 4586947582648170}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: -180, y: -30, z: 180}
+--- !u!114 &114719962741672876
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1964628613883910}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: badfd6000ff9f8a47925cce3bf39cc9b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  time: 60
 --- !u!198 &198145757818171868
 ParticleSystem:
   m_ObjectHideFlags: 1

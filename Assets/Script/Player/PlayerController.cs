@@ -61,6 +61,8 @@ public class PlayerController : MonoBehaviour
     //効果音
     private AudioSource audio;
 
+    AudioClip sound;
+
     public AudioClip largeDmg;
     public AudioClip midiumDmg;
     public AudioClip lowDmg;
@@ -111,6 +113,19 @@ public class PlayerController : MonoBehaviour
 
     private Camera mainCamera;
 
+    [SerializeField]
+    private GameObject jumpEffect;
+    [SerializeField]
+    private GameObject landEffect;
+    [SerializeField]
+    private GameObject guardEffect;
+    [SerializeField]
+    private GameObject hadouHitEffect;
+
+    [SerializeField]
+    int guardEffectTime;
+    int guradEffectCount;
+
     void Awake()
     {
         if (!isTest)
@@ -156,9 +171,11 @@ public class PlayerController : MonoBehaviour
         Debug.Log(enemy.tag);
 
         gameObject.GetComponent<EnemyAI>().Initialize();
-        
+
 
         audio = GetComponent<AudioSource>();
+
+        guradEffectCount = 0;
     }
 
     // Update is called once per frame
@@ -179,7 +196,7 @@ public class PlayerController : MonoBehaviour
             if (canControll) playerCommand.InputKey();
         }
 
-        if(state != "GuardCrash") guardCrashCount = 0;
+        if (state != "GuardCrash") guardCrashCount = 0;
 
 
         switch (state)
@@ -310,6 +327,12 @@ public class PlayerController : MonoBehaviour
 
         speed = 0.0f;
 
+        guardCrashCount++;
+        if (guradEffectCount > guardEffectTime)
+        {
+            guardEffect.SetActive(false);
+        }
+
         //if (direction == 1) finalMove = new Vector3(-0.075f, 0, 0);
         //else finalMove = new Vector3(0.075f, 0, 0);
 
@@ -325,6 +348,7 @@ public class PlayerController : MonoBehaviour
 
         if (playerCommand.InputDKey == 1) animator.SetBool("StandGuard", false);
 
+
         if (damageCount >= damageTime)
         {
             damageCount = 0;
@@ -332,6 +356,8 @@ public class PlayerController : MonoBehaviour
             state = "Stand";
             Debug.Log("ガガガ戻れたぞ");
             canControll = true;
+            guradEffectCount = 0;
+            guardEffect.SetActive(false);
         }
 
         damageCount++;
@@ -409,6 +435,8 @@ public class PlayerController : MonoBehaviour
         {
             nowGravity = 0;
             state = "Jump";
+            Vector3 pos = transform.position;
+            Instantiate(jumpEffect, pos, Quaternion.identity);
             //animator.SetBool("Jump", true);
         }
 
@@ -681,6 +709,8 @@ public class PlayerController : MonoBehaviour
             animator.SetBool("Jump", false);
             ySpeed = 0;
             gameObject.transform.position = new Vector3(gameObject.transform.position.x, 0, 0);
+            Vector3 pos = transform.position;
+            Instantiate(landEffect, pos, Quaternion.identity);
         }
         ySpeed = ySpeed + nowGravity;
         finalMove.y = ySpeed;
@@ -726,6 +756,8 @@ public class PlayerController : MonoBehaviour
         {
             nowGravity = 0;
             state = "Jump";
+            Vector3 pos = transform.position;
+            Instantiate(jumpEffect, pos, Quaternion.identity);
         }
 
         // 移動する向きを求める
@@ -812,6 +844,8 @@ public class PlayerController : MonoBehaviour
             state = "Stand";
             Debug.Log("aaaaaa");
             canControll = true;
+            Vector3 pos = transform.position;
+            Instantiate(landEffect, pos, Quaternion.identity);
         }
         ySpeed = ySpeed + nowGravity;
         finalMove.y = ySpeed;
@@ -848,6 +882,8 @@ public class PlayerController : MonoBehaviour
             animator.SetInteger("Special", 0);
             ySpeed = 0;
             gameObject.transform.position = new Vector3(gameObject.transform.position.x, 0, 0);
+            Vector3 pos = transform.position;
+            Instantiate(landEffect, pos, Quaternion.identity);
         }
         ySpeed = ySpeed + nowGravity;
         finalMove.y = ySpeed;
@@ -944,6 +980,9 @@ public class PlayerController : MonoBehaviour
             damageDir = direction * -1;
 
             guardGaugePoint -= dmg;
+
+            //guardEffect.SetActive(true);
+            guradEffectCount = 0;
         }
         else
         {
@@ -962,8 +1001,6 @@ public class PlayerController : MonoBehaviour
             backDistance = dmg;
             damageTime = dmg / 500 + 15;
             damageDir = direction * -1;
-
-            AudioClip sound;
 
             sound = lowDmg;
             if (dmg > 500) sound = midiumDmg;
@@ -1155,4 +1192,6 @@ public class PlayerController : MonoBehaviour
     public string animState { get { return state; } }
 
     public GameObject GetHadou { get { return playerCommand.HadokenObject; } }
+
+    public bool IsTest { get { return isTest; } }
 }
