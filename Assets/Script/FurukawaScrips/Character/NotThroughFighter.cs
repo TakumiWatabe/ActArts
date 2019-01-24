@@ -31,6 +31,8 @@ public class NotThroughFighter : MonoBehaviour
 
     void Awake()
     {
+        rightWall = 6;
+        leftWall = 6;
         OScript = this.GetComponent<OverlapScript>();
     }
 
