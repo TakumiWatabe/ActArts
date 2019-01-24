@@ -55,6 +55,8 @@ public class AIIntention : MonoBehaviour {
     private int learningSkipNum = 0;
     private int nowSkip = 0;
 
+    private bool isTrain = false;
+
     /// <summary>
     /// 初期化
     /// </summary>
@@ -73,8 +75,9 @@ public class AIIntention : MonoBehaviour {
         //学習値のデータがないなら初期学習をする
         if (!System.IO.File.Exists(filePath))
         {
+            nn.InputData(xData, yData);
             //データを基にトレーニング
-            nn.Train(xData, yData, this.epochs, this.learningRate, false);
+            nn.Train(this.epochs, this.learningRate, false);
         }
     }
 
@@ -320,17 +323,30 @@ public class AIIntention : MonoBehaviour {
     /// </summary>
     public bool Learning(bool isNowTrain)
     {
-        if (nn.Train(situationDatas, teachDatas, epochs, learningRate, isNowTrain))
+        isTrain = isNowTrain;
+
+        if(isNowTrain)
         {
-            return true;
+            isTrain = nn.Train(epochs, learningRate, isNowTrain);
         }
         else
         {
+            nn.InputData(situationDatas, teachDatas);
+
             //入っているデータを削除
             situationDatas = new NumYArray();
             teachDatas = new NumYArray();
-            nn.SaveLearningData(charName + "/");
-            return false;
+
+            isTrain = nn.Train(epochs, learningRate, isNowTrain);
         }
+
+        if(!isTrain)
+        {
+            nn.SaveLearningData(charName + "/");
+        }
+
+        return isTrain;
     }
+
+    public bool IsTrain { get { return isTrain; } }
 }

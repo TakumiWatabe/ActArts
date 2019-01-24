@@ -85,25 +85,28 @@ public class EnemyAI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!isLearning)
-        {
-            elapsedTime++;
-
-            pc.PunchKey = false;
-            pc.KickKey = false;
-
-            //時間経過でニューラルネットワークによる意思決定を行う
-            if (elapsedTime >= judgTime)
-            {
-                JudgResult("", "");
-                DecideBehavior();
-            }
-
-            if (Input.GetKeyDown(KeyCode.Space) && isLearn) isLearning = intention.Learning(isLearning);
-        }
-        else
+        //学習中なら学習させる
+        if (isLearning)
         {
             isLearning = intention.Learning(isLearning);
+        }
+
+        elapsedTime++;
+
+        pc.PunchKey = false;
+        pc.KickKey = false;
+
+        //時間経過でニューラルネットワークによる意思決定を行う
+        if (elapsedTime >= judgTime)
+        {
+            JudgResult("", "");
+            DecideBehavior();
+        }
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            if (isLearn && !isLearning) isLearning = intention.Learning(isLearning);
+            else { Debug.Log("学習中"); }
         }
     }
 

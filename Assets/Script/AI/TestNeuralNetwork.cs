@@ -25,10 +25,11 @@ public class TestNeuralNetwork : MonoBehaviour {
 
         bool a = false;
 
-        a = nn.Train(xData, yData, epochs, learningRate, a);
+        nn.InputData(xData, yData);
+        a = nn.Train(epochs, learningRate, a);
         //データを基にトレーニング
         while (a)
-            a = nn.Train(xData, yData, epochs, learningRate, a);
+            a = nn.Train(epochs, learningRate, a);
 
         float endTime = Time.realtimeSinceStartup;
         //トレーニング時間の表示

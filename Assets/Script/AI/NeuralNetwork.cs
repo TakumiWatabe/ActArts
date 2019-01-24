@@ -21,6 +21,9 @@ public class NeuralNetwork {
     private NumYArray dw2 = new NumYArray();
     private NumYArray db2 = new NumYArray();
 
+    private NumYArray xData = new NumYArray();
+    private NumYArray yData = new NumYArray();
+
     private int totalTrainNum = 0;
     private int maxTrainNum = 2000;
     private int nowTrainNum = 0;
@@ -47,12 +50,10 @@ public class NeuralNetwork {
     /// <summary>
     /// 入力されたデータを元にトレーニング
     /// </summary>
-    /// <param name="xData">状況データ</param>
-    /// <param name="yData">教師データ</param>
     /// <param name="epochs">トレーニング回数</param>
     /// <param name="learningRate">学習率</param>
     /// <returns></returns>
-    public bool Train(NumYArray xData, NumYArray yData,int epochs,float learningRate, bool isTrainNow)
+    public bool Train(int epochs,float learningRate, bool isTrainNow)
     {
         if (!isTrainNow)
         {
@@ -108,6 +109,8 @@ public class NeuralNetwork {
 
             if (totalTrainNum >= epochs)
             {
+                this.xData = new NumYArray();
+                this.yData = new NumYArray();
                 totalTrainNum = 0;
                 nowTrainNum = 0;
                 return false;
@@ -144,6 +147,12 @@ public class NeuralNetwork {
         NeuralSaveCSV.SaveCSVData(this.b1, folderName + "LearningDataCSVb1");
         NeuralSaveCSV.SaveCSVData(this.w2, folderName + "LearningDataCSVw2");
         NeuralSaveCSV.SaveCSVData(this.b2, folderName + "LearningDataCSVb2");
+    }
+
+    public void InputData(NumYArray xData, NumYArray yData)
+    {
+        this.xData = new NumYArray(xData);
+        this.yData = new NumYArray(yData);
     }
 
 }
