@@ -130,15 +130,6 @@ public class TestChar : MonoBehaviour
             //攻撃が当たっているなら
             if (react[i].hiting/* && react[i].CObj != null*/)
             {
-
-                //攻撃を食らったあたり判定のIDを取得
-                collID = i;
-                //飛び道具消失
-                toolVoid();
-
-                //受けた攻撃のステータス
-                CreateArtsSatet(ASScriptEne, (int)CEventEne.GetType);
-
                 hitatk = true;
                 react[i].hiting = false;
                 //ガードしているなら
@@ -175,6 +166,15 @@ public class TestChar : MonoBehaviour
                     }
 
                 }
+
+
+                //攻撃を食らったあたり判定のIDを取得
+                collID = i;
+                //飛び道具消失
+                toolVoid();
+
+                //受けた攻撃のステータス
+                CreateArtsSatet(ASScriptEne, (int)CEventEne.GetType);
 
             }
 

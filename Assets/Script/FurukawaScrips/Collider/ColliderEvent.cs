@@ -1398,6 +1398,805 @@ public class ColliderEvent : MonoBehaviour {
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //-------------------------------------------------------------------------------------------------------------------
 
+    //-------------------------------------------------------------------------------------------------------------------
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //Xionあたり判定
+    //
+    //---------------------------------------------------------
+    //基本あたり判定
+    //
+    //使用モーション:立ち、前進、後進、立ちガード、ダメージ
+    //---------------------------------------------------------
+    void XBasicCollide()
+    {
+        //くらい判定初期化
+        HitColliderActive(1);
+        //攻撃判定初期化
+        AtkColliderActive(0);
+
+        SetBoxState(HitBox[0],
+            new Vector3(0, 0.8f, 0f),
+            new Vector3(CSizeZ, 1.6f, 0.55f));
+    }
+
+    //------------------------------------------------------
+    //基本しゃがみあたり判定
+    //
+    //使用モーション:しゃがみ、しゃがみガード、しゃがみダメ
+    //------------------------------------------------------
+    void XBasicSitCollide()
+    {
+        //くらい判定初期化
+        HitColliderActive(1);
+        //攻撃判定初期化
+        AtkColliderActive(0);
+
+        SetBoxState(HitBox[0],
+            new Vector3(0, 1f, 0f),
+            new Vector3(CSizeZ, 1f, 0.55f));
+    }
+
+    //--------------------------------
+    //ダッシュあたり判定
+    //
+    //使用モーション:ダッシュ
+    //--------------------------------
+    void XBasicDashCollider1()
+    {
+        //くらい判定初期化
+        HitColliderActive(2);
+        //攻撃判定初期化
+        AtkColliderActive(0);
+
+        SetBoxState(HitBox[0],
+            new Vector3(0, 1.1f, 0.15f),
+            new Vector3(CSizeZ, 0.8f, 0.6f));
+        SetBoxState(HitBox[1],
+            new Vector3(0, 0.4f, 0f),
+            new Vector3(0, 0, 0));
+    }
+    void XBasicDashCollider2()
+    {
+        SetBoxState(HitBox[0],
+            new Vector3(0, 1.1f, 0.15f),
+            new Vector3(CSizeZ, 0.8f, 0.6f));
+        SetBoxState(HitBox[1],
+            new Vector3(0, 0.4f, 0f),
+            new Vector3(CSizeZ, 0.8f, 0.8f));
+    }
+    void XBasicDashCollider3()
+    {
+        SetBoxState(HitBox[0],
+            new Vector3(0, 1.1f, 0.15f),
+            new Vector3(CSizeZ, 0.8f, 0.65f));
+        SetBoxState(HitBox[1],
+            new Vector3(0, 0.4f, 0f),
+            new Vector3(CSizeZ, 0.8f, 0.95f));
+    }
+    void XBasicDashCollider4()
+    {
+        SetBoxState(HitBox[0],
+            new Vector3(0, 1.1f, 0.15f),
+            new Vector3(CSizeZ, 0.8f, 0.6f));
+        SetBoxState(HitBox[1],
+            new Vector3(0, 0.4f, 0f),
+            new Vector3(CSizeZ, 0.8f, 1.25f));
+    }
+    void XBasicDashCollider5()
+    {
+        SetBoxState(HitBox[0],
+            new Vector3(0, 1.1f, 0.15f),
+            new Vector3(CSizeZ, 0.8f, 0.55f));
+        SetBoxState(HitBox[1],
+            new Vector3(0, 0.4f, 0f),
+            new Vector3(CSizeZ, 0.8f, 1f));
+    }
+    void XBasicDashCollider6()
+    {
+        SetBoxState(HitBox[0],
+            new Vector3(0, 1.1f, 0.15f),
+            new Vector3(CSizeZ, 0.8f, 0.55f));
+        SetBoxState(HitBox[1],
+            new Vector3(0, 0.4f, 0f),
+            new Vector3(CSizeZ, 0.8f, 0.6f));
+    }
+    void XBasicDashCollider7()
+    {
+        SetBoxState(HitBox[0],
+            new Vector3(0, 1.1f, 0.15f),
+            new Vector3(CSizeZ, 0.8f, 0.55f));
+        SetBoxState(HitBox[1],
+            new Vector3(0, 0.4f, 0f),
+            new Vector3(CSizeZ, 0.8f, 1f));
+    }
+    void XBasicDashCollider8()
+    {
+        SetBoxState(HitBox[0],
+            new Vector3(0, 1.1f, 0.15f),
+            new Vector3(CSizeZ, 0.8f, 0.6f));
+        SetBoxState(HitBox[1],
+            new Vector3(0, 0.4f, 0f),
+            new Vector3(CSizeZ, 0.8f, 1.25f));
+    }
+    void XBasicDashCollider9()
+    {
+        SetBoxState(HitBox[0],
+            new Vector3(0, 1.1f, 0.15f),
+            new Vector3(CSizeZ, 0.8f, 0.6f));
+        SetBoxState(HitBox[1],
+            new Vector3(0, 0.4f, 0f),
+            new Vector3(CSizeZ, 0.8f, 1f));
+    }
+    void XBasicDashCollider10()
+    {
+        SetBoxState(HitBox[0],
+            new Vector3(0, 1.1f, 0.15f),
+            new Vector3(CSizeZ, 0.8f, 0.5f));
+        //SetBoxState(HitBox[1],
+        //    new Vector3(0, 0.4f, 0f),
+        //    new Vector3(CSizeZ, 0.8f, 0.6f));
+    }
+
+    //--------------------------------
+    //波動コマンドあたり判定
+    //
+    //使用モーション:波動
+    //--------------------------------
+    void XBasicHadouCollider1()
+    {
+        //くらい判定初期化
+        HitColliderActive(1);
+        //攻撃判定初期化
+        AtkColliderActive(0);
+
+        SetBoxState(HitBox[0],
+            new Vector3(transform.parent.GetChild(3).transform.position.x, 0.7f, transform.parent.GetChild(3).transform.position.x),
+            new Vector3(CSizeZ, 1.5f, 0.55f));
+    }
+    void XBasicHadouCollider2()
+    {
+        //攻撃判定初期化
+        AtkColliderActive(1);
+
+        SetBoxState(HitBox[0],
+            new Vector3(transform.parent.GetChild(3).transform.position.x, 0.7f, transform.parent.GetChild(3).transform.position.x),
+            new Vector3(CSizeZ, 0.3f, 0.55f));
+
+        SetBoxState(AtkBox[0],
+            new Vector3(transform.parent.GetChild(3).transform.position.x, 1.2f, transform.parent.GetChild(3).transform.position.x + 0.56f),
+            new Vector3(CSizeZ, 0.6f, 0.6f));
+    }
+    void XBasicHadouCollider3()
+    {
+        SetBoxState(HitBox[0],
+            new Vector3(0, 0.7f, 0f),
+            new Vector3(CSizeZ, 0.3f, 0.55f));
+
+        SetBoxState(AtkBox[0],
+            new Vector3(0, 1.2f, 0.7f),
+            new Vector3(CSizeZ, 0.6f, 0.9f));
+    }
+
+    //-----------------------------------------
+    //ジャンプあたり判定
+    //
+    //使用モーション:ジャンプ、ジャンプ中
+    //-----------------------------------------
+    void XBasicJumpCollide1()
+    {
+        //くらい判定初期化
+        HitColliderActive(1);
+        //攻撃判定初期化
+        AtkColliderActive(0);
+
+        SetBoxState(HitBox[0],
+            new Vector3(0, 0.8f, 0f),
+            new Vector3(CSizeZ, 1f, 1f));
+    }
+    void XBasicJumpCollide2()
+    {
+        SetBoxState(HitBox[0],
+            new Vector3(0, 1.25f, 0f),
+            new Vector3(CSizeZ, 0.65f, 0.8f));
+        SetBoxState(HitBox[1],
+            new Vector3(0, 0.45f, 0f),
+            new Vector3(CSizeZ, 1.1f, 0.45f));
+    }
+
+    //--------------------------------
+    //ジャンプキックあたり判定
+    //
+    //使用モーション:ジャンプキック
+    //--------------------------------
+    void XJumpKickCollider1()
+    {
+        //くらい判定初期化
+        HitColliderActive(2);
+        //攻撃判定初期化
+        AtkColliderActive(0);
+
+        SetBoxState(HitBox[0],
+            new Vector3(0, 0.8f, 0f),
+            new Vector3(CSizeZ, 1f, 1f));
+
+        SetBoxState(HitBox[1],
+            new Vector3(0, 0.8f, 0f),
+            new Vector3(0, 0, 0));
+
+        //ジャンプ強
+        atkType = ValueScript.AtkVal.KICK_JUMP;
+    }
+    void XJumpKickCollider2()
+    {
+        //攻撃判定初期化
+        AtkColliderActive(1);
+
+        SetBoxState(HitBox[0],
+            new Vector3(0, 1.2f, 0f),
+            new Vector3(CSizeZ, 0.7f, 0.7f));
+        SetBoxState(HitBox[1],
+            new Vector3(0, 0.8f, 0f),
+            new Vector3(0, 0, 0));
+
+        SetBoxState(AtkBox[0],
+            new Vector3(0, 1.2f, 0.4f),
+            new Vector3(CSizeZ, 0.7f, 0.6f));
+    }
+    void XJumpKickCollider3()
+    {
+        //攻撃判定初期化
+        AtkColliderActive(1);
+
+        SetBoxState(HitBox[0],
+            new Vector3(0, 1.2f, 0f),
+            new Vector3(CSizeZ, 0.7f, 0.7f));
+        SetBoxState(HitBox[1],
+            new Vector3(0, 0.8f, 0f),
+            new Vector3(0, 0, 0));
+
+        SetBoxState(AtkBox[0],
+            new Vector3(0, 0.6f, 0.4f),
+            new Vector3(CSizeZ, 0.7f, 0.7f));
+    }
+    void XJumpKickCollider4()
+    {
+        //攻撃判定初期化
+        AtkColliderActive(0);
+
+        SetBoxState(HitBox[0],
+            new Vector3(0, 1.2f, 0.1f),
+            new Vector3(CSizeZ, 0.7f, 0.5f));
+        SetBoxState(HitBox[1],
+            new Vector3(0, 0.5f, -0.2f),
+            new Vector3(CSizeZ, 0.8f, 0.4f));
+
+        //SetBoxState(AtkBox[0],
+        //    new Vector3(0, 0.6f, 0.4f),
+        //    new Vector3(0, 0, 0));
+    }
+    void XJumpKickCollider5()
+    {
+        AtkColliderActive(1);
+
+        SetBoxState(HitBox[0],
+            new Vector3(0, 1.2f, 0f),
+            new Vector3(CSizeZ, 0.7f, 0.75f));
+        SetBoxState(HitBox[1],
+            new Vector3(0, 0.7f, 0.25f),
+            new Vector3(CSizeZ, 0.6f, 1f));
+
+        SetBoxState(AtkBox[0],
+            new Vector3(0, 0.6f, 0.5f),
+            new Vector3(CSizeZ, 0.3f, 0.85f));
+    }
+    void XJumpKickCollider6()
+    {
+        AtkColliderActive(0);
+
+        SetBoxState(HitBox[0],
+            new Vector3(0, 1.25f, 0f),
+            new Vector3(CSizeZ, 0.65f, 0.75f));
+        SetBoxState(HitBox[1],
+            new Vector3(0, 0.65f, 0.25f),
+            new Vector3(CSizeZ, 0.6f, 1f));
+    }
+    void XJumpKickCollider7()
+    {
+        SetBoxState(HitBox[0],
+            new Vector3(0, 1.25f, 0f),
+            new Vector3(CSizeZ, 0.65f, 0.75f));
+        SetBoxState(HitBox[1],
+            new Vector3(0, 0.6f, 0.15f),
+            new Vector3(CSizeZ, 0.7f, 0.8f));
+    }
+    void XJumpKickCollider8()
+    {
+        SetBoxState(HitBox[0],
+            new Vector3(0, 1.25f, 0f),
+            new Vector3(CSizeZ, 0.65f, 0.75f));
+        SetBoxState(HitBox[1],
+            new Vector3(0, 0.5f, 0.1f),
+            new Vector3(CSizeZ, 0.9f, 0.65f));
+    }
+    void XJumpKickCollider9()
+    {
+        SetBoxState(HitBox[0],
+            new Vector3(0, 1.25f, 0f),
+            new Vector3(CSizeZ, 0.65f, 0.75f));
+        SetBoxState(HitBox[1],
+            new Vector3(0, 0.5f, 0.1f),
+            new Vector3(CSizeZ, 0.9f, 0.55f));
+    }
+    void XJumpKickCollider10()
+    {
+        SetBoxState(HitBox[0],
+            new Vector3(0, 1.25f, 0f),
+            new Vector3(CSizeZ, 0.65f, 0.8f));
+        SetBoxState(HitBox[1],
+            new Vector3(0, 0.5f, 0f),
+            new Vector3(CSizeZ, 1.1f, 0.5f));
+    }
+
+    //--------------------------------
+    //ジャンプパンチあたり判定
+    //
+    //使用モーション:ジャンプパンチ
+    //--------------------------------
+    void XJumpPunchCollider1()
+    {
+        //くらい判定初期化
+        HitColliderActive(2);
+        //攻撃判定初期化
+        AtkColliderActive(0);
+
+        SetBoxState(HitBox[0],
+            new Vector3(0, 1.2f, 0.1f),
+            new Vector3(CSizeZ, 0.7f, 0.5f));
+        SetBoxState(HitBox[1],
+            new Vector3(0, 0.5f, -0.2f),
+            new Vector3(0, 0, 0));
+
+        //SetBoxState(AtkBox[0],
+        //    new Vector3(0, 0.6f, 0.4f),
+        //    new Vector3(0, 0, 0));
+
+        //ジャンプ弱
+        atkType = ValueScript.AtkVal.PUNCH_JUMP;
+    }
+    void XJumpPunchCollider2()
+    {
+        //攻撃判定初期化
+        AtkColliderActive(0);
+
+        SetBoxState(HitBox[0],
+            new Vector3(0, 1.25f, 0.05f),
+            new Vector3(CSizeZ, 0.65f, 0.65f));
+        SetBoxState(HitBox[1],
+            new Vector3(0, 0.7f, 0f),
+            new Vector3(CSizeZ, 0.9f, 0.5f));
+    }
+    void XJumpPunchCollider3()
+    {
+        AtkColliderActive(1);
+
+        SetBoxState(HitBox[0],
+            new Vector3(0, 1.2f, 0.1f),
+            new Vector3(CSizeZ, 0.7f, 0.5f));
+        SetBoxState(HitBox[1],
+            new Vector3(0, 0.5f, -0.2f),
+            new Vector3(CSizeZ, 0.8f, 0.4f));
+
+        SetBoxState(AtkBox[0],
+            new Vector3(0, 0.6f, 0.4f),
+            new Vector3(0, 0, 0));
+    }
+    void XJumpPunchCollider4()
+    {
+        SetBoxState(HitBox[0],
+            new Vector3(0, 1.2f, 0.1f),
+            new Vector3(CSizeZ, 0.7f, 0.5f));
+        SetBoxState(HitBox[1],
+            new Vector3(0, 0.5f, -0.2f),
+            new Vector3(CSizeZ, 0.8f, 0.4f));
+
+        SetBoxState(AtkBox[0],
+            new Vector3(0, 1.1f, 0.4f),
+            new Vector3(CSizeZ, 0.2f, 0.7f));
+    }
+    void XJumpPunchCollider5()
+    {
+        SetBoxState(HitBox[0],
+            new Vector3(0, 1.25f, 0.05f),
+            new Vector3(CSizeZ, 0.65f, 0.7f));
+        SetBoxState(HitBox[1],
+            new Vector3(0, 0.6f, 0f),
+            new Vector3(CSizeZ, 1.1f, 0.5f));
+    }
+
+    //--------------------------------------
+    //しゃがみ中あたり判定
+    //
+    //使用モーション:しゃがみ中
+    //--------------------------------------
+    void XSitingCollider1()
+    {
+        HitColliderActive(1);
+        AtkColliderActive(0);
+
+        SetBoxState(HitBox[0],
+            new Vector3(0, 0.75f, 0f),
+            new Vector3(CSizeZ, 1.6f, 0.5f));
+    }
+    void XSitingCollider2()
+    {
+        SetBoxState(HitBox[0],
+            new Vector3(0, 1.1f, 0f),
+            new Vector3(CSizeZ, 1.25f, 0.5f));
+    }
+
+    //--------------------------------
+    //しゃがみキックあたり判定
+    //
+    //使用モーション:しゃがみキック
+    //--------------------------------
+    void XSitKickCollider1()
+    {
+        HitColliderActive(1);
+        AtkColliderActive(1);
+
+        SetBoxState(HitBox[0],
+            new Vector3(0, 0.6f, 0.1f),
+            new Vector3(CSizeZ, 1.2f, 0.5f));
+        SetBoxState(AtkBox[1], 
+            new Vector3(0, 1.1f, 0.3f), 
+            new Vector3(CSizeZ, 0.6f, 0.5f));
+
+        //しゃがみ強
+        atkType = ValueScript.AtkVal.KICK_SIT;
+    }
+    void XSitKickCollider2()
+    {
+        SetBoxState(HitBox[0],
+            new Vector3(0, 0.7f, 0.1f),
+            new Vector3(CSizeZ, 1.3f, 0.5f));
+        SetBoxState(AtkBox[1],
+            new Vector3(0, 1.2f, 0.2f),
+            new Vector3(CSizeZ, 0.6f, 0.5f));
+    }
+    void XSitKickCollider3()
+    {
+        AtkColliderActive(0);
+
+        SetBoxState(HitBox[0],
+            new Vector3(0, 0.7f, 0.1f),
+            new Vector3(CSizeZ, 1.3f, 0.5f));
+    }
+    void XSitKickCollider4()
+    {
+        SetBoxState(HitBox[0],
+            new Vector3(0, 0.6f, 0.1f),
+            new Vector3(CSizeZ, 1.2f, 0.5f));
+    }
+    void XSitKickCollider5()
+    {
+        SetBoxState(HitBox[0],
+            new Vector3(0, 1f, -0.1f),
+            new Vector3(CSizeZ, 0.95f, 0.55f));
+        SetBoxState(HitBox[1],
+            new Vector3(0, 1.2f, 0.2f),
+            new Vector3(CSizeZ, 0.25f, 0.5f));
+    }
+    void XSitKickCollider6()
+    {
+        SetBoxState(HitBox[0],
+            new Vector3(0, 0.95f, 0.1f),
+            new Vector3(CSizeZ, 0.9f, 0.7f));
+        SetBoxState(HitBox[1],
+            new Vector3(0, 0.7f, -0.45f),
+            new Vector3(CSizeZ, 0.35f, 0.7f));
+    }
+    void XSitKickCollider7()
+    {
+        SetBoxState(HitBox[0],
+            new Vector3(0, 1f, 0.1f),
+            new Vector3(CSizeZ, 0.95f, 0.7f));
+        SetBoxState(HitBox[1],
+            new Vector3(0, 0.7f, -0.3f),
+            new Vector3(CSizeZ, 0.35f, 0.45f));
+    }
+
+
+    //--------------------------------
+    //しゃがみパンチあたり判定
+    //
+    //使用モーション:しゃがみパンチ
+    //--------------------------------
+    void XSitPunchCollider1()
+    {
+        HitColliderActive(1);
+        AtkColliderActive(1);
+
+        SetBoxState(AtkBox[0],
+            new Vector3(0, 0.6f, 0.4f),
+            new Vector3(CSizeZ, 0.3f, 0.5f));
+
+        //しゃがみ弱
+        atkType = ValueScript.AtkVal.PUNCH_SIT;
+    }
+    void XSitPunchCollider2()
+    {
+        AtkColliderActive(1);
+
+        SetBoxState(AtkBox[0],
+            new Vector3(0, 1.1f, 0.4f),
+            new Vector3(CSizeZ, 0.45f, 0.6f));
+    }
+    void XSitPunchCollider3()
+    {
+        AtkColliderActive(0);
+    }
+    void XSitPunchCollider4()
+    {
+        SetBoxState(HitBox[0],
+            new Vector3(0, 1f, 0f),
+            new Vector3(CSizeZ, 1.1f, 0.55f));
+        SetBoxState(HitBox[1],
+            new Vector3(0, 1.1f, 0.3f),
+            new Vector3(CSizeZ, 0.25f, 0.5f));
+    }
+
+    //-----------------------------------------
+    //立ち上がりあたり判定
+    //
+    //使用モーション:立ち上がり
+    //-----------------------------------------
+    void XStandUpCollider1()
+    {
+        HitColliderActive(1);
+        AtkColliderActive(0);
+
+        SetBoxState(HitBox[0],
+            new Vector3(0, 0.5f, 0.1f),
+            new Vector3(CSizeZ, 1f, 0.5f));
+    }
+    void XStandUpCollider2()
+    {
+        SetBoxState(HitBox[0],
+            new Vector3(0, 0.6f, 0.1f),
+            new Vector3(CSizeZ, 1.2f, 0.5f));
+    }
+    void XStandUpCollider3()
+    {
+        SetBoxState(HitBox[0],
+            new Vector3(0, 0.95f, 0f),
+            new Vector3(CSizeZ, 1.65f, 0.65f));
+    }
+
+    //------------------
+    //強攻撃あたり判定
+    //
+    //使用モーション:強攻撃
+    //------------------
+    void XBaseKickCollider1()
+    {
+        HitColliderActive(2);
+        AtkColliderActive(0);
+
+        SetBoxState(HitBox[0],
+            new Vector3(0, 0.8f, 0f),
+            new Vector3(CSizeZ, 1.6f, 0.55f));
+
+        //強
+        atkType = ValueScript.AtkVal.KICK;
+    }
+    void XBaseKickCollider2()
+    {
+        SetBoxState(HitBox[0],
+            new Vector3(0, 0.8f, 0f),
+            new Vector3(CSizeZ, 1.6f, 0.55f));
+        SetBoxState(AtkBox[0],
+            new Vector3(0, 1.1f, 0.6f),
+            new Vector3(CSizeZ, 0.6f, 0.6f));
+    }
+    void XBaseKickCollider3()
+    {
+        AtkColliderActive(1);
+
+        SetBoxState(HitBox[0],
+            new Vector3(0, 1.15f, 0.3f),
+            new Vector3(CSizeZ, 0.6f, 0.5f));
+        SetBoxState(HitBox[1],
+            new Vector3(0, 0.55f, -0.1f),
+            new Vector3(CSizeZ, 0.8f, 0.9f));
+
+        SetBoxState(AtkBox[0],
+            new Vector3(0, 1f, 0.6f),
+            new Vector3(CSizeZ, 0.35f, 0.65f));
+    }
+    void XBaseKickCollider4()
+    {
+        AtkColliderActive(0);
+
+        SetBoxState(HitBox[0],
+            new Vector3(0, 1.15f, 0.3f),
+            new Vector3(CSizeZ, 0.6f, 0.5f));
+        SetBoxState(HitBox[1],
+            new Vector3(0, 0.55f, -0.1f),
+            new Vector3(CSizeZ, 0.8f, 0.9f));
+    }
+    void XBaseKickCollider5()
+    {
+        SetBoxState(HitBox[0],
+            new Vector3(0, 1.15f, 0.2f),
+            new Vector3(CSizeZ, 0.6f, 0.5f));
+        SetBoxState(HitBox[1],
+            new Vector3(0, 0.55f, 0f),
+            new Vector3(CSizeZ, 0.85f, 0.9f));
+    }
+    void XBaseKickCollider6()
+    {
+        SetBoxState(HitBox[0],
+            new Vector3(0, 1.15f, 0.2f),
+            new Vector3(CSizeZ, 0.6f, 0.5f));
+        SetBoxState(HitBox[1],
+            new Vector3(0, 0.55f, 0),
+            new Vector3(CSizeZ, 0.85f, 1f));
+    }
+
+    //--------------------------------
+    //ダウンあたり判定
+    //
+    //使用モーション:ダウン
+    //--------------------------------
+    void XDownCollider1()
+    {
+        HitColliderActive(2);
+        AtkColliderActive(0);
+
+        SetBoxState(HitBox[0],
+            new Vector3(0, 0.78f, 0.05f),
+            new Vector3(CSizeZ, 1.5f, 0.6f));
+        SetBoxState(HitBox[1], new Vector3(0, 0, 0), new Vector3(0, 0, 0));
+    }
+    void XDownCollider2()
+    {
+        SetBoxState(HitBox[0],
+            new Vector3(0, 0.78f, 0.05f),
+            new Vector3(CSizeZ, 1.55f, 0.6f));
+        SetBoxState(HitBox[1], new Vector3(0, 0, 0), new Vector3(0, 0, 0));
+    }
+    void XDownCollider3()
+    {
+        SetBoxState(HitBox[0],
+            new Vector3(0, 0.65f, -0.1f),
+            new Vector3(CSizeZ, 1.35f, 0.6f));
+        SetBoxState(HitBox[1], new Vector3(0, 0, 0), new Vector3(0, 0, 0));
+    }
+    void XDownCollider4()
+    {
+        SetBoxState(HitBox[0],
+            new Vector3(0, 0.75f, -0.2f),
+            new Vector3(CSizeZ, 0.5f, 0.9f));
+        SetBoxState(HitBox[1],
+            new Vector3(0, 0.5f, 0.35f),
+            new Vector3(CSizeZ, 0.6f, 0.5f));
+    }
+    void XDownCollider5()
+    {
+        SetBoxState(HitBox[0],
+            new Vector3(0, 0.5f, -0.2f),
+            new Vector3(CSizeZ, 0.45f, 0.9f));
+        SetBoxState(HitBox[1],
+            new Vector3(0, 0.5f, 0.35f),
+            new Vector3(CSizeZ, 0.6f, 0.5f));
+    }
+    void XDownCollider6()
+    {
+        SetBoxState(HitBox[0],
+            new Vector3(0, -0.6f, -0.2f),
+            new Vector3(CSizeZ, 0.45f, 1f));
+        SetBoxState(HitBox[1],
+            new Vector3(0, 0.6f, 0.45f),
+            new Vector3(CSizeZ, 0.6f, 0.6f));
+    }
+
+    //--------------------------------
+    //昇竜コマンドあたり判定
+    //
+    //使用モーション:昇竜
+    //--------------------------------
+    void XBasicShoruCollider1()
+    {
+        HitColliderActive(0);
+        AtkColliderActive(0);
+
+        //SetBoxState(AtkBox[0],
+        //    new Vector3(0, 0.7f, 0.45f),
+        //    new Vector3(CSizeZ, 1.2f, 0.5f));
+
+        //昇竜コマンド
+        atkType = ValueScript.AtkVal.SYORYUKEN;
+    }
+    void XBasicShoruCollider2()
+    {
+        HitColliderActive(1);
+        AtkColliderActive(1);
+
+        SetBoxState(HitBox[0],
+            new Vector3(transform.parent.GetChild(3).transform.position.x, 0.4f, 0.1f + transform.parent.GetChild(3).transform.position.x),
+            new Vector3(CSizeZ, 0.8f, 0.5f));
+        SetBoxState(AtkBox[1],
+            new Vector3(transform.parent.GetChild(3).transform.position.x, 1.2f, 0.6f + transform.parent.GetChild(3).transform.position.x),
+            new Vector3(CSizeZ, 0.3f, 0.7f));
+    }
+    void XBasicShoruCollider3()
+    {
+
+        HitColliderActive(1);
+        AtkColliderActive(0);
+
+        SetBoxState(HitBox[0],
+            new Vector3(transform.parent.GetChild(3).transform.position.x, 0.6f, 0.1f),
+            new Vector3(CSizeZ, 1.2f, 0.5f));
+    }
+    void XBasicShoruCollider4()
+    {
+        SetBoxState(HitBox[0],
+            new Vector3(0, 0.75f, 0.05f),
+            new Vector3(CSizeZ, 1.5f, 0.55f));
+        SetBoxState(HitBox[1],
+            new Vector3(0, 1.4f, 0.35f),
+            new Vector3(CSizeZ, 0.5f, 0.2f));
+    }
+    void XBasicShoruCollider5()
+    {
+        SetBoxState(HitBox[0],
+            new Vector3(0, 0.65f, 0.05f),
+            new Vector3(CSizeZ, 1.4f, 0.55f));
+        SetBoxState(HitBox[1], new Vector3(0, 0, 0), new Vector3(0, 0, 0));
+    }
+    void XBasicShoruCollider6()
+    {
+        SetBoxState(HitBox[0],
+            new Vector3(0, 0.6f, 0f),
+            new Vector3(CSizeZ, 1.3f, 0.55f));
+        SetBoxState(HitBox[1], new Vector3(0, 0, 0), new Vector3(0, 0, 0));
+    }
+    void XBasicShoruCollider7()
+    {
+        SetBoxState(HitBox[0],
+            new Vector3(0, 0.6f, 0f),
+            new Vector3(CSizeZ, 1.3f, 0.5f));
+        SetBoxState(HitBox[1], new Vector3(0, 0, 0), new Vector3(0, 0, 0));
+    }
+
+    //------------------
+    //パンチあたり判定
+    //
+    //使用モーション:立ちパンチ　フレーム数:15
+    //------------------
+    void XBasePunchCollider1()
+    {
+        HitColliderActive(1);
+        AtkColliderActive(1);
+
+        SetBoxState(HitBox[0],
+            new Vector3(0, 1.2f, 0.4f),
+            new Vector3(CSizeZ, 0.3f, 0.5f));
+        SetBoxState(AtkBox[0],
+            new Vector3(0, 1.15f, 0.45f),
+            new Vector3(CSizeZ, 0.4f, 0.6f));
+
+        //弱
+        atkType = ValueScript.AtkVal.PUNCH;
+    }
+    void XBasePunchCollider2()
+    {
+        AtkColliderActive(0);
+    }
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //-------------------------------------------------------------------------------------------------------------------
+
     //初期化関数
     private void InitCollider()
     {
