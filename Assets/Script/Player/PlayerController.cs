@@ -8,106 +8,118 @@ using System;
 public class PlayerController : MonoBehaviour
 {
     //コマンドのスクリプト
-    PlayerCommand playerCommand;
+    private PlayerCommand playerCommand;
 
-    float speed = 0;
+    private float speed = 0;
     [SerializeField]
-    bool isTest = false;
+    private bool isTest = false;
     //歩くスピード
     [SerializeField]
-    float walkSpeed = 0.03f;
+    private float walkSpeed = 0.03f;
     //走るスピード
     [SerializeField]
-    float dashSpeed = 0.08f;
+    private float dashSpeed = 0.08f;
     //重力
-    float gravity = 0.008f;
+    private float gravity = 0.008f;
     //状態
     [SerializeField]
-    string state = "Stand";
+    private string state = "Stand";
     //必殺技の状態
-    string specialState = "";
+    private string specialState = "";
 
     //ジャンプのスピード
     [SerializeField]
-    float jumpSpeed = 0.15f;
+    private float jumpSpeed = 0.15f;
     //昇竜のスピード
     [SerializeField]
-    float syoryuSpeed = 0.175f;
+    private float syoryuSpeed = 0.175f;
 
     //キャラ分別
     [SerializeField]
-    string charName;
+    private string charName;
 
     //ダメージ受けたときに下がる距離
-    float backDistance = 0;
-    float backingDistance = 0;
-    int damageDir = 0;
+    private float backDistance = 0;
+    private float backingDistance = 0;
+    private int damageDir = 0;
 
-    int damageCount = 0;
-    int damageTime = 0;
+    private int damageCount = 0;
+    private int damageTime = 0;
 
     //向き
-    int direction = 1;
+    private int direction = 1;
     //相手
     [SerializeField]
     private GameObject enemy;
 
     //相手スクリプト
-    PlayerController enemyScript;
+    private PlayerController enemyScript;
 
     //ガードする距離
     public float distanceToGuard = 0.7f;
 
-    //効果音
-    private AudioSource audio;
-
-    public AudioClip largeDmg;
-    public AudioClip midiumDmg;
-    public AudioClip lowDmg;
-
 
     //アニメーター
-    Animator animator;
+    private Animator animator;
 
     //コントローラ操作が可能か
     [SerializeField]
-    bool canControll = true;
+    private bool canControll = true;
 
     //ガードクラッシュ時にひるむ時間
     [SerializeField]
-    int guardCrashTime = 120;
-    int guardCrashCount = 0;
+    private int guardCrashTime = 120;
+    private int guardCrashCount = 0;
 
     //ガードゲージ
     [SerializeField]
-    int guardGaugePoint = 5000;
+    private int guardGaugePoint = 5000;
 
     //波動コマンド成立時に飛び道具を飛ばすか
     [SerializeField]
-    bool isHadouCommandMissile = false;
+    private bool isHadouCommandMissile = false;
 
     //昇竜コマンド成立時にジャンプするか
     [SerializeField]
-    bool isSyoryuCommandJump = false;
+    private bool isSyoryuCommandJump = false;
 
     //最終的な移動距離
     [SerializeField]
-    Vector3 finalMove = new Vector3(0, 0, 0);
+    private Vector3 finalMove = new Vector3(0, 0, 0);
     //ジャンプをしてから地面につかない間
     [SerializeField]
-    int jumpTime = 10;
+    private int jumpTime = 10;
     [SerializeField]
-    int jumpCount = 0;
+    private int jumpCount = 0;
     //縦方向の速度
     [SerializeField]
-    float ySpeed = 0;
+    private float ySpeed = 0;
     //今の重力
     [SerializeField]
-    float nowGravity;
+    private float nowGravity;
 
     //キャラクター生成オブジェクト
     private GameObject contl;
     private InstanceScript InScript;
+
+    private Camera mainCamera;
+
+    [SerializeField]
+    private GameObject jumpEffect;
+    [SerializeField]
+    private GameObject landEffect;
+    [SerializeField]
+    private GameObject guardEffect;
+    [SerializeField]
+    private GameObject hadouHitEffect;
+
+    [SerializeField]
+    private int guardEffectTime;
+    private int guradEffectCount;
+
+    private PlaySEScript playSEScript;
+
+    private HPDirectorScript hpDirectorScript;
 
     void Awake()
     {
@@ -115,6 +127,8 @@ public class PlayerController : MonoBehaviour
         {
             contl = GameObject.Find("FighterComtrol");
             InScript = contl.GetComponent<InstanceScript>();
+            playSEScript = GetComponent<PlaySEScript>();
+            hpDirectorScript = GetComponent<HPDirectorScript>();
         }
 
     }
@@ -123,8 +137,9 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         playerCommand = GetComponent<PlayerCommand>();
-        
 
+        GameObject obj = GameObject.Find("Main Camera");
+        mainCamera = obj.GetComponent<Camera>();
 
         animator = GetComponent<Animator>();
 
@@ -148,8 +163,13 @@ public class PlayerController : MonoBehaviour
             }
         }
 
+
         enemyScript = enemy.GetComponent<PlayerController>();
-        audio = GetComponent<AudioSource>();
+        Debug.Log(enemy.tag);
+
+        gameObject.GetComponent<EnemyAI>().Initialize();
+
+        guradEffectCount = 0;
     }
 
     // Update is called once per frame
@@ -159,6 +179,14 @@ public class PlayerController : MonoBehaviour
 
         //gameObject.transform.position = new Vector3(gameObject.transform.position.x + speed, 0, 0);
         //Debug.Log(gameObject.name + "update1");
+
+        if(hpDirectorScript.NowHPState <= 0)
+        {
+            finalMove = Vector3.zero;
+            playerCommand.HistoryClear();
+            animator.SetBool("Down", true);
+            canControll = false;
+        }
 
         SetDirection();
 
@@ -170,7 +198,7 @@ public class PlayerController : MonoBehaviour
             if (canControll) playerCommand.InputKey();
         }
 
-        if(state != "GuardCrash") guardCrashCount = 0;
+        if (state != "GuardCrash") guardCrashCount = 0;
 
 
         switch (state)
@@ -301,6 +329,14 @@ public class PlayerController : MonoBehaviour
 
         speed = 0.0f;
 
+        //playSEScript.PlayVoice((int)PlaySEScript.VoiceData.GUARD);
+
+        guardCrashCount++;
+        if (guradEffectCount > guardEffectTime)
+        {
+            guardEffect.SetActive(false);
+        }
+
         //if (direction == 1) finalMove = new Vector3(-0.075f, 0, 0);
         //else finalMove = new Vector3(0.075f, 0, 0);
 
@@ -316,6 +352,7 @@ public class PlayerController : MonoBehaviour
 
         if (playerCommand.InputDKey == 1) animator.SetBool("StandGuard", false);
 
+
         if (damageCount >= damageTime)
         {
             damageCount = 0;
@@ -323,6 +360,8 @@ public class PlayerController : MonoBehaviour
             state = "Stand";
             Debug.Log("ガガガ戻れたぞ");
             canControll = true;
+            guradEffectCount = 0;
+            guardEffect.SetActive(false);
         }
 
         damageCount++;
@@ -400,6 +439,8 @@ public class PlayerController : MonoBehaviour
         {
             nowGravity = 0;
             state = "Jump";
+            Vector3 pos = transform.position;
+            Instantiate(jumpEffect, pos, Quaternion.identity);
             //animator.SetBool("Jump", true);
         }
 
@@ -407,12 +448,16 @@ public class PlayerController : MonoBehaviour
         if (playerCommand.PunchKey)
         {
             animator.SetBool("Punch", true);
+            playSEScript.PlayVoice((int)PlaySEScript.VoiceData.ATTACK1);
+            playSEScript.PlaySE((int)PlaySEScript.SEData.ATTACK1);
             state = "Punch";
         }
         //立ち状態時にXを押すとキック
         if (playerCommand.KickKey)
         {
             animator.SetBool("Kick", true);
+            playSEScript.PlayVoice((int)PlaySEScript.VoiceData.ATTACK2);
+            playSEScript.PlaySE((int)PlaySEScript.SEData.ATTACK2);
             state = "Kick";
         }
 
@@ -457,12 +502,16 @@ public class PlayerController : MonoBehaviour
         if (playerCommand.PunchKey)
         {
             animator.SetBool("Punch", true);
+            playSEScript.PlayVoice((int)PlaySEScript.VoiceData.ATTACK1);
+            playSEScript.PlaySE((int)PlaySEScript.SEData.ATTACK1);
             state = "SitPunch";
         }
         //しゃがみ状態時にXを押すとキック
         if (playerCommand.KickKey)
         {
             animator.SetBool("Kick", true);
+            playSEScript.PlayVoice((int)PlaySEScript.VoiceData.ATTACK2);
+            playSEScript.PlaySE((int)PlaySEScript.SEData.ATTACK2);
             state = "SitKick";
         }
     }
@@ -507,6 +556,8 @@ public class PlayerController : MonoBehaviour
         if (animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.5f && (playerCommand.PunchKey))
         {
             animator.SetBool("Punch", true);
+            playSEScript.PlayVoice((int)PlaySEScript.VoiceData.ATTACK1);
+            playSEScript.PlaySE((int)PlaySEScript.SEData.ATTACK1);
             state = "Punch";
             animator.Play(animator.GetCurrentAnimatorStateInfo(0).shortNameHash, -1, 0.0f);
         }
@@ -515,6 +566,8 @@ public class PlayerController : MonoBehaviour
         if (playerCommand.KickKey)
         {
             animator.SetBool("Kick", true);
+            playSEScript.PlayVoice((int)PlaySEScript.VoiceData.ATTACK2);
+            playSEScript.PlaySE((int)PlaySEScript.SEData.ATTACK2);
             state = "Kick";
         }
 
@@ -541,6 +594,8 @@ public class PlayerController : MonoBehaviour
         {
             animator.SetBool("Punch", true);
             state = "SitPunch";
+            playSEScript.PlayVoice((int)PlaySEScript.VoiceData.ATTACK1);
+            playSEScript.PlaySE((int)PlaySEScript.SEData.ATTACK1);
             animator.Play(animator.GetCurrentAnimatorStateInfo(0).shortNameHash, -1, 0.0f);
         }
 
@@ -548,6 +603,8 @@ public class PlayerController : MonoBehaviour
         if (playerCommand.KickKey)
         {
             animator.SetBool("Kick", true);
+            playSEScript.PlayVoice((int)PlaySEScript.VoiceData.ATTACK2);
+            playSEScript.PlaySE((int)PlaySEScript.SEData.ATTACK2);
             state = "SitKick";
         }
 
@@ -658,11 +715,15 @@ public class PlayerController : MonoBehaviour
             if (playerCommand.PunchKey && !animator.GetBool("Punch") && !animator.GetBool("Kick"))
             {
                 //animator.SetBool("Punch", true);
+                playSEScript.PlayVoice((int)PlaySEScript.VoiceData.ATTACK1);
+                playSEScript.PlaySE((int)PlaySEScript.SEData.ATTACK1);
                 animator.SetBool("Punch", true);
             }
             //ジャンプキック
             if (playerCommand.KickKey && !animator.GetBool("Punch") && !animator.GetBool("Kick"))
             {
+                playSEScript.PlayVoice((int)PlaySEScript.VoiceData.ATTACK2);
+                playSEScript.PlaySE((int)PlaySEScript.SEData.ATTACK2);
                 animator.SetBool("Kick", true);
             }
         }
@@ -672,6 +733,8 @@ public class PlayerController : MonoBehaviour
             animator.SetBool("Jump", false);
             ySpeed = 0;
             gameObject.transform.position = new Vector3(gameObject.transform.position.x, 0, 0);
+            Vector3 pos = transform.position;
+            Instantiate(landEffect, pos, Quaternion.identity);
         }
         ySpeed = ySpeed + nowGravity;
         finalMove.y = ySpeed;
@@ -717,6 +780,8 @@ public class PlayerController : MonoBehaviour
         {
             nowGravity = 0;
             state = "Jump";
+            Vector3 pos = transform.position;
+            Instantiate(jumpEffect, pos, Quaternion.identity);
         }
 
         // 移動する向きを求める
@@ -733,12 +798,16 @@ public class PlayerController : MonoBehaviour
         if (playerCommand.PunchKey)
         {
             animator.SetBool("Punch", true);
+            playSEScript.PlayVoice((int)PlaySEScript.VoiceData.ATTACK1);
+            playSEScript.PlaySE((int)PlaySEScript.SEData.ATTACK1);
             state = "Punch";
         }
         //立ち状態時にXを押すとキック
         if (playerCommand.KickKey)
         {
             animator.SetBool("Kick", true);
+                        playSEScript.PlayVoice((int)PlaySEScript.VoiceData.ATTACK2);
+            playSEScript.PlaySE((int)PlaySEScript.SEData.ATTACK2);
             state = "Kick";
         }
 
@@ -803,6 +872,8 @@ public class PlayerController : MonoBehaviour
             state = "Stand";
             Debug.Log("aaaaaa");
             canControll = true;
+            Vector3 pos = transform.position;
+            Instantiate(landEffect, pos, Quaternion.identity);
         }
         ySpeed = ySpeed + nowGravity;
         finalMove.y = ySpeed;
@@ -839,6 +910,8 @@ public class PlayerController : MonoBehaviour
             animator.SetInteger("Special", 0);
             ySpeed = 0;
             gameObject.transform.position = new Vector3(gameObject.transform.position.x, 0, 0);
+            Vector3 pos = transform.position;
+            Instantiate(landEffect, pos, Quaternion.identity);
         }
         ySpeed = ySpeed + nowGravity;
         finalMove.y = ySpeed;
@@ -898,16 +971,34 @@ public class PlayerController : MonoBehaviour
     {
         SpecialMove();
 
+        // 画面の右下を取得
+        Vector3 bottomRight = mainCamera.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, 0.0f));
+        // 上下反転させる
+        bottomRight.Scale(new Vector3(1f, -1f, 1f));
+
+        // 画面の左上を取得
+        Vector3 topLeft = mainCamera.ScreenToWorldPoint(Vector3.zero);
+        // 上下反転させる
+        topLeft.Scale(new Vector3(1f, -1f, 1f));
+
         //最終的な移動
         Vector3 finalPos = finalMove + gameObject.transform.position;
         finalPos.z = 0;
-        if (finalPos.x <= 3.0f && finalPos.x >= -3.0f) gameObject.transform.position = finalPos;
+        if (finalPos.x <= bottomRight.x && finalPos.x >= topLeft.x) gameObject.transform.position = finalPos;
         else gameObject.transform.position = new Vector3(gameObject.transform.position.x, finalPos.y, 0);
 
         if (jumpCount == 0 && state != "JumpingDamage") gameObject.transform.position = new Vector3(gameObject.transform.position.x, 0, 0);
 
         if (gameObject.transform.position.y < 0) gameObject.transform.position = new Vector3(gameObject.transform.position.x, 0, 0);
 
+        if (gameObject.transform.position.x > bottomRight.x)
+        {
+            gameObject.transform.position = new Vector3(bottomRight.x - 0.01f, gameObject.transform.position.y, 0);
+        }
+        if (gameObject.transform.position.x < topLeft.x)
+        {
+            gameObject.transform.position = new Vector3(topLeft.x + 0.01f, gameObject.transform.position.y, 0);
+        }
     }
 
     public void HitDamage(int dmg)
@@ -923,12 +1014,19 @@ public class PlayerController : MonoBehaviour
             damageDir = direction * -1;
 
             guardGaugePoint -= dmg;
+
+            playSEScript.PlayVoice((int)PlaySEScript.VoiceData.GUARD);
+            //guardEffect.SetActive(true);
+            guradEffectCount = 0;
         }
         else
         {
             SpecialMove();
             animator.SetBool("GuardCrash", false);
             animator.SetInteger("Damage", dmg);
+
+
+
             if (jumpCount == 0)
             {
                 state = "Damage";
@@ -942,13 +1040,18 @@ public class PlayerController : MonoBehaviour
             damageTime = dmg / 500 + 15;
             damageDir = direction * -1;
 
-            AudioClip sound;
+            if(dmg > 600)
+            {
+                playSEScript.PlayVoice((int)PlaySEScript.VoiceData.DAMAGE2);
+                playSEScript.PlaySE((int)PlaySEScript.SEData.DAMAGE2);
+            }
+            else
+            {
+                playSEScript.PlayVoice((int)PlaySEScript.VoiceData.DAMAGE2);
+                playSEScript.PlaySE((int)PlaySEScript.SEData.DAMAGE2);
+            }
 
-            sound = lowDmg;
-            if (dmg > 500) sound = midiumDmg;
-            if (dmg > 800) sound = largeDmg;
 
-            audio.PlayOneShot(sound);
         }
 
     }
@@ -960,14 +1063,24 @@ public class PlayerController : MonoBehaviour
     {
         if (state == "Special")
         {
+            // 画面の右下を取得
+            Vector3 bottomRight = mainCamera.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, 0.0f));
+            // 上下反転させる
+            bottomRight.Scale(new Vector3(1f, -1f, 1f));
+
+            // 画面の左上を取得
+            Vector3 topLeft = mainCamera.ScreenToWorldPoint(Vector3.zero);
+            // 上下反転させる
+            topLeft.Scale(new Vector3(1f, -1f, 1f));
+
             Vector3 pos = transform.position;
-            if (gameObject.transform.position.x + transform.GetChild(2).localPosition.z * direction >= 3.0f)
+            if (gameObject.transform.position.x + transform.GetChild(2).localPosition.z * direction >= bottomRight.x)
             {
-                pos.x = 3.0f - transform.GetChild(2).localPosition.z * direction;
+                pos.x = bottomRight.x - transform.GetChild(2).localPosition.z * direction;
             }
-            if (gameObject.transform.position.x + transform.GetChild(2).localPosition.z * direction <= -3.0f)
+            if (gameObject.transform.position.x + transform.GetChild(2).localPosition.z * direction <= topLeft.x)
             {
-                pos.x = -3.0f + transform.GetChild(2).localPosition.z;
+                pos.x = topLeft.x + transform.GetChild(2).localPosition.z;
             }
             transform.position = pos;
         }
@@ -1124,4 +1237,6 @@ public class PlayerController : MonoBehaviour
     public string animState { get { return state; } }
 
     public GameObject GetHadou { get { return playerCommand.HadokenObject; } }
+
+    public bool IsTest { get { return isTest; } }
 }

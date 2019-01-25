@@ -9,367 +9,202 @@ using UnityEngine;
 
 public class EnemyAI : MonoBehaviour
 {
-
+    public enum BEHAVE
+    {
+        wATTACK = 0,
+        sATTACK,
+        swATTACK,
+        ssATTACK,
+        HADOU,
+        SHOURYU,
+        GUARD,
+        sGUARD,
+        WOLK,
+        BACK,
+        DUSH,
+        JUMP,
+        fJUMP,
+        bJUMP
+    }
     private GameObject enemy;
     private float enemyDis = 0.0f;
-    private bool isRigor = false;   //ガード硬直
-    private bool isGap = false;     //後隙
-    private bool isJump = false;
     private int elapsedTime = 0;
     private Animator animator;
     private PlayerController pc;
     private PlayerCommand pcc;
 
+    private AIIntention intention;
+
     [SerializeField, Header("移動系行動の判定間隔")]
     private int judgTime = 20;
-    [SerializeField, Header("移動系行動の割合(％)")]
-    private int neutralProbability = 5;
-    [SerializeField]
-    private int advanceProbability = 50;
-    [SerializeField]
-    private int dashProbability = 10;
-    [SerializeField]
-    private int backProbability = 35;
-    [SerializeField, Header("ジャンプの割合(％)")]
-    private int jumpProbability = 10;
-    [SerializeField, Header("攻撃系行動の判定距離")]
-    private float wStandAttackDis = 0.0f;
-    [SerializeField]
-    private float sStandAttackDis = 0.0f;
-    [SerializeField]
-    private float wSitAttackDis = 0.0f;
-    [SerializeField]
-    private float sSitAttackDis = 0.0f;
-    [SerializeField]
-    private float wJumpAttackDis = 0.0f;
-    [SerializeField]
-    private float sJumpAttackDis = 0.0f;
-    [SerializeField]
-    private float hadouKenDis = 0.0f;
-    [SerializeField]
-    private float shouryuKenDis = 0.0f;
-    [SerializeField]
-    private float shouryuKenHeight = 0.0f;
-    [SerializeField, Header("防御行動をする相手との距離")]
-    private float defendDis = 0.0f;
+    [SerializeField, Header("距離の最大値")]
+    private float maxDis;
+
+    private bool isLearning = new bool();
+    private bool isLearn = true;
 
     // Use this for initialization
     void Start()
     {
-        pc = gameObject.GetComponent<PlayerController>();
-        pcc = gameObject.GetComponent<PlayerCommand>();
-        enemy = pc.fightEnemy;
-        pc.ControllerName = "AI";
-        pcc.controllerName = "AI";
-        animator = GetComponent<Animator>();
+        //pc = gameObject.GetComponent<PlayerController>();
+        //pcc = gameObject.GetComponent<PlayerCommand>();
+        //enemy = pc.fightEnemy;
+        //pc.ControllerName = "AI";
+        //pcc.controllerName = "AI";
+        //animator = GetComponent<Animator>();
     }
 
     public void Initialize()
     {
         pc = gameObject.GetComponent<PlayerController>();
+        pcc = gameObject.GetComponent<PlayerCommand>();
         enemy = pc.fightEnemy;
-        pc.ControllerName = "AI";
-        pcc.controllerName = "AI";
-        //animator = GetComponent<Animator>();
+        if (pcc.ControllerName == "")
+        {
+            pc.ControllerName = "AI";
+            pcc.controllerName = "AI";
+
+            //片方がAIだったら学習しない
+            if (enemy.GetComponent<PlayerCommand>().controllerName == "AI")
+            {
+                isLearn = false;
+            }
+        }
+        else
+        {
+            this.enabled = false;
+        }
+        animator = GetComponent<Animator>();
+
+        intention = GameObject.Find(gameObject.name.Replace("(Clone)", "") + "IntentionObj").GetComponent<AIIntention>();
+
+        intention.Initialize(gameObject, enemy, 3);
+        isLearning = false;
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (!isLearning)
+        {
+            elapsedTime++;
+
+            pc.PunchKey = false;
+            pc.KickKey = false;
+
+            //時間経過でニューラルネットワークによる意思決定を行う
+            if (elapsedTime >= judgTime)
+            {
+                JudgResult("", "");
+                DecideBehavior();
+            }
+
+            if (Input.GetKeyDown(KeyCode.Space) && isLearn) isLearning = intention.Learning(isLearning);
+        }
+        else
+        {
+            isLearning = intention.Learning(isLearning);
+        }
+    }
+
+    /// <summary>
+    /// 行動決定をする
+    /// </summary>
+    private void DecideBehavior()
+    {
         //相手との距離を計算
         enemyDis = gameObject.transform.position.x - enemy.transform.position.x;
         if (enemyDis < 0.0f)
             enemyDis *= -1.0f;
+        enemyDis /= maxDis;
 
-        elapsedTime++;
+        //状況を数値化
+        intention.JudgSituation(enemyDis);
 
-        pc.PunchKey = false;
-        pc.KickKey = false;
-
-        //ガードモーション中は動かない
-        if (pc.State == "StandGuard" || pc.State == "SitGuard")
+        //数値化された状況を基に意思を決定し行動する
+        switch (intention.DecideIntention())
         {
-            isRigor = true;
-        }
-        else
-        {
-            isRigor = false;
-        }
-
-        if (isRigor)
-        {
-            //ガード継続
-        }
-        else if (!isGap)
-        {
-
-            if (Random.Range(0, 2) == 0)
-            {
-                //攻撃系行動の決定
-                if (!ChoiceAttack() && elapsedTime >= judgTime)
-                {
-                    //移動系行動の決定
-                    MoveAI();
-                }
-            }
-            else
-            {
-                //防御行動の決定
-                if (!JudgGuard() && elapsedTime >= judgTime)
-                {
-                    //移動系行動の決定
-                    MoveAI();
-                }
-            }
-        }
-    }
-
-    /// <summary>
-    /// 移動系行動の決定
-    /// </summary>
-    private void MoveAI()
-    {
-        //経過時間を0にする
-        elapsedTime = Random.Range(0, 10);
-
-        int n = Random.Range(0, 100);
-        if (n < neutralProbability)
-        {
-            //待機
-            pc.InputDKey = 5;
-            elapsedTime = 10;
-        }
-        else if (n < neutralProbability + dashProbability)
-        {
-            //ダッシュ
-            pc.InputDKey = 6;
-            pc.State = "Dash";
-            elapsedTime = 10;
-        }
-        else if (n < neutralProbability + dashProbability + advanceProbability)
-        {
-            //前進
-            pc.InputDKey = 6;
-        }
-        else
-        {
-            //後退
-            pc.InputDKey = 4;
-        }
-
-        //ジャンプのT/F判定
-        if (!isJump)
-        {
-            JumpAI();
-        }
-    }
-
-    /// <summary>
-    /// たまにジャンプする
-    /// </summary>
-    private void JumpAI()
-    {
-        if (Random.Range(0, 100) <= 10)
-        {
-            switch (pc.InputDKey)
-            {
-                //後ジャンプ
-                case 4:
-                    pc.InputDKey = 7;
-                    break;
-                //ジャンプ
-                case 5:
-                    pc.InputDKey = 8;
-                    break;
-                case 6:
-                    pc.InputDKey = 9;
-                    //前ジャンプ
-                    break;
-            }
-
-            isJump = true;
-        }
-    }
-
-    /// <summary>
-    /// ガードのT/F判定
-    /// </summary>
-    /// <returns>ガードするかしないか</returns>
-    private bool JudgGuard()
-    {
-        //敵、または敵弾が範囲内にあるならガード
-        if (enemyDis <= defendDis)
-        {
-            //20フレームガード継続
-            //立ちかしゃがみガード
-            if (Random.Range(0, 2) == 0)
-            {
+            case (int)BEHAVE.wATTACK:
+                pc.InputDKey = 5;
+                pcc.PunchKey = true;
+                break;
+            case (int)BEHAVE.sATTACK:
+                pc.InputDKey = 5;
+                pcc.KickKey = true;
+                break;
+            case (int)BEHAVE.swATTACK:
+                pc.InputDKey = 2;
+                pcc.PunchKey = true;
+                break;
+            case (int)BEHAVE.ssATTACK:
+                pc.InputDKey = 2;
+                pcc.KickKey = true;
+                break;
+            case (int)BEHAVE.HADOU:
+                pcc.history.RemoveAt(0);
+                pcc.history.Add("2");
+                pcc.history.RemoveAt(0);
+                pcc.history.Add("3");
+                pcc.history.RemoveAt(0);
+                pcc.history.Add("6");
+                pcc.history.RemoveAt(0);
+                pcc.history.Add("P");
+                break;
+            case (int)BEHAVE.SHOURYU:
+                pcc.history.RemoveAt(0);
+                pcc.history.Add("6");
+                pcc.history.RemoveAt(0);
+                pcc.history.Add("2");
+                pcc.history.RemoveAt(0);
+                pcc.history.Add("3");
+                pcc.history.RemoveAt(0);
+                pcc.history.Add("P");
+                break;
+            case (int)BEHAVE.GUARD:
                 pc.InputDKey = 4;
-            }
-            else
-            {
+                break;
+            case (int)BEHAVE.sGUARD:
                 pc.InputDKey = 1;
-            }
-            elapsedTime = 0;
+                break;
+            case (int)BEHAVE.WOLK:
+                pc.InputDKey = 6;
+                break;
+            case (int)BEHAVE.BACK:
+                pc.InputDKey = 4;
+                break;
+            case (int)BEHAVE.DUSH:
+                pc.InputDKey = 6;
+                pc.State = "Dash";
+                break;
+            case (int)BEHAVE.JUMP:
+                pc.InputDKey = 8;
+                break;
+            case (int)BEHAVE.fJUMP:
+                pc.InputDKey = 9;
+                break;
+            case (int)BEHAVE.bJUMP:
+                pc.InputDKey = 7;
+                break;
+            default:
+                pc.InputDKey = 5;
+                break;
         }
-        return false;
+
+        elapsedTime = 0;
     }
 
     /// <summary>
-    /// 敵との距離によって攻撃する
+    /// 結果の判定
     /// </summary>
-    /// <returns>攻撃するかどうか</returns>
-    private bool ChoiceAttack()
+    /// <param name="result">行動の結果</param>
+    public void JudgResult(string result,string Estate)
     {
-        //ジャンプ攻撃の判定
-        if (isJump)
-        {
-            if (JudgWeekJumpAttack())
-                return true;
-            if (JudgStrongJumpAttack())
-                return true;
-        }
+        //相手との距離を計算
+        enemyDis = gameObject.transform.position.x - enemy.transform.position.x;
+        if (enemyDis < 0.0f)
+            enemyDis *= -1.0f;
+        enemyDis /= maxDis;
 
-        //昇竜の判定
-        if (enemy.transform.position.y >= shouryuKenDis)
-        {
-            if (JudgShouryuKenAttack())
-                return true;
-        }
-
-        //弱攻撃の判定
-        if (Random.Range(0, 2) == 0)
-        {
-            if (JudgWeekStandAttack())
-                return true;
-        }
-        else
-        {
-            if (JudgWeekSitAttack())
-                return true;
-        }
-
-        //強攻撃の判定
-        if (Random.Range(0, 2) == 0)
-        {
-            if (JudgStrongStandAttack())
-                return true;
-        }
-        else
-        {
-            if (JudgStrongSitAttack())
-                return true;
-        }
-
-        //波動拳の判定
-        if (Random.Range(0, 61) == 0)
-        {
-            if (JudgHadouKenAttack())
-                return true;
-        }
-
-        return false;
-    }
-
-    /// <summary>
-    /// 以下、各攻撃の判定
-    /// </summary>
-    /// <returns>攻撃するかしないか</returns>
-    private bool JudgWeekStandAttack()
-    {
-        if (enemyDis < wStandAttackDis)
-        {
-            //立ち弱
-            pc.InputDKey = 5;
-            pc.PunchKey = true;
-            return true;
-        }
-        return false;
-    }
-
-    private bool JudgStrongStandAttack()
-    {
-        if (enemyDis < sStandAttackDis)
-        {
-            //立ち強
-            pc.InputDKey = 5;
-            pc.KickKey = true;
-            return true;
-        }
-        return false;
-    }
-
-    private bool JudgWeekSitAttack()
-    {
-        if (enemyDis < wSitAttackDis)
-        {
-            //しゃがみ弱
-            pc.InputDKey = 2;
-            pc.PunchKey = true;
-            return true;
-        }
-        return false;
-    }
-
-    private bool JudgStrongSitAttack()
-    {
-        if (enemyDis < sSitAttackDis)
-        {
-            //しゃがみ強
-            pc.InputDKey = 2;
-            pc.KickKey = true;
-            return true;
-        }
-        return false;
-    }
-
-    private bool JudgWeekJumpAttack()
-    {
-        if (enemyDis < wJumpAttackDis)
-        {
-            //ジャンプ弱
-            pc.InputDKey = 5;
-            pc.PunchKey = true;
-            return true;
-        }
-        return false;
-    }
-
-    private bool JudgStrongJumpAttack()
-    {
-        if (enemyDis < sJumpAttackDis)
-        {
-            //ジャンプ強
-            pc.InputDKey = 5;
-            pc.KickKey = true;
-            return true;
-        }
-        return false;
-    }
-
-    private bool JudgHadouKenAttack()
-    {
-        if (enemyDis < hadouKenDis)
-        {
-            //波動拳
-            pc.InputDKey = 5;
-            pc.State = "Special";
-            pc.SpecialState = "Hadoken";
-            return true;
-        }
-        return false;
-    }
-
-    private bool JudgShouryuKenAttack()
-    {
-        if (enemyDis < shouryuKenDis)
-        {
-            //昇竜拳
-            pc.InputDKey = 5;
-            pc.State = "Special";
-            pc.SpecialState = "Syoryuken";
-            return true;
-        }
-        return false;
+        intention.CalcTeachData(result, Estate, enemyDis);
     }
 }
