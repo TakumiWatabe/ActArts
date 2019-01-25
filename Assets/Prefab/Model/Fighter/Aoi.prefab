@@ -470,7 +470,6 @@ GameObject:
   - component: {fileID: 114120238791227406}
   - component: {fileID: 114382432537085046}
   - component: {fileID: 114857929599243392}
-  - component: {fileID: 114436659620850306}
   m_Layer: 0
   m_Name: Aoi
   m_TagString: Untagged
@@ -4436,19 +4435,6 @@ MonoBehaviour:
   dmageImage: {fileID: 0}
   maxHP: 10000
   moveHP: 10000
---- !u!114 &114436659620850306
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1227065159806144}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 12f4ade664015f944a59b93aef84dce5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  judgTime: 20
-  maxDis: 9
 --- !u!114 &114437116744383698
 MonoBehaviour:
   m_ObjectHideFlags: 1

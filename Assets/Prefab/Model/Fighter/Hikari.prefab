@@ -1556,6 +1556,7 @@ GameObject:
   - component: {fileID: 114212564515513570}
   - component: {fileID: 114107915232946864}
   - component: {fileID: 114633966085020664}
+  - component: {fileID: 114625120977550426}
   - component: {fileID: 114947729877957152}
   - component: {fileID: 114204416260668544}
   - component: {fileID: 95816794578098388}
@@ -4532,9 +4533,6 @@ MonoBehaviour:
   charName: 
   enemy: {fileID: 0}
   distanceToGuard: 0.7
-  largeDmg: {fileID: 8300000, guid: 400b7139a329b2e49b13ad10b6884ef6, type: 3}
-  midiumDmg: {fileID: 8300000, guid: 04f35937fa3609547bec39e596a72818, type: 3}
-  lowDmg: {fileID: 8300000, guid: cc88295c5ac5bc44a92bdef9ee67ce7c, type: 3}
   canControll: 1
   guardCrashTime: 120
   guardGaugePoint: 5000
@@ -5278,6 +5276,37 @@ MonoBehaviour:
   - {fileID: 114517047909207400}
   - {fileID: 114860198359326494}
   - {fileID: 114259248469384318}
+--- !u!114 &114625120977550426
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1764502871494606}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e86ceffbc4196744a83f32908049442e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attack1: {fileID: 8300000, guid: 57b58ff0cdd408f4ba27755876f239a7, type: 3}
+  attack2: {fileID: 8300000, guid: 5abedd8041dda444db74d5200b3a73e4, type: 3}
+  hadou: {fileID: 0}
+  syoryu: {fileID: 0}
+  damage1: {fileID: 8300000, guid: 7370968bdb148f2498d5ed22598356ea, type: 3}
+  damage2: {fileID: 8300000, guid: 8cc90c8f0bc8a0143b3b1bc5f8c2e07c, type: 3}
+  guard: {fileID: 0}
+  win: {fileID: 0}
+  lose: {fileID: 0}
+  attackVoice1: {fileID: 8300000, guid: 50c19328bb2ef6e42b1df8dbddecfba6, type: 3}
+  attackVoice2: {fileID: 8300000, guid: 99bc6ebc36511d34d8063f031738aea9, type: 3}
+  hadouVoice: {fileID: 8300000, guid: 266a88724a9cf2a4da0aa89c1907d584, type: 3}
+  syoryuVoice: {fileID: 8300000, guid: e507a447625ff51459bc11b70e15d649, type: 3}
+  damageVoice1: {fileID: 8300000, guid: 289d5bfab735e274cb03e805ac28cca2, type: 3}
+  damageVoice2: {fileID: 8300000, guid: 741b2af88e714ed41834f86f827bdbd4, type: 3}
+  guardVoice: {fileID: 8300000, guid: d3c50cf7eadf18b46aec21ee6c2e373a, type: 3}
+  winVoice: {fileID: 8300000, guid: c80f028b15e305946afff676abfc9ace, type: 3}
+  loseVoice: {fileID: 8300000, guid: 72a7a64671245c54298ba2e2bd00d9c9, type: 3}
+  se: []
+  voice: []
 --- !u!114 &114627898650256616
 MonoBehaviour:
   m_ObjectHideFlags: 1
