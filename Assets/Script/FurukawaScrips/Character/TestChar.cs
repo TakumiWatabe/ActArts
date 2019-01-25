@@ -45,7 +45,7 @@ public class TestChar : MonoBehaviour
 
     //のけぞり判定時間
     [SerializeField, Range(1, 60)]
-    private int time = 30;
+    private int time = 5;
     int htime = 0;
 
     //経過時間
