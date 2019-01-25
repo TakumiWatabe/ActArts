@@ -75,11 +75,4 @@ public class GuardBreakScript : MonoBehaviour {
         guard = GScript.MaxGuardVal;
         GScript.NowGuardVal = guard;
     }
-
-    //デバッグ表示
-    void OnGUI()
-    {
-        if(this.tag=="P1")
-        GUI.Label(new Rect(50, 50, 50, 50), GScript.NowGuardVal.ToString());
-    }
 }

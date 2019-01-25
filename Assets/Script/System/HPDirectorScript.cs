@@ -73,6 +73,7 @@ public class HPDirectorScript : MonoBehaviour {
         moveDmage();
     }
 
+    public int MaxHPState { get { return maxHP; } }
     public int NowHPState { get { return nowHP; } }
 
     //ゲージ取得関数

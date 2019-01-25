@@ -43,12 +43,7 @@ public class TestChar : MonoBehaviour {
     private int numID = 0;
 
     //のけぞり判定時間
-    [SerializeField,Range(1,60)]
-    private int time = 30;
     int htime = 0;
-
-    //経過時間
-    private float timecCnt = 0;
 
     private bool hitatk = false;
     private bool guardatk = false;
@@ -59,7 +54,6 @@ public class TestChar : MonoBehaviour {
 
     //技性能
     private HitState hitColSta;
-
 
     void Awake()
     {
@@ -148,18 +142,9 @@ public class TestChar : MonoBehaviour {
             {
                 //react[i].CObj.SetActive(false);
 
-                //のけぞり時間中ならあたり判定しない
-                if (time >= timecCnt)
-                {
-                    timecCnt++;
-                }
-                else if (time < timecCnt)
-                {
-                    //のけぞり時間外になったらあたり判定する
-                    timecCnt = 0;
-                    collID = CEvent.HClid.Count;
-                    react[i].CObj = null;
-                }
+                //のけぞり時間外になったらあたり判定する
+                collID = CEvent.HClid.Count;
+                react[i].CObj = null;
             }
         }
         //エフェクトを止める

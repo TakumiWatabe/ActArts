@@ -8,6 +8,8 @@ public class SceneFade : MonoBehaviour {
 
     //フェードイン/アウトを行う処理
     //イベントシステム
+    [SerializeField]
+    private GameObject eve;
     private EventSystem eveSystem;
 
     [SerializeField]
@@ -30,7 +32,8 @@ public class SceneFade : MonoBehaviour {
     // Use this for initialization
     void Start ()
     {
-        eveSystem = GameObject.FindObjectOfType<EventSystem>();
+        //Object.FindObjectOfTypeは重いので極力使わない
+        eveSystem = eve.GetComponent<EventSystem>();
 
         //フェード用画像の色を取得
         imageCol = fadeImage.color;
@@ -76,8 +79,8 @@ public class SceneFade : MonoBehaviour {
     //値を固定する
     private void lockVal()
     {
-        if (alpha > 1) alpha = 1;
-        if (alpha < 0) alpha = 0;
+        if (alpha > 1 && fadeFlag) alpha = 1;
+        if (alpha < 0 && !fadeFlag) alpha = 0;
     }
 
     //アルファ値取得

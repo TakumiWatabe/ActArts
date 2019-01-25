@@ -4,41 +4,30 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class GameDirector : MonoBehaviour {
-    public const int NONE = 0;
-    public const int PLAYER1_WIN = 1;
-    public const int PLAYER2_WIN = 2;
 
-    //[SerializeField]
+    //キャラクターの初期状態を設定するスクリプト
+
+    //プレイヤー
     GameObject player1;
-    //[SerializeField]
     GameObject player2;
 
+    //HPスクリプト
     HPDirectorScript HP1, HP2;
+    //初期位置
     Vector3 initPos1, initPos2;
 
-    ComboScript comboScript;
+    //ComboScript comboScript;
     GetGameScript gameScript;
-    TextGenerator textScript;
-    SceneManagement sceneManager;
-    [SerializeField]
-    Sprite image;
-    [SerializeField]
-    Sprite AoiImage;
-    [SerializeField]
-    Sprite HikariImage;
-    [SerializeField]
-    Image P1Image;
-    [SerializeField]
-    Image P2Image;
-    [SerializeField]
-    Text P1Name;
-    [SerializeField]
-    Text P2Name;
 
-    float timer;
-    bool hp;
-    // ゲームの状態(0 = ゲーム開始時 , 1 = ゲームプレイ中 , 2 = ゲーム終了)
-    int gameState;
+    [SerializeField]
+    private List<Sprite> playerIcon;
+    [SerializeField]
+    private List<Sprite> names;
+
+    [SerializeField]
+    Image P1Image, P2Image;
+    [SerializeField]
+    Image P1Name, P2Name;
 
     //キャラクター生成オブジェクト
     private GameObject contl;
@@ -48,8 +37,6 @@ public class GameDirector : MonoBehaviour {
     {
         contl = GameObject.Find("FighterComtrol");
         InScript = contl.GetComponent<InstanceScript>();
-
-        gameState = 0;
     }
 
     // Use this for initialization
@@ -62,40 +49,14 @@ public class GameDirector : MonoBehaviour {
             {
                 case "P1":
                     player1 = InScript.Fighter(0);
-                    switch(player1.name)
-                    {
-                        case "Aoi(Clone)":
-                            P1Image.sprite = AoiImage;
-                            P1Name.text = "Aoi";
-                            break;
-                        case "Hikari(Clone)":
-                            P1Image.sprite = HikariImage;
-                            P1Name.text = "Hikari";
-                            break;
-                    }
+                    SetPlayerState(player1.name, P1Image, P1Name, player1);
                     break;
                 case "P2":
                     player2 = InScript.Fighter(1);
-                    switch (player2.name)
-                    {
-                        case "Aoi(Clone)":
-                            P2Image.sprite = AoiImage;
-                            P2Name.text = "Aoi";
-                            break;
-                        case "Hikari(Clone)":
-                            P2Image.sprite = HikariImage;
-                            P2Name.text = "Hikari";
-                            break;
-                    }
-                    break;
-                default:
+                    SetPlayerState(player2.name, P2Image, P2Name, player2);
                     break;
             }
         }
-
-        timer = 0;
-        textScript = GameObject.Find("TextFactory").GetComponent<TextGenerator>();
-        sceneManager = GameObject.Find("SceneManager").GetComponent<SceneManagement>();
 
         HP1 = player1.GetComponent<HPDirectorScript>();
         HP2 = player2.GetComponent<HPDirectorScript>();
@@ -105,81 +66,41 @@ public class GameDirector : MonoBehaviour {
         player1.transform.position = initPos1;
         player2.transform.position = initPos2;
 
-        comboScript = GetComponent<ComboScript>();
+        //comboScript = GetComponent<ComboScript>();
         gameScript = GetComponent<GetGameScript>();
     }
 
-    // Update is called once per frame
-    void Update()
+    public void Initialize()
     {
-        if (textScript.gameState == false && gameScript.GetPlayerWin() == 0)
-        {
-            timer += Time.unscaledDeltaTime;
-            if (timer >= 3.0f)
-            {
-                sceneManager.SceneChange("play");
-            }
-        }
-        if (gameScript.GetPlayerWin() == 1 || gameScript.GetPlayerWin() == 2)
-        {
-            timer += Time.unscaledDeltaTime;
-            if (timer >= 5.0f)
-            {
-                gameScript.ResetGame(gameScript.winImages.sprite);
-                textScript.gameStateNum = 1;
-                sceneManager.SceneChange("title");
-            }
-        }
-        //情報をリセット
-        if (Input.GetKey(KeyCode.R))
-        {
-            HP1.Initialise();
-            HP2.Initialise();
+        HP1.Initialise();
+        HP2.Initialise();
 
-            HP1.HPScale = new Vector3(1, 1, 1);
-            HP1.DamageScale = new Vector3(1, 1, 1);
-            HP2.HPScale = new Vector3(1, 1, 1);
-            HP2.DamageScale = new Vector3(1, 1, 1);
+        HP1.HPScale = new Vector3(1, 1, 1);
+        HP1.DamageScale = new Vector3(1, 1, 1);
+        HP2.HPScale = new Vector3(1, 1, 1);
+        HP2.DamageScale = new Vector3(1, 1, 1);
 
-            player1.transform.position = initPos1;
-            player2.transform.position = initPos2;
+        player1.transform.position = initPos1;
+        player2.transform.position = initPos2;
 
-            comboScript.NoneCombo();
-            gameScript.ResetGame(image);
-        }
-
-    }
-    // 決着が着いた(どちらが勝ったか)
-    public int GameSet()
-    {
-        int setNum = NONE;
-        // Player1のHPが0以下になったら
-        // Player2の勝利
-        if (HP1.NowHPState <= 0)
-        {
-            setNum = PLAYER2_WIN;
-        }
-        // Player2のHPが0以下になったら
-        // Player1の勝利
-        if (HP2.NowHPState <= 0)
-        {
-            setNum = PLAYER1_WIN;
-        }
-        return setNum;
-    }
-    public void GameState(int state)
-    {
-        gameState = state;
-    }
-    public int GetGameState()
-    {
-        return gameState;
-    }
-    public void ResetState()
-    {
-        gameState = 0;
+        //comboScript.NoneCombo();
     }
 
-    public int NowP1HP { get { return HP1.NowHPState; } }
-    public int NowP2HP { get { return HP2.NowHPState; } }
+    //名前とアイコンの設定
+    private void SetPlayerState(string name, Image icon, Image plate,GameObject charcter)
+    {
+        switch(name)
+        {
+            case "Aoi(Clone)":
+                icon.sprite = playerIcon[0];
+                plate.sprite = names[0];
+                charcter.name = "Aoi";
+                break;
+            case "Hikari(Clone)":
+                icon.sprite = playerIcon[1];
+                plate.sprite = names[1];
+                charcter.name = "Hikari";
+                break;
+        }
+    }
 }

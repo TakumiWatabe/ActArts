@@ -40,8 +40,8 @@ public class SceneTransition : MonoBehaviour {
         {
             sys = GameObject.Find("PlayMenuSystemObj").GetComponent<PlayMenuSystem>();
         }
-        Debug.Log("sys:" + sys);
-        Debug.Log("datare:" + datare);
+        //Debug.Log("sys:" + sys);
+        //Debug.Log("datare:" + datare);
         sceneFlagMenu = false;
     }
 

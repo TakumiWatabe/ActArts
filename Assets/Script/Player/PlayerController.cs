@@ -148,13 +148,7 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-
         enemyScript = enemy.GetComponent<PlayerController>();
-        Debug.Log(enemy.tag);
-
-
-        
-
         audio = GetComponent<AudioSource>();
     }
 

@@ -4,10 +4,6 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class GetGameScript : MonoBehaviour {
-    public const int NONE = 0;
-    public const int PLAYER1_WIN = 1;
-    public const int PLAYER2_WIN = 2;
-
     [SerializeField]
     private Image gameFub;
 
@@ -28,7 +24,8 @@ public class GetGameScript : MonoBehaviour {
     [SerializeField]
     int interval = 50;
 
-    TextGenerator textScript;
+    //ゲーム終了判定
+    private FinishScript FScript;
 
     // Use this for initialization
     void Start()
@@ -36,31 +33,29 @@ public class GetGameScript : MonoBehaviour {
         game_P1 = new Image[gameNum];
         game_P2 = new Image[gameNum];
 
-        textScript = GameObject.Find("TextFactory").GetComponent<TextGenerator>();
-
         //ラウンド数設定
         SetGame(game_P1, fubTranse1, interval);
         SetGame(game_P2, fubTranse2, -interval);
+
+        FScript = this.GetComponent<FinishScript>();
     }
 
     // Update is called once per frame
-    void Update ()
+    public void DisplayGame ()
     {
         //Debug.Log(textScript.PauseFlag());
         GetGame(game_P1, wins1);
         GetGame(game_P2, wins2);
         //勝利ラウンド取得
-        switch (textScript.WinChar)
+        switch (FScript.GetCharID)
         {
             case 1:
-                wins2++;
-                GetGame(game_P2, wins2);
-                textScript.WinChar = 0;
-                break;
-            case 2:
                 wins1++;
                 GetGame(game_P1, wins1);
-                textScript.WinChar = 0;
+                break;
+            case 2:
+                wins2++;
+                GetGame(game_P2, wins2);
                 break;
             default:
                 break;
@@ -70,7 +65,7 @@ public class GetGameScript : MonoBehaviour {
     //ラウンド数設定関数
     void SetGame(Image[] games,Vector3 initPos, int interval)
     {
-        RectTransform content = GameObject.Find("Canvas/Content").GetComponent<RectTransform>();
+        RectTransform content = GameObject.Find("PlayCanvas/Content").GetComponent<RectTransform>();
 
         if (gameFub != null)
         {
@@ -106,21 +101,6 @@ public class GetGameScript : MonoBehaviour {
             game_P2[i].sprite = image;
         }
     }
-    public int GetPlayerWin()
-    {
-        int[] wins = { wins1, wins2 };
-        int playerWin = NONE;
-        if (wins[0] >= 2)
-        {
-            playerWin = PLAYER1_WIN;
-        }
-        if (wins[1] >= 2)
-        {
-            playerWin = PLAYER2_WIN;
-        }
-        return playerWin;
-    }
-
 
     public int P1win { get { return wins1; } }
     public int P2win { get { return wins2; } }

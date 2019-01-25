@@ -34,7 +34,6 @@ public class PlayMenu : MonoBehaviour {
     //コントローラーの名前
     private string controllerName = "";
 
-    private float chackVal = 0;
     private bool fade = false;
 
     // Use this for initialization
