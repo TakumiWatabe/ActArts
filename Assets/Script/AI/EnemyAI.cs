@@ -40,9 +40,6 @@ public class EnemyAI : MonoBehaviour
     [SerializeField, Header("距離の最大値")]
     private float maxDis;
 
-    private bool isLearning = new bool();
-    private bool isLearn = true;
-
     // Use this for initialization
     void Start()
     {
@@ -63,12 +60,6 @@ public class EnemyAI : MonoBehaviour
         {
             pc.ControllerName = "AI";
             pcc.controllerName = "AI";
-
-            //片方がAIだったら学習しない
-            if (enemy.GetComponent<PlayerCommand>().controllerName == "AI")
-            {
-                isLearn = false;
-            }
         }
         else
         {
@@ -79,18 +70,11 @@ public class EnemyAI : MonoBehaviour
         intention = GameObject.Find(gameObject.name.Replace("(Clone)", "") + "IntentionObj").GetComponent<AIIntention>();
 
         intention.Initialize(gameObject, enemy, 3);
-        isLearning = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-        //学習中なら学習させる
-        if (isLearning)
-        {
-            isLearning = intention.Learning(isLearning);
-        }
-
         elapsedTime++;
 
         pc.PunchKey = false;
@@ -102,12 +86,7 @@ public class EnemyAI : MonoBehaviour
             JudgResult("", "");
             DecideBehavior();
         }
-
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            if (isLearn && !isLearning) isLearning = intention.Learning(isLearning);
-            else { Debug.Log("学習中"); }
-        }
+        
     }
 
     /// <summary>
@@ -209,5 +188,10 @@ public class EnemyAI : MonoBehaviour
         enemyDis /= maxDis;
 
         intention.CalcTeachData(result, Estate, enemyDis);
+    }
+
+    public bool LearningAI()
+    {
+        return intention.Learning(false);
     }
 }

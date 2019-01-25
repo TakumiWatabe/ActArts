@@ -81,6 +81,14 @@ public class AIIntention : MonoBehaviour {
         }
     }
 
+    void Update()
+    {
+        if(isTrain)
+        {
+            isTrain = Learning(isTrain);
+        }
+    }
+
     /// <summary>
     /// 自身と敵の情報をセットする
     /// </summary>
