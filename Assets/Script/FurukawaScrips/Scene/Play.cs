@@ -84,6 +84,8 @@ public class Play : MonoBehaviour
             //どちらかが2勝したらりざるとへ
             if (GetGame.P1win == 2 || GetGame.P2win == 2)
             {
+                GameObject.Find("AoiIntentionObj").GetComponent<AIIntention>().Learning(false);
+                GameObject.Find("HikariIntentionObj").GetComponent<AIIntention>().Learning(false);
                 SceneManager.LoadScene(SMane.Scenes("Result"));
             }
 

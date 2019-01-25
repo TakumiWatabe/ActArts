@@ -73,11 +73,13 @@ public class AIIntention : MonoBehaviour {
         nn = new NeuralNetwork(xData.Size[1], 8, yData.Size[1],charName);
 
         //学習値のデータがないなら初期学習をする
-        if (!System.IO.File.Exists(filePath))
+        if (!System.IO.File.Exists(filePath) && !isTrain)
         {
             nn.InputData(xData, yData);
             //データを基にトレーニング
             nn.Train(this.epochs, this.learningRate, false);
+
+            nn.SaveLearningData(charName + "/");
         }
     }
 
@@ -331,6 +333,11 @@ public class AIIntention : MonoBehaviour {
     /// </summary>
     public bool Learning(bool isNowTrain)
     {
+        //データが無いなら学習しない
+        if(situationDatas.Size[0] == 0) {
+            return false;
+        }
+
         isTrain = isNowTrain;
 
         if(isNowTrain)
