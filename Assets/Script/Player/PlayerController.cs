@@ -180,15 +180,27 @@ public class PlayerController : MonoBehaviour
         //gameObject.transform.position = new Vector3(gameObject.transform.position.x + speed, 0, 0);
         //Debug.Log(gameObject.name + "update1");
 
-        if(hpDirectorScript.NowHPState <= 0)
+        if(NowHP <= 0 && canControll && transform.position.y == 0)
         {
             finalMove = Vector3.zero;
             playerCommand.HistoryClear();
             animator.SetBool("Down", true);
+            playSEScript.PlayVoice((int)PlaySEScript.VoiceData.LOSE);
             canControll = false;
         }
 
-        SetDirection();
+        if(enemyScript.NowHP <= 0 && NowHP > enemyScript.NowHP && canControll && transform.position.y == 0)
+        {
+            finalMove = Vector3.zero;
+            playerCommand.HistoryClear();
+            animator.SetBool("Win", true);
+            playSEScript.PlayVoice((int)PlaySEScript.VoiceData.WIN);
+            canControll = false;
+        }
+
+        //if (animator.GetInteger("Damage") == 0 && transform.position.y > 0) state = "Jump";
+
+        if(canControll)SetDirection();
 
         string name = playerCommand.controllerName;
 
@@ -248,6 +260,9 @@ public class PlayerController : MonoBehaviour
             case "JumpingDamage":
                 JumpingDamage();
                 break;
+            case "BlowOff":
+                BlowOff();
+                break;
             case "GuardCrash":
                 GuardCrash();
                 break;
@@ -259,6 +274,52 @@ public class PlayerController : MonoBehaviour
         //Debug.Log(gameObject.name + "update");
 
     }
+
+    /// <summary>
+    /// 吹っ飛ぶ
+    /// </summary>
+    private void BlowOff()
+    {
+        //animator.SetBool("Jump", true);
+        animator.SetBool("Jump", true);
+        animator.SetInteger("Damage", 1);
+        jumpCount++;
+
+        //animator.SetInteger("Damage", 0);
+        //ジャンプしているときに地面に触っておらず一定時間経過していたら終了
+        bool jumpEnd = gameObject.transform.position.y <= 0 && jumpCount > jumpTime;
+        if (jumpEnd)
+        {
+            jumpCount = 0;
+            state = "Stand";
+            //freeze = true;
+            //recoveryState = "JumpEnd";
+        }
+        //ジャンプしているときに重力をかける
+        bool jumping = gameObject.transform.position.y >= 0 && state == "BlowOff";
+        if (jumping) nowGravity -= gravity;
+
+        //ジャンプしたときのアニメ、ジャンプする動作
+        if (state == "BlowOff")
+        {
+            //animator.SetBool("Jump", true);
+            ySpeed = jumpSpeed;
+            finalMove.x = walkSpeed * direction * -1;
+        }
+        else
+        {
+            //ジャンプ終わり
+            animator.SetBool("Jump", false);
+            animator.SetInteger("Damage", 0);
+            ySpeed = 0;
+            gameObject.transform.position = new Vector3(gameObject.transform.position.x, 0, 0);
+            Vector3 pos = transform.position;
+            if (canControll) Instantiate(landEffect, pos, Quaternion.identity);
+        }
+        ySpeed = ySpeed + nowGravity;
+        finalMove.y = ySpeed;
+    }
+
 
     /// <summary>
     /// ガークラ
@@ -734,7 +795,7 @@ public class PlayerController : MonoBehaviour
             ySpeed = 0;
             gameObject.transform.position = new Vector3(gameObject.transform.position.x, 0, 0);
             Vector3 pos = transform.position;
-            Instantiate(landEffect, pos, Quaternion.identity);
+            if (canControll) Instantiate(landEffect, pos, Quaternion.identity);
         }
         ySpeed = ySpeed + nowGravity;
         finalMove.y = ySpeed;
@@ -873,7 +934,7 @@ public class PlayerController : MonoBehaviour
             Debug.Log("aaaaaa");
             canControll = true;
             Vector3 pos = transform.position;
-            Instantiate(landEffect, pos, Quaternion.identity);
+            if (canControll) Instantiate(landEffect, pos, Quaternion.identity);
         }
         ySpeed = ySpeed + nowGravity;
         finalMove.y = ySpeed;
@@ -911,7 +972,7 @@ public class PlayerController : MonoBehaviour
             ySpeed = 0;
             gameObject.transform.position = new Vector3(gameObject.transform.position.x, 0, 0);
             Vector3 pos = transform.position;
-            Instantiate(landEffect, pos, Quaternion.identity);
+            if(canControll)Instantiate(landEffect, pos, Quaternion.identity);
         }
         ySpeed = ySpeed + nowGravity;
         finalMove.y = ySpeed;
@@ -969,6 +1030,8 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     void FinallyMove()
     {
+        if (!canControll) return;
+
         SpecialMove();
 
         // 画面の右下を取得
@@ -1025,15 +1088,23 @@ public class PlayerController : MonoBehaviour
             animator.SetBool("GuardCrash", false);
             animator.SetInteger("Damage", dmg);
 
-
-
             if (jumpCount == 0)
             {
                 state = "Damage";
             }
             else
             {
-                state = "JumpingDamage";
+                //state = "JumpingDamage";
+                state = "BlowOff";
+                animator.SetBool("Jump", true);
+                nowGravity = 0;
+            }
+
+            if (dmg > 700)
+            {
+                state = "BlowOff";
+                nowGravity = 0;
+                animator.SetBool("Jump",true);
             }
 
             backDistance = dmg;
@@ -1239,4 +1310,6 @@ public class PlayerController : MonoBehaviour
     public GameObject GetHadou { get { return playerCommand.HadokenObject; } }
 
     public bool IsTest { get { return isTest; } }
+
+    public int NowHP { get { return hpDirectorScript.NowHPState; } }
 }
