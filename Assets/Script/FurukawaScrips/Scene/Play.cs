@@ -22,6 +22,13 @@ public class Play : MonoBehaviour
 
     private SceneMane SMane;
 
+    //プレイヤー
+    private GameObject player1;
+    private GameObject player2;
+
+    private PlayerController PController1P;
+    private PlayerController PController2P;
+
     private int rounds = 0;
     private bool disF = true;
 
@@ -41,6 +48,12 @@ public class Play : MonoBehaviour
         GetGame = this.GetComponent<GetGameScript>();
 
         SMane = this.GetComponent<SceneMane>();
+
+        player1 = GameObject.FindGameObjectWithTag("P1");
+        player2 = GameObject.FindGameObjectWithTag("P2");
+
+        PController1P = player1.GetComponent<PlayerController>();
+        PController2P = player2.GetComponent<PlayerController>();
 
         fade.ImageAlpha = 1;
 	}
@@ -98,6 +111,9 @@ public class Play : MonoBehaviour
                 TimeUp.Initialize();
 
                 Director.Initialize();
+
+                PController1P.Initialize();
+                PController2P.Initialize();
 
                 disF = true;
                 fade.FFlag = false;

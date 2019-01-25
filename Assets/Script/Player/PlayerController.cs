@@ -172,6 +172,50 @@ public class PlayerController : MonoBehaviour
         guradEffectCount = 0;
     }
 
+    public void Initialize()
+    {
+        if (!isTest)
+        {
+            //キャラクター設定
+            switch (this.gameObject.tag)
+            {
+                case "P1":
+                    enemy = InScript.Fighter(1);
+                    playerCommand.Controller = 1;
+                    break;
+                case "P2":
+                    enemy = InScript.Fighter(0);
+                    this.transform.position = new Vector3(1, this.transform.position.y, this.transform.position.z);
+                    playerCommand.Controller = 2;
+
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        playerCommand.Initialize();
+
+        state = "Stand";
+        animator.SetBool("GuardCrash", false);
+        canControll = true;
+        animator.SetInteger("Move", 0);
+        animator.SetInteger("Special", 0);
+        animator.SetBool("Guard", false);
+        animator.SetBool("GuardCrash", false);
+        animator.SetBool("Sit", false);
+        animator.SetBool("Punch", false);
+        animator.SetBool("Kick", false);
+        animator.SetBool("Dash", false);
+        animator.SetBool("Jump", false);
+        animator.SetBool("Win", false);
+        animator.SetBool("Down", false);
+        animator.SetInteger("Damage", 0);
+
+
+        guradEffectCount = 0;
+    }
+
     // Update is called once per frame
     void FixedUpdate()
     {

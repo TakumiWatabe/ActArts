@@ -334,7 +334,7 @@ public class AIIntention : MonoBehaviour {
     public bool Learning(bool isNowTrain)
     {
         //データが無いなら学習しない
-        if(situationDatas.Size[0] == 0) {
+        if(situationDatas.Get().Count == 0 && isNowTrain == false) {
             return false;
         }
 

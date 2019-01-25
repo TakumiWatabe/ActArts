@@ -38,7 +38,7 @@ public class EnemyAI : MonoBehaviour
     [SerializeField, Header("移動系行動の判定間隔")]
     private int judgTime = 20;
     [SerializeField, Header("距離の最大値")]
-    private float maxDis;
+    private float maxDis = 0.9f;
 
     // Use this for initialization
     void Start()

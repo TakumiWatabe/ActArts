@@ -81,9 +81,44 @@ public class PlayerCommand : MonoBehaviour {
 
         controllerName = Input.GetJoystickNames()[controller - 1];
     }
-	
-	// Update is called once per frame
-	void Update () {
+
+    public void Initialize()
+    {
+
+        //入力履歴の設定
+        history.Clear();
+        for (int i = 0; i < commandCount; i++)
+        {
+            history.Add("N");
+        }
+
+        inputHistory.Clear();
+        for (int i = 0; i < numInputHistory; i++)
+        {
+            inputHistory.Add("");
+        }
+
+        inputDKey = 5;
+        inputDKeyOld = inputDKey;
+
+        //キャラクター設定
+        switch (this.gameObject.tag)
+        {
+            case "P1":
+                controller = 1;
+                break;
+            case "P2":
+                controller = 2;
+                break;
+            default:
+                break;
+        }
+
+        //controllerName = Input.GetJoystickNames()[controller - 1];
+    }
+
+    // Update is called once per frame
+    void Update () {
 
         InputCommand();
 
