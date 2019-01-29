@@ -57,6 +57,9 @@ public class AIIntention : MonoBehaviour {
 
     private bool isTrain = false;
 
+    [SerializeField, Header("学習するかしないか")]
+    private bool isLearn = false;
+
     /// <summary>
     /// 初期化
     /// </summary>
@@ -362,6 +365,8 @@ public class AIIntention : MonoBehaviour {
 
         return isTrain;
     }
+
+    public int LearningSpeed { set { nn.LearningSpeed = value; } }
 
     public bool IsTrain { get { return isTrain; } }
 }

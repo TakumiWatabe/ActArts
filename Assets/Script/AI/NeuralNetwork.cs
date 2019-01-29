@@ -27,6 +27,7 @@ public class NeuralNetwork {
     private int totalTrainNum = 0;
     private int maxTrainNum = 2000;
     private int nowTrainNum = 0;
+    private int learnSpeed = 1;
 
     public NeuralNetwork(int inputUnits, int hiddenUnits, int outpuUnits, string folderName)
     {
@@ -70,13 +71,15 @@ public class NeuralNetwork {
             NumYArray db2 = new NumYArray();
 
             totalTrainNum = 0;
-            maxTrainNum = Mathf.RoundToInt(200 / xData.Get().Count);
+            maxTrainNum = Mathf.RoundToInt(100 / xData.Get().Count);
+            if (maxTrainNum <= 0) maxTrainNum = 1;
+            learnSpeed = 1;
         }
 
         nowTrainNum = 0;
 
         //規定回数学習させ、他処理のために途中で抜ける
-        while (nowTrainNum < maxTrainNum)
+        while (nowTrainNum < maxTrainNum * learnSpeed)
         {
             //許容値を超えているか判定する用出力結果
             //Array  a = Predict(xData);
@@ -155,4 +158,11 @@ public class NeuralNetwork {
         this.yData = new NumYArray(yData);
     }
 
+    public int LearningSpeed
+    {
+        set
+        {
+            learnSpeed = value;
+        }
+    }
 }
