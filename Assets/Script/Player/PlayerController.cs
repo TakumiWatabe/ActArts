@@ -315,7 +315,7 @@ public class PlayerController : MonoBehaviour
         FinallyMove();
         CheckGuard();
 
-        //Debug.Log(gameObject.name + "update");
+        if(playerCommand.ControllerName == "AI") Debug.Log(gameObject.name + "STATE:" + state);
 
     }
 
@@ -381,6 +381,7 @@ public class PlayerController : MonoBehaviour
         animator.SetBool("Kick", false);
         animator.SetBool("Dash", false);
         animator.SetInteger("Damage", 0);
+        animator.SetBool("Jump", false);
         if (guardCrashCount > guardCrashTime)
         {
             state = "Stand";
@@ -537,6 +538,7 @@ public class PlayerController : MonoBehaviour
         animator.SetBool("Punch", false);
         animator.SetBool("Kick", false);
         animator.SetBool("Dash", false);
+        animator.SetBool("Jump", false);
         animator.SetInteger("Damage", 0);
 
         //上が押されたらジャンプ
@@ -577,6 +579,7 @@ public class PlayerController : MonoBehaviour
         animator.SetBool("Sit", true);
         animator.SetBool("Punch", false);
         animator.SetBool("Kick", false);
+        animator.SetBool("Jump", false);
         animator.SetInteger("Damage", 0);
         gameObject.transform.position = new Vector3(gameObject.transform.position.x, 0, 0);
         finalMove = new Vector3(0, 0, 0);

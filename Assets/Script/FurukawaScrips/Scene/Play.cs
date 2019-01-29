@@ -21,6 +21,8 @@ public class Play : MonoBehaviour
     private GetGameScript GetGame;
 
     private SceneMane SMane;
+    [SerializeField]
+    private Sprite gameImage;
 
     //プレイヤー
     private GameObject player1;
@@ -94,13 +96,6 @@ public class Play : MonoBehaviour
             fade.FFlag = true;
             fade.FadeIn();
 
-            //どちらかが2勝したらりざるとへ
-            if (GetGame.P1win == 2 || GetGame.P2win == 2)
-            {
-                GameObject.Find("AoiIntentionObj").GetComponent<AIIntention>().Learning(false);
-                GameObject.Find("HikariIntentionObj").GetComponent<AIIntention>().Learning(false);
-                SceneManager.LoadScene(SMane.Scenes("Result"));
-            }
 
             if (fade.ImageAlpha > 1)
             {
@@ -109,7 +104,6 @@ public class Play : MonoBehaviour
                 Finish.Initialize();
                 Winner.Initialize();
                 TimeUp.Initialize();
-
                 Director.Initialize();
 
                 PController1P.Initialize();
@@ -120,6 +114,14 @@ public class Play : MonoBehaviour
                 timer.ResetGameTimer();
                 //ラウンドを進める
                 if (!Finish.GetDraw){ rounds += 1; }
+            //どちらかが2勝したらりざるとへ
+            if (GetGame.P1win == 2 || GetGame.P2win == 2)
+            {
+                GetGame.ResetGame(gameImage);
+                GameObject.Find("AoiIntentionObj").GetComponent<AIIntention>().Learning(false);
+                GameObject.Find("HikariIntentionObj").GetComponent<AIIntention>().Learning(false);
+                SceneManager.LoadScene(SMane.Scenes("Result"));
+            }
             }
         }
     }

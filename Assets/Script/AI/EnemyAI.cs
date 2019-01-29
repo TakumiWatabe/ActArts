@@ -56,14 +56,11 @@ public class EnemyAI : MonoBehaviour
         pc = gameObject.GetComponent<PlayerController>();
         pcc = gameObject.GetComponent<PlayerCommand>();
         enemy = pc.fightEnemy;
-        if (pcc.ControllerName == "")
+        if (GameObject.Find("GameSystem").GetComponent<DataRetention>().Mode == (int)DataRetention.GameMode.PvC &&
+            gameObject.tag == "P2")
         {
             pc.ControllerName = "AI";
             pcc.controllerName = "AI";
-        }
-        else
-        {
-            this.enabled = false;
         }
         animator = GetComponent<Animator>();
 
@@ -103,74 +100,84 @@ public class EnemyAI : MonoBehaviour
         //状況を数値化
         intention.JudgSituation(enemyDis);
 
-        //数値化された状況を基に意思を決定し行動する
-        switch (intention.DecideIntention())
+        //操作ができる状態の時だけ操作する
+        if(pc.CanControll)
         {
-            case (int)BEHAVE.wATTACK:
-                pc.InputDKey = 5;
-                pcc.PunchKey = true;
-                break;
-            case (int)BEHAVE.sATTACK:
-                pc.InputDKey = 5;
-                pcc.KickKey = true;
-                break;
-            case (int)BEHAVE.swATTACK:
-                pc.InputDKey = 2;
-                pcc.PunchKey = true;
-                break;
-            case (int)BEHAVE.ssATTACK:
-                pc.InputDKey = 2;
-                pcc.KickKey = true;
-                break;
-            case (int)BEHAVE.HADOU:
-                pcc.history.RemoveAt(0);
-                pcc.history.Add("2");
-                pcc.history.RemoveAt(0);
-                pcc.history.Add("3");
-                pcc.history.RemoveAt(0);
-                pcc.history.Add("6");
-                pcc.history.RemoveAt(0);
-                pcc.history.Add("P");
-                break;
-            case (int)BEHAVE.SHOURYU:
-                pcc.history.RemoveAt(0);
-                pcc.history.Add("6");
-                pcc.history.RemoveAt(0);
-                pcc.history.Add("2");
-                pcc.history.RemoveAt(0);
-                pcc.history.Add("3");
-                pcc.history.RemoveAt(0);
-                pcc.history.Add("P");
-                break;
-            case (int)BEHAVE.GUARD:
-                pc.InputDKey = 4;
-                break;
-            case (int)BEHAVE.sGUARD:
-                pc.InputDKey = 1;
-                break;
-            case (int)BEHAVE.WOLK:
-                pc.InputDKey = 6;
-                break;
-            case (int)BEHAVE.BACK:
-                pc.InputDKey = 4;
-                break;
-            case (int)BEHAVE.DUSH:
-                pc.InputDKey = 6;
-                pc.State = "Dash";
-                break;
-            case (int)BEHAVE.JUMP:
-                pc.InputDKey = 8;
-                break;
-            case (int)BEHAVE.fJUMP:
-                pc.InputDKey = 9;
-                break;
-            case (int)BEHAVE.bJUMP:
-                pc.InputDKey = 7;
-                break;
-            default:
-                pc.InputDKey = 5;
-                break;
+            //数値化された状況を基に意思を決定し行動する
+            switch (intention.DecideIntention())
+            {
+                case (int)BEHAVE.wATTACK:
+                    pc.InputDKey = 5;
+                    pcc.PunchKey = true;
+                    break;
+                case (int)BEHAVE.sATTACK:
+                    pc.InputDKey = 5;
+                    pcc.KickKey = true;
+                    break;
+                case (int)BEHAVE.swATTACK:
+                    pc.InputDKey = 2;
+                    pcc.PunchKey = true;
+                    break;
+                case (int)BEHAVE.ssATTACK:
+                    pc.InputDKey = 2;
+                    pcc.KickKey = true;
+                    break;
+                case (int)BEHAVE.HADOU:
+                    pcc.history.RemoveAt(0);
+                    pcc.history.Add("2");
+                    pcc.history.RemoveAt(0);
+                    pcc.history.Add("3");
+                    pcc.history.RemoveAt(0);
+                    pcc.history.Add("6");
+                    pcc.history.RemoveAt(0);
+                    pcc.history.Add("P");
+                    break;
+                case (int)BEHAVE.SHOURYU:
+                    pcc.history.RemoveAt(0);
+                    pcc.history.Add("6");
+                    pcc.history.RemoveAt(0);
+                    pcc.history.Add("2");
+                    pcc.history.RemoveAt(0);
+                    pcc.history.Add("3");
+                    pcc.history.RemoveAt(0);
+                    pcc.history.Add("P");
+                    break;
+                case (int)BEHAVE.GUARD:
+                    pc.InputDKey = 4;
+                    break;
+                case (int)BEHAVE.sGUARD:
+                    pc.InputDKey = 1;
+                    break;
+                case (int)BEHAVE.WOLK:
+                    pc.InputDKey = 6;
+                    break;
+                case (int)BEHAVE.BACK:
+                    pc.InputDKey = 4;
+                    break;
+                case (int)BEHAVE.DUSH:
+                    pcc.history.RemoveAt(0);
+                    pcc.history.Add("6");
+                    pcc.history.RemoveAt(0);
+                    pcc.history.Add("5");
+                    pcc.history.RemoveAt(0);
+                    pcc.history.Add("6");
+                    pc.InputDKey = 6;
+                    break;
+                case (int)BEHAVE.JUMP:
+                    pc.InputDKey = 8;
+                    break;
+                case (int)BEHAVE.fJUMP:
+                    pc.InputDKey = 9;
+                    break;
+                case (int)BEHAVE.bJUMP:
+                    pc.InputDKey = 7;
+                    break;
+                default:
+                    pc.InputDKey = 5;
+                    break;
+            }
         }
+
 
         elapsedTime = 0;
     }
