@@ -8,102 +8,95 @@ using System;
 public class PlayerController : MonoBehaviour
 {
     //コマンドのスクリプト
-    PlayerCommand playerCommand;
+    private PlayerCommand playerCommand;
 
-    float speed = 0;
+    private float speed = 0;
     [SerializeField]
-    bool isTest = false;
+    private bool isTest = false;
     //歩くスピード
     [SerializeField]
-    float walkSpeed = 0.03f;
+    private float walkSpeed = 0.03f;
     //走るスピード
     [SerializeField]
-    float dashSpeed = 0.08f;
+    private float dashSpeed = 0.08f;
     //重力
-    float gravity = 0.008f;
+    private float gravity = 0.008f;
     //状態
     [SerializeField]
-    string state = "Stand";
+    private string state = "Stand";
     //必殺技の状態
-    string specialState = "";
+    private string specialState = "";
 
     //ジャンプのスピード
     [SerializeField]
-    float jumpSpeed = 0.15f;
+    private float jumpSpeed = 0.15f;
     //昇竜のスピード
     [SerializeField]
-    float syoryuSpeed = 0.175f;
+    private float syoryuSpeed = 0.175f;
 
     //キャラ分別
     [SerializeField]
-    string charName;
+    private string charName;
 
     //ダメージ受けたときに下がる距離
-    float backDistance = 0;
-    float backingDistance = 0;
-    int damageDir = 0;
+    private float backDistance = 0;
+    private float backingDistance = 0;
+    private int damageDir = 0;
 
-    int damageCount = 0;
-    int damageTime = 0;
+    private int damageCount = 0;
+    private int damageTime = 0;
 
     //向き
-    int direction = 1;
+    private int direction = 1;
     //相手
     [SerializeField]
     private GameObject enemy;
 
     //相手スクリプト
-    PlayerController enemyScript;
+    private PlayerController enemyScript;
 
     //ガードする距離
     public float distanceToGuard = 0.7f;
 
-    //効果音
-    private AudioSource audio;
-
-    public AudioClip largeDmg;
-    public AudioClip midiumDmg;
-    public AudioClip lowDmg;
-
 
     //アニメーター
-    Animator animator;
+    private Animator animator;
 
     //コントローラ操作が可能か
     [SerializeField]
-    bool canControll = true;
+    private bool canControll = true;
 
     //ガードクラッシュ時にひるむ時間
     [SerializeField]
-    int guardCrashTime = 120;
-    int guardCrashCount = 0;
+    private int guardCrashTime = 120;
+    private int guardCrashCount = 0;
 
     //ガードゲージ
     [SerializeField]
-    int guardGaugePoint = 5000;
+    private int guardGaugePoint = 5000;
 
     //波動コマンド成立時に飛び道具を飛ばすか
     [SerializeField]
-    bool isHadouCommandMissile = false;
+    private bool isHadouCommandMissile = false;
 
     //昇竜コマンド成立時にジャンプするか
     [SerializeField]
-    bool isSyoryuCommandJump = false;
+    private bool isSyoryuCommandJump = false;
 
     //最終的な移動距離
     [SerializeField]
-    Vector3 finalMove = new Vector3(0, 0, 0);
+    private Vector3 finalMove = new Vector3(0, 0, 0);
     //ジャンプをしてから地面につかない間
     [SerializeField]
-    int jumpTime = 10;
+    private int jumpTime = 10;
     [SerializeField]
-    int jumpCount = 0;
+    private int jumpCount = 0;
     //縦方向の速度
     [SerializeField]
-    float ySpeed = 0;
+    private float ySpeed = 0;
     //今の重力
     [SerializeField]
-    float nowGravity;
+    private float nowGravity;
 
     //キャラクター生成オブジェクト
     private GameObject contl;
@@ -111,12 +104,31 @@ public class PlayerController : MonoBehaviour
 
     private Camera mainCamera;
 
+    [SerializeField]
+    private GameObject jumpEffect;
+    [SerializeField]
+    private GameObject landEffect;
+    [SerializeField]
+    private GameObject guardEffect;
+    [SerializeField]
+    private GameObject hadouHitEffect;
+
+    [SerializeField]
+    private int guardEffectTime;
+    private int guradEffectCount;
+
+    private PlaySEScript playSEScript;
+
+    private HPDirectorScript hpDirectorScript;
+
     void Awake()
     {
         if (!isTest)
         {
             contl = GameObject.Find("FighterComtrol");
             InScript = contl.GetComponent<InstanceScript>();
+            playSEScript = GetComponent<PlaySEScript>();
+            hpDirectorScript = GetComponent<HPDirectorScript>();
         }
 
     }
@@ -156,9 +168,52 @@ public class PlayerController : MonoBehaviour
         Debug.Log(enemy.tag);
 
         gameObject.GetComponent<EnemyAI>().Initialize();
-        
 
-        audio = GetComponent<AudioSource>();
+        guradEffectCount = 0;
+    }
+
+    public void Initialize()
+    {
+        if (!isTest)
+        {
+            //キャラクター設定
+            switch (this.gameObject.tag)
+            {
+                case "P1":
+                    enemy = InScript.Fighter(1);
+                    playerCommand.Controller = 1;
+                    break;
+                case "P2":
+                    enemy = InScript.Fighter(0);
+                    this.transform.position = new Vector3(1, this.transform.position.y, this.transform.position.z);
+                    playerCommand.Controller = 2;
+
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        playerCommand.Initialize();
+
+        state = "Stand";
+        animator.SetBool("GuardCrash", false);
+        canControll = true;
+        animator.SetInteger("Move", 0);
+        animator.SetInteger("Special", 0);
+        animator.SetBool("Guard", false);
+        animator.SetBool("GuardCrash", false);
+        animator.SetBool("Sit", false);
+        animator.SetBool("Punch", false);
+        animator.SetBool("Kick", false);
+        animator.SetBool("Dash", false);
+        animator.SetBool("Jump", false);
+        animator.SetBool("Win", false);
+        animator.SetBool("Down", false);
+        animator.SetInteger("Damage", 0);
+
+
+        guradEffectCount = 0;
     }
 
     // Update is called once per frame
@@ -169,7 +224,27 @@ public class PlayerController : MonoBehaviour
         //gameObject.transform.position = new Vector3(gameObject.transform.position.x + speed, 0, 0);
         //Debug.Log(gameObject.name + "update1");
 
-        SetDirection();
+        if(NowHP <= 0 && canControll && transform.position.y == 0)
+        {
+            finalMove = Vector3.zero;
+            playerCommand.HistoryClear();
+            animator.SetBool("Down", true);
+            playSEScript.PlayVoice((int)PlaySEScript.VoiceData.LOSE);
+            canControll = false;
+        }
+
+        if(enemyScript.NowHP <= 0 && NowHP > enemyScript.NowHP && canControll && transform.position.y == 0)
+        {
+            finalMove = Vector3.zero;
+            playerCommand.HistoryClear();
+            animator.SetBool("Win", true);
+            playSEScript.PlayVoice((int)PlaySEScript.VoiceData.WIN);
+            canControll = false;
+        }
+
+        //if (animator.GetInteger("Damage") == 0 && transform.position.y > 0) state = "Jump";
+
+        if(canControll)SetDirection();
 
         string name = playerCommand.controllerName;
 
@@ -179,7 +254,7 @@ public class PlayerController : MonoBehaviour
             if (canControll) playerCommand.InputKey();
         }
 
-        if(state != "GuardCrash") guardCrashCount = 0;
+        if (state != "GuardCrash") guardCrashCount = 0;
 
 
         switch (state)
@@ -229,6 +304,9 @@ public class PlayerController : MonoBehaviour
             case "JumpingDamage":
                 JumpingDamage();
                 break;
+            case "BlowOff":
+                BlowOff();
+                break;
             case "GuardCrash":
                 GuardCrash();
                 break;
@@ -240,6 +318,52 @@ public class PlayerController : MonoBehaviour
         //Debug.Log(gameObject.name + "update");
 
     }
+
+    /// <summary>
+    /// 吹っ飛ぶ
+    /// </summary>
+    private void BlowOff()
+    {
+        //animator.SetBool("Jump", true);
+        animator.SetBool("Jump", true);
+        animator.SetInteger("Damage", 1);
+        jumpCount++;
+
+        //animator.SetInteger("Damage", 0);
+        //ジャンプしているときに地面に触っておらず一定時間経過していたら終了
+        bool jumpEnd = gameObject.transform.position.y <= 0 && jumpCount > jumpTime;
+        if (jumpEnd)
+        {
+            jumpCount = 0;
+            state = "Stand";
+            //freeze = true;
+            //recoveryState = "JumpEnd";
+        }
+        //ジャンプしているときに重力をかける
+        bool jumping = gameObject.transform.position.y >= 0 && state == "BlowOff";
+        if (jumping) nowGravity -= gravity;
+
+        //ジャンプしたときのアニメ、ジャンプする動作
+        if (state == "BlowOff")
+        {
+            //animator.SetBool("Jump", true);
+            ySpeed = jumpSpeed;
+            finalMove.x = walkSpeed * direction * -1;
+        }
+        else
+        {
+            //ジャンプ終わり
+            animator.SetBool("Jump", false);
+            animator.SetInteger("Damage", 0);
+            ySpeed = 0;
+            gameObject.transform.position = new Vector3(gameObject.transform.position.x, 0, 0);
+            Vector3 pos = transform.position;
+            if (canControll) Instantiate(landEffect, pos, Quaternion.identity);
+        }
+        ySpeed = ySpeed + nowGravity;
+        finalMove.y = ySpeed;
+    }
+
 
     /// <summary>
     /// ガークラ
@@ -310,6 +434,14 @@ public class PlayerController : MonoBehaviour
 
         speed = 0.0f;
 
+        //playSEScript.PlayVoice((int)PlaySEScript.VoiceData.GUARD);
+
+        guardCrashCount++;
+        if (guradEffectCount > guardEffectTime)
+        {
+            guardEffect.SetActive(false);
+        }
+
         //if (direction == 1) finalMove = new Vector3(-0.075f, 0, 0);
         //else finalMove = new Vector3(0.075f, 0, 0);
 
@@ -325,6 +457,7 @@ public class PlayerController : MonoBehaviour
 
         if (playerCommand.InputDKey == 1) animator.SetBool("StandGuard", false);
 
+
         if (damageCount >= damageTime)
         {
             damageCount = 0;
@@ -332,6 +465,8 @@ public class PlayerController : MonoBehaviour
             state = "Stand";
             Debug.Log("ガガガ戻れたぞ");
             canControll = true;
+            guradEffectCount = 0;
+            guardEffect.SetActive(false);
         }
 
         damageCount++;
@@ -409,6 +544,8 @@ public class PlayerController : MonoBehaviour
         {
             nowGravity = 0;
             state = "Jump";
+            Vector3 pos = transform.position;
+            Instantiate(jumpEffect, pos, Quaternion.identity);
             //animator.SetBool("Jump", true);
         }
 
@@ -416,12 +553,16 @@ public class PlayerController : MonoBehaviour
         if (playerCommand.PunchKey)
         {
             animator.SetBool("Punch", true);
+            playSEScript.PlayVoice((int)PlaySEScript.VoiceData.ATTACK1);
+            playSEScript.PlaySE((int)PlaySEScript.SEData.ATTACK1);
             state = "Punch";
         }
         //立ち状態時にXを押すとキック
         if (playerCommand.KickKey)
         {
             animator.SetBool("Kick", true);
+            playSEScript.PlayVoice((int)PlaySEScript.VoiceData.ATTACK2);
+            playSEScript.PlaySE((int)PlaySEScript.SEData.ATTACK2);
             state = "Kick";
         }
 
@@ -466,12 +607,16 @@ public class PlayerController : MonoBehaviour
         if (playerCommand.PunchKey)
         {
             animator.SetBool("Punch", true);
+            playSEScript.PlayVoice((int)PlaySEScript.VoiceData.ATTACK1);
+            playSEScript.PlaySE((int)PlaySEScript.SEData.ATTACK1);
             state = "SitPunch";
         }
         //しゃがみ状態時にXを押すとキック
         if (playerCommand.KickKey)
         {
             animator.SetBool("Kick", true);
+            playSEScript.PlayVoice((int)PlaySEScript.VoiceData.ATTACK2);
+            playSEScript.PlaySE((int)PlaySEScript.SEData.ATTACK2);
             state = "SitKick";
         }
     }
@@ -516,6 +661,8 @@ public class PlayerController : MonoBehaviour
         if (animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.5f && (playerCommand.PunchKey))
         {
             animator.SetBool("Punch", true);
+            playSEScript.PlayVoice((int)PlaySEScript.VoiceData.ATTACK1);
+            playSEScript.PlaySE((int)PlaySEScript.SEData.ATTACK1);
             state = "Punch";
             animator.Play(animator.GetCurrentAnimatorStateInfo(0).shortNameHash, -1, 0.0f);
         }
@@ -524,6 +671,8 @@ public class PlayerController : MonoBehaviour
         if (playerCommand.KickKey)
         {
             animator.SetBool("Kick", true);
+            playSEScript.PlayVoice((int)PlaySEScript.VoiceData.ATTACK2);
+            playSEScript.PlaySE((int)PlaySEScript.SEData.ATTACK2);
             state = "Kick";
         }
 
@@ -550,6 +699,8 @@ public class PlayerController : MonoBehaviour
         {
             animator.SetBool("Punch", true);
             state = "SitPunch";
+            playSEScript.PlayVoice((int)PlaySEScript.VoiceData.ATTACK1);
+            playSEScript.PlaySE((int)PlaySEScript.SEData.ATTACK1);
             animator.Play(animator.GetCurrentAnimatorStateInfo(0).shortNameHash, -1, 0.0f);
         }
 
@@ -557,6 +708,8 @@ public class PlayerController : MonoBehaviour
         if (playerCommand.KickKey)
         {
             animator.SetBool("Kick", true);
+            playSEScript.PlayVoice((int)PlaySEScript.VoiceData.ATTACK2);
+            playSEScript.PlaySE((int)PlaySEScript.SEData.ATTACK2);
             state = "SitKick";
         }
 
@@ -667,11 +820,15 @@ public class PlayerController : MonoBehaviour
             if (playerCommand.PunchKey && !animator.GetBool("Punch") && !animator.GetBool("Kick"))
             {
                 //animator.SetBool("Punch", true);
+                playSEScript.PlayVoice((int)PlaySEScript.VoiceData.ATTACK1);
+                playSEScript.PlaySE((int)PlaySEScript.SEData.ATTACK1);
                 animator.SetBool("Punch", true);
             }
             //ジャンプキック
             if (playerCommand.KickKey && !animator.GetBool("Punch") && !animator.GetBool("Kick"))
             {
+                playSEScript.PlayVoice((int)PlaySEScript.VoiceData.ATTACK2);
+                playSEScript.PlaySE((int)PlaySEScript.SEData.ATTACK2);
                 animator.SetBool("Kick", true);
             }
         }
@@ -681,6 +838,8 @@ public class PlayerController : MonoBehaviour
             animator.SetBool("Jump", false);
             ySpeed = 0;
             gameObject.transform.position = new Vector3(gameObject.transform.position.x, 0, 0);
+            Vector3 pos = transform.position;
+            if (canControll) Instantiate(landEffect, pos, Quaternion.identity);
         }
         ySpeed = ySpeed + nowGravity;
         finalMove.y = ySpeed;
@@ -726,6 +885,8 @@ public class PlayerController : MonoBehaviour
         {
             nowGravity = 0;
             state = "Jump";
+            Vector3 pos = transform.position;
+            Instantiate(jumpEffect, pos, Quaternion.identity);
         }
 
         // 移動する向きを求める
@@ -742,12 +903,16 @@ public class PlayerController : MonoBehaviour
         if (playerCommand.PunchKey)
         {
             animator.SetBool("Punch", true);
+            playSEScript.PlayVoice((int)PlaySEScript.VoiceData.ATTACK1);
+            playSEScript.PlaySE((int)PlaySEScript.SEData.ATTACK1);
             state = "Punch";
         }
         //立ち状態時にXを押すとキック
         if (playerCommand.KickKey)
         {
             animator.SetBool("Kick", true);
+                        playSEScript.PlayVoice((int)PlaySEScript.VoiceData.ATTACK2);
+            playSEScript.PlaySE((int)PlaySEScript.SEData.ATTACK2);
             state = "Kick";
         }
 
@@ -812,6 +977,8 @@ public class PlayerController : MonoBehaviour
             state = "Stand";
             Debug.Log("aaaaaa");
             canControll = true;
+            Vector3 pos = transform.position;
+            if (canControll) Instantiate(landEffect, pos, Quaternion.identity);
         }
         ySpeed = ySpeed + nowGravity;
         finalMove.y = ySpeed;
@@ -848,6 +1015,8 @@ public class PlayerController : MonoBehaviour
             animator.SetInteger("Special", 0);
             ySpeed = 0;
             gameObject.transform.position = new Vector3(gameObject.transform.position.x, 0, 0);
+            Vector3 pos = transform.position;
+            if(canControll)Instantiate(landEffect, pos, Quaternion.identity);
         }
         ySpeed = ySpeed + nowGravity;
         finalMove.y = ySpeed;
@@ -905,6 +1074,8 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     void FinallyMove()
     {
+        if (!canControll) return;
+
         SpecialMove();
 
         // 画面の右下を取得
@@ -927,8 +1098,14 @@ public class PlayerController : MonoBehaviour
 
         if (gameObject.transform.position.y < 0) gameObject.transform.position = new Vector3(gameObject.transform.position.x, 0, 0);
 
-        if (gameObject.transform.position.x > bottomRight.x) gameObject.transform.position = new Vector3(bottomRight.x - 0.01f, gameObject.transform.position.y, 0);
-        if (gameObject.transform.position.x < topLeft.x) gameObject.transform.position = new Vector3(topLeft.x + 0.01f, gameObject.transform.position.y, 0);
+        if (gameObject.transform.position.x > bottomRight.x)
+        {
+            gameObject.transform.position = new Vector3(bottomRight.x - 0.01f, gameObject.transform.position.y, 0);
+        }
+        if (gameObject.transform.position.x < topLeft.x)
+        {
+            gameObject.transform.position = new Vector3(topLeft.x + 0.01f, gameObject.transform.position.y, 0);
+        }
     }
 
     public void HitDamage(int dmg)
@@ -944,32 +1121,52 @@ public class PlayerController : MonoBehaviour
             damageDir = direction * -1;
 
             guardGaugePoint -= dmg;
+
+            playSEScript.PlayVoice((int)PlaySEScript.VoiceData.GUARD);
+            //guardEffect.SetActive(true);
+            guradEffectCount = 0;
         }
         else
         {
             SpecialMove();
             animator.SetBool("GuardCrash", false);
             animator.SetInteger("Damage", dmg);
+
             if (jumpCount == 0)
             {
                 state = "Damage";
             }
             else
             {
-                state = "JumpingDamage";
+                //state = "JumpingDamage";
+                state = "BlowOff";
+                animator.SetBool("Jump", true);
+                nowGravity = 0;
+            }
+
+            if (dmg > 700)
+            {
+                state = "BlowOff";
+                nowGravity = 0;
+                animator.SetBool("Jump",true);
             }
 
             backDistance = dmg;
             damageTime = dmg / 500 + 15;
             damageDir = direction * -1;
 
-            AudioClip sound;
+            if(dmg > 600)
+            {
+                playSEScript.PlayVoice((int)PlaySEScript.VoiceData.DAMAGE2);
+                playSEScript.PlaySE((int)PlaySEScript.SEData.DAMAGE2);
+            }
+            else
+            {
+                playSEScript.PlayVoice((int)PlaySEScript.VoiceData.DAMAGE2);
+                playSEScript.PlaySE((int)PlaySEScript.SEData.DAMAGE2);
+            }
 
-            sound = lowDmg;
-            if (dmg > 500) sound = midiumDmg;
-            if (dmg > 800) sound = largeDmg;
 
-            audio.PlayOneShot(sound);
         }
 
     }
@@ -992,13 +1189,13 @@ public class PlayerController : MonoBehaviour
             topLeft.Scale(new Vector3(1f, -1f, 1f));
 
             Vector3 pos = transform.position;
-            if (gameObject.transform.position.x + transform.GetChild(2).localPosition.z * direction >= 3.0f)
+            if (gameObject.transform.position.x + transform.GetChild(2).localPosition.z * direction >= bottomRight.x)
             {
-                pos.x = topLeft.x - transform.GetChild(2).localPosition.z * direction;
+                pos.x = bottomRight.x - transform.GetChild(2).localPosition.z * direction;
             }
-            if (gameObject.transform.position.x + transform.GetChild(2).localPosition.z * direction <= -3.0f)
+            if (gameObject.transform.position.x + transform.GetChild(2).localPosition.z * direction <= topLeft.x)
             {
-                pos.x = bottomRight.x + transform.GetChild(2).localPosition.z;
+                pos.x = topLeft.x + transform.GetChild(2).localPosition.z;
             }
             transform.position = pos;
         }
@@ -1155,4 +1352,8 @@ public class PlayerController : MonoBehaviour
     public string animState { get { return state; } }
 
     public GameObject GetHadou { get { return playerCommand.HadokenObject; } }
+
+    public bool IsTest { get { return isTest; } }
+
+    public int NowHP { get { return hpDirectorScript.NowHPState; } }
 }

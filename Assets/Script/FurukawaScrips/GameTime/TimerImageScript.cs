@@ -18,7 +18,6 @@ public class TimerImageScript : MonoBehaviour {
 	void Start ()
     {
         TScript = this.GetComponent<TimerScript>();
-        TScript.SwithGameTimer();
 
         limitTime = (int)TScript.GetGameTimer();
         nowTime = limitTime;

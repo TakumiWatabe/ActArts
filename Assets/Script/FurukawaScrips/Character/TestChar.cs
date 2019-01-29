@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TestChar : MonoBehaviour {
+public class TestChar : MonoBehaviour
+{
 
     //攻撃ヒット時処理スクリプト
 
@@ -15,7 +16,7 @@ public class TestChar : MonoBehaviour {
         public float comboCorr;
         public int atkLev;
         public int blockStun;
-        public int hitStun; 
+        public int hitStun;
     };
 
     //敵取得用
@@ -43,8 +44,8 @@ public class TestChar : MonoBehaviour {
     private int numID = 0;
 
     //のけぞり判定時間
-    [SerializeField,Range(1,60)]
-    private int time = 30;
+    [SerializeField, Range(1, 60)]
+    private int time = 5;
     int htime = 0;
 
     //経過時間
@@ -60,6 +61,15 @@ public class TestChar : MonoBehaviour {
     //技性能
     private HitState hitColSta;
 
+    //搭載されているAI君
+    EnemyAI AI;
+
+    //ガードのエフェクト
+    [SerializeField]
+    private GameObject guardEffect;
+    //波動が当たったときのエフェクト
+    [SerializeField]
+    private GameObject explodeHadouEffect;
 
     void Awake()
     {
@@ -85,6 +95,8 @@ public class TestChar : MonoBehaviour {
             col.Add(CEvent.HClid[i]);
             react.Add(col[i].GetComponent<ColliderReact>());
         }
+
+        AI = gameObject.GetComponent<EnemyAI>();
     }
 
     // Update is called once per frame
@@ -125,15 +137,37 @@ public class TestChar : MonoBehaviour {
                 {
                     //ダメージ分ガードゲージを減らす
                     GScript.hitGuard(ASScriptEne.Damage((int)CEventEne.GetType));
+                    Vector3 effectPos = transform.position;
+                    effectPos.y += 1.0f;
+                    Instantiate(guardEffect, effectPos, Quaternion.identity);
+                    if (Pcont.ControllerName == "AI")
+                    {
+                        AI.JudgResult("Guard", "");
+                    }
+                    else if (Pcont.fightEnemy.GetComponent<PlayerController>().ControllerName == "AI")
+                    {
+                        AI.JudgResult("WasGuarded", Pcont.State);
+                    }
                 }
                 else
                 {
+                    //エフェクト発生
+                    SEScript.appearEffe(ASScriptEne.AtkLev((int)CEventEne.GetType), react[i].point);
                     //ダメージ分HPゲージを減らす
                     HPDir.hitDmage(ASScriptEne.Damage((int)CEventEne.GetType));
                     Pcont.HitDamage(ASScriptEne.Damage((int)CEventEne.GetType));
-                    //エフェクト発生
-                    SEScript.appearEffe(ASScriptEne.AtkLev((int)CEventEne.GetType), react[i].point);
+                    if (Pcont.ControllerName == "AI")
+                    {
+                        AI.JudgResult("Damage", Pcont.fightEnemy.GetComponent<PlayerController>().State);
+                    }
+                    else if (Pcont.fightEnemy.GetComponent<PlayerController>().ControllerName == "AI")
+                    {
+                        AI.JudgResult("Damaged", "");
+                    }
+
                 }
+
+
                 //攻撃を食らったあたり判定のIDを取得
                 collID = i;
                 //飛び道具消失
@@ -141,6 +175,7 @@ public class TestChar : MonoBehaviour {
 
                 //受けた攻撃のステータス
                 CreateArtsSatet(ASScriptEne, (int)CEventEne.GetType);
+
             }
 
             //攻撃を食らっているなら
@@ -172,6 +207,8 @@ public class TestChar : MonoBehaviour {
         //攻撃判定が飛び道具なら
         if (CEventEne.GetType == ValueScript.AtkVal.HADOUKEN)
         {
+            Instantiate(explodeHadouEffect, transform.position, Quaternion.identity);
+
             //飛び道具を消す
             Debug.Log(Pcont.fightEnemy.GetComponent<PlayerController>().GetHadou.name);
             Destroy(Pcont.fightEnemy.GetComponent<PlayerController>().GetHadou);
@@ -202,7 +239,7 @@ public class TestChar : MonoBehaviour {
     }
 
     //攻撃時の性能を取得
-    private void CreateArtsSatet(ArtsStateScript arts,int type)
+    private void CreateArtsSatet(ArtsStateScript arts, int type)
     {
         hitColSta.damage = arts.Damage(type);
         hitColSta.attri = arts.Attri(type);

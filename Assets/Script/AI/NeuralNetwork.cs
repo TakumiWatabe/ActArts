@@ -9,6 +9,25 @@ public class NeuralNetwork {
     private NumYArray w2 = new NumYArray();
     private NumYArray b2 = new NumYArray();
 
+    private NumYArray layerZ1 = new NumYArray();
+    private NumYArray layerA1 = new NumYArray();
+    private NumYArray layerZ2 = new NumYArray();
+    private NumYArray layerA2 = new NumYArray();
+
+    private NumYArray dlayerZ1 = new NumYArray();
+    private NumYArray dlayerZ2 = new NumYArray();
+    private NumYArray dw1 = new NumYArray();
+    private NumYArray db1 = new NumYArray();
+    private NumYArray dw2 = new NumYArray();
+    private NumYArray db2 = new NumYArray();
+
+    private NumYArray xData = new NumYArray();
+    private NumYArray yData = new NumYArray();
+
+    private int totalTrainNum = 0;
+    private int maxTrainNum = 2000;
+    private int nowTrainNum = 0;
+
     public NeuralNetwork(int inputUnits, int hiddenUnits, int outpuUnits, string folderName)
     {
         //学習値のデータがあるならそこから読み込む
@@ -31,26 +50,33 @@ public class NeuralNetwork {
     /// <summary>
     /// 入力されたデータを元にトレーニング
     /// </summary>
-    /// <param name="xData">状況データ</param>
-    /// <param name="yData">教師データ</param>
     /// <param name="epochs">トレーニング回数</param>
     /// <param name="learningRate">学習率</param>
     /// <returns></returns>
-    public NumYArray Train(NumYArray xData, NumYArray yData,int epochs,float learningRate)
+    public bool Train(int epochs,float learningRate, bool isTrainNow)
     {
-        NumYArray layerZ1 = new NumYArray();
-        NumYArray layerA1 = new NumYArray();
-        NumYArray layerZ2 = new NumYArray();
-        NumYArray layerA2 = new NumYArray();
+        if (!isTrainNow)
+        {
+            NumYArray layerZ1 = new NumYArray();
+            NumYArray layerA1 = new NumYArray();
+            NumYArray layerZ2 = new NumYArray();
+            NumYArray layerA2 = new NumYArray();
 
-        NumYArray dlayerZ1 = new NumYArray();
-        NumYArray dlayerZ2 = new NumYArray();
-        NumYArray dw1 = new NumYArray();
-        NumYArray db1 = new NumYArray();
-        NumYArray dw2 = new NumYArray();
-        NumYArray db2 = new NumYArray();
+            NumYArray dlayerZ1 = new NumYArray();
+            NumYArray dlayerZ2 = new NumYArray();
+            NumYArray dw1 = new NumYArray();
+            NumYArray db1 = new NumYArray();
+            NumYArray dw2 = new NumYArray();
+            NumYArray db2 = new NumYArray();
 
-        for (int i = 0; i < epochs; i++)
+            totalTrainNum = 0;
+            maxTrainNum = Mathf.RoundToInt(200 / xData.Get().Count);
+        }
+
+        nowTrainNum = 0;
+
+        //規定回数学習させ、他処理のために途中で抜ける
+        while (nowTrainNum < maxTrainNum)
         {
             //許容値を超えているか判定する用出力結果
             //Array  a = Predict(xData);
@@ -77,10 +103,22 @@ public class NeuralNetwork {
             b2 -= learningRate * db2;
             w1 -= learningRate * dw1;
             b1 -= learningRate * db1;
+
+            nowTrainNum++;
+            totalTrainNum++;
+
+            if (totalTrainNum >= epochs)
+            {
+                this.xData = new NumYArray();
+                this.yData = new NumYArray();
+                totalTrainNum = 0;
+                nowTrainNum = 0;
+                return false;
+            }
         }
 
-        NumYArray returnArray = new NumYArray(layerA2);
-        return returnArray;
+        nowTrainNum = 0;
+        return true;
     }
 
     /// <summary>
@@ -109,6 +147,12 @@ public class NeuralNetwork {
         NeuralSaveCSV.SaveCSVData(this.b1, folderName + "LearningDataCSVb1");
         NeuralSaveCSV.SaveCSVData(this.w2, folderName + "LearningDataCSVw2");
         NeuralSaveCSV.SaveCSVData(this.b2, folderName + "LearningDataCSVb2");
+    }
+
+    public void InputData(NumYArray xData, NumYArray yData)
+    {
+        this.xData = new NumYArray(xData);
+        this.yData = new NumYArray(yData);
     }
 
 }

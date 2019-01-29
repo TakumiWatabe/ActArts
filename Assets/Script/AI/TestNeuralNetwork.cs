@@ -23,8 +23,13 @@ public class TestNeuralNetwork : MonoBehaviour {
         //時間計測
         float startTime = Time.realtimeSinceStartup;
 
+        bool a = false;
+
+        nn.InputData(xData, yData);
+        a = nn.Train(epochs, learningRate, a);
         //データを基にトレーニング
-        nn.Train(xData, yData, epochs, learningRate);
+        while (a)
+            a = nn.Train(epochs, learningRate, a);
 
         float endTime = Time.realtimeSinceStartup;
         //トレーニング時間の表示

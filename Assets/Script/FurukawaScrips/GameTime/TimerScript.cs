@@ -5,13 +5,9 @@ using UnityEngine.UI;
 
 public class TimerScript : MonoBehaviour
 {
-    [SerializeField]
-    private GameObject BattleText;
-
-    private float fps = 0;
+    [SerializeField, Range(1, 99)]
     private float gameTimer = 99;
     private float timer = 0;
-    //private Text text;
 
     bool stopFlag = false;
 
@@ -19,7 +15,7 @@ public class TimerScript : MonoBehaviour
 	// Use this for initialization
 	void Start ()
     {
-        //text = GetComponent<Text>();
+
 	}
 
     // Update is called once per frame
@@ -28,21 +24,13 @@ public class TimerScript : MonoBehaviour
         // ゲーム内の時間制限用タイマー
         timer += Time.unscaledDeltaTime;
 
-
-        // ゲームが始まっていたら
-        if (stopFlag && BattleText.activeSelf == false)
+        // ゲームが始まったら
+        if (stopFlag)
         {
-            fps += Time.unscaledDeltaTime;
-            // 制限時間が0でなければ
-            if (fps >= 60)
+            gameTimer -= Time.deltaTime;
+            if (gameTimer <= 0)
             {
-                fps = 0;
-                // 制限時間を減少
-                gameTimer--;;
-            }
-            else if (gameTimer <= 0)
-            {
-                gameTimer = 99;
+                gameTimer = 0;
                 endFlag = true;
             }
         }
@@ -66,10 +54,7 @@ public class TimerScript : MonoBehaviour
         endFlag = false;
     }
     // 制限時間を減らすかどうかの判断
-    public void SwithGameTimer()
-    {
-        stopFlag = !stopFlag;
-    }
+    public bool SwithGameTimer { set { stopFlag = value; } }
 
     public bool fightEnd { get { return endFlag; } }
 }

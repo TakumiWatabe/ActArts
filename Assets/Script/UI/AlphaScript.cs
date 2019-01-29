@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class AlphaScript : MonoBehaviour {
-    public Text Qtext;
+    public Image Qtext;
     float a_color;
     bool flag_G;
     // Use this for initialization
@@ -19,7 +19,7 @@ public class AlphaScript : MonoBehaviour {
         if (SceneManager.GetActiveScene().name == "TitleScene")
         {
             //テキストの透明度を変更する
-            Qtext.color = new Color(0, 0, 0, a_color);
+            Qtext.color = new Color(1, 1, 1, a_color);
             if (flag_G)
                 a_color -= Time.deltaTime;
             else

@@ -148,7 +148,6 @@ public class MovePvPIcon : MonoBehaviour {
                     {
                         controlFlag2P = true;
                     }
-
                 }
 
                 //　移動キーを押していなければ何もしない

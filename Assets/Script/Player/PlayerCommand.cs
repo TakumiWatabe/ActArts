@@ -42,8 +42,11 @@ public class PlayerCommand : MonoBehaviour {
 
     int specialDirection;
 
+    private PlaySEScript playSEScript;
+
     // Use this for initialization
     void Start () {
+        playSEScript = GetComponent<PlaySEScript>();
         playerController = GetComponent<PlayerController>();
         animator = GetComponent<Animator>();
 
@@ -78,9 +81,44 @@ public class PlayerCommand : MonoBehaviour {
 
         controllerName = Input.GetJoystickNames()[controller - 1];
     }
-	
-	// Update is called once per frame
-	void Update () {
+
+    public void Initialize()
+    {
+
+        //入力履歴の設定
+        history.Clear();
+        for (int i = 0; i < commandCount; i++)
+        {
+            history.Add("N");
+        }
+
+        inputHistory.Clear();
+        for (int i = 0; i < numInputHistory; i++)
+        {
+            inputHistory.Add("");
+        }
+
+        inputDKey = 5;
+        inputDKeyOld = inputDKey;
+
+        //キャラクター設定
+        switch (this.gameObject.tag)
+        {
+            case "P1":
+                controller = 1;
+                break;
+            case "P2":
+                controller = 2;
+                break;
+            default:
+                break;
+        }
+
+        //controllerName = Input.GetJoystickNames()[controller - 1];
+    }
+
+    // Update is called once per frame
+    void Update () {
 
         InputCommand();
 
@@ -316,19 +354,18 @@ public class PlayerCommand : MonoBehaviour {
                     {
                         if (playerController.State != "Jump" && playerController.State != "Special")
                         {
+                            playSEScript.PlayVoice((int)PlaySEScript.VoiceData.HADOU);
                             playerController.SpecialState = "Hadoken";
                             playerController.State = "Special";
                             specialDirection = playerController.Direction;
                             //startSpecialPos = transform.position;
-                            history.Clear();
-                            for (int j = 0; j < commandCount; j++)
-                            {
-                                history.Add("");
-                            }
+                            HistoryClear();
 
                             if (playerController.IsHadouCommandMissile)
                             {
-                                GameObject hado = Instantiate(hadokenObject, transform.position, Quaternion.identity);
+                                Vector3 hadoPos = transform.position;
+                                hadoPos.y += 0.5f;
+                                GameObject hado = Instantiate(hadokenObject, hadoPos, Quaternion.identity);
                                 //GameObject hado = Instantiate(hadokenObject, GetComponent<ColliderEvent>().GetHitBoxs[9].center + this.transform.parent.transform.position, Quaternion.identity);
                                 if (playerController.Direction == 1) hado.transform.Rotate(0, 0, 0);
                                 else hado.transform.Rotate(0, 180, 0);
@@ -373,14 +410,11 @@ public class PlayerCommand : MonoBehaviour {
                     {
                         if (playerController.State != "Jump" && playerController.State != "Special")
                         {
+                            playSEScript.PlayVoice((int)PlaySEScript.VoiceData.SYORYU);
                             playerController.SpecialState = "Syoryuken";
                             playerController.State = "Special";
                             specialDirection = playerController.Direction;
-                            history.Clear();
-                            for (int j = 0; j < commandCount; j++)
-                            {
-                                history.Add("");
-                            }
+                            HistoryClear();
                             Debug.Log("昇龍拳");
                             playerController.SetDirection();
                             playerController.NowGravity = 0.0f;
@@ -434,11 +468,7 @@ public class PlayerCommand : MonoBehaviour {
 
                             playerController.SpecialState = setSpecialState;
                             playerController.State = "Special";
-                            history.Clear();
-                            for (int j = 0; j < commandCount; j++)
-                            {
-                                history.Add("");
-                            }
+                            HistoryClear();
                             Debug.Log(setSpecialState);
                             //nowGravity = 0;
                         }
@@ -474,18 +504,23 @@ public class PlayerCommand : MonoBehaviour {
                         //if (state != "Jump")
                         {
                             playerController.State = "Dash";
-                            history.Clear();
-                            for (int j = 0; j < commandCount; j++)
-                            {
-                                history.Add("");
-                            }
-
+                            HistoryClear();
                         }
                         break;
                     }
                 }
             }
             return;
+        }
+    }
+
+
+    public void HistoryClear()
+    {
+        history.Clear();
+        for (int i = 0; i < commandCount; i++)
+        {
+            history.Add("");
         }
     }
 
