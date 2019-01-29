@@ -56,14 +56,11 @@ public class EnemyAI : MonoBehaviour
         pc = gameObject.GetComponent<PlayerController>();
         pcc = gameObject.GetComponent<PlayerCommand>();
         enemy = pc.fightEnemy;
-        if (pcc.ControllerName == "")
+        if (GameObject.Find("GameSystem").GetComponent<DataRetention>().Mode == (int)DataRetention.GameMode.PvC &&
+            gameObject.tag == "P2")
         {
             pc.ControllerName = "AI";
             pcc.controllerName = "AI";
-        }
-        else
-        {
-            this.enabled = false;
         }
         animator = GetComponent<Animator>();
 
