@@ -76,8 +76,6 @@ public class Result : MonoBehaviour {
                 changeScene();
             }
         }
-
-        Debug.Log(nextMenu);
     }
 
     //コントローラー判別

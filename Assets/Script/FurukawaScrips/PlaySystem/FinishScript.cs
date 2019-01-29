@@ -41,6 +41,7 @@ public class FinishScript : MonoBehaviour {
     private InstanceScript InScript;
     private GameObject dir;
 
+
     void Awake()
     {
         contl = GameObject.Find("FighterComtrol");
@@ -150,8 +151,8 @@ public class FinishScript : MonoBehaviour {
     //勝者の名前を設定
     private void SetWinner(int id)
     {
-        if (id == 1) { WinnerName(player1.name); }
-        else { WinnerName(player2.name); }
+        if (id == 1){ WinnerName(player1.name); }
+        else{ WinnerName(player2.name); }
     }
 
     //名前画像を登録する

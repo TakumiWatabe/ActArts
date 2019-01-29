@@ -6,8 +6,8 @@ public class ArtsStateScript : MonoBehaviour {
 
     //技情報設定スクリプト
 
-    //技の性能用変数
-    struct ArtsStatus
+    //技の性能用変数//public
+    class ArtsStatus
     {
         public int damage;          //技のダメージ
         public string attri;        //技の属性
