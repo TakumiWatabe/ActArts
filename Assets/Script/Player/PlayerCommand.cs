@@ -120,6 +120,8 @@ public class PlayerCommand : MonoBehaviour {
     // Update is called once per frame
     void Update () {
 
+        if (!playerController.CanControll) return;
+
         InputCommand();
 
         InputKeyHistory();
