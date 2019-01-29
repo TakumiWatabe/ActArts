@@ -323,11 +323,8 @@ public class AIIntention : MonoBehaviour {
         }
 
         //状況データと教師データを学習データに追加
-        if (isLearn)
-        {
-            situationDatas.Add(situation);
-            teachDatas.Add(teachValue);
-        }
+        situationDatas.Add(situation);
+        teachDatas.Add(teachValue);
 
         //入っているデータを削除
         situation = new List<float>();
@@ -368,6 +365,8 @@ public class AIIntention : MonoBehaviour {
 
         return isTrain;
     }
+
+    public int LearningSpeed { set { nn.LearningSpeed = value; } }
 
     public bool IsTrain { get { return isTrain; } }
 }
