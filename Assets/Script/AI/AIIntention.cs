@@ -57,6 +57,9 @@ public class AIIntention : MonoBehaviour {
 
     private bool isTrain = false;
 
+    [SerializeField, Header("学習するかしないか")]
+    private bool isLearn = false;
+
     /// <summary>
     /// 初期化
     /// </summary>
@@ -320,8 +323,11 @@ public class AIIntention : MonoBehaviour {
         }
 
         //状況データと教師データを学習データに追加
-        situationDatas.Add(situation);
-        teachDatas.Add(teachValue);
+        if (isLearn)
+        {
+            situationDatas.Add(situation);
+            teachDatas.Add(teachValue);
+        }
 
         //入っているデータを削除
         situation = new List<float>();
