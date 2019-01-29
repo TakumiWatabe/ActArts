@@ -633,6 +633,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4298805501130716}
+  - component: {fileID: 114389665872613590}
   - component: {fileID: 198514759812915824}
   - component: {fileID: 199293840282436504}
   m_Layer: 0
@@ -4175,7 +4176,7 @@ Animator:
   m_GameObject: {fileID: 1764502871494606}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 03359cab64733fe47b90471d41cfed58, type: 2}
+  m_Controller: {fileID: 9100000, guid: eb46dab3aaef16747be65d0eccd3662e, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -4858,6 +4859,21 @@ MonoBehaviour:
   - {fileID: 114517047909207400}
   - {fileID: 114860198359326494}
   - {fileID: 114259248469384318}
+--- !u!114 &114389665872613590
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1329917316317652}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa7b273a44680974d8091ef93e8c17c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 0}
+  playerController: {fileID: 0}
+  Playstate: 0
+  Pausestate: 0
 --- !u!114 &114401726624416180
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5291,8 +5307,8 @@ MonoBehaviour:
   attack2: {fileID: 8300000, guid: 5abedd8041dda444db74d5200b3a73e4, type: 3}
   hadou: {fileID: 0}
   syoryu: {fileID: 0}
-  damage1: {fileID: 8300000, guid: 7370968bdb148f2498d5ed22598356ea, type: 3}
-  damage2: {fileID: 8300000, guid: 8cc90c8f0bc8a0143b3b1bc5f8c2e07c, type: 3}
+  damage1: {fileID: 8300000, guid: 2ffbb444fc258fa499b4ccac2fa806e3, type: 3}
+  damage2: {fileID: 8300000, guid: f880afda8ee738f44b0fe61fadca406f, type: 3}
   guard: {fileID: 0}
   win: {fileID: 0}
   lose: {fileID: 0}
