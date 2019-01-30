@@ -1392,7 +1392,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   butDir: {fileID: 2000142415}
-  gameImage: {fileID: 0}
+  gameImage: {fileID: 21300000, guid: 396cdb63ca7884046ad64fe14af1ae25, type: 3}
 --- !u!114 &1030916707
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1482,6 +1482,7 @@ MonoBehaviour:
   winner: {fileID: 1563709674}
   win: {fileID: 1852175851}
   draw: {fileID: 358049586}
+  sys: {fileID: 2131799955}
 --- !u!114 &1030916712
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3138,6 +3139,11 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!1 &2131799955 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1018777325961612, guid: 036efaa549670c34bac4627c3c92aaea,
+    type: 2}
+  m_PrefabInternal: {fileID: 1396501616}
 --- !u!1 &2143563371
 GameObject:
   m_ObjectHideFlags: 0

@@ -19,9 +19,11 @@ public class ResultChar : MonoBehaviour {
     private string winName;
     private GameObject winner;
 
-    void Awake()
+    void Start()
     {
-        datas = sys.GetComponent<DataRetention>();
+        datas = GameObject.Find("GameSystem").GetComponent<DataRetention>();
+
+        Debug.Log(datas.WinName);
 
         //勝者キャラを生成
         CreateWinCharcter();
