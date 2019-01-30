@@ -88,6 +88,7 @@ public class MovePvPIcon : MonoBehaviour {
                     if (Input.GetButtonDown("AButton"))
                     {
                         controlFlag1P = false;
+                        
                         if (select.GetCharName() == "Aoi")
                         {
                             aoiModel.transform.position = new Vector3(-modelPosX, modelPosY, 0);
@@ -97,7 +98,6 @@ public class MovePvPIcon : MonoBehaviour {
                         {
                             hikariModel2.transform.position = new Vector3(-modelPosX, modelPosY, 0);
                             Instantiate(hikariModel);
-
                         }
                         else
                         {
@@ -129,6 +129,7 @@ public class MovePvPIcon : MonoBehaviour {
                 {
 
                     controlFlag2P = false;
+                    
                     if (select.GetCharName() == "Aoi")
                     {
                         aoiModel2.transform.position = new Vector3(modelPosX, modelPosY, 0);

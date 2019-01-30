@@ -50,9 +50,11 @@ public class MovePvCIcon : MonoBehaviour
     private bool sceneFlag1 = true;
     private bool sceneFlag2 = true;
     private CharacterSelect select;
+
     // Use this for initialization
     void Start()
     {
+
         // prefabから生成
         aoiModel = (GameObject)Resources.Load("Model/Aoi");
         aoiModel2 = (GameObject)Resources.Load("Model/Aoi2");
@@ -116,7 +118,6 @@ public class MovePvCIcon : MonoBehaviour
             {
                 if (Input.GetButtonDown("AButton2"))
                 {
-
                     controlFlag2P = false;
                     //select.CreateModel("player2");
                     pvcController = 2;
@@ -178,7 +179,6 @@ public class MovePvCIcon : MonoBehaviour
 
                 if (Input.GetButtonDown("AButton") && cont == -1)
                 {
-
                     controlFlag2P = false;
                     //select.CreateModel("player2");
                     pvcController = 2;
