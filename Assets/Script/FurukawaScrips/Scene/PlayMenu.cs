@@ -36,9 +36,18 @@ public class PlayMenu : MonoBehaviour {
 
     private bool fade = false;
 
+    AudioSource audio;
+
+    [SerializeField]
+    AudioClip dicideSE;
+    [SerializeField]
+    AudioClip cursorSE;
+
     // Use this for initialization
     void Start()
     {
+        if (this.GetComponent<AudioSource>() != null) audio = this.GetComponent<AudioSource>();
+
         SMana = manager.GetComponent<SceneMane>();
         SFade = manager.GetComponent<SceneFade>();
         datums = GameObject.Find("GameSystem").GetComponent<DataRetention>();
@@ -95,6 +104,7 @@ public class PlayMenu : MonoBehaviour {
             {
                 //番号を戻す
                 selectNum--;
+                audio.PlayOneShot(cursorSE, 1.0f);
             }
         }
 
@@ -106,6 +116,7 @@ public class PlayMenu : MonoBehaviour {
             {
                 //番号を進める
                 selectNum++;
+                audio.PlayOneShot(cursorSE, 1.0f);
             }
         }
 
@@ -138,6 +149,8 @@ public class PlayMenu : MonoBehaviour {
     {
         if (Input.GetButtonDown("AButton"))
         {
+            audio.Stop();
+            audio.PlayOneShot(dicideSE, 1.0f);
             fade = true;
             SFade.FFlag = true;
         }
