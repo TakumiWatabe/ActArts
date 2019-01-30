@@ -36,9 +36,22 @@ public class Play : MonoBehaviour
 
     private List<AIIntention> intentions = new List<AIIntention>();
 
+    private AudioSource audio;
+    //音声
+    [SerializeField]
+    private AudioClip round1;
+    [SerializeField]
+    private AudioClip round2;
+    [SerializeField]
+    private AudioClip round3;
+
+    private List<AudioClip> sounds = new List<AudioClip>();
+    private bool soundPlayed = false;
+
     // Use this for initialization
-    void Start ()
+    void Start()
     {
+        audio = this.GetComponent<AudioSource>();
         fade = this.GetComponent<SceneFade>();
         timer = butDir.GetComponent<TimerScript>();
 
@@ -63,26 +76,37 @@ public class Play : MonoBehaviour
         intentions.Add(GameObject.Find("HikariIntentionObj").GetComponent<AIIntention>());
 
         fade.ImageAlpha = 1;
-	}
-	
+
+        sounds.Add(round1);
+        sounds.Add(round2);
+        sounds.Add(round3);
+    }
+
     private void Initialize()
     {
 
     }
 
-	// Update is called once per frame
-	void Update ()
+    // Update is called once per frame
+    void Update()
     {
         //シーン開始時のフェードアウト
         if (disF)
         {
             fade.FadeOut();
+
             //フェードアウト終了
             if (fade.ImageAlpha <= 0 && !fade.FFlag)
             {
                 //ラウンド表示&fight表示
                 Round.RoundsDisplay(rounds);
                 if (Round.AppearRound && Round.RoundAlpha(rounds) <= 0) { Fight.FightDisplay(); }
+
+                if (!soundPlayed)
+                {
+                    audio.PlayOneShot(sounds[rounds], 1.0f);
+                    soundPlayed = true;
+                }
 
                 //対戦が終了したら
                 Finish.FinishVS();
@@ -96,7 +120,7 @@ public class Play : MonoBehaviour
             disF = false;
         }
 
-        if(!disF)
+        if (!disF)
         {
             fade.FFlag = true;
             fade.FadeIn();
@@ -133,8 +157,9 @@ public class Play : MonoBehaviour
                 disF = true;
                 fade.FFlag = false;
                 timer.ResetGameTimer();
+                soundPlayed = false;
                 //ラウンドを進める
-                if (!Finish.GetDraw){ rounds += 1; }
+                if (!Finish.GetDraw) { rounds += 1; }
             }
         }
     }

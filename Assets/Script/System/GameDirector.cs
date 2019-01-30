@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class GameDirector : MonoBehaviour {
+public class GameDirector : MonoBehaviour
+{
 
     //キャラクターの初期状態を設定するスクリプト
 
@@ -29,6 +30,10 @@ public class GameDirector : MonoBehaviour {
     [SerializeField]
     Image P1Name, P2Name;
 
+    //PlayerController
+    private PlayerController player1Controller;
+    private PlayerController player2Controller;
+
     //キャラクター生成オブジェクト
     private GameObject contl;
     private InstanceScript InScript;
@@ -40,7 +45,7 @@ public class GameDirector : MonoBehaviour {
     }
 
     // Use this for initialization
-    void Start ()
+    void Start()
     {
         for (int i = 0; i < 2; i++)
         {
@@ -50,10 +55,14 @@ public class GameDirector : MonoBehaviour {
                 case "P1":
                     player1 = InScript.Fighter(0);
                     SetPlayerState(player1.name, P1Image, P1Name, player1);
+                    player1Controller = player1.GetComponent<PlayerController>();
+                    player1Controller.CanControll = false;
                     break;
                 case "P2":
                     player2 = InScript.Fighter(1);
                     SetPlayerState(player2.name, P2Image, P2Name, player2);
+                    player2Controller = player2.GetComponent<PlayerController>();
+                    player2Controller.CanControll = false;
                     break;
             }
         }
@@ -83,13 +92,18 @@ public class GameDirector : MonoBehaviour {
         player1.transform.position = initPos1;
         player2.transform.position = initPos2;
 
+        player1Controller.CanControll = false;
+        player2Controller.CanControll = false;
+
+        player2Controller.SetDirection();
+
         //comboScript.NoneCombo();
     }
 
     //名前とアイコンの設定
-    private void SetPlayerState(string name, Image icon, Image plate,GameObject charcter)
+    private void SetPlayerState(string name, Image icon, Image plate, GameObject charcter)
     {
-        switch(name)
+        switch (name)
         {
             case "Aoi(Clone)":
                 icon.sprite = playerIcon[0];
@@ -102,5 +116,12 @@ public class GameDirector : MonoBehaviour {
                 charcter.name = "Hikari";
                 break;
         }
+    }
+
+    //プレイヤーを動かせる状態にする
+    public void PlayersCanControlSet(bool move)
+    {
+        player1Controller.CanControll = move;
+        player2Controller.CanControll = move;
     }
 }

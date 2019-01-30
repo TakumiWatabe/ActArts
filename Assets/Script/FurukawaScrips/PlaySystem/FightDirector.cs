@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class FightDirector : MonoBehaviour {
+public class FightDirector : MonoBehaviour
+{
 
     //戦闘開始を宣言するスクリプト
     //戦闘開始オブジェクト
@@ -28,9 +29,19 @@ public class FightDirector : MonoBehaviour {
     private Vector3 scale;
     private Color clear = new Color(1, 1, 1, 0);
 
-	// Use this for initialization
-	void Start ()
+    private GameDirector gameDirector;
+
+    private AudioSource audio;
+    [SerializeField]
+    private AudioClip fightVoice;
+
+    // Use this for initialization
+    void Start()
     {
+        audio = this.GetComponent<AudioSource>();
+
+        gameDirector = this.GetComponent<GameDirector>();
+
         timer = dirctor.GetComponent<TimerScript>();
         fade = this.GetComponent<FadeImage>();
 
@@ -43,8 +54,8 @@ public class FightDirector : MonoBehaviour {
         //設定
         fight.color = clear;
     }
-	
-	public void Initialize()
+
+    public void Initialize()
     {
         baseTime = 1;
         time = 0;
@@ -61,6 +72,8 @@ public class FightDirector : MonoBehaviour {
 
         //設定
         fight.color = clear;
+
+        gameDirector.PlayersCanControlSet(false);
     }
 
     public void FightDisplay()
@@ -68,14 +81,19 @@ public class FightDirector : MonoBehaviour {
         //戦闘開始画像表示
         if (flag)
         {
-            if (!fade.Flag && fight.color.a <= 0){ fade.Flag = true; }
+            if (!fade.Flag && fight.color.a <= 0)
+            {
+                fade.Flag = true;
+                gameDirector.PlayersCanControlSet(true);
+                audio.PlayOneShot(fightVoice, 1.0f);
+            }
             FightAnim();
         }
         if (!fade.Flag && fight.color.a < 0)
         {
             flag = false;
         }
-        
+
         if (fight.transform.localScale.x <= 1) { anim = true; }
         if (fight.color.a <= 0 && anim) { timer.SwithGameTimer = true; }
     }
