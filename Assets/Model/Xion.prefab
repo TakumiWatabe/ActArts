@@ -2855,7 +2855,7 @@ Transform:
   m_Father: {fileID: 4011246782406038}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!90 &90581125301459570
+--- !u!90 &90655760387251792
 Avatar:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
@@ -4554,7 +4554,7 @@ Animator:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1085005807755676}
   m_Enabled: 1
-  m_Avatar: {fileID: 90581125301459570}
+  m_Avatar: {fileID: 90655760387251792}
   m_Controller: {fileID: 0}
   m_CullingMode: 0
   m_UpdateMode: 0
@@ -4624,8 +4624,117 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 690ea0146224b8b4694a1925dddeb352, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Meta: {fileID: 114250436523075618}
---- !u!114 &114160256234290778
+  Meta: {fileID: 114441891143128568}
+--- !u!114 &114188535673639952
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1396322983342778}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00ea06e1753e16f4ca870c39c067c86b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_comment: 
+  m_drawGizmo: 0
+  m_gizmoColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+  m_stiffnessForce: 0.75
+  m_gravityPower: 0
+  m_gravityDir: {x: 0, y: -1, z: 0}
+  m_dragForce: 0.05
+  m_center: {fileID: 0}
+  RootBones:
+  - {fileID: 4438109578596194}
+  - {fileID: 4905227965200998}
+  m_hitRadius: 0.02
+  ColliderGroups: []
+--- !u!114 &114216900424445054
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1396322983342778}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00ea06e1753e16f4ca870c39c067c86b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_comment: 
+  m_drawGizmo: 0
+  m_gizmoColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+  m_stiffnessForce: 0.4
+  m_gravityPower: 0
+  m_gravityDir: {x: 0, y: -1, z: 0}
+  m_dragForce: 0.4
+  m_center: {fileID: 0}
+  RootBones:
+  - {fileID: 4993544777499692}
+  m_hitRadius: 0.01
+  ColliderGroups:
+  - {fileID: 114806970371232362}
+  - {fileID: 114926852666618588}
+  - {fileID: 114888265861865992}
+  - {fileID: 114757763162033888}
+  - {fileID: 114670366972337124}
+  - {fileID: 114926803030524176}
+  - {fileID: 114083831107024554}
+  - {fileID: 114880845081781684}
+  - {fileID: 114830060159306106}
+  - {fileID: 114057034271265610}
+--- !u!114 &114275895131990676
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1396322983342778}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00ea06e1753e16f4ca870c39c067c86b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_comment: 
+  m_drawGizmo: 0
+  m_gizmoColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+  m_stiffnessForce: 0.4
+  m_gravityPower: 0
+  m_gravityDir: {x: 0, y: -1, z: 0}
+  m_dragForce: 0.4
+  m_center: {fileID: 0}
+  RootBones:
+  - {fileID: 4993544777499692}
+  m_hitRadius: 0.01
+  ColliderGroups:
+  - {fileID: 114806970371232362}
+  - {fileID: 114926852666618588}
+  - {fileID: 114888265861865992}
+  - {fileID: 114757763162033888}
+  - {fileID: 114670366972337124}
+  - {fileID: 114926803030524176}
+  - {fileID: 114083831107024554}
+  - {fileID: 114880845081781684}
+  - {fileID: 114830060159306106}
+  - {fileID: 114057034271265610}
+--- !u!114 &114293973405213916
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1849016387486566}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 646b65a4a57afd34d8c4ed557efb46a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Colliders:
+  - Offset: {x: 0, y: 0, z: -4.656613e-10}
+    Radius: 0.081
+  - Offset: {x: -0.0068969056, y: -0.11978233, z: -0.002150613}
+    Radius: 0.081
+  - Offset: {x: -0.012644321, y: -0.21960092, z: -0.0039427904}
+    Radius: 0.081
+  m_gizmoColor: {r: 1, g: 0, b: 1, a: 1}
+--- !u!114 &114342557337875526
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
@@ -5023,140 +5132,6 @@ MonoBehaviour:
     max: {x: 0, y: 0, z: 0}
     center: {x: 0, y: 0, z: 0}
     axisLength: 0
---- !u!114 &114188535673639952
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1396322983342778}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 00ea06e1753e16f4ca870c39c067c86b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_comment: 
-  m_drawGizmo: 0
-  m_gizmoColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
-  m_stiffnessForce: 0.75
-  m_gravityPower: 0
-  m_gravityDir: {x: 0, y: -1, z: 0}
-  m_dragForce: 0.05
-  m_center: {fileID: 0}
-  RootBones:
-  - {fileID: 4438109578596194}
-  - {fileID: 4905227965200998}
-  m_hitRadius: 0.02
-  ColliderGroups: []
---- !u!114 &114216900424445054
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1396322983342778}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 00ea06e1753e16f4ca870c39c067c86b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_comment: 
-  m_drawGizmo: 0
-  m_gizmoColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
-  m_stiffnessForce: 0.4
-  m_gravityPower: 0
-  m_gravityDir: {x: 0, y: -1, z: 0}
-  m_dragForce: 0.4
-  m_center: {fileID: 0}
-  RootBones:
-  - {fileID: 4993544777499692}
-  m_hitRadius: 0.01
-  ColliderGroups:
-  - {fileID: 114806970371232362}
-  - {fileID: 114926852666618588}
-  - {fileID: 114888265861865992}
-  - {fileID: 114757763162033888}
-  - {fileID: 114670366972337124}
-  - {fileID: 114926803030524176}
-  - {fileID: 114083831107024554}
-  - {fileID: 114880845081781684}
-  - {fileID: 114830060159306106}
-  - {fileID: 114057034271265610}
---- !u!114 &114250436523075618
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 63b589176a34b344b9ccbee2b7e7114a, type: 3}
-  m_Name: Meta
-  m_EditorClassIdentifier: 
-  ExporterVersion: UniVRM-0.44
-  Title: Xion
-  Version: 0.0.3
-  Author: 
-  ContactInformation: 
-  Reference: 
-  Thumbnail: {fileID: 2800000, guid: bdd2faf0b72776a4e8304d40dc486d01, type: 3}
-  AllowedUser: 0
-  ViolentUssage: 0
-  SexualUssage: 0
-  CommercialUssage: 0
-  OtherPermissionUrl: 
-  LicenseType: 0
-  OtherLicenseUrl: 
---- !u!114 &114275895131990676
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1396322983342778}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 00ea06e1753e16f4ca870c39c067c86b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_comment: 
-  m_drawGizmo: 0
-  m_gizmoColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
-  m_stiffnessForce: 0.4
-  m_gravityPower: 0
-  m_gravityDir: {x: 0, y: -1, z: 0}
-  m_dragForce: 0.4
-  m_center: {fileID: 0}
-  RootBones:
-  - {fileID: 4993544777499692}
-  m_hitRadius: 0.01
-  ColliderGroups:
-  - {fileID: 114806970371232362}
-  - {fileID: 114926852666618588}
-  - {fileID: 114888265861865992}
-  - {fileID: 114757763162033888}
-  - {fileID: 114670366972337124}
-  - {fileID: 114926803030524176}
-  - {fileID: 114083831107024554}
-  - {fileID: 114880845081781684}
-  - {fileID: 114830060159306106}
-  - {fileID: 114057034271265610}
---- !u!114 &114293973405213916
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1849016387486566}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 646b65a4a57afd34d8c4ed557efb46a5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Colliders:
-  - Offset: {x: 0, y: 0, z: -4.656613e-10}
-    Radius: 0.081
-  - Offset: {x: -0.0068969056, y: -0.11978233, z: -0.002150613}
-    Radius: 0.081
-  - Offset: {x: -0.012644321, y: -0.21960092, z: -0.0039427904}
-    Radius: 0.081
-  m_gizmoColor: {r: 1, g: 0, b: 1, a: 1}
 --- !u!114 &114366011788367476
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5211,6 +5186,31 @@ MonoBehaviour:
   - {fileID: 4905227965200998}
   m_hitRadius: 0.02
   ColliderGroups: []
+--- !u!114 &114441891143128568
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63b589176a34b344b9ccbee2b7e7114a, type: 3}
+  m_Name: Meta
+  m_EditorClassIdentifier: 
+  ExporterVersion: UniVRM-0.44
+  Title: Xion
+  Version: 0.0.3
+  Author: 
+  ContactInformation: 
+  Reference: 
+  Thumbnail: {fileID: 2800000, guid: bdd2faf0b72776a4e8304d40dc486d01, type: 3}
+  AllowedUser: 0
+  ViolentUssage: 0
+  SexualUssage: 0
+  CommercialUssage: 0
+  OtherPermissionUrl: 
+  LicenseType: 0
+  OtherLicenseUrl: 
 --- !u!114 &114475184744540854
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5257,8 +5257,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3869812175467a143ab9cd865752b4a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Avatar: {fileID: 90581125301459570}
-  Description: {fileID: 114160256234290778}
+  Avatar: {fileID: 90655760387251792}
+  Description: {fileID: 114342557337875526}
 --- !u!114 &114547613437373020
 MonoBehaviour:
   m_ObjectHideFlags: 1
