@@ -41,6 +41,10 @@ public class FinishScript : MonoBehaviour {
     private InstanceScript InScript;
     private GameObject dir;
 
+    [SerializeField]
+    private GameObject sys;
+    private DataRetention datas;
+
     void Awake()
     {
         contl = GameObject.Find("FighterComtrol");
@@ -59,6 +63,8 @@ public class FinishScript : MonoBehaviour {
         
         WDir = this.GetComponent<WinnerDirector>();
         TUDir = this.GetComponent<TimeUPDirector>();
+
+        datas = GameObject.Find("GameSystem").GetComponent<DataRetention>();
 
         winner.enabled = false;
         win.enabled = false;
@@ -150,8 +156,14 @@ public class FinishScript : MonoBehaviour {
     //勝者の名前を設定
     private void SetWinner(int id)
     {
-        if (id == 1) { WinnerName(player1.name); }
-        else { WinnerName(player2.name); }
+        if (id == 1){
+            WinnerName(player1.name);
+            datas.WinName = player1.name;
+        }
+        else{
+            WinnerName(player2.name);
+            datas.WinName = player2.name;
+        }
     }
 
     //名前画像を登録する

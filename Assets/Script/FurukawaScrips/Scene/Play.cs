@@ -34,6 +34,8 @@ public class Play : MonoBehaviour
     private int rounds = 0;
     private bool disF = true;
 
+    private List<AIIntention> intentions = new List<AIIntention>();
+
     // Use this for initialization
     void Start ()
     {
@@ -56,6 +58,9 @@ public class Play : MonoBehaviour
 
         PController1P = player1.GetComponent<PlayerController>();
         PController2P = player2.GetComponent<PlayerController>();
+
+        intentions.Add(GameObject.Find("AoiIntentionObj").GetComponent<AIIntention>());
+        intentions.Add(GameObject.Find("HikariIntentionObj").GetComponent<AIIntention>());
 
         fade.ImageAlpha = 1;
 	}
@@ -96,9 +101,25 @@ public class Play : MonoBehaviour
             fade.FFlag = true;
             fade.FadeIn();
 
-
-            if (fade.ImageAlpha > 1)
+            if (fade.ImageAlpha >= 1)
             {
+                //どちらかが2勝したらりざるとへ
+                if (GetGame.P1win == 2 || GetGame.P2win == 2)
+                {
+                    for (int i = 0; i < intentions.Count; i++)
+                    {
+                        if (intentions[i].IsTrain)
+                        {
+                            intentions[i].LearningSpeed = 5;
+                            return;
+                        }
+                    }
+                    GetGame.ResetGame(gameImage);
+                    GameObject.Find("AoiIntentionObj").GetComponent<AIIntention>().Learning(false);
+                    GameObject.Find("HikariIntentionObj").GetComponent<AIIntention>().Learning(false);
+                    SceneManager.LoadScene(SMane.Scenes("Result"));
+                }
+
                 Round.Initialize();
                 Fight.Initialize();
                 Finish.Initialize();
@@ -114,14 +135,6 @@ public class Play : MonoBehaviour
                 timer.ResetGameTimer();
                 //ラウンドを進める
                 if (!Finish.GetDraw){ rounds += 1; }
-            //どちらかが2勝したらりざるとへ
-            if (GetGame.P1win == 2 || GetGame.P2win == 2)
-            {
-                GetGame.ResetGame(gameImage);
-                GameObject.Find("AoiIntentionObj").GetComponent<AIIntention>().Learning(false);
-                GameObject.Find("HikariIntentionObj").GetComponent<AIIntention>().Learning(false);
-                SceneManager.LoadScene(SMane.Scenes("Result"));
-            }
             }
         }
     }

@@ -20,8 +20,16 @@ public class SceneTransition : MonoBehaviour {
     bool fadeFlag = true;
     int state = 0;
 
-	// Use this for initialization
-	void Start () {
+    AudioSource audio;
+
+    [SerializeField]
+    AudioClip dicideSE;
+    [SerializeField]
+    AudioClip cancelSE;
+
+    // Use this for initialization
+    void Start () {
+        if(this.GetComponent<AudioSource>() != null) audio = this.GetComponent<AudioSource>();
         scene = this.GetComponent<SceneManagement>();
         fade = GameObject.Find("FadePanel").GetComponent<FadeScript>();
         if (SceneManager.GetActiveScene().name == "SelectScene")
@@ -49,16 +57,18 @@ public class SceneTransition : MonoBehaviour {
     void Update () {
         if (Input.GetKey(KeyCode.Escape))
         {
-            #if UNITY_EDITOR
-                EditorApplication.isPlaying = false;
-            #elif UNITY_STANDALONE
+#if UNITY_EDITOR
+            EditorApplication.isPlaying = false;
+#elif UNITY_STANDALONE
                 Application.Quit();
-            #endif
+#endif
         }
         if (SceneManager.GetActiveScene().name == "TitleScene")
         {
             if(Input.anyKeyDown)
             {
+                audio.Stop();
+                audio.PlayOneShot(dicideSE, 1.0f);
                 fade.FadeOutFlag();
             }
             if (fade.GetAlpha() >= 1.0f)
@@ -94,6 +104,7 @@ public class SceneTransition : MonoBehaviour {
             if (Input.GetButtonDown("AButton") && sceneFlagMenu == false)
             {
                 fade.FadeOutFlag();
+                audio.PlayOneShot(dicideSE, 1.0f);
                 sceneFlagMenu = true;
                 //float a = fade.GetAlpha();
             }
