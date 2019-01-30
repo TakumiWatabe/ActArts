@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-//using UnityEditor;
+using UnityEditor;
 
 public class SceneMane : MonoBehaviour
 {
@@ -19,16 +19,16 @@ public class SceneMane : MonoBehaviour
 
     void Update()
     {
-        //if (Input.GetKey(KeyCode.Escape))
-        //{
-        //    //エディターとアプリケーションを判別して動作する
-        //    //※プラットフォーム依存コンパイル
-        //    #if UNITY_EDITOR
-        //        EditorApplication.isPlaying = false;
-        //    #elif UNITY_STANDALONE
-        //        Application.Quit();
-        //    #endif
-        //}
+        if (Input.GetKey(KeyCode.Escape))
+        {
+            //エディターとアプリケーションを判別して動作する
+            //※プラットフォーム依存コンパイル
+#if UNITY_EDITOR
+            EditorApplication.isPlaying = false;
+#elif UNITY_STANDALONE
+                Application.Quit();
+#endif
+        }
     }
 
     //シーンの名前を返す

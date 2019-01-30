@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using System;
 using UnityEngine.UI;
-//using UnityEditor;
+using UnityEditor;
 public class SceneTransition : MonoBehaviour {
     SceneManagement scene;
     FadeScript fade;
@@ -49,11 +49,11 @@ public class SceneTransition : MonoBehaviour {
     void Update () {
         if (Input.GetKey(KeyCode.Escape))
         {
-            //#if UNITY_EDITOR
-            //    EditorApplication.isPlaying = false;
-            //#elif UNITY_STANDALONE
-            //    Application.Quit();
-            //#endif
+#if UNITY_EDITOR
+            EditorApplication.isPlaying = false;
+#elif UNITY_STANDALONE
+                Application.Quit();
+#endif
         }
         if (SceneManager.GetActiveScene().name == "TitleScene")
         {
