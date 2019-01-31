@@ -609,11 +609,11 @@ GameObject:
   - component: {fileID: 4204627734454378}
   - component: {fileID: 114532281287496846}
   - component: {fileID: 114638176121742428}
-  - component: {fileID: 95718052450912476}
   - component: {fileID: 114548538111008910}
   - component: {fileID: 114351331578993718}
   - component: {fileID: 114632357281045838}
   - component: {fileID: 114251712468404864}
+  - component: {fileID: 95940787645619046}
   m_Layer: 0
   m_Name: Mari
   m_TagString: Untagged
@@ -6486,7 +6486,7 @@ Avatar:
     4235936620: Root/Global/Position/J_Bip_C_Hips/J_Bip_C_Spine
     4243795141: Root/Global/Position/J_Bip_C_Hips/J_Bip_C_Spine/J_Bip_C_Chest/J_Bip_C_UpperChest/J_Bip_R_Shoulder/J_Bip_R_UpperArm/J_Bip_R_LowerArm/J_Bip_R_Hand/J_Bip_R_Middle1/J_Bip_R_Middle2/J_Bip_R_Middle3
     4266572859: Root/Global/Position/J_Bip_C_Hips/J_Bip_C_Spine/J_Bip_C_Chest/J_Bip_C_UpperChest/J_Bip_L_Shoulder/J_Bip_L_UpperArm/J_Bip_L_LowerArm/J_Bip_L_Hand/J_Bip_L_Little1/J_Bip_L_Little2
---- !u!95 &95718052450912476
+--- !u!95 &95940787645619046
 Animator:
   serializedVersion: 3
   m_ObjectHideFlags: 1
@@ -6494,8 +6494,8 @@ Animator:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1305244260112714}
   m_Enabled: 1
-  m_Avatar: {fileID: 90694417530925044}
-  m_Controller: {fileID: 0}
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: ba628e9496988db4a913612ea6802237, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
