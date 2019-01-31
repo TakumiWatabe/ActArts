@@ -41,15 +41,15 @@ public class SetEffectScript : MonoBehaviour {
         //左を向いている
         if (PCon.Direction == 1)
         {
-            effectWeak.transform.rotation = Quaternion.Euler(0, 90, 0);
-            effectMid.transform.rotation = Quaternion.Euler(0, 90, 0);
-            effectStr.transform.rotation = Quaternion.Euler(0, 90, 0);
+            //effectWeak.transform.rotation = Quaternion.Euler(0, 90, 0);
+            //effectMid.transform.rotation = Quaternion.Euler(0, 90, 0);
+            //effectStr.transform.rotation = Quaternion.Euler(0, 90, 0);
         }
         else
         {
-            effectWeak.transform.rotation = Quaternion.Euler(180, 90, 0);
-            effectMid.transform.rotation = Quaternion.Euler(180, 90, 0);
-            effectStr.transform.rotation = Quaternion.Euler(180, 90, 0);
+            //effectWeak.transform.rotation = Quaternion.Euler(180, 90, 0);
+            //effectMid.transform.rotation = Quaternion.Euler(180, 90, 0);
+            //effectStr.transform.rotation = Quaternion.Euler(180, 90, 0);
         }
     }
 
