@@ -3194,7 +3194,7 @@ Transform:
   m_Father: {fileID: 4005633444373162}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!90 &90939438875331576
+--- !u!90 &90907766384358028
 Avatar:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
@@ -5001,7 +5001,7 @@ Animator:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1544160992852484}
   m_Enabled: 1
-  m_Avatar: {fileID: 90939438875331576}
+  m_Avatar: {fileID: 90907766384358028}
   m_Controller: {fileID: 0}
   m_CullingMode: 0
   m_UpdateMode: 0
@@ -5010,27 +5010,7 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
---- !u!114 &114106780201740192
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1544160992852484}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dedba1309bdf12b42af2362f52eea134, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  FirstPersonBone: {fileID: 4974472834739670}
-  FirstPersonOffset: {x: 0, y: 0.06, z: 0}
-  Renderers:
-  - Renderer: {fileID: 137248790806055452}
-    FirstPersonFlag: 0
-  - Renderer: {fileID: 137083540985005038}
-    FirstPersonFlag: 0
-  - Renderer: {fileID: 137009558190437934}
-    FirstPersonFlag: 0
---- !u!114 &114129547324980142
+--- !u!114 &114005386669510700
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
@@ -5428,6 +5408,26 @@ MonoBehaviour:
     max: {x: 0, y: 0, z: 0}
     center: {x: 0, y: 0, z: 0}
     axisLength: 0
+--- !u!114 &114106780201740192
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1544160992852484}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dedba1309bdf12b42af2362f52eea134, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  FirstPersonBone: {fileID: 4974472834739670}
+  FirstPersonOffset: {x: 0, y: 0.06, z: 0}
+  Renderers:
+  - Renderer: {fileID: 137248790806055452}
+    FirstPersonFlag: 0
+  - Renderer: {fileID: 137083540985005038}
+    FirstPersonFlag: 0
+  - Renderer: {fileID: 137009558190437934}
+    FirstPersonFlag: 0
 --- !u!114 &114169690024154296
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5537,6 +5537,31 @@ MonoBehaviour:
   - Offset: {x: 0.14949122, y: -0.00032663345, z: 0.012339249}
     Radius: 0.03
   m_gizmoColor: {r: 1, g: 0, b: 1, a: 1}
+--- !u!114 &114369704934949046
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63b589176a34b344b9ccbee2b7e7114a, type: 3}
+  m_Name: Meta
+  m_EditorClassIdentifier: 
+  ExporterVersion: UniVRM-0.44
+  Title: 
+  Version: 
+  Author: 
+  ContactInformation: 
+  Reference: 
+  Thumbnail: {fileID: 2800000, guid: 5389076b6d674344bad5f48a634c8e37, type: 3}
+  AllowedUser: 0
+  ViolentUssage: 0
+  SexualUssage: 0
+  CommercialUssage: 0
+  OtherPermissionUrl: 
+  LicenseType: 0
+  OtherLicenseUrl: 
 --- !u!114 &114369802944124360
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5592,31 +5617,6 @@ MonoBehaviour:
   - Offset: {x: -0.14949122, y: -0.0003259182, z: 0.012339991}
     Radius: 0.03
   m_gizmoColor: {r: 1, g: 0, b: 1, a: 1}
---- !u!114 &114618779381787120
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 63b589176a34b344b9ccbee2b7e7114a, type: 3}
-  m_Name: Meta
-  m_EditorClassIdentifier: 
-  ExporterVersion: UniVRM-0.44
-  Title: 
-  Version: 
-  Author: 
-  ContactInformation: 
-  Reference: 
-  Thumbnail: {fileID: 2800000, guid: 5389076b6d674344bad5f48a634c8e37, type: 3}
-  AllowedUser: 0
-  ViolentUssage: 0
-  SexualUssage: 0
-  CommercialUssage: 0
-  OtherPermissionUrl: 
-  LicenseType: 0
-  OtherLicenseUrl: 
 --- !u!114 &114692542322986050
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5832,8 +5832,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3869812175467a143ab9cd865752b4a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Avatar: {fileID: 90939438875331576}
-  Description: {fileID: 114129547324980142}
+  Avatar: {fileID: 90907766384358028}
+  Description: {fileID: 114005386669510700}
 --- !u!114 &114846731021996706
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5917,7 +5917,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 690ea0146224b8b4694a1925dddeb352, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Meta: {fileID: 114618779381787120}
+  Meta: {fileID: 114369704934949046}
 --- !u!137 &137009558190437934
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1
