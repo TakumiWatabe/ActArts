@@ -374,6 +374,11 @@ public class PlayerController : MonoBehaviour
     {
         animator.SetBool("GuardCrash", true);
         canControll = false;
+        if (guardCrashCount == 0)
+        {
+            playSEScript.PlaySE((int)PlaySEScript.SEData.GUARDCRASH);
+            playSEScript.PlayVoice((int)PlaySEScript.VoiceData.GUARDCRASH);
+        }
         guardCrashCount++;
         animator.SetInteger("Move", 0);
         animator.SetInteger("Special", 0);
