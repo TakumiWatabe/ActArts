@@ -38,11 +38,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private string charName;
 
-    //ダメージ受けたときに下がる距離
-    private float backDistance = 0;
-    private float backingDistance = 0;
-    private int damageDir = 0;
-
     private int damageCount = 0;
     private int damageTime = 0;
 
@@ -143,6 +138,8 @@ public class PlayerController : MonoBehaviour
 
         animator = GetComponent<Animator>();
 
+        distanceToGuard = 2.2f;
+
         if (!isTest)
         {
             //キャラクター設定
@@ -172,6 +169,8 @@ public class PlayerController : MonoBehaviour
         guradEffectCount = 0;
 
         SetDirection();
+
+        
     }
 
     public void Initialize()
@@ -421,7 +420,8 @@ public class PlayerController : MonoBehaviour
         {
             damageCount = 0;
             animator.SetInteger("Damage", 0);
-            state = "Stand";
+            if (animator.GetBool("Sit")) state = "Sit";
+            else state = "Stand";
             canControll = true;
         }
 
@@ -466,7 +466,8 @@ public class PlayerController : MonoBehaviour
         {
             damageCount = 0;
             animator.SetInteger("Damage", 0);
-            state = "Stand";
+            if(animator.GetBool("Sit")) state = "Sit";
+            else    state = "Stand";
             Debug.Log("ガガガ戻れたぞ");
             canControll = true;
             guradEffectCount = 0;
@@ -1037,13 +1038,15 @@ public class PlayerController : MonoBehaviour
         float distanceToEnemy = enemy.transform.position.x - transform.position.x;
 
         //立ちガード
-        if ((enemyScript.state == "Punch" || enemyScript.state == "Kick") && distanceToGuard > Mathf.Abs(distanceToEnemy) && playerCommand.InputDKey == 4 && (state == "Stand" || state == "Sit"))
+        //if ((enemyScript.state == "Punch" || enemyScript.state == "Kick") && distanceToGuard > Mathf.Abs(distanceToEnemy) && playerCommand.InputDKey == 4 && (state == "Stand" || state == "Sit"))
+        if ((enemyScript.AnimatorPlayer.GetBool("Punch") || enemyScript.AnimatorPlayer.GetBool("Kick") || enemyScript.AnimatorPlayer.GetInteger("Special") != 0) && distanceToGuard > Mathf.Abs(distanceToEnemy) && playerCommand.InputDKey == 4 && (state == "Stand" || state == "Sit"))
         {
             animator.SetBool("Guard", true);
             state = "StandGuard";
         }
         //しゃがみガード
-        if ((enemyScript.state == "Punch" || enemyScript.state == "Kick") && distanceToGuard > Mathf.Abs(distanceToEnemy) && playerCommand.InputDKey == 1 && (state == "Stand" || state == "Sit"))
+        //if ((enemyScript.state == "Punch" || enemyScript.state == "Kick") && distanceToGuard > Mathf.Abs(distanceToEnemy) && playerCommand.InputDKey == 1 && (state == "Stand" || state == "Sit"))
+        if ((enemyScript.AnimatorPlayer.GetBool("Punch") || enemyScript.AnimatorPlayer.GetBool("Kick") || enemyScript.AnimatorPlayer.GetInteger("Special") != 0) && distanceToGuard > Mathf.Abs(distanceToEnemy) && playerCommand.InputDKey == 1 && (state == "Stand" || state == "Sit"))
         {
             animator.SetBool("Guard", true);
             state = "SitGuard";
@@ -1114,25 +1117,10 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public void HitDamage(int dmg)
+    public void HitDamage(int dmg,int atkLevel,int hitStun)
     {
-        if ((state == "Stand" || state == "Sit" || state == "Guard" || state == "SitGuard" || state == "StandGuard") && state != "Jump" && (playerCommand.InputDKey == 1 || playerCommand.InputDKey == 4))
-        {
-            SpecialMove();
-            Debug.Log(state);
-            animator.SetBool("Guard", true);
-            state = "Guard";
+        damageCount = 0;
 
-            damageTime = (dmg / 500 + 15) / 3;
-            damageDir = direction * -1;
-
-            guardGaugePoint -= dmg;
-
-            playSEScript.PlayVoice((int)PlaySEScript.VoiceData.GUARD);
-            //guardEffect.SetActive(true);
-            guradEffectCount = 0;
-        }
-        else
         {
             SpecialMove();
             animator.SetBool("GuardCrash", false);
@@ -1150,16 +1138,14 @@ public class PlayerController : MonoBehaviour
                 nowGravity = 0;
             }
 
-            if (dmg > 700)
+            if (atkLevel >= 3)
             {
                 state = "BlowOff";
                 nowGravity = 0;
                 animator.SetBool("Jump", true);
             }
 
-            backDistance = dmg;
-            damageTime = dmg / 500 + 15;
-            damageDir = direction * -1;
+            damageTime = hitStun;
 
             if (dmg > 600)
             {
@@ -1175,6 +1161,22 @@ public class PlayerController : MonoBehaviour
 
         }
 
+    }
+
+    public void GuardDamage(int guardStun)
+    {
+        damageCount = 0;
+
+        SpecialMove();
+        Debug.Log(state);
+        animator.SetBool("Guard", true);
+        state = "Guard";
+
+        damageTime = guardStun;
+
+        playSEScript.PlayVoice((int)PlaySEScript.VoiceData.GUARD);
+        //guardEffect.SetActive(true);
+        guradEffectCount = 0;
     }
 
     /// <summary>
@@ -1362,4 +1364,6 @@ public class PlayerController : MonoBehaviour
     public bool IsTest { get { return isTest; } }
 
     public int NowHP { get { return hpDirectorScript.NowHPState; } }
+
+    public Animator AnimatorPlayer { get { return animator; } }
 }
