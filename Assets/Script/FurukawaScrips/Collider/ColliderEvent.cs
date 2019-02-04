@@ -64,6 +64,472 @@ public class ColliderEvent : MonoBehaviour {
         AtkColliderActive(0);
     }
 
+    //-------------------------------------------------------------------------------------------------------------------
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //Chloeあたり判定
+    //
+    //-------------------------------------------------------
+    //基本あたり判定
+    //
+    //使用モーション:立ち、前進、後進、ジャンプ、立ちガード、ダメージ
+    //-------------------------------------------------------
+
+        //後退
+    void C_BackCollid()
+    {
+        HitColliderActive(1);
+        AtkColliderActive(0);
+        SetBoxState(HitBox[0],
+            new Vector3(0, 0.9f, 0),
+            new Vector3(CSizeZ, 1.4f, 0.4f));
+    }
+
+    //ダッシュ
+
+    void C_DashCollid()
+    {
+        HitColliderActive(1);
+        AtkColliderActive(0);
+        SetBoxState(HitBox[0],
+            new Vector3(0, 0.7f, 0),
+            new Vector3(CSizeZ, 0, 0));
+    }
+
+    //ガード
+    void C_GuardCollid()
+    {
+        HitColliderActive(1);
+        AtkColliderActive(0);
+        SetBoxState(HitBox[0],
+            new Vector3(0, 0.9f, 0),
+            new Vector3(CSizeZ, 1.4f, 0.4f));
+
+    }
+
+    //波動
+    void C_HadouCollid()
+    {
+        HitColliderActive(0);
+        AtkColliderActive(1);
+        SetBoxState(AtkBox[0],
+        new Vector3(0, 1, 0.5f),
+        new Vector3(CSizeZ, 0.2f, 0.7f));
+        atkType = ValueScript.AtkVal.HADOUKEN;
+    }
+
+    void C_HadouCollid2()
+    {
+        HitColliderActive(2);
+        AtkColliderActive(0);
+        SetBoxState(HitBox[0],
+            new Vector3(0, 0.4f, 0),
+            new Vector3(CSizeZ, 0.5f, 1));
+        SetBoxState(HitBox[0],
+            new Vector3(0, 0.8f, 0.2f),
+            new Vector3(CSizeZ, 1, 0.6f));
+    }
+    void C_HadouCollid3()
+    {
+        HitColliderActive(1);
+        AtkColliderActive(0);
+        SetBoxState(HitBox[0],
+            new Vector3(0, 0.9f, 0),
+            new Vector3(CSizeZ, 1.4f, 0.4f));
+    }
+
+
+    //ジャンプ
+    void C_JumpCollid()
+    {
+        HitColliderActive(1);
+        AtkColliderActive(0);
+        SetBoxState(HitBox[0],
+            new Vector3(0, 0.9f, 0),
+            new Vector3(CSizeZ, 1.4f, 0.4f));
+    }
+
+    //ジャンプ強攻撃
+    void C_JumpStCollid()
+    {
+        HitColliderActive(1);
+        AtkColliderActive(0);
+        SetBoxState(HitBox[0],
+            new Vector3(0, 0.6f, 0),
+            new Vector3(CSizeZ, 1, 0.6f));
+        atkType = ValueScript.AtkVal.KICK_JUMP;
+    }
+    void C_JumpStCollid2()
+    {
+        HitColliderActive(1);
+        AtkColliderActive(1);
+        SetBoxState(HitBox[0],
+            new Vector3(0, 0.6f, 0),
+            new Vector3(CSizeZ, 1, 0.6f));
+
+        SetBoxState(AtkBox[0],
+            new Vector3(0, 0.3f, 0.6f),
+            new Vector3(CSizeZ, 0.2f, 0.6f));
+    }
+    void C_JumpStCollid3()
+    {
+        HitColliderActive(1);
+        AtkColliderActive(0);
+        SetBoxState(HitBox[0],
+            new Vector3(0, 0.6f, 0),
+            new Vector3(CSizeZ, 1, 0.6f));
+    }
+
+    //ジャンプ弱攻撃
+    void C_JumpWeCollid()
+    {
+        HitColliderActive(1);
+        AtkColliderActive(0);
+        SetBoxState(HitBox[0],
+            new Vector3(0, 0.6f, 0),
+            new Vector3(CSizeZ, 1, 0.6f));
+        atkType = ValueScript.AtkVal.PUNCH_JUMP;
+    }
+    void C_JumpWeCollid2()
+    {
+        HitColliderActive(1);
+        AtkColliderActive(1);
+        SetBoxState(HitBox[0],
+            new Vector3(0, 0.6f, 0),
+            new Vector3(CSizeZ, 1, 0.6f));
+
+        SetBoxState(AtkBox[0],
+            new Vector3(0, 0.6f, 0.3f),
+            new Vector3(CSizeZ, 0.2f, 0.5f));
+    }
+    void C_JumpWeCollid3()
+    {
+        HitColliderActive(1);
+        AtkColliderActive(0);
+        SetBoxState(HitBox[0],
+            new Vector3(0, 0.6f, 0),
+            new Vector3(CSizeZ, 1, 0.6f));
+    }
+
+    //基本立ち（neutral)
+    void C_NeutralCollid()
+    {
+        HitColliderActive(1);
+        AtkColliderActive(0);
+        SetBoxState(HitBox[0],
+            new Vector3(0, 0.9f, 0),
+            new Vector3(CSizeZ, 1.4f, 0.4f));
+    }
+
+    //受け身
+    void C_PassiveCollid()
+    {
+        HitColliderActive(1);
+        AtkColliderActive(0);
+        SetBoxState(HitBox[0],
+            new Vector3(0, 0.9f, 0),
+            new Vector3(CSizeZ, 1.4f, 0.4f));
+    }
+
+    //座った状態
+    void C_SitCollid()
+    {
+        HitColliderActive(1);
+        AtkColliderActive(0);
+        SetBoxState(HitBox[0],
+            new Vector3(0, 0.6f, 0.1f),
+            new Vector3(CSizeZ, 1, 0.6f));
+    }
+
+    //座り
+    void C_SitDownCollid()
+    {
+        HitColliderActive(1);
+        AtkColliderActive(0);
+        SetBoxState(HitBox[0],
+            new Vector3(0, 0.9f, 0),
+            new Vector3(CSizeZ, 1.4f, 0.4f));
+    }
+    void C_SitDownCollid2()
+    {
+        HitColliderActive(1);
+        AtkColliderActive(0);
+        SetBoxState(HitBox[0],
+            new Vector3(0, 0.6f, 0.1f),
+            new Vector3(CSizeZ, 1, 0.6f));
+    }
+
+
+    //座りガード
+    void C_SitGCollid()
+    {
+        HitColliderActive(1);
+        AtkColliderActive(0);
+        SetBoxState(HitBox[0],
+            new Vector3(0, 0.6f, 0.1f),
+            new Vector3(CSizeZ, 1, 0.6f));
+    }
+
+    //座り受け
+    void C_SitRCollid()
+    {
+        HitColliderActive(1);
+        AtkColliderActive(0);
+        SetBoxState(HitBox[0],
+            new Vector3(0, 0.6f, 0.1f),
+            new Vector3(CSizeZ, 1, 0.6f));
+    }
+
+    //座り強攻撃
+    void C_SitStCollid()
+    {
+        HitColliderActive(1);
+        AtkColliderActive(0);
+        SetBoxState(HitBox[0],
+            new Vector3(0, 0.6f, 0.1f),
+            new Vector3(CSizeZ, 1, 0.6f));
+        atkType = ValueScript.AtkVal.KICK_SIT;
+    }
+    void C_SitStCollid2()
+    {
+        HitColliderActive(1);
+        AtkColliderActive(1);
+        SetBoxState(HitBox[0],
+            new Vector3(0, 0.6f, 0.1f),
+            new Vector3(CSizeZ, 1, 0.6f));
+        SetBoxState(AtkBox[0],
+            new Vector3(0, 0.4f, 0.6f),
+            new Vector3(CSizeZ, 0.3f, 0.7f));
+    }
+    void C_SitStCollid3()
+    {
+        HitColliderActive(2);
+        AtkColliderActive(0);
+        SetBoxState(HitBox[0],
+            new Vector3(0, 0.6f, 0.1f),
+            new Vector3(CSizeZ, 1, 0.6f));
+        SetBoxState(HitBox[0],
+            new Vector3(0, 0.4f, 0.6f),
+            new Vector3(CSizeZ, 0.3f, 0.7f));
+    }
+    void C_SitStCollid4()
+    {
+        HitColliderActive(1);
+        AtkColliderActive(0);
+        SetBoxState(HitBox[0],
+            new Vector3(0, 0.6f, 0.1f),
+            new Vector3(CSizeZ, 1, 0.6f));
+    }
+
+
+    //座り弱攻撃
+    void C_SitWeCollid()
+    {
+        HitColliderActive(1);
+        AtkColliderActive(0);
+        SetBoxState(HitBox[0],
+            new Vector3(0, 0.6f, 0.1f),
+            new Vector3(CSizeZ, 1, 0.6f));
+        atkType = ValueScript.AtkVal.PUNCH_SIT;
+    }
+    void C_SitWeCollid2()
+    {
+        HitColliderActive(1);
+        AtkColliderActive(1);
+        SetBoxState(HitBox[0],
+            new Vector3(0, 0.6f, 0.1f),
+            new Vector3(CSizeZ, 1, 0.6f));
+        SetBoxState(AtkBox[0],
+            new Vector3(0, 0.9f, 0.4f),
+            new Vector3(CSizeZ, 0.2f, 0.6f));
+    }
+    void C_SitWeCollid3()
+    {
+        HitColliderActive(2);
+        AtkColliderActive(0);
+        SetBoxState(HitBox[0],
+            new Vector3(0, 0.6f, 0.1f),
+            new Vector3(CSizeZ, 1, 0.6f));
+        SetBoxState(HitBox[0],
+            new Vector3(0, 0.9f, 0.4f),
+            new Vector3(CSizeZ, 0.2f, 0.6f));
+    }
+    void C_SitWeCollid4()
+    {
+        HitColliderActive(1);
+        AtkColliderActive(0);
+        SetBoxState(HitBox[0],
+            new Vector3(0, 0.6f, 0.1f),
+            new Vector3(CSizeZ, 1, 0.6f));
+    }
+
+    //強受け
+    void C_SSRCollid()
+    {
+        HitColliderActive(1);
+        AtkColliderActive(0);
+        SetBoxState(HitBox[0],
+            new Vector3(0, 0.9f, 0),
+            new Vector3(CSizeZ, 1.4f, 0.4f));
+    }
+
+    //弱受け
+    void C_SWRCollid()
+    {
+        HitColliderActive(1);
+        AtkColliderActive(0);
+        SetBoxState(HitBox[0],
+            new Vector3(0, 0.9f, 0),
+            new Vector3(CSizeZ, 1.4f, 0.4f));
+    }
+
+    //立ち上がり
+    void C_StandUpCollid()
+    {
+        HitColliderActive(1);
+        AtkColliderActive(0);
+        SetBoxState(HitBox[0],
+            new Vector3(0, 0.6f, 0.1f),
+            new Vector3(CSizeZ, 1, 0.6f));
+    }
+    void C_StandUpCollid2()
+    {
+        HitColliderActive(1);
+        AtkColliderActive(0);
+        SetBoxState(HitBox[0],
+            new Vector3(0, 0.9f, 0),
+            new Vector3(CSizeZ, 1.4f, 0.4f));
+    }
+
+    //強攻撃
+    void C_StrengthCollid()
+    {
+        HitColliderActive(1);
+        AtkColliderActive(0);
+        SetBoxState(HitBox[0],
+            new Vector3(0, 0.9f, 0),
+            new Vector3(CSizeZ, 1.4f, 0.4f));
+        atkType = ValueScript.AtkVal.KICK;
+    }
+    void C_StrengthCollid2()
+    {
+        HitColliderActive(2);
+        AtkColliderActive(0);
+        SetBoxState(HitBox[0],
+            new Vector3(0, 0.9f, 0),
+            new Vector3(CSizeZ, 1.4f, 0.4f));
+        SetBoxState(HitBox[0],
+            new Vector3(0, 1, 0.4f),
+            new Vector3(CSizeZ, 0.2f, 0.4f));
+    }
+    void C_StrengthCollid3()
+    {
+        HitColliderActive(1);
+        AtkColliderActive(1);
+        SetBoxState(HitBox[0],
+            new Vector3(0, 0.9f, 0),
+            new Vector3(CSizeZ, 1.4f, 0.4f));
+        SetBoxState(AtkBox[0],
+            new Vector3(0, 1, 0.5f),
+            new Vector3(CSizeZ, 0.2f, 0.8f));
+    }
+    void C_StrengthCollid4()
+    {
+        HitColliderActive(2);
+        AtkColliderActive(0);
+        SetBoxState(HitBox[0],
+            new Vector3(0, 0.9f, 0),
+            new Vector3(CSizeZ, 1.4f, 0.4f));
+        SetBoxState(HitBox[0],
+            new Vector3(0, 1, 0.5f),
+            new Vector3(CSizeZ, 0.2f, 0.8f));
+    }
+    void C_StrengthCollid5()
+    {
+        HitColliderActive(1);
+        AtkColliderActive(0);
+        SetBoxState(HitBox[0],
+            new Vector3(0, 0.9f, 0),
+            new Vector3(CSizeZ, 1.4f, 0.4f));
+    }
+
+    //昇竜
+    void C_SyouryuuCollid()
+    {
+        HitColliderActive(0);
+        AtkColliderActive(0);
+        SetBoxState(HitBox[0],
+            new Vector3(0, 0.9f, 0),
+            new Vector3(CSizeZ, 1.4f, 0.4f));
+        atkType = ValueScript.AtkVal.SYORYUKEN;
+    }
+    void C_SyouryuuCollid2()
+    {
+        HitColliderActive(0);
+        AtkColliderActive(1);
+        SetBoxState(AtkBox[0],
+            new Vector3(0, 0.9f, 0.5f),
+            new Vector3(CSizeZ, 1, 0.6f));
+    }
+    void C_SyouryuuCollid3()
+    {
+        HitColliderActive(1);
+        AtkColliderActive(0);
+        SetBoxState(HitBox[0],
+            new Vector3(0, 0.9f, 0),
+            new Vector3(CSizeZ, 1.4f, 0.5f));
+    }
+
+
+    //歩く
+    void C_WalkCollid()
+    {
+        HitColliderActive(1);
+        AtkColliderActive(0);
+        SetBoxState(HitBox[0],
+            new Vector3(0, 0.9f, 0),
+            new Vector3(CSizeZ, 1.4f, 0.4f));
+    }
+
+    //弱攻撃
+    void C_WeakCollid()
+    {
+        HitColliderActive(1);
+        AtkColliderActive(0);
+        SetBoxState(HitBox[0],
+            new Vector3(0, 0.9f, 0),
+            new Vector3(CSizeZ, 1.4f, 0.4f));
+        atkType = ValueScript.AtkVal.PUNCH;
+    }
+    void C_WeakCollid2()
+    {
+        HitColliderActive(1);
+        AtkColliderActive(1);
+        SetBoxState(HitBox[0],
+            new Vector3(0, 0.9f, 0),
+            new Vector3(CSizeZ, 1.4f, 0.4f));
+        SetBoxState(AtkBox[0],
+            new Vector3(0, 1.3f, 0.4f),
+            new Vector3(CSizeZ, 0.2f, 0.5f));
+    }
+    void C_WeakCollid3()
+    {
+        HitColliderActive(2);
+        AtkColliderActive(0);
+        SetBoxState(HitBox[0],
+            new Vector3(0, 0.9f, 0),
+            new Vector3(CSizeZ, 1.4f, 0.4f));
+        SetBoxState(HitBox[0],
+            new Vector3(0, 1.3f, 0.4f),
+            new Vector3(CSizeZ, 0.2f, 0.5f));
+    }
+    void C_WeakCollid4()
+    {
+        HitColliderActive(1);
+        AtkColliderActive(1);
+        SetBoxState(HitBox[0],
+            new Vector3(0, 0.9f, 0),
+            new Vector3(CSizeZ, 1.4f, 0.4f));
+    }
 
 
     //-------------------------------------------------------------------------------------------------------------------
@@ -2213,7 +2679,8 @@ public class ColliderEvent : MonoBehaviour {
         AtkColliderActive(0);
     }
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    //-------------------------------------------------------------------------------------------------------------------
+
+
 
     //初期化関数
     private void InitCollider()
