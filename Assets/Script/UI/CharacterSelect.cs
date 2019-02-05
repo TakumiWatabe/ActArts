@@ -309,13 +309,31 @@ public class CharacterSelect : MonoBehaviour
                     }
                 }
 
-                if (GamePad.GetButtonDown(GamePad.Button.X, GamePad.Index.One))
+                if (!controlFlag2P)
                 {
-                    sceneFlag1 = true;
-                    controlFlag1P = true;
-                    pvcController = 0;
-                    pos = iconPos1;
-                    Destroy(GameObject.Find("player1"));
+                    Debug.Log("2p");
+
+                    if (GamePad.GetButtonDown(GamePad.Button.X, GamePad.Index.One))
+                    {
+                        sceneFlag2 = true;
+                        controlFlag2P = true;
+                        pvcController = 1;
+                        pos = iconPos2;
+                        Debug.Log("2p");
+                        Destroy(GameObject.Find("player2"));
+                    }
+                }
+                else if(!controlFlag1P)
+                {
+                    if (GamePad.GetButtonDown(GamePad.Button.X, GamePad.Index.One))
+                    {
+                        sceneFlag1 = true;
+                        controlFlag1P = true;
+                        pvcController = 0;
+                        pos = iconPos1;
+                        Debug.Log("1p");
+                        Destroy(GameObject.Find("player1"));
+                    }
                 }
 
                 if (controller == 2 && pvcController == 1)
