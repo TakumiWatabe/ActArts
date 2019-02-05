@@ -27,8 +27,11 @@ public class CharacterSelect : MonoBehaviour
     //選択時に表示するモデル
     private GameObject aoiModel;
     private GameObject hikariModel;
-    private GameObject aoiModel2;
-    private GameObject hikariModel2;
+    private GameObject xionModel;
+    private GameObject mariModel;
+    private GameObject chloeModel;
+    private GameObject shiroganeModel;
+
     float modelPosX = 7.5f;
     float modelPosY = -3.5f;
     //　アイコンのサイズ取得で使用
@@ -61,17 +64,32 @@ public class CharacterSelect : MonoBehaviour
     private GameObject player_One;
     private GameObject player_Two;
     private MenuEvent menuFlag;
+    private GameObject player1;
+    private GameObject player2;
+    private GameObject frame1;
+    private GameObject frame2;
+    private int rnd;
+    private Vector2 iconPos1;
+    private Vector2 iconPos2;
+    private bool stayFlag; 
     void Start()
     {
+        //Resourcesからモデルを拝借
         aoiModel = (GameObject)Resources.Load("Model/Aoi");
-        aoiModel2 = (GameObject)Resources.Load("Model/Aoi2");
-        hikariModel = (GameObject)Resources.Load("Model/Hikari1");
-        hikariModel2 = (GameObject)Resources.Load("Model/Hikari2");
+        hikariModel = (GameObject)Resources.Load("Model/Hikari");
+        xionModel = (GameObject)Resources.Load("Model/Xion");
+        chloeModel = (GameObject)Resources.Load("Model/Xion");
+        shiroganeModel = (GameObject)Resources.Load("Model/Xion");
+        mariModel = (GameObject)Resources.Load("Model/Xion");
+
+        frame1 = GameObject.FindGameObjectWithTag("frame1");
+        frame2 = GameObject.FindGameObjectWithTag("frame2");
         gameData = GameObject.Find("GameSystem").GetComponent<DataRetention>();
         sceneFlag1 = true;
         sceneFlag2 = true;
         controlFlag1P = true;
         controlFlag2P = true;
+        stayFlag = true;
         rect = GetComponent<RectTransform>();
         menuFlag = GameObject.Find("SelectSceneObj").GetComponent<MenuEvent>();
         player_One = GameObject.FindGameObjectWithTag("icon1");
@@ -89,60 +107,66 @@ public class CharacterSelect : MonoBehaviour
         // PvPモードの時
         if (gameData.Mode == 0)
         {
+            // アケコン
             if (controllerName == "Arcade Stick (MadCatz FightStick Neo)")
             {
                 if (controller == 1)
                 {
                     if (controlFlag1P)
                     {
-                        // "B"ボタンを押したとき
-                        if (Input.GetButtonDown("AButton"))
-                        {
-                            controlFlag1P = false;
-                            CreateModel("player1");
-                            sceneFlag1 = false;
-                        }
                         if(menuFlag.GetMenuFlag()==false)
                         {
+                            // "A"ボタンを押したとき
+                            if (Input.GetButtonDown("AButton"))
+                            {
+                                controlFlag1P = false;
+                                CreateModel("player1");
+                                sceneFlag1 = false;
+                            }
                             // アイコンの移動処理
                             IconMove(controllerName, GamePad.Index.One, player_One);
                         }
                     }
+
                 }
                 else
                 {
                     if (controlFlag2P)
                     {
-                        // "B"ボタンを押したとき
-                        if (Input.GetButtonDown("AButton2"))
-                        {
-                            controlFlag1P = false;
-                            CreateModel("player2");
-                            sceneFlag2 = false;
-                        }
                         if (menuFlag.GetMenuFlag() == false)
                         {
+                            // "A"ボタンを押したとき
+                            if (Input.GetButtonDown("AButton2"))
+                            {
+                                controlFlag1P = false;
+                                CreateModel("player2");
+                                sceneFlag2 = false;
+                            }
                             // アイコンの移動処理
                             IconMove(controllerName, GamePad.Index.Two, player_Two);
                         }
                     }
                 }
             }
+            // XBOXコントローラ
             else
             {
                 if (controller == 1)
                 {
                     if (controlFlag1P)
                     {
-                        // "B"ボタンを押したとき
-                        if (Input.GetButtonDown("AButton"))
-                        {
-                            controlFlag1P = false;
-                            CreateModel("player1");
-                            sceneFlag1 = false;
-                        }
                         if (menuFlag.GetMenuFlag() == false)
                         {
+                            // "A"ボタンを押したとき
+                            if (Input.GetButtonDown("AButton"))
+                            {
+                                controlFlag1P = false;
+                                CreateModel("player1");
+                                sceneFlag1 = false;
+                                // 現在の座標を保存
+                                iconPos1 = player_One.transform.localPosition;
+
+                            }
                             // アイコンの移動処理
                             IconMove(controllerName, GamePad.Index.One, player_One);
                         }
@@ -153,25 +177,43 @@ public class CharacterSelect : MonoBehaviour
 
                     if (controlFlag2P)
                     {
-                        // "B"ボタンを押したとき
-                        if (Input.GetButtonDown("AButton2"))
-                        {
-
-                            controlFlag2P = false;
-                            CreateModel("player2");
-                            sceneFlag2 = false;
-                        }
                         if (menuFlag.GetMenuFlag() == false)
                         {
+                            // "A"ボタンを押したとき
+                            if (Input.GetButtonDown("AButton2"))
+                            {
+                                controlFlag2P = false;
+                                CreateModel("player2");
+                                sceneFlag2 = false;
+                                // 現在の座標を保存
+                                iconPos2 = player_Two.transform.localPosition;
+
+                            }
                             // アイコンの移動処理
                             IconMove(controllerName, GamePad.Index.Two, player_Two);
                         }
 
                     }
                 }
+                // プレイヤー1のキャンセル
+                if (GamePad.GetButtonDown(GamePad.Button.X, GamePad.Index.One))
+                {
+                    sceneFlag1 = true;
+                    controlFlag1P = true;
+                    pos = iconPos1;
+                    Destroy(GameObject.Find("player1"));
+                }
+                // プレイヤー2のキャンセル
+                if (GamePad.GetButtonDown(GamePad.Button.X, GamePad.Index.Two))
+                {
+                    sceneFlag2 = true;
+                    controlFlag2P = true;
+                    pos = iconPos2;
+                    Destroy(GameObject.Find("player2"));
+                }
             }
-
         }
+//=====================================================================================================================
         // PvCモードの時
         else if (gameData.Mode == 1)
         {
@@ -181,15 +223,17 @@ public class CharacterSelect : MonoBehaviour
                 {
                     if (controlFlag1P)
                     {
-                        if (Input.GetButtonDown("AButton"))
-                        {
-                            controlFlag1P = false;
-                            CreateModel("player1");
-                            pvcCount = 0;
-                        }
-
                         // アイコンの移動処理
-                        IconMove(controllerName, GamePad.Index.One, player_One);
+                        if (menuFlag.GetMenuFlag() == false)
+                        {
+                            if (Input.GetButtonDown("AButton"))
+                            {
+                                controlFlag1P = false;
+                                CreateModel("player1");
+                                pvcCount = 0;
+                            }
+                            IconMove(controllerName, GamePad.Index.One, player_One);
+                        }
                     }
                 }
                 else if (pvcController == 1)
@@ -197,16 +241,16 @@ public class CharacterSelect : MonoBehaviour
                     pvcCount++;
                     if (controlFlag2P && pvcTime < pvcCount)
                     {
-
-                        if (Input.GetButtonDown("AButton"))
-                        {
-
-                            controlFlag2P = false;
-                            CreateModel("player2");
-
-                        }
                         // アイコンの移動処理
-                        IconMove(controllerName, GamePad.Index.One, player_Two);
+                        if (menuFlag.GetMenuFlag() == false)
+                        {
+                            if (Input.GetButtonDown("AButton"))
+                            {
+                                controlFlag2P = false;
+                                CreateModel("player2");
+                            }
+                            IconMove(controllerName, GamePad.Index.One, player_Two);
+                        }
                     }
                 }
             }
@@ -216,15 +260,20 @@ public class CharacterSelect : MonoBehaviour
                 {
                     if (controlFlag1P)
                     {
-                        if (Input.GetButtonDown("AButton"))
-                        {
-                            controlFlag1P = false;
-                            CreateModel("player1");
-                            pvcController = 1;
-                        }
-
                         // アイコンの移動処理
-                        IconMove(controllerName, GamePad.Index.One, player_One);
+                        if (menuFlag.GetMenuFlag() == false)
+                        {
+                            if (Input.GetButtonDown("AButton"))
+                            {
+                                controlFlag1P = false;
+                                CreateModel("player1");
+                                pvcController = 1;
+                                // 現在の座標を保存
+                                iconPos1 = player_One.transform.localPosition;
+                                iconPos2 = player_Two.transform.localPosition;
+                            }
+                            IconMove(controllerName, GamePad.Index.One, player_One);
+                        }
                     }
                     pvcCount = 0;
 
@@ -233,21 +282,25 @@ public class CharacterSelect : MonoBehaviour
                 {
                     if(sceneFlag1)
                     {
-                        pos = new Vector2(0f, 0f);
+                        pos = iconPos2;
                         sceneFlag1 = false;
                     }
                     if (controlFlag2P)
                     {
-                        if (Input.GetButtonDown("AButton") && controller == -1)
+                        if (menuFlag.GetMenuFlag() == false)
                         {
-
-                            controlFlag2P = false;
-                            CreateModel("player2");
-
+                            // アイコンの移動処理
+                            if (menuFlag.GetMenuFlag() == false)
+                            {
+                                if (Input.GetButtonDown("AButton") && controller == -1)
+                                {
+                                    controlFlag2P = false;
+                                    CreateModel("player2");
+                                }
+                                // アイコンの移動処理
+                                IconMove(controllerName, GamePad.Index.One, player_Two);
+                            }
                         }
-
-                        // アイコンの移動処理
-                        IconMove(controllerName, GamePad.Index.One, player_Two);
                     }
                     else
                     {
@@ -255,6 +308,16 @@ public class CharacterSelect : MonoBehaviour
                         sceneFlag2 = false;
                     }
                 }
+
+                if (GamePad.GetButtonDown(GamePad.Button.X, GamePad.Index.One))
+                {
+                    sceneFlag1 = true;
+                    controlFlag1P = true;
+                    pvcController = 0;
+                    pos = iconPos1;
+                    Destroy(GameObject.Find("player1"));
+                }
+
                 if (controller == 2 && pvcController == 1)
                 {
                     controller = -1;
@@ -271,6 +334,11 @@ public class CharacterSelect : MonoBehaviour
             }
         }
     }
+    /// <summary>
+    /// フレームの座標を取得
+    /// </summary>
+    /// <param name="name">Characterの名前</param>
+    /// <returns></returns>
     public Vector2 GetFramePos(string name)
     {
         Vector2 pos = new Vector2(0, 0);
@@ -282,27 +350,27 @@ public class CharacterSelect : MonoBehaviour
                 break;
             case "char2":
                 pos = framePos[1];
-                charName = "None";
+                charName = "Hikari";
                 break;
             case "char3":
                 pos = framePos[2];
-                charName = "None";
+                charName = "Shirogane";
                 break;
             case "char4":
                 pos = framePos[3];
-                charName = "Hikari";
+                charName = "Xion";
                 break;
             case "char5":
                 pos = framePos[4];
-                charName = "None";
+                charName = "Chloe";
                 break;
             case "char6":
                 pos = framePos[5];
-                charName = "None";
+                charName = "Mari";
                 break;
             case "random":
                 pos = framePos[6];
-                charName = "None";
+                charName = "Random";
                 break;
         }
         return pos;
@@ -329,40 +397,40 @@ public class CharacterSelect : MonoBehaviour
         // プレイヤー1が選んだキャラを生成
         if (player == "player1")
         {
-            if (GetCharName() == "Aoi")
+            if (GetCharName() == "Random")
             {
-                //aoiModel.transform.position = new Vector3(-modelPosX, modelPosY, 0);
-                Instantiate(aoiModel);
+                rnd = UnityEngine.Random.Range(0, 6);
+                //全部のモデルが追加されたらランダムにする
+                rnd = 1;
+                player_One.transform.localPosition = frame1.transform.localPosition = RandomChar(rnd);
+                ChangeName(rnd);
             }
-            else if (GetCharName() == "Hikari")
-            {
-                //hikariModel2.transform.position = new Vector3(-modelPosX, modelPosY, 0);
-                Instantiate(hikariModel);
-            }
-            else
-            {
-                pvcController = 0;
-                controlFlag1P = true;
-            }
+            //else
+            //{
+            //    pvcController = 0;
+            //    controlFlag1P = true;
+            //}
+            player1 = GenerateChar(player1);
+            player1.transform.localPosition = new Vector3(-1.5f, 0f, -8f);
+            player1.transform.localScale = new Vector3(1f, 1f, 1f);
+            player1.name = "player1";
             gameData.fighterName[0] = GetCharName();
         }
         // プレイヤー2が選んだキャラを生成
         else if (player == "player2")
         {
-            if (GetCharName() == "Aoi")
+            if (GetCharName() == "Random")
             {
-                //aoiModel2.transform.position = new Vector3(modelPosX, modelPosY, 0);
-                Instantiate(aoiModel2);
+                rnd = UnityEngine.Random.Range(0, 6);
+                //全部のモデルが追加されたらランダムにする
+                rnd = 0;
+                player_Two.transform.localPosition = frame2.transform.localPosition = RandomChar(rnd);
+                ChangeName(rnd);
             }
-            else if (GetCharName() == "Hikari")
-            {
-                //hikariModel2.transform.position = new Vector3(modelPosX, modelPosY, 0);
-                Instantiate(hikariModel2);
-            }
-            else
-            {
-                controlFlag2P = true;
-            }
+            player2 = GenerateChar(player2);
+            player2.transform.localPosition = new Vector3(1.5f, 0f, -8f);
+            player2.transform.localScale = new Vector3(1f, 1f, -1f);
+            player2.name = "player2";
             gameData.fighterName[1] = GetCharName();
         }
     }
@@ -391,6 +459,67 @@ public class CharacterSelect : MonoBehaviour
             pos += new Vector2(GamePad.GetAxis(GamePad.Axis.LeftStick, num).x * iconSpeed, GamePad.GetAxis(GamePad.Axis.LeftStick, num).y * iconSpeed) * Time.deltaTime;
             //　アイコン位置を設定
             player.transform.localPosition = pos;
+        }
+    }
+    public GameObject GenerateChar(GameObject obj)
+    {
+
+
+        if (GetCharName() == "Aoi")
+        {
+            obj = Instantiate(aoiModel);
+        }
+        else if (GetCharName() == "Hikari")
+        {
+            obj = Instantiate(hikariModel);
+        }
+        else if (GetCharName() == "Xion")
+        {
+            obj = Instantiate(xionModel);
+        }
+        else if (GetCharName() == "Mari")
+        {
+            obj = Instantiate(mariModel);
+        }
+        else if (GetCharName() == "Chloe")
+        {
+            obj = Instantiate(chloeModel);
+        }
+        else if (GetCharName() == "Shirogane")
+        {
+            obj = Instantiate(shiroganeModel);
+        }
+        return obj;
+    }
+    public Vector2 RandomChar(int rnd)
+    {
+        Vector2 pos = framePos[rnd];
+        return pos;
+    }
+    public void ChangeName(int num)
+    {
+        switch(num)
+        {
+            case 0:
+                charName = "Aoi";
+                break;
+            case 1:
+                charName = "Hikari";
+                break;
+            case 2:
+                charName = "Xion";
+                break;
+            case 3:
+                charName = "Mari";
+                break;
+            case 4:
+                charName = "Chloe";
+                break;
+            case 5:
+                charName = "Shirogane";
+                break;
+            default:
+                break;
         }
     }
 }
