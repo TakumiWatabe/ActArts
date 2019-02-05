@@ -10,6 +10,8 @@ public class HadouController : MonoBehaviour {
     float speed = 1.0f;
     public int direction = 1;
 
+    private int player = 1;
+
     private Vector3 pos;
 
 	void Start () {
@@ -22,4 +24,6 @@ public class HadouController : MonoBehaviour {
         pos.x = transform.position.x + speed * direction;
         transform.position = pos;
     }
+
+    public int Player { set { player = value; } }
 }

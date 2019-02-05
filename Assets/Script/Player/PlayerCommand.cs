@@ -371,10 +371,14 @@ public class PlayerCommand : MonoBehaviour {
                                 //GameObject hado = Instantiate(hadokenObject, GetComponent<ColliderEvent>().GetHitBoxs[9].center + this.transform.parent.transform.position, Quaternion.identity);
                                 if (playerController.Direction == 1) hado.transform.Rotate(0, 0, 0);
                                 else hado.transform.Rotate(0, 180, 0);
+
                                 hado.name = "HadoukenA";
                                 hado.transform.SetParent(this.transform);
 
                                 hado.GetComponent<HadouController>().direction = playerController.Direction;
+
+                                if (controller == 1) hado.GetComponent<HadouController>().Player = 1;
+                                else hado.GetComponent<HadouController>().Player = 2;
                                 //Instantiate(hadokenObject, GetComponent<ColliderEvent>().GetHitBoxs[9].center + this.transform.parent.transform.position, Quaternion.identity);
 
                             }
