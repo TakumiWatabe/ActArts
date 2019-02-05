@@ -311,7 +311,6 @@ public class CharacterSelect : MonoBehaviour
 
                 if (!controlFlag2P)
                 {
-                    Debug.Log("2p");
 
                     if (GamePad.GetButtonDown(GamePad.Button.X, GamePad.Index.One))
                     {
@@ -319,7 +318,6 @@ public class CharacterSelect : MonoBehaviour
                         controlFlag2P = true;
                         pvcController = 1;
                         pos = iconPos2;
-                        Debug.Log("2p");
                         Destroy(GameObject.Find("player2"));
                     }
                 }
@@ -331,7 +329,6 @@ public class CharacterSelect : MonoBehaviour
                         controlFlag1P = true;
                         pvcController = 0;
                         pos = iconPos1;
-                        Debug.Log("1p");
                         Destroy(GameObject.Find("player1"));
                     }
                 }
