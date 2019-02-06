@@ -436,7 +436,7 @@ public class ColliderEvent : MonoBehaviour {
         SetBoxState(HitBox[0],
             new Vector3(0, 0.4f, 0),
             new Vector3(CSizeZ, 0.5f, 1));
-        SetBoxState(HitBox[0],
+        SetBoxState(HitBox[1],
             new Vector3(0, 0.8f, 0.2f),
             new Vector3(CSizeZ, 1, 0.6f));
     }
@@ -465,7 +465,7 @@ public class ColliderEvent : MonoBehaviour {
         SetBoxState(HitBox[0],
             new Vector3(0, 0.8f, 0.2f),
             new Vector3(CSizeZ, 1, 0.6f));
-        SetBoxState(HitBox[0],
+        SetBoxState(HitBox[1],
             new Vector3(0, 0.8f, 0.5f),
             new Vector3(CSizeZ, 0.2f, 0.6f));
 
@@ -480,14 +480,14 @@ public class ColliderEvent : MonoBehaviour {
         SetBoxState(HitBox[0],
             new Vector3(0, 0.8f, 0.2f),
             new Vector3(CSizeZ, 1, 0.6f));
-        SetBoxState(HitBox[0],
+        SetBoxState(HitBox[1],
             new Vector3(0, 0.8f, 0.5f),
             new Vector3(CSizeZ, 0.2f, 0.6f));
     }
 
     void M_JumpStCollid4()
     {
-        HitColliderActive(2);
+        HitColliderActive(1);
         AtkColliderActive(0);
         SetBoxState(HitBox[0],
             new Vector3(0, 0.8f, 0.2f),
@@ -511,7 +511,7 @@ public class ColliderEvent : MonoBehaviour {
         SetBoxState(HitBox[0],
             new Vector3(0, 0.6f, 0),
             new Vector3(CSizeZ, 1, 0.6f));
-        SetBoxState(HitBox[0],
+        SetBoxState(HitBox[1],
             new Vector3(0, 1.2f, 0.3f),
             new Vector3(CSizeZ, 0.2f, 0.4f));
         SetBoxState(AtkBox[0],
@@ -525,7 +525,7 @@ public class ColliderEvent : MonoBehaviour {
         SetBoxState(HitBox[0],
             new Vector3(0, 0.6f, 0),
             new Vector3(CSizeZ, 1, 0.6f));
-        SetBoxState(HitBox[0],
+        SetBoxState(HitBox[1],
             new Vector3(0, 1.2f, 0.3f),
         new Vector3(CSizeZ, 0.2f, 0.4f));
     }
@@ -604,7 +604,7 @@ public class ColliderEvent : MonoBehaviour {
         SetBoxState(HitBox[0],
             new Vector3(0, 0.5f, 0),
             new Vector3(CSizeZ, 0.6f, 0.6f));
-        SetBoxState(HitBox[0],
+        SetBoxState(HitBox[1],
             new Vector3(0, 0.2f, 0.5f),
             new Vector3(CSizeZ, 0.3f, 0.7f));
 
@@ -619,7 +619,7 @@ public class ColliderEvent : MonoBehaviour {
         SetBoxState(HitBox[0],
             new Vector3(0, 0.5f, 0),
             new Vector3(CSizeZ, 0.6f, 0.6f));
-        SetBoxState(HitBox[0],
+        SetBoxState(HitBox[1],
             new Vector3(0, 0.2f, 0.5f),
             new Vector3(CSizeZ, 0.3f, 0.7f));
     }
@@ -650,7 +650,7 @@ public class ColliderEvent : MonoBehaviour {
         SetBoxState(HitBox[0],
             new Vector3(0, 0.7f, 0),
             new Vector3(CSizeZ, 0.9f, 0.6f));
-        SetBoxState(HitBox[0],
+        SetBoxState(HitBox[1],
             new Vector3(0, 0.7f, 0.45f),
             new Vector3(CSizeZ, 0.2f, 0.4f));
 
@@ -665,7 +665,7 @@ public class ColliderEvent : MonoBehaviour {
         SetBoxState(HitBox[0],
             new Vector3(0, 0.5f, 0),
             new Vector3(CSizeZ, 0.9f, 0.6f));
-        SetBoxState(HitBox[0],
+        SetBoxState(HitBox[1],
             new Vector3(0, 0.7f, 0.45f),
             new Vector3(CSizeZ, 0.2f, 0.4f));
     }
@@ -695,7 +695,7 @@ public class ColliderEvent : MonoBehaviour {
         SetBoxState(HitBox[0],
             new Vector3(0, 0.9f, 0.06f),
             new Vector3(CSizeZ, 1.4f, 0.4f));
-        SetBoxState(HitBox[0],
+        SetBoxState(HitBox[1],
             new Vector3(0, 0.96f, 0.8f),
             new Vector3(CSizeZ, 0.3f, 0.7f));
 
@@ -711,7 +711,7 @@ public class ColliderEvent : MonoBehaviour {
             new Vector3(0, 0.9f, 0.06f),
             new Vector3(CSizeZ, 1.4f, 0.4f));
     }
-    
+
     //昇竜
     void M_SyouryuuCollid()
     {
@@ -756,7 +756,7 @@ public class ColliderEvent : MonoBehaviour {
         SetBoxState(HitBox[0],
             new Vector3(0, 0.9f, 0.06f),
             new Vector3(CSizeZ, 1.4f, 0.5f));
-        SetBoxState(HitBox[0],
+        SetBoxState(HitBox[1],
             new Vector3(0, 1.3f, 0.4f),
             new Vector3(CSizeZ, 0.2f, 0.5f));
         SetBoxState(AtkBox[0],
@@ -770,7 +770,7 @@ public class ColliderEvent : MonoBehaviour {
         SetBoxState(HitBox[0],
             new Vector3(0, 0.9f, 0.06f),
             new Vector3(CSizeZ, 1.4f, 0.5f));
-        SetBoxState(HitBox[0],
+        SetBoxState(HitBox[1],
             new Vector3(0, 1.3f, 0.4f),
             new Vector3(CSizeZ, 0.2f, 0.5f));
     }
@@ -844,7 +844,7 @@ public class ColliderEvent : MonoBehaviour {
         SetBoxState(HitBox[0],
             new Vector3(0, 0.4f, 0),
             new Vector3(CSizeZ, 0.5f, 1));
-        SetBoxState(HitBox[0],
+        SetBoxState(HitBox[1],
             new Vector3(0, 0.8f, 0.2f),
             new Vector3(CSizeZ, 1, 0.6f));
     }
@@ -1017,7 +1017,7 @@ public class ColliderEvent : MonoBehaviour {
         SetBoxState(HitBox[0],
             new Vector3(0, 0.6f, 0.1f),
             new Vector3(CSizeZ, 1, 0.6f));
-        SetBoxState(HitBox[0],
+        SetBoxState(HitBox[1],
             new Vector3(0, 0.4f, 0.6f),
             new Vector3(CSizeZ, 0.3f, 0.7f));
     }
@@ -1059,7 +1059,7 @@ public class ColliderEvent : MonoBehaviour {
         SetBoxState(HitBox[0],
             new Vector3(0, 0.6f, 0.1f),
             new Vector3(CSizeZ, 1, 0.6f));
-        SetBoxState(HitBox[0],
+        SetBoxState(HitBox[1],
             new Vector3(0, 0.9f, 0.4f),
             new Vector3(CSizeZ, 0.2f, 0.6f));
     }
@@ -1127,7 +1127,7 @@ public class ColliderEvent : MonoBehaviour {
         SetBoxState(HitBox[0],
             new Vector3(0, 0.9f, 0),
             new Vector3(CSizeZ, 1.4f, 0.4f));
-        SetBoxState(HitBox[0],
+        SetBoxState(HitBox[1],
             new Vector3(0, 1, 0.4f),
             new Vector3(CSizeZ, 0.2f, 0.4f));
     }
@@ -1149,7 +1149,7 @@ public class ColliderEvent : MonoBehaviour {
         SetBoxState(HitBox[0],
             new Vector3(0, 0.9f, 0),
             new Vector3(CSizeZ, 1.4f, 0.4f));
-        SetBoxState(HitBox[0],
+        SetBoxState(HitBox[1],
             new Vector3(0, 1, 0.5f),
             new Vector3(CSizeZ, 0.2f, 0.8f));
     }
@@ -1228,7 +1228,7 @@ public class ColliderEvent : MonoBehaviour {
         SetBoxState(HitBox[0],
             new Vector3(0, 0.9f, 0),
             new Vector3(CSizeZ, 1.4f, 0.4f));
-        SetBoxState(HitBox[0],
+        SetBoxState(HitBox[1],
             new Vector3(0, 1.3f, 0.4f),
             new Vector3(CSizeZ, 0.2f, 0.5f));
     }
