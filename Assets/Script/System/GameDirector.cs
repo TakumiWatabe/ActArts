@@ -95,7 +95,8 @@ public class GameDirector : MonoBehaviour
         player1Controller.CanControll = false;
         player2Controller.CanControll = false;
 
-        player2Controller.SetDirection();
+        player1Controller.Direction = 1;
+        player2Controller.Direction = 2;
 
         //comboScript.NoneCombo();
     }

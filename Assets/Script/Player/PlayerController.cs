@@ -170,7 +170,10 @@ public class PlayerController : MonoBehaviour
 
         SetDirection();
 
-        
+        if (transform.tag == "P1") direction = 1;
+        else direction = -1;
+
+
     }
 
     public void Initialize()
