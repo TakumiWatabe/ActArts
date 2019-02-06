@@ -67,6 +67,199 @@ public class ColliderEvent : MonoBehaviour {
     //-------------------------------------------------------
     //Shiroganeあたり判定
     //-------------------------------------------------------
+    //昇竜
+    void S_ShoryuCollidH1()
+    {
+        HitColliderActive(0);
+        AtkColliderActive(0);
+    }
+    void S_ShoryuCollidH2()
+    {
+        HitColliderActive(2);
+        AtkColliderActive(0);
+        SetBoxState(HitBox[0],
+            new Vector3(0.0f, 0.21f, 0.0f),
+            new Vector3(0.43f, 1.0f, 0.25f),
+            new Vector3(0.0f, -180.0f, 0.0f));
+        SetBoxState(HitBox[1],
+            new Vector3(0.0f, -0.09f, 0.0f),
+            new Vector3(1.51f, 0.35f, 0.25f),
+            new Vector3(0.0f, -180.0f, 0.0f));
+    }
+    void S_ShoryuCollidH3()
+    {
+        HitColliderActive(2);
+        AtkColliderActive(0);
+        SetBoxState(HitBox[0],
+            new Vector3(0.0f, 0.21f, 0.0f),
+            new Vector3(0.43f, 1.0f, 0.25f),
+            new Vector3(0.0f, -180.0f, 0.0f));
+        SetBoxState(HitBox[1],
+            new Vector3(0.25f, -0.4f, 0.0f),
+            new Vector3(0.69f, 0.59f, 0.25f),
+            new Vector3(0.0f, -105.0f, 0.0f));
+    }
+    void S_ShoryuCollidH4()
+    {
+        HitColliderActive(2);
+        AtkColliderActive(0);
+        SetBoxState(HitBox[0],
+            new Vector3(0.0f, 0.21f, 0.0f),
+            new Vector3(0.43f, 1.0f, 0.25f),
+            new Vector3(0.0f, -180.0f, 0.0f));
+        SetBoxState(HitBox[1],
+            new Vector3(0.22f, -0.1f, 0.0f),
+            new Vector3(0.69f, 0.59f, 0.25f),
+            new Vector3(0.0f, -155.0f, 0.0f));
+    }
+    void S_ShoryuCollidH5()
+    {
+        HitColliderActive(2);
+        AtkColliderActive(0);
+        SetBoxState(HitBox[0],
+            new Vector3(0.39f, 0.0f, 0.0f),
+            new Vector3(-0.93f, 0.35f, 0.25f),
+            new Vector3(0.0f, -105.0f, 0.0f));
+        SetBoxState(HitBox[1],
+            new Vector3(0.39f, 0.0f, 0.0f),
+            new Vector3(-0.93f, 0.35f, 0.25f),
+            new Vector3(0.0f, -105.0f, 0.0f));
+    }
+    void S_ShoryuCollidH6()
+    {
+        HitColliderActive(2);
+        AtkColliderActive(0);
+        SetBoxState(HitBox[0],
+            new Vector3(-0.02f, 0.22f, 0.0f),
+            new Vector3(0.31f, 0.84f, 0.25f),
+            new Vector3(0.0f, -175.0f, 0.0f));
+        SetBoxState(HitBox[1],
+            new Vector3(0.39f, 0.0f, 0.0f),
+            new Vector3(-0.93f, 0.35f, 0.25f),
+            new Vector3(0.0f, -80.0f, 0.0f));
+    }
+    void S_ShoryuCollidH7()
+    {
+        HitColliderActive(1);
+        AtkColliderActive(0);
+        SetBoxState(HitBox[0],
+            new Vector3(0.0f, -0.12f, 0.0f),
+            new Vector3(0.46f, 1.6f, 0.25f),
+            new Vector3(0.0f, -145.0f, 0.0f));
+    }
+    void S_ShoryuCollidA()
+    {
+        AtkColliderActive(1);
+        SetBoxState(AtkBox[0],
+            new Vector3(0.08f, -0.19f, 0.0f),
+            new Vector3(1.9f, 0.52f, 0.25f),
+            new Vector3(0.0f, -180.0f, 0.0f));
+    }
+    //ジャンプ強
+    void S_StrongJumpAttackCollidH1()
+    {
+        HitColliderActive(1);
+        AtkColliderActive(0);
+        SetBoxState(HitBox[0],
+            new Vector3(0.0f, -0.12f, 0.0f),
+            new Vector3(0.53f, 1.57f, 0.25f),
+            new Vector3(0.0f, -145.0f, 0.0f));
+    }
+    void S_StrongJumpAttackCollidH2()
+    {
+        HitColliderActive(1);
+        AtkColliderActive(0);
+        SetBoxState(HitBox[0],
+            new Vector3(0.09f, 0.12f, 0.0f),
+            new Vector3(0.46f, 1.08f, 0.25f),
+            new Vector3(0.0f, -90.0f, 0.0f));
+    }
+    void S_StrongJumpAttackCollidA()
+    {
+        AtkColliderActive(1);
+        SetBoxState(AtkBox[0],
+            new Vector3(0.21f, -0.59f, 0.0f),
+            new Vector3(0.48f, 0.74f, 0.25f),
+            new Vector3(0.0f, -90.0f, 0.0f));
+    }
+
+    //ジャンプ弱
+    void S_WeekJumpAttackCollidH1()
+    {
+        HitColliderActive(1);
+        AtkColliderActive(0);
+        SetBoxState(HitBox[0],
+            new Vector3(0.0f, -0.13f, 0.0f),
+            new Vector3(0.53f, 1.6f, 0.25f),
+            new Vector3(0.0f, -145.0f, 0.0f));
+    }
+    void S_WeekJumpAttackCollidH2()
+    {
+        HitColliderActive(2);
+        AtkColliderActive(0);
+        SetBoxState(HitBox[0],
+            new Vector3(0.0f, 0.15f, 0.0f),
+            new Vector3(0.53f, 1.02f, 0.25f),
+            new Vector3(0.0f, -145.0f, 0.0f));
+        SetBoxState(HitBox[1],
+            new Vector3(-0.03f, -0.29f, 0.0f),
+            new Vector3(0.68f, 0.35f, 0.25f),
+            new Vector3(0.0f, -145.0f, 0.0f));
+    }
+    void S_WeekJumpAttackCollidA()
+    {
+        AtkColliderActive(1);
+        SetBoxState(AtkBox[0],
+            new Vector3(0.57f, -0.4f, 0.0f),
+            new Vector3(0.89f, 0.58f, 0.25f),
+            new Vector3(0.0f, -145.0f, 0.0f));
+    }
+
+    //しゃがみ強
+    void S_StrongSitAttackCollidH1()
+    {
+        HitColliderActive(2);
+        AtkColliderActive(0);
+        SetBoxState(HitBox[0],
+            new Vector3(0.1f, 0.37f, 0.0f),
+            new Vector3(0.37f, 0.7f, 0.25f),
+            new Vector3(0.0f, -145.0f, 0.0f));
+        SetBoxState(HitBox[1],
+            new Vector3(0.07f, -0.09f, 0.0f),
+            new Vector3(0.75f, 0.59f, 0.25f),
+            new Vector3(0.0f, -145.0f, 0.0f));
+    }
+    void S_StrongSitAttackCollidH2()
+    {
+        HitColliderActive(1);
+        AtkColliderActive(0);
+        SetBoxState(HitBox[0],
+            new Vector3(-0.16f, -0.01f, 0.0f),
+            new Vector3(0.86f, 0.62f, 0.25f),
+            new Vector3(0.0f, 35.0f, 0.0f));
+    }
+    void S_StrongSitAttackCollidH3()
+    {
+        HitColliderActive(2);
+        AtkColliderActive(0);
+        SetBoxState(HitBox[0],
+            new Vector3(-0.16f, -0.01f, 0.0f),
+            new Vector3(0.86f, 0.62f, 0.25f),
+            new Vector3(0.0f, 35.0f, 0.0f));
+        SetBoxState(HitBox[1],
+            new Vector3(-0.04f, -0.39f, 0.0f),
+            new Vector3(1.26f, 0.35f, 0.25f),
+            new Vector3(0.0f, 35.0f, 0.0f));
+    }
+    void S_StrongSitAttackCollidA()
+    {
+        AtkColliderActive(1);
+        SetBoxState(AtkBox[0],
+            new Vector3(0.57f, -0.15f, 0.0f),
+            new Vector3(0.89f, 0.37f, 0.25f),
+            new Vector3(0.0f, 35.0f, 0.0f));
+    }
+
     //しゃがみ弱
     void S_WeekSitAttackCollidH()
     {
