@@ -115,6 +115,11 @@ public class GameDirector : MonoBehaviour
                 plate.sprite = names[1];
                 charcter.name = "Hikari";
                 break;
+            case "Xion(Clone)":
+                icon.sprite = playerIcon[3];
+                plate.sprite = names[3];
+                charcter.name = "Xion";
+                break;
         }
     }
 

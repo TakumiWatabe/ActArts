@@ -1112,6 +1112,8 @@ public class PlayerController : MonoBehaviour
 
         if (gameObject.transform.position.y < 0) gameObject.transform.position = new Vector3(gameObject.transform.position.x, 0, 0);
 
+        if(state == "GuardCrash") gameObject.transform.position = new Vector3(gameObject.transform.position.x, 0, 0);
+
         if (gameObject.transform.position.x > bottomRight.x)
         {
             gameObject.transform.position = new Vector3(bottomRight.x - 0.01f, gameObject.transform.position.y, 0);
