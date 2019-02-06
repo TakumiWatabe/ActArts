@@ -20,7 +20,7 @@ public class InstanceScript : MonoBehaviour {
     {
         "Aoi" ,
         "Hikari" ,
-        "Shirogane",
+        "Xion",
         "none"
     };
 
@@ -74,6 +74,9 @@ public class InstanceScript : MonoBehaviour {
                     case "Hikari":
                         CreateChar(i, 1);
                         break;
+                    case "Xion":
+                        CreateChar(i, 2);
+                        break;
                     default:
                         fight[i].fighter = null;
                         fight[i].playerTag = 0;
@@ -83,7 +86,7 @@ public class InstanceScript : MonoBehaviour {
             else
             {
                 //デバッグ用に先頭のキャラを登録
-                CreateChar(i, 2);
+                CreateChar(i, 0);
             }
 
             if (fight[i].fighter != null)

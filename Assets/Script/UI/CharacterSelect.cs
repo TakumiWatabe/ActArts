@@ -426,7 +426,7 @@ public class CharacterSelect : MonoBehaviour
             //    controlFlag1P = true;
             //}
             player1 = GenerateChar(player1);
-            player1.transform.localPosition = new Vector3(-1.5f, 0f, -8f);
+            player1.transform.localPosition = new Vector3(-1.5f, 0.3f, -8f);
             player1.transform.localScale = new Vector3(1f, 1f, 1f);
             player1.name = "player1";
             gameData.fighterName[0] = GetCharName();
@@ -443,7 +443,7 @@ public class CharacterSelect : MonoBehaviour
                 ChangeName(rnd);
             }
             player2 = GenerateChar(player2);
-            player2.transform.localPosition = new Vector3(1.5f, 0f, -8f);
+            player2.transform.localPosition = new Vector3(1.5f, 0.3f, -8f);
             player2.transform.localScale = new Vector3(1f, 1f, -1f);
             player2.name = "player2";
             gameData.fighterName[1] = GetCharName();
