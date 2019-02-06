@@ -170,7 +170,10 @@ public class PlayerController : MonoBehaviour
 
         SetDirection();
 
-        
+        if (transform.tag == "P1") direction = 1;
+        else direction = -1;
+
+
     }
 
     public void Initialize()
@@ -1111,6 +1114,8 @@ public class PlayerController : MonoBehaviour
         if (jumpCount == 0 && state != "JumpingDamage") gameObject.transform.position = new Vector3(gameObject.transform.position.x, 0, 0);
 
         if (gameObject.transform.position.y < 0) gameObject.transform.position = new Vector3(gameObject.transform.position.x, 0, 0);
+
+        if(state == "GuardCrash") gameObject.transform.position = new Vector3(gameObject.transform.position.x, 0, 0);
 
         if (gameObject.transform.position.x > bottomRight.x)
         {
