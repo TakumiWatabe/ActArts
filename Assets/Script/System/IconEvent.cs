@@ -12,7 +12,6 @@ public class IconEvent : MonoBehaviour
     GameObject frame2p;
     GameObject frame2p2;
     private Image image;
-
     void Start()
     {
         image = GetComponent<Image>();

@@ -15,6 +15,7 @@ public class DataRetention : MonoBehaviour {
     private int mode = 1;
 
     private string[] fightName = new string[2];
+    private string winner;
 
     //propaty
     public int Mode
@@ -33,6 +34,12 @@ public class DataRetention : MonoBehaviour {
     {
         get { return fightName; }
         set { fightName = value; }
+    }
+
+    public string WinName
+    {
+        get { return winner; }
+        set { winner = value; }
     }
 
 }

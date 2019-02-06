@@ -48,6 +48,10 @@ public class WinnerDirector : MonoBehaviour {
     private InstanceScript InScript;
     private GameObject dir;
 
+    private AudioSource audio;
+    [SerializeField]
+    private AudioClip koSE;
+
     void Awake()
     {
         contl = GameObject.Find("FighterComtrol");
@@ -58,6 +62,7 @@ public class WinnerDirector : MonoBehaviour {
     // Use this for initialization
     void Start ()
     {
+        audio = this.GetComponent<AudioSource>();
         player1 = GameObject.FindGameObjectWithTag("P1");
         player2 = GameObject.FindGameObjectWithTag("P2");
         P1HP = player1.GetComponent<HPDirectorScript>();
@@ -128,7 +133,10 @@ public class WinnerDirector : MonoBehaviour {
                 if (flag)
                 {
                     if (!fade.Flag && (PerfectKO[0].color.a == 1 && PerfectKO[1].color.a == 1))
-                    { fade.Flag = true; }
+                    {
+                        fade.Flag = true;
+                        audio.PlayOneShot(koSE, 1.0f);
+                    }
                     PerfectKOAnim();
                 }
                 if (!fade.Flag && (PerfectKO[0].color.a < 0 && PerfectKO[1].color.a < 0))
@@ -143,7 +151,10 @@ public class WinnerDirector : MonoBehaviour {
                 if (flag)
                 {
                     if (!fade.Flag && (KOImage[0].color.a == 1 || KOImage[1].color.a == 1))
-                    { fade.Flag = true; }
+                    {
+                        fade.Flag = true;
+                        audio.PlayOneShot(koSE, 1.0f);
+                    }
                     KOAnim();
                 }
                 if (!fade.Flag && (KOImage[0].color.a < 0 || KOImage[0].color.a < 0))

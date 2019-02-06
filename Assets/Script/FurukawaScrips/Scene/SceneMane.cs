@@ -23,11 +23,11 @@ public class SceneMane : MonoBehaviour
         {
             //エディターとアプリケーションを判別して動作する
             //※プラットフォーム依存コンパイル
-            #if UNITY_EDITOR
-                EditorApplication.isPlaying = false;
-            #elif UNITY_STANDALONE
+#if UNITY_EDITOR
+            EditorApplication.isPlaying = false;
+#elif UNITY_STANDALONE
                 Application.Quit();
-            #endif
+#endif
         }
     }
 

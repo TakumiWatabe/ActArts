@@ -35,6 +35,8 @@ public class ColliderReact : MonoBehaviour {
         }
     }
 
+    
+
     void Awake()
     {
         colliderTag = this.gameObject.tag;

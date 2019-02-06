@@ -18,8 +18,20 @@ public class MenuEvent : MonoBehaviour {
     private bool menuFlag;
     private bool sceneFlag;
     private int controllerNum = 0;
+
+    private AudioSource audio;
+    [SerializeField]
+    private AudioClip dicideSE;
+    [SerializeField]
+    private AudioClip cancelSE;
+    [SerializeField]
+    private AudioClip cursorSE;
+
     // Use this for initialization
     void Start () {
+
+        if (this.GetComponent<AudioSource>() != null) audio = this.GetComponent<AudioSource>();
+
         controllerName = Input.GetJoystickNames()[0];
         if (controllerName != "Arcade Stick (MadCatz FightStick Neo)")
             controllerName = "";
@@ -39,12 +51,14 @@ public class MenuEvent : MonoBehaviour {
                 controllerNum = 0;
                 returnMenu.SetActive(false);
                 menuFlag = false;
+                audio.PlayOneShot(cancelSE, 1.0f);
             }
             else if(GamePad.GetButtonDown(GamePad.Button.B,GamePad.Index.Two))
             {
                 controllerNum = 0;
                 returnMenu.SetActive(false);
                 menuFlag = false;
+                audio.PlayOneShot(cancelSE, 1.0f);
             }
         }
         else
@@ -55,12 +69,14 @@ public class MenuEvent : MonoBehaviour {
                 controllerNum = 1;
                 returnMenu.SetActive(true);
                 menuFlag = true;
+                audio.PlayOneShot(dicideSE, 1.0f);
             }
             else if (GamePad.GetButtonDown(GamePad.Button.B, GamePad.Index.Two))
             {
                 controllerNum = 2;
                 returnMenu.SetActive(true);
                 menuFlag = true;
+                audio.PlayOneShot(dicideSE, 1.0f);
             }
         }
         //メニューを開いていたら操作する
@@ -116,6 +132,7 @@ public class MenuEvent : MonoBehaviour {
                 (GamePad.GetAxis(GamePad.Axis.Dpad, num).y >= 1.0f && GamePad.GetAxis(GamePad.Axis.Dpad, num).y != oldCuosorButton))
             {
                 choiceMenu--;
+                audio.PlayOneShot(cursorSE, 1.0f);
                 if (choiceMenu <= 0)
                 {
                     choiceMenu = 1;
@@ -128,6 +145,7 @@ public class MenuEvent : MonoBehaviour {
                 (GamePad.GetAxis(GamePad.Axis.Dpad, num).y <= -1.0f && GamePad.GetAxis(GamePad.Axis.Dpad, num).y != oldCuosorButton))
             {
                 choiceMenu++;
+                audio.PlayOneShot(cursorSE, 1.0f);
                 if (choiceMenu >= 1)
                 {
                     choiceMenu = 0;
@@ -141,10 +159,12 @@ public class MenuEvent : MonoBehaviour {
                 {
                     returnMenu.SetActive(false);
                     menuFlag = false;
+                    audio.PlayOneShot(dicideSE, 1.0f);
                 }
                 else if (choiceMenu == 1)
                 {
                     sceneFlag = true;
+                    audio.PlayOneShot(dicideSE, 1.0f);
                 }
             }
 
@@ -159,6 +179,7 @@ public class MenuEvent : MonoBehaviour {
                 GamePad.GetAxis(GamePad.Axis.LeftStick, num).y != oldStick))
 
             {
+                audio.PlayOneShot(cursorSE, 1.0f);
                 choiceMenu--;
                 if (choiceMenu <= 0)
                 {
@@ -171,6 +192,7 @@ public class MenuEvent : MonoBehaviour {
             if ((GamePad.GetAxis(GamePad.Axis.LeftStick, num).y >= 1.0f &&
                 GamePad.GetAxis(GamePad.Axis.LeftStick, num).y != oldStick))
             {
+                audio.PlayOneShot(cursorSE, 1.0f);
                 choiceMenu++;
                 if (choiceMenu >= 1)
                 {
@@ -186,10 +208,12 @@ public class MenuEvent : MonoBehaviour {
                 {
                     returnMenu.SetActive(false);
                     menuFlag = false;
+                    audio.PlayOneShot(dicideSE, 1.0f);
                 }
                 else if (choiceMenu == 1)
                 {
                     sceneFlag = true;
+                    audio.PlayOneShot(dicideSE, 1.0f);
                 }
             }
 

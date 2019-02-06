@@ -37,9 +37,17 @@ public class Result : MonoBehaviour {
     private bool fade = false;
     private bool nextMenu = false;
 
-	// Use this for initialization
-	void Start ()
+    private AudioSource audio;
+    [SerializeField]
+    private AudioClip dicideSE;
+    [SerializeField]
+    private AudioClip cursorSE;
+
+    // Use this for initialization
+    void Start ()
     {
+        if (this.GetComponent<AudioSource>() != null) audio = this.GetComponent<AudioSource>();
+
         SMana = manager.GetComponent<SceneMane>();
         SFadeScene = manager.GetComponent<SceneFade>();
         SFadeBack = this.GetComponent<SceneFade>();
@@ -76,8 +84,6 @@ public class Result : MonoBehaviour {
                 changeScene();
             }
         }
-
-        Debug.Log(nextMenu);
     }
 
     //コントローラー判別
@@ -115,6 +121,7 @@ public class Result : MonoBehaviour {
             {
                 //番号を戻す
                 selectNum--;
+                audio.PlayOneShot(cursorSE, 1.0f);
             }
         }
 
@@ -126,6 +133,7 @@ public class Result : MonoBehaviour {
             {
                 //番号を進める
                 selectNum++;
+                audio.PlayOneShot(cursorSE, 1.0f);
             }
         }
 
@@ -185,6 +193,8 @@ public class Result : MonoBehaviour {
         {
             fade = true;
             SFadeScene.FFlag = true;
+            audio.Stop();
+            audio.PlayOneShot(dicideSE, 1.0f);
         }
 
         if(fade)
