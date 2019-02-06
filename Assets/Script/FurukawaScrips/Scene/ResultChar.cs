@@ -23,8 +23,6 @@ public class ResultChar : MonoBehaviour {
     {
         datas = GameObject.Find("GameSystem").GetComponent<DataRetention>();
 
-        Debug.Log(datas.WinName);
-
         //勝者キャラを生成
         CreateWinCharcter();
     }
@@ -62,4 +60,6 @@ public class ResultChar : MonoBehaviour {
         winner = Instantiate(charcter[charID]);
         display.sprite = names[charID];
     }
+
+    public GameObject GetWinner { get { return winner; } }
 }

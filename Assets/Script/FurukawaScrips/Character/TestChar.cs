@@ -102,21 +102,12 @@ public class TestChar : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Pcont.animState == "StandGuard" || Pcont.animState == "SitGuard" || Pcont.animState == "Guard")
+        { guardatk = true; }
+        else { guardatk = false; }
+
         //攻撃くらい判定
         hitJudg();
-
-        //ガード時判定
-        if (Pcont.animState == "Guard" ||
-            Pcont.animState == "StandGuard" ||
-            Pcont.animState == "SitGuard")
-        {
-            guardatk = true;
-        }
-        else
-        {
-            guardatk = false;
-        }
-
         //コルーチン処理
         waitRegene(30);
     }
@@ -132,6 +123,7 @@ public class TestChar : MonoBehaviour
             {
                 hitatk = true;
                 react[i].hiting = false;
+
                 //ガードしているなら
                 if (guardatk)
                 {
@@ -164,7 +156,6 @@ public class TestChar : MonoBehaviour
                     {
                         AI.JudgResult("Damaged", "");
                     }
-
                 }
 
 
@@ -175,14 +166,11 @@ public class TestChar : MonoBehaviour
 
                 //受けた攻撃のステータス
                 CreateArtsSatet(ASScriptEne, (int)CEventEne.GetType);
-
             }
 
             //攻撃を食らっているなら
             if (react[i].CObj != null)
             {
-                //react[i].CObj.SetActive(false);
-
                 //のけぞり時間中ならあたり判定しない
                 if (time >= timecCnt)
                 {
@@ -208,9 +196,7 @@ public class TestChar : MonoBehaviour
         if (CEventEne.GetType == ValueScript.AtkVal.HADOUKEN)
         {
             Instantiate(explodeHadouEffect, transform.position, Quaternion.identity);
-
             //飛び道具を消す
-            Debug.Log(Pcont.fightEnemy.GetComponent<PlayerController>().GetHadou.name);
             Destroy(Pcont.fightEnemy.GetComponent<PlayerController>().GetHadou);
         }
     }
@@ -231,7 +217,6 @@ public class TestChar : MonoBehaviour
         {
             if (GScript.NowGuardVal < 1000 && GScript.NowGuardVal > 0)
             {
-                Debug.Log("リジェネ発動");
                 //ガード値を徐々に回復
                 GScript.guardRegene();
             }

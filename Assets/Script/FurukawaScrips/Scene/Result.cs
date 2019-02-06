@@ -7,7 +7,7 @@ using GamepadInput;
 
 public class Result : MonoBehaviour {
 
-    //リザルトシーンうぃ行う処理のスクリプト
+    //リザルトシーンで行う処理のスクリプト
     //シーンマネージャー
     [SerializeField]
     private GameObject manager;
@@ -21,6 +21,8 @@ public class Result : MonoBehaviour {
     private Image[] Choice = new Image[3];
     [SerializeField]
     private Image[] back = new Image[2];
+    [SerializeField]
+    private Image cursor;
 
     //選択時の色
     private Color brightColor = new Color(1, 1, 1, 1);
@@ -30,6 +32,9 @@ public class Result : MonoBehaviour {
     //選択番号
     private int selectNum = 0;
     private bool moveflag = false;
+    [SerializeField, Range(1, 10)]
+    private float speedRot = 5;
+    private float moveSpeed = 80;
 
     //コントローラーの名前
     private string controllerName = "";
@@ -63,6 +68,7 @@ public class Result : MonoBehaviour {
         //フェードアウト
         SFadeScene.FadeOut();
         hideImage();
+        cursor.transform.Rotate(0, 0, speedRot);
 
         if (Input.GetButtonDown("AButton"))
         {
@@ -76,10 +82,13 @@ public class Result : MonoBehaviour {
 
             if (SFadeBack.ImageAlpha >= 1)
             {
-                //選択肢移動
-                selectMove();
-                //選択肢画像の明暗処理
-                lightAndDark();
+                if (!fade)
+                {
+                    //選択肢移動
+                    selectMove();
+                    //選択肢画像の明暗処理
+                    lightAndDark();
+                }
                 //シーン遷移
                 changeScene();
             }
@@ -114,25 +123,27 @@ public class Result : MonoBehaviour {
         var dpad = GamePad.Axis.Dpad;
 
         //上
-        if ((GamePad.GetAxis(stick, p1Con).y > 0 || GamePad.GetAxis(dpad, p1Con).y > 0) && !moveflag)
+        if ((GamePad.GetAxis(stick, p1Con).y > 0 || GamePad.GetAxis(dpad, p1Con).y < 0) && !moveflag)
         {
             moveflag = true;
             if (selectNum != 0)
             {
                 //番号を戻す
                 selectNum--;
+                cursor.transform.localPosition += new Vector3(0, moveSpeed, 0);
                 audio.PlayOneShot(cursorSE, 1.0f);
             }
         }
 
         //下
-        if ((GamePad.GetAxis(stick, p1Con).y < 0 || GamePad.GetAxis(dpad, p1Con).y < 0) && !moveflag)
+        if ((GamePad.GetAxis(stick, p1Con).y < 0 || GamePad.GetAxis(dpad, p1Con).y > 0) && !moveflag)
         {
             moveflag = true;
             if (selectNum != 2)
             {
                 //番号を進める
                 selectNum++;
+                cursor.transform.localPosition += new Vector3(0, -moveSpeed, 0);
                 audio.PlayOneShot(cursorSE, 1.0f);
             }
         }
@@ -157,6 +168,7 @@ public class Result : MonoBehaviour {
             {
                 back[i].enabled = true;
             }
+            cursor.enabled = true;
         }
         else
         {
@@ -168,6 +180,7 @@ public class Result : MonoBehaviour {
             {
                 back[i].enabled = false;
             }
+            cursor.enabled = false;
         }
     }
 

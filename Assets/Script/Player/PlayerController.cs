@@ -58,7 +58,6 @@ public class PlayerController : MonoBehaviour
     //ガードする距離
     public float distanceToGuard = 0.7f;
 
-
     //アニメーター
     private Animator animator;
 
@@ -165,7 +164,6 @@ public class PlayerController : MonoBehaviour
 
 
         enemyScript = enemy.GetComponent<PlayerController>();
-        Debug.Log(enemy.tag);
 
         if (gameObject.GetComponent<EnemyAI>() != null) gameObject.GetComponent<EnemyAI>().Initialize();
 
@@ -256,7 +254,6 @@ public class PlayerController : MonoBehaviour
         {
             if (canControll) playerCommand.InputKey();
         }
-
         if (state != "GuardCrash") guardCrashCount = 0;
 
 
@@ -318,7 +315,7 @@ public class PlayerController : MonoBehaviour
         FinallyMove();
         CheckGuard();
 
-        if (playerCommand.ControllerName == "AI") Debug.Log(gameObject.name + "STATE:" + state);
+        //if (playerCommand.ControllerName == "AI") Debug.Log(gameObject.name + "STATE:" + state);
 
     }
 
@@ -470,7 +467,7 @@ public class PlayerController : MonoBehaviour
             Debug.Log("ガガガ戻れたぞ");
             canControll = true;
             guradEffectCount = 0;
-            guardEffect.SetActive(false);
+            //guardEffect.SetActive(false);
         }
 
         damageCount++;
@@ -1048,6 +1045,7 @@ public class PlayerController : MonoBehaviour
             animator.SetBool("Guard", true);
             state = "SitGuard";
         }
+
     }
 
     /// <summary>
@@ -1119,7 +1117,6 @@ public class PlayerController : MonoBehaviour
         if ((state == "Stand" || state == "Sit" || state == "Guard" || state == "SitGuard" || state == "StandGuard") && state != "Jump" && (playerCommand.InputDKey == 1 || playerCommand.InputDKey == 4))
         {
             SpecialMove();
-            Debug.Log(state);
             animator.SetBool("Guard", true);
             state = "Guard";
 

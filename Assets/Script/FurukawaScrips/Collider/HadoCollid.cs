@@ -6,7 +6,7 @@ public class HadoCollid : MonoBehaviour {
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.tag=="Attack"&&other.gameObject.layer==16)
+        if (other.gameObject.tag == "Attack" && LayerMask.LayerToName(other.gameObject.layer) == "Bullet")
         {
             Destroy(this.gameObject);
         }

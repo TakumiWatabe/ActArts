@@ -11,6 +11,7 @@ public class PlayerCommand : MonoBehaviour {
 
     [SerializeField]
     GameObject hadokenObject;
+    private GameObject hado;
 
     //コマンド入力の猶予
     public int commandCount = 20;
@@ -367,7 +368,7 @@ public class PlayerCommand : MonoBehaviour {
                             {
                                 Vector3 hadoPos = transform.position;
                                 hadoPos.y += 0.5f;
-                                GameObject hado = Instantiate(hadokenObject, hadoPos, Quaternion.identity);
+                                hado = Instantiate(hadokenObject, hadoPos, Quaternion.identity);
                                 //GameObject hado = Instantiate(hadokenObject, GetComponent<ColliderEvent>().GetHitBoxs[9].center + this.transform.parent.transform.position, Quaternion.identity);
                                 if (playerController.Direction == 1) hado.transform.Rotate(0, 0, 0);
                                 else hado.transform.Rotate(0, 180, 0);
@@ -431,55 +432,55 @@ public class PlayerCommand : MonoBehaviour {
     }
 
 
-    /// <summary>
-    /// コマンド入力
-    /// </summary>
-    /// <param name="command">コマンド内容</param>
-    /// <param name="setSpecialState">成立時にどの技を出すか</param>
-    void Command(List<string> command, string setSpecialState)
-    {
+    ///// <summary>
+    ///// コマンド入力
+    ///// </summary>
+    ///// <param name="command">コマンド内容</param>
+    ///// <param name="setSpecialState">成立時にどの技を出すか</param>
+    //void Command(List<string> command, string setSpecialState)
+    //{
 
-        int commandNum = command.Count;
+    //    int commandNum = command.Count;
 
-        if (playerController.State != "Special" && animator.GetInteger("Damage") == 0)
-        {
+    //    if (playerController.State != "Special" && animator.GetInteger("Damage") == 0)
+    //    {
 
-            int commandEstablishmentCount = 0;
+    //        int commandEstablishmentCount = 0;
 
-            for (int i = 0; i < commandCount; i++)
-            {
-                if (command[commandEstablishmentCount] == history[i])
-                {
-                    commandEstablishmentCount++;
-                    if (commandEstablishmentCount > commandNum)
-                    {
-                        if (playerController.State != "Jump" && playerController.State != "Special")
-                        {
-                            if (playerController.IsHadouCommandMissile)
+    //        for (int i = 0; i < commandCount; i++)
+    //        {
+    //            if (command[commandEstablishmentCount] == history[i])
+    //            {
+    //                commandEstablishmentCount++;
+    //                if (commandEstablishmentCount > commandNum)
+    //                {
+    //                    if (playerController.State != "Jump" && playerController.State != "Special")
+    //                    {
+    //                        if (playerController.IsHadouCommandMissile)
 
-                            {
-                                GameObject hado = Instantiate(hadokenObject, transform.position, Quaternion.identity);
-                                //GameObject hado = Instantiate(hadokenObject, GetComponent<ColliderEvent>().GetHitBoxs[9].center + this.transform.parent.transform.position, Quaternion.identity);
-                                if (playerController.Direction == 1) hado.transform.Rotate(0, 0, 0);
-                                else hado.transform.Rotate(0, 180, 0);
-                                hado.name = "HadoukenA";
-                                hado.transform.SetParent(this.transform);
+    //                        {
+    //                            hado = Instantiate(hadokenObject, transform.position, Quaternion.identity);
+    //                            //GameObject hado = Instantiate(hadokenObject, GetComponent<ColliderEvent>().GetHitBoxs[9].center + this.transform.parent.transform.position, Quaternion.identity);
+    //                            if (playerController.Direction == 1) hado.transform.Rotate(0, 0, 0);
+    //                            else hado.transform.Rotate(0, 180, 0);
+    //                            hado.name = "HadoukenA";
+    //                            hado.transform.SetParent(this.transform);
 
-                                hado.GetComponent<HadouController>().direction = playerController.Direction;
-                            }
+    //                            hado.GetComponent<HadouController>().direction = playerController.Direction;
+    //                        }
 
-                            playerController.SpecialState = setSpecialState;
-                            playerController.State = "Special";
-                            HistoryClear();
-                            Debug.Log(setSpecialState);
-                            //nowGravity = 0;
-                        }
-                        return;
-                    }
-                }
-            }
-        }
-    }
+    //                        playerController.SpecialState = setSpecialState;
+    //                        playerController.State = "Special";
+    //                        HistoryClear();
+    //                        Debug.Log(setSpecialState);
+    //                        //nowGravity = 0;
+    //                    }
+    //                    return;
+    //                }
+    //            }
+    //        }
+    //    }
+    //}
 
     /// <summary>
     /// ダッシュ
@@ -588,5 +589,5 @@ public class PlayerCommand : MonoBehaviour {
 
     public int SpecialDirection { get { return specialDirection; } }
 
-    public GameObject HadokenObject { get { return hadokenObject; } }
+    public GameObject HadokenObject { get { return hado; } }
 }
