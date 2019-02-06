@@ -63,6 +63,335 @@ public class ColliderEvent : MonoBehaviour {
         HitColliderActive(0);
         AtkColliderActive(0);
     }
+
+    //-------------------------------------------------------
+    //Shiroganeあたり判定
+    //-------------------------------------------------------
+    //しゃがみ弱
+    void S_WeekSitAttackCollidH()
+    {
+        HitColliderActive(2);
+        AtkColliderActive(0);
+        SetBoxState(HitBox[0],
+            new Vector3(0.1f, 0.37f, 0.0f),
+            new Vector3(0.37f, 0.7f, 0.25f),
+            new Vector3(0.0f, -145.0f, 0.0f));
+        SetBoxState(HitBox[1],
+            new Vector3(0.07f, -0.09f, 0.0f),
+            new Vector3(0.75f, 0.59f, 0.25f),
+            new Vector3(0.0f, -145.0f, 0.0f));
+    }
+    void S_WeekSitAttackCollidA()
+    {
+        AtkColliderActive(1);
+        SetBoxState(AtkBox[0],
+            new Vector3(0.51f, -0.15f, 0.0f),
+            new Vector3(0.89f, 0.44f, 0.25f),
+            new Vector3(0.0f, -145.0f, 0.0f));
+    }
+
+    //立ち強
+    void S_StrongAttackCollidH1()
+    {
+        HitColliderActive(2);
+        AtkColliderActive(0);
+        SetBoxState(HitBox[0],
+            new Vector3(-0.01f, 0.33f, 0.0f),
+            new Vector3(0.37f, 0.7f, 0.25f),
+            new Vector3(0.0f, -145.0f, 0.0f));
+        SetBoxState(HitBox[1],
+            new Vector3(0.0f, -0.49f, 0.0f),
+            new Vector3(0.63f, 0.92f, 0.25f),
+            new Vector3(0.0f, -145.0f, 0.0f));
+    }
+    void S_StrongAttackCollidH2()
+    {
+        HitColliderActive(3);
+        SetBoxState(HitBox[0],
+            new Vector3(-0.14f, 0.33f, 0.0f),
+            new Vector3(0.37f, 0.7f, 0.25f),
+            new Vector3(0.0f, -90.0f, 0.0f));
+        SetBoxState(HitBox[1],
+            new Vector3(0.0f, -0.49f, 0.0f),
+            new Vector3(0.32f, 0.92f, 0.25f),
+            new Vector3(0.0f, -90.0f, 0.0f));
+        SetBoxState(HitBox[2],
+            new Vector3(0.21f, 0.4f, 0.0f),
+            new Vector3(0.37f, 0.94f, 0.25f),
+            new Vector3(0.0f, -90.0f, 0.0f));
+    }
+    void S_StrongAttackCollidH3()
+    {
+        HitColliderActive(3);
+        SetBoxState(HitBox[0],
+            new Vector3(-0.14f, 0.33f, 0.0f),
+            new Vector3(0.37f, 0.7f, 0.25f),
+            new Vector3(0.0f, -90.0f, 0.0f));
+        SetBoxState(HitBox[1],
+            new Vector3(0.0f, -0.49f, 0.0f),
+            new Vector3(0.32f, 0.92f, 0.25f),
+            new Vector3(0.0f, -90.0f, 0.0f));
+        SetBoxState(HitBox[2],
+            new Vector3(0.37f, 0.22f, 0.0f),
+            new Vector3(0.64f, 0.64f, 0.25f),
+            new Vector3(0.0f, -90.0f, 0.0f));
+    }
+    void S_StrongAttackCollidH4()
+    {
+        HitColliderActive(2);
+        AtkColliderActive(0);
+        SetBoxState(HitBox[0],
+            new Vector3(-0.14f, 0.33f, 0.0f),
+            new Vector3(0.37f, 0.7f, 0.25f),
+            new Vector3(0.0f, -90.0f, 0.0f));
+        SetBoxState(HitBox[1],
+            new Vector3(0.17f, -0.49f, 0.0f),
+            new Vector3(0.71f, 0.92f, 0.25f),
+            new Vector3(0.0f, -90.0f, 0.0f));
+    }
+    void S_StrongAttackCollidA1()
+    {
+        AtkColliderActive(1);
+        SetBoxState(AtkBox[0],
+            new Vector3(0.51f, -0.15f, 0.0f),
+            new Vector3(0.89f, 1.37f, 0.25f),
+            new Vector3(0.0f, -90.0f, 0.0f));
+    }
+
+    //立ち弱
+    void S_WeekAttackCollid1()
+    {
+        HitColliderActive(2);
+        AtkColliderActive(0);
+        SetBoxState(HitBox[0],
+            new Vector3(0.0f, 0.4f, 0.0f),
+            new Vector3(0.46f, 0.61f, 0.25f),
+            new Vector3(0.0f, -145.0f, 0.0f));
+        SetBoxState(HitBox[1],
+            new Vector3(0.03f, -0.39f, 0.0f),
+            new Vector3(0.68f, 0.99f, 0.25f),
+            new Vector3(0.0f, -145.0f, 0.0f));
+    }
+    void S_WeekAttackCollid2()
+    {
+        HitColliderActive(2);
+        AtkColliderActive(1);
+        SetBoxState(HitBox[0],
+            new Vector3(0.07f, 0.4f, 0.0f),
+            new Vector3(0.37f, 0.61f, 0.25f),
+            new Vector3(0.0f, -90.0f, 0.0f));
+        SetBoxState(HitBox[1],
+            new Vector3(0.12f, -0.39f, 0.0f),
+            new Vector3(0.48f, 0.99f, 0.25f),
+            new Vector3(0.0f, -90.0f, 0.0f));
+        SetBoxState(AtkBox[0],
+            new Vector3(0.121f, -0.14f, 0.0f),
+            new Vector3(0.48f, 1.0f, 0.25f),
+            new Vector3(0.0f, -90.0f, 0.0f));
+    }
+    void S_WeekAttackCollid3()
+    {
+        AtkColliderActive(1);
+        SetBoxState(AtkBox[0],
+            new Vector3(0.121f, -0.14f, 0.0f),
+            new Vector3(0.48f, 1.0f, 0.25f),
+            new Vector3(0.0f, -90.0f, 0.0f));
+    }
+
+    //しゃがみくらい
+    void S_SitDamageCollid()
+    {
+        HitColliderActive(2);
+        AtkColliderActive(0);
+        SetBoxState(HitBox[0],
+            new Vector3(0.0f, 0.4f, 0.0f),
+            new Vector3(0.46f, 0.61f, 0.25f),
+            new Vector3(0.0f, -145.0f, 0.0f));
+        SetBoxState(HitBox[1],
+            new Vector3(0.03f, -0.09f, 0.0f),
+            new Vector3(0.8f, 0.51f, 0.25f),
+            new Vector3(0.0f, -145.0f, 0.0f));
+    }
+
+    //立くらい
+    void S_StandWeekDamageCollid()
+    {
+        HitColliderActive(1);
+        AtkColliderActive(0);
+        SetBoxState(HitBox[0],
+            new Vector3(0.0f, -0.09f, 0.0f),
+            new Vector3(0.7f, 1.6f, 0.25f),
+            new Vector3(0.0f, -145.0f, 0.0f));
+    }
+
+    //しゃがみガード
+    void S_SitGuardCollid()
+    {
+        HitColliderActive(2);
+        AtkColliderActive(0);
+        SetBoxState(HitBox[0],
+            new Vector3(0.09f, 0.37f, 0.0f),
+            new Vector3(0.46f, 0.59f, 0.25f),
+            new Vector3(0.0f, -145.0f, 0.0f));
+        SetBoxState(HitBox[1],
+            new Vector3(0.03f, -0.09f, 0.0f),
+            new Vector3(0.8f, 0.51f, 0.25f),
+            new Vector3(0.0f, -145.0f, 0.0f));
+    }
+
+    //立ガード
+    void S_StandGuardCollid()
+    {
+        HitColliderActive(1);
+        AtkColliderActive(0);
+        SetBoxState(HitBox[0],
+            new Vector3(0.09f, -0.1f, 0.0f),
+            new Vector3(0.46f, 1.6f, 0.25f),
+            new Vector3(0.0f, -90.0f, 0.0f));
+    }
+
+    //立ち→しゃがみ
+    void S_ShtDown1()
+    {
+        HitColliderActive(2);
+        AtkColliderActive(0);
+        SetBoxState(HitBox[0],
+            new Vector3(0.0f, 0.3f, 0.0f),
+            new Vector3(0.46f, 0.76f, 0.25f),
+            new Vector3(0.0f, -145.0f, 0.0f));
+        SetBoxState(HitBox[1],
+            new Vector3(-0.02f, -0.46f, 0.0f),
+            new Vector3(0.95f, 0.78f, 0.25f),
+            new Vector3(0.0f, -145.0f, 0.0f));
+    }
+    void S_ShtDown2()
+    {
+        HitColliderActive(2);
+        AtkColliderActive(0);
+        SetBoxState(HitBox[0],
+            new Vector3(0.0f, 0.3f, 0.0f),
+            new Vector3(0.46f, 0.76f, 0.25f),
+            new Vector3(0.0f, -145.0f, 0.0f));
+        SetBoxState(HitBox[1],
+            new Vector3(0.03f, -0.27f, 0.0f),
+            new Vector3(0.86f, 0.9f, 0.25f),
+            new Vector3(0.0f, -145.0f, 0.0f));
+    }
+
+    //前進
+    void S_WalkCollid()
+    {
+        HitColliderActive(1);
+        AtkColliderActive(0);
+        SetBoxState(HitBox[0],
+            new Vector3(0.0f, -0.1f, 0.0f),
+            new Vector3(0.62f, 1.6f, 0.25f),
+            new Vector3(0.0f, -90.0f, 0.0f));
+    }
+
+    //しゃがみ
+    void S_SitCollid()
+    {
+        HitColliderActive(2);
+        AtkColliderActive(0);
+        SetBoxState(HitBox[0],
+            new Vector3(0.05f, -0.1f, 0.0f),
+            new Vector3(0.83f, 0.5f, 0.25f),
+            new Vector3(0.0f, -145.0f, 0.0f));
+        SetBoxState(HitBox[1],
+            new Vector3(0.05f, 0.41f, 0.0f),
+            new Vector3(0.41f, 0.55f, 0.25f),
+            new Vector3(0.0f, -145.0f, 0.0f));
+    }
+
+    //ジャンプ
+    void S_JumpCollid()
+    {
+        HitColliderActive(1);
+        AtkColliderActive(0);
+        SetBoxState(HitBox[0],
+            new Vector3(0.0f, -0.08f, 0.0f),
+            new Vector3(0.65f, 1.6f, 0.25f),
+            new Vector3(0.0f, -145.0f, 0.0f));
+    }
+
+    //波動
+    void S_HadouCollid1()
+    {
+        HitColliderActive(1);
+        AtkColliderActive(0);
+        SetBoxState(HitBox[0],
+            new Vector3(-0.06f, -0.1f, 0.0f),
+            new Vector3(0.75f, 1.6f, 0.25f),
+            new Vector3(0.0f, -145.0f, 0.0f));
+    }
+    void S_HadouCollid2()
+    {
+        HitColliderActive(1);
+        AtkColliderActive(0);
+        SetBoxState(HitBox[0],
+            new Vector3(0.25f, -0.1f, 0.0f),
+            new Vector3(0.8f, 1.2f, 0.25f),
+            new Vector3(0.0f, -85.0f, 0.0f));
+    }
+    void S_HadouCollid3()
+    {
+        HitColliderActive(1);
+        AtkColliderActive(0);
+        SetBoxState(HitBox[0],
+            new Vector3(0.11f, -0.08f, 0.0f),
+            new Vector3(0.69f, 1.47f, 0.25f),
+            new Vector3(0.0f, -85.0f, -25.0f));
+    }
+
+    //ガークラ
+    void S_GuardCrushCollid()
+    {
+        HitColliderActive(1);
+        AtkColliderActive(0);
+        SetBoxState(HitBox[0],
+            new Vector3(-0.06f, -0.1f, 0.0f),
+            new Vector3(0.75f, 1.6f, 0.25f),
+            new Vector3(0.0f, -145.0f, 0.0f));
+    }
+
+    //ダッシュ
+    void S_DushCollid()
+    {
+        HitColliderActive(2);
+        AtkColliderActive(0);
+        SetBoxState(HitBox[0],
+            new Vector3(-0.21f, -0.4f, 0.0f),
+            new Vector3(1.2f, 0.68f, 0.25f),
+            new Vector3(0.0f, -85.0f, 0.0f));
+        SetBoxState(HitBox[1],
+            new Vector3(0.15f, 0.24f, 0.0f),
+            new Vector3(0.65f, 0.68f, 0.25f),
+            new Vector3(0.0f, -85.0f, 0.0f));
+    }
+
+    //後退
+    void S_BackWalkCollid()
+    {
+        HitColliderActive(1);
+        AtkColliderActive(0);
+        SetBoxState(HitBox[0],
+            new Vector3(0, -0.08f, 0.0f),
+            new Vector3(0.37f, 1.6f, 0.3f),
+            new Vector3(0.0f, -175.0f, 0.0f));
+    }
+
+    //立ち
+    void S_StandCollid()
+    {
+        HitColliderActive(1);
+        AtkColliderActive(0);
+        SetBoxState(HitBox[0],
+            new Vector3(0, -0.08f,0.0f),
+            new Vector3(0.56f, 1.6f, 0.25f),
+            new Vector3(0.0f,-145.0f,0.0f));
+    }
+
     //-------------------------------------------------------------------------------------------------------------------
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //Mariあたり判定
@@ -2856,6 +3185,7 @@ public class ColliderEvent : MonoBehaviour {
     }
     void XBaseKickCollider2()
     {
+        AtkColliderActive(1);
         SetBoxState(HitBox[0],
             new Vector3(0, 0.8f, 0f),
             new Vector3(CSizeZ, 1.6f, 0.55f));
@@ -3111,10 +3441,14 @@ public class ColliderEvent : MonoBehaviour {
     }
 
     //あたり判定設定関数
-    private void SetBoxState(BoxCollider box, Vector3 pos, Vector3 size)
+    private void SetBoxState(BoxCollider box, Vector3 pos, Vector3 size, Vector3? rot = null)
     {
+        Vector3 rotation = rot ?? Vector3.zero;
+        //rotation = new Vector3();
+
         box.center = pos;
         box.size = size;
+        box.transform.localEulerAngles = rotation;
     }
 
     //変数取得

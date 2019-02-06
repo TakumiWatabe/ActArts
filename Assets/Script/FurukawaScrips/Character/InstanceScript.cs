@@ -16,10 +16,11 @@ public class InstanceScript : MonoBehaviour {
 
     //キャラクターの名前を格納する変数
     private InstantFighter[] fight = new InstantFighter[2];
-    private string[] names = new string[3]
+    private string[] names = new string[4]
     {
         "Aoi" ,
         "Hikari" ,
+        "Shirogane",
         "none"
     };
 
@@ -82,7 +83,7 @@ public class InstanceScript : MonoBehaviour {
             else
             {
                 //デバッグ用に先頭のキャラを登録
-                CreateChar(i, 0);
+                CreateChar(i, 2);
             }
 
             if (fight[i].fighter != null)
