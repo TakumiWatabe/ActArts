@@ -19,8 +19,8 @@ public class SceneTransition : MonoBehaviour {
     bool p2 = true;
     bool sceneFlagMenu = false;
     bool fadeFlag = true;
+    bool sceneFlag = true;
     int state = 0;
-
     AudioSource audio;
 
     [SerializeField]
@@ -71,11 +71,16 @@ public class SceneTransition : MonoBehaviour {
         // タイトルシーンでの処理
         if (SceneManager.GetActiveScene().name == "TitleScene")
         {
-            if(Input.anyKeyDown)
+            if (sceneFlag)
             {
-                audio.Stop();
-                audio.PlayOneShot(dicideSE, 1.0f);
-                fade.FadeOutFlag();
+                if (Input.anyKeyDown)
+                {
+
+                    sceneFlag = false;
+                    audio.Stop();
+                    audio.PlayOneShot(dicideSE, 1.0f);
+                    fade.FadeOutFlag();
+                }
             }
             if (fade.GetAlpha() >= 1.0f)
             {
@@ -157,10 +162,8 @@ public class SceneTransition : MonoBehaviour {
         {
             fade.FadeOutFlag();
         }
-        Debug.Log(fade.GetAlpha());
         if (fade.GetAlpha() >= 1.0f)
         {
-            Debug.Log("１２３");
             scene.SceneChange(name);
 
         }
