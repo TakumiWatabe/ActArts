@@ -1604,7 +1604,7 @@ Prefab:
     - target: {fileID: 114132592459447080, guid: 8ef7e693f28be0c4db472ce4508b9375,
         type: 2}
       propertyPath: P1charNum
-      value: 0
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 114132592459447080, guid: 8ef7e693f28be0c4db472ce4508b9375,
         type: 2}
@@ -1797,6 +1797,12 @@ Prefab:
       propertyPath: timeUp
       value: 
       objectReference: {fileID: 186963625}
+    - target: {fileID: 114258142572235418, guid: 8e63fbe6cdcf2e54c91c3ded70ddcc4b,
+        type: 2}
+      propertyPath: sys
+      value: 
+      objectReference: {fileID: 1343303054870762, guid: 036efaa549670c34bac4627c3c92aaea,
+        type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 8e63fbe6cdcf2e54c91c3ded70ddcc4b, type: 2}
   m_IsPrefabParent: 0
