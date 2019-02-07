@@ -11,9 +11,7 @@ public class UIAnime : MonoBehaviour {
     private RectTransform ui2;
     float uiSize1;
     float uiSize2;
-    [SerializeField]
     GameObject backImage;
-    [SerializeField]
     GameObject backImage2;
     int animeFlag;
     private float alpha;
@@ -23,10 +21,13 @@ public class UIAnime : MonoBehaviour {
     // Use this for initialization
     void Start()
     {
-        image = GetComponent<Image>();
+        image = GameObject.Find("Startchar").GetComponent<Image>();
         animeFlag = 0;
-        ui = backImage.GetComponent<RectTransform>();
-        ui2 = backImage2.GetComponent<RectTransform>();
+        if (SceneManager.GetActiveScene().name == "TitleScene")
+        {
+            ui = GameObject.Find("Circle1").GetComponent<RectTransform>();
+            ui2 = GameObject.Find("Circle2").GetComponent<RectTransform>();
+        }
     }
     // Update is called once per frame
     void Update ()
@@ -37,7 +38,18 @@ public class UIAnime : MonoBehaviour {
         }
         if (SceneManager.GetActiveScene().name == "SelectScene")
         {
-            SelectAnime();
+            // 透明度
+            if (alphaFlag)
+                alpha -= Time.deltaTime;
+            else
+                alpha += Time.deltaTime;
+
+            if (alpha >= 1)
+                alphaFlag = true;
+            else if (alpha <= 0)
+                alphaFlag = false;
+
+            image.color = new Color(255, 255, 255, alpha);
         }
     }
     public void TitleAnime()
@@ -66,22 +78,6 @@ public class UIAnime : MonoBehaviour {
 
         ui.sizeDelta = new Vector2(uiSize1, uiSize1);
         ui2.sizeDelta = new Vector2(uiSize2, uiSize2);
-    }
-    public void SelectAnime()
-    {
-        // 透明度
-        if (alphaFlag)
-            alpha -= Time.deltaTime;
-        else
-            alpha += Time.deltaTime;
-
-        if (alpha >= 1)
-            alphaFlag = true;
-        else if (alpha <= 0)
-            alphaFlag = false;
-
-        image.color = new Color(255, 255, 255, alpha);
-
     }
 
 }

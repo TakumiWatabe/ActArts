@@ -396,8 +396,45 @@ public class CharacterSelect : MonoBehaviour
                 sceneFlag2 = false;
             }
         }
-        
-        if (!controlFlag2P)
+
+        //if (!controlFlag2P)
+        //{
+
+        //    if (GamePad.GetButtonDown(GamePad.Button.X, GamePad.Index.One))
+        //    {
+        //        sceneFlag2 = true;
+        //        controlFlag2P = true;
+        //        pvcController = 1;
+        //        if (pos != iconPos2)
+        //            pos = iconPos2;
+        //        Destroy(GameObject.Find("player2"));
+        //    }
+        //}
+        //else if (!controlFlag1P)
+        //{
+        //    if (GamePad.GetButtonDown(GamePad.Button.X, GamePad.Index.One))
+        //    {
+        //        sceneFlag1 = true;
+        //        controlFlag1P = true;
+        //        pvcController = 0;
+        //        if (pos != iconPos1)
+        //            pos = iconPos1;
+        //        Destroy(GameObject.Find("player1"));
+        //    }
+        //}
+        if (!controlFlag1P)
+        {
+            if (GamePad.GetButtonDown(GamePad.Button.X, GamePad.Index.One))
+            {
+                sceneFlag1 = true;
+                controlFlag1P = true;
+                pvcController = 0;
+                if (pos != iconPos1)
+                    pos = iconPos1;
+                Destroy(GameObject.Find("player1"));
+            }
+        }
+        else if (!controlFlag2P)
         {
 
             if (GamePad.GetButtonDown(GamePad.Button.X, GamePad.Index.One))
@@ -410,20 +447,8 @@ public class CharacterSelect : MonoBehaviour
                 Destroy(GameObject.Find("player2"));
             }
         }
-        else if (!controlFlag1P)
-        {
-            if (GamePad.GetButtonDown(GamePad.Button.X, GamePad.Index.One))
-            {
-                sceneFlag1 = true;
-                controlFlag1P = true;
-                pvcController = 0;
-                if (pos != iconPos1)
-                    pos = iconPos1;
-                Destroy(GameObject.Find("player1"));
-            }
-        }
 
-        
+
 
         if (controller == 2 && pvcController == 1)
         {
