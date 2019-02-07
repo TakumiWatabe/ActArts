@@ -32,8 +32,11 @@ public class PlaySEScript : MonoBehaviour {
     //負けSE
     [SerializeField, Header("敗北")]
     private AudioClip lose;
+    //ガークラSE
+    [SerializeField, Header("ガードクラッシュ")]
+    private AudioClip guardCrash;
 
-    
+
     [Header("------各種ボイス------")]
     //通常攻撃
     [SerializeField, Header("通常攻撃")]
@@ -60,6 +63,9 @@ public class PlaySEScript : MonoBehaviour {
     //負け
     [SerializeField, Header("敗北")]
     private AudioClip loseVoice;
+    //ガークラ
+    [SerializeField, Header("ガードクラッシュ")]
+    private AudioClip guardCrashVoice;
 
     [SerializeField]
     private List<AudioClip> se;
@@ -77,6 +83,7 @@ public class PlaySEScript : MonoBehaviour {
         GUARD,
         WIN,
         LOSE,
+        GUARDCRASH,
         NUM
     }
 
@@ -91,6 +98,7 @@ public class PlaySEScript : MonoBehaviour {
         GUARD,
         WIN,
         LOSE,
+        GUARDCRASH,
         NUM
     }
 
@@ -107,6 +115,7 @@ public class PlaySEScript : MonoBehaviour {
         se.Add(guard);
         se.Add(win);
         se.Add(lose);
+        se.Add(guardCrash);
 
         voice.Add(attackVoice1);
         voice.Add(attackVoice2);
@@ -117,6 +126,7 @@ public class PlaySEScript : MonoBehaviour {
         voice.Add(guardVoice);
         voice.Add(winVoice);
         voice.Add(loseVoice);
+        voice.Add(guardCrashVoice);
     }
 	
 	// Update is called once per frame

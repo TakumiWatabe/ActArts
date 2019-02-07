@@ -102,12 +102,19 @@ public class TestChar : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Pcont.animState == "StandGuard" || Pcont.animState == "SitGuard" || Pcont.animState == "Guard")
-        { guardatk = true; }
-        else { guardatk = false; }
-
         //攻撃くらい判定
         hitJudg();
+
+        //ガード時判定
+        if (Pcont.AnimatorPlayer.GetBool("Guard"))
+        {
+            guardatk = true;
+        }
+        else
+        {
+            guardatk = false;
+        }
+
         //コルーチン処理
         waitRegene(30);
     }
@@ -123,39 +130,138 @@ public class TestChar : MonoBehaviour
             {
                 hitatk = true;
                 react[i].hiting = false;
-
                 //ガードしているなら
                 if (guardatk)
                 {
-                    //ダメージ分ガードゲージを減らす
-                    GScript.hitGuard(ASScriptEne.Damage((int)CEventEne.GetType));
-                    Vector3 effectPos = transform.position;
-                    effectPos.y += 1.0f;
-                    Instantiate(guardEffect, effectPos, Quaternion.identity);
-                    if (Pcont.ControllerName == "AI")
+                    bool successedGuard = true;
+                    if(Pcont.AnimatorPlayer.GetBool("Guard"))
                     {
-                        AI.JudgResult("Guard", "");
+                        if (Pcont.AnimatorPlayer.GetBool("StandGuard"))
+                        {
+                            string hitArt = ASScriptEne.Attri((int)CEventEne.GetType);
+                            if (hitArt == "Low")
+                            {
+                                successedGuard = false;
+                                //エフェクト発生
+                                SEScript.appearEffe(ASScriptEne.AtkLev((int)CEventEne.GetType), react[i].point);
+                                //ダメージ分HPゲージを減らす
+                                HPDir.hitDmage(ASScriptEne.Damage((int)CEventEne.GetType));
+                                Pcont.HitDamage(ASScriptEne.Damage((int)CEventEne.GetType), ASScriptEne.AtkLev((int)CEventEne.GetType), ASScriptEne.HitStun((int)CEventEne.GetType));
+                                if (Pcont.ControllerName == "AI")
+                                {
+                                    AI.JudgResult("Damage", Pcont.fightEnemy.GetComponent<PlayerController>().State);
+                                }
+                                else if (Pcont.fightEnemy.GetComponent<PlayerController>().ControllerName == "AI")
+                                {
+                                    AI.JudgResult("Damaged", "");
+                                }
+                            }
+                        }
+                        else
+                        {
+                            string hitArt = ASScriptEne.Attri((int)CEventEne.GetType);
+                            if (hitArt == "High")
+                            {
+                                successedGuard = false;
+                                //エフェクト発生
+                                SEScript.appearEffe(ASScriptEne.AtkLev((int)CEventEne.GetType), react[i].point);
+                                //ダメージ分HPゲージを減らす
+                                HPDir.hitDmage(ASScriptEne.Damage((int)CEventEne.GetType));
+                                Pcont.HitDamage(ASScriptEne.Damage((int)CEventEne.GetType), ASScriptEne.AtkLev((int)CEventEne.GetType), ASScriptEne.HitStun((int)CEventEne.GetType));
+                                if (Pcont.ControllerName == "AI")
+                                {
+                                    AI.JudgResult("Damage", Pcont.fightEnemy.GetComponent<PlayerController>().State);
+                                }
+                                else if (Pcont.fightEnemy.GetComponent<PlayerController>().ControllerName == "AI")
+                                {
+                                    AI.JudgResult("Damaged", "");
+                                }
+                            }
+                        }
                     }
-                    else if (Pcont.fightEnemy.GetComponent<PlayerController>().ControllerName == "AI")
+
+                    if(successedGuard)
                     {
-                        AI.JudgResult("WasGuarded", Pcont.State);
+                        //ダメージ分ガードゲージを減らす
+                        GScript.hitGuard(ASScriptEne.Damage((int)CEventEne.GetType));
+                        Vector3 effectPos = transform.position;
+                        effectPos.y += 1.0f;
+                        Instantiate(guardEffect, effectPos, Quaternion.identity);
+                        if (Pcont.ControllerName == "AI")
+                        {
+                            AI.JudgResult("Guard", "");
+                        }
+                        else if (Pcont.fightEnemy.GetComponent<PlayerController>().ControllerName == "AI")
+                        {
+                            AI.JudgResult("WasGuarded", Pcont.State);
+                        }
                     }
+
                 }
                 else
                 {
-                    //エフェクト発生
-                    SEScript.appearEffe(ASScriptEne.AtkLev((int)CEventEne.GetType), react[i].point);
-                    //ダメージ分HPゲージを減らす
-                    HPDir.hitDmage(ASScriptEne.Damage((int)CEventEne.GetType));
-                    Pcont.HitDamage(ASScriptEne.Damage((int)CEventEne.GetType));
-                    if (Pcont.ControllerName == "AI")
+                    bool successedGuardBullet = false;
+                    string art = ASScriptEne.Attri((int)CEventEne.GetType);
+                    if (art == "Bullet")
                     {
-                        AI.JudgResult("Damage", Pcont.fightEnemy.GetComponent<PlayerController>().State);
+                        if (Pcont.InputDKey == 4 && (Pcont.State == "Stand" || Pcont.State == "Sit"))
+                        {
+                            successedGuardBullet = true;
+                            Pcont.AnimatorPlayer.SetBool("Guard", true);
+                            Pcont.State = "StandGuard";
+                            //ダメージ分ガードゲージを減らす
+                            GScript.hitGuard(ASScriptEne.Damage((int)CEventEne.GetType));
+                            Vector3 effectPos = transform.position;
+                            effectPos.y += 1.0f;
+                            Instantiate(guardEffect, effectPos, Quaternion.identity);
+                            if (Pcont.ControllerName == "AI")
+                            {
+                                AI.JudgResult("Guard", "");
+                            }
+                            else if (Pcont.fightEnemy.GetComponent<PlayerController>().ControllerName == "AI")
+                            {
+                                AI.JudgResult("WasGuarded", Pcont.State);
+                            }
+                        }
+                        else if (Pcont.InputDKey == 1 && (Pcont.State == "Stand" || Pcont.State == "Sit"))
+                        {
+                            successedGuardBullet = true;
+                            Pcont.AnimatorPlayer.SetBool("Guard", true);
+                            Pcont.State = "SitGuard";
+                            //ダメージ分ガードゲージを減らす
+                            GScript.hitGuard(ASScriptEne.Damage((int)CEventEne.GetType));
+                            Pcont.GuardDamage(ASScriptEne.BlockStun((int)CEventEne.GetType));
+                            Vector3 effectPos = transform.position;
+                            effectPos.y += 1.0f;
+                            Instantiate(guardEffect, effectPos, Quaternion.identity);
+                            if (Pcont.ControllerName == "AI")
+                            {
+                                AI.JudgResult("Guard", "");
+                            }
+                            else if (Pcont.fightEnemy.GetComponent<PlayerController>().ControllerName == "AI")
+                            {
+                                AI.JudgResult("WasGuarded", Pcont.State);
+                            }
+                        }
                     }
-                    else if (Pcont.fightEnemy.GetComponent<PlayerController>().ControllerName == "AI")
+                    if(!successedGuardBullet)
                     {
-                        AI.JudgResult("Damaged", "");
+                        //エフェクト発生
+                        SEScript.appearEffe(ASScriptEne.AtkLev((int)CEventEne.GetType), react[i].point);
+                        //ダメージ分HPゲージを減らす
+                        HPDir.hitDmage(ASScriptEne.Damage((int)CEventEne.GetType));
+                        Pcont.HitDamage(ASScriptEne.Damage((int)CEventEne.GetType), ASScriptEne.AtkLev((int)CEventEne.GetType), ASScriptEne.HitStun((int)CEventEne.GetType));
+                        if (Pcont.ControllerName == "AI")
+                        {
+                            AI.JudgResult("Damage", Pcont.fightEnemy.GetComponent<PlayerController>().State);
+                        }
+                        else if (Pcont.fightEnemy.GetComponent<PlayerController>().ControllerName == "AI")
+                        {
+                            AI.JudgResult("Damaged", "");
+                        }
                     }
+
+
                 }
 
 
@@ -166,11 +272,14 @@ public class TestChar : MonoBehaviour
 
                 //受けた攻撃のステータス
                 CreateArtsSatet(ASScriptEne, (int)CEventEne.GetType);
+
             }
 
             //攻撃を食らっているなら
             if (react[i].CObj != null)
             {
+                //react[i].CObj.SetActive(false);
+
                 //のけぞり時間中ならあたり判定しない
                 if (time >= timecCnt)
                 {
@@ -196,7 +305,9 @@ public class TestChar : MonoBehaviour
         if (CEventEne.GetType == ValueScript.AtkVal.HADOUKEN)
         {
             Instantiate(explodeHadouEffect, transform.position, Quaternion.identity);
+
             //飛び道具を消す
+            Debug.Log(Pcont.fightEnemy.GetComponent<PlayerController>().GetHadou.name);
             Destroy(Pcont.fightEnemy.GetComponent<PlayerController>().GetHadou);
         }
     }
@@ -217,6 +328,7 @@ public class TestChar : MonoBehaviour
         {
             if (GScript.NowGuardVal < 1000 && GScript.NowGuardVal > 0)
             {
+                Debug.Log("リジェネ発動");
                 //ガード値を徐々に回復
                 GScript.guardRegene();
             }

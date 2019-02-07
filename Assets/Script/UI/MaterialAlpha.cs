@@ -25,6 +25,5 @@ public class MaterialAlpha : MonoBehaviour {
         else if (color.a <= 0)
             alphaFlag = false; 
         render.material.color = color;
-
     }
 }

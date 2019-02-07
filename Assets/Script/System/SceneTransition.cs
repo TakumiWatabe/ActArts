@@ -8,10 +8,11 @@ using UnityEngine.UI;
 public class SceneTransition : MonoBehaviour {
     SceneManagement scene;
     FadeScript fade;
-    CharacterSelect select;
-    CharacterSelect select2;
+    CancelScript decision;
+    //CharacterSelect select;
+    //CharacterSelect select2;
     DataRetention datare;
-
+    CancelScript enter;
     PlayMenuSystem sys;
     MenuEvent menu;
     bool p1 = true;
@@ -35,8 +36,9 @@ public class SceneTransition : MonoBehaviour {
         if (SceneManager.GetActiveScene().name == "SelectScene")
         {
             menu = GameObject.Find("SelectSceneObj").GetComponent<MenuEvent>();
-            select = GameObject.Find("P1Image").GetComponent<CharacterSelect>();
-            select2 = GameObject.Find("P2Image").GetComponent<CharacterSelect>();
+            enter = GameObject.Find("SelectSceneObj").GetComponent<CancelScript>();
+            //select = GameObject.Find("P1Image").GetComponent<CharacterSelect>();
+            //select2 = GameObject.Find("P2Image").GetComponent<CharacterSelect>();
         }
         if (SceneManager.GetActiveScene().name == "PlayMenuScene")
             datare = GameObject.Find("GameSystem").GetComponent<DataRetention>();
@@ -55,6 +57,7 @@ public class SceneTransition : MonoBehaviour {
 
     // Update is called once per frame
     void Update () {
+        // Escapeキーでゲームを終了する
         if (Input.GetKey(KeyCode.Escape))
         {
 //#if UNITY_EDITOR
@@ -63,6 +66,8 @@ public class SceneTransition : MonoBehaviour {
 //                Application.Quit();
 //#endif
         }
+        //====================================================================================================
+        // タイトルシーンでの処理
         if (SceneManager.GetActiveScene().name == "TitleScene")
         {
             if(Input.anyKeyDown)
@@ -76,9 +81,11 @@ public class SceneTransition : MonoBehaviour {
                 scene.SceneChange("menu");
             }
         }
+        //====================================================================================================
+        // キャラクターセレクトシーンでの処理
         if (SceneManager.GetActiveScene().name == "SelectScene")
         {
-            if (select.GetP1Frag() == false && select2.GetP2Frag() == false)
+            if(enter.GetEnterFlag()==false)
             {
                 fade.FadeOutFlag();
                 if (fade.GetAlpha() >= 1.0f)
@@ -86,6 +93,14 @@ public class SceneTransition : MonoBehaviour {
                     scene.SceneChange("play");
                 }
             }
+            //if (select.GetP1Frag() == false && select2.GetP2Frag() == false)
+            //{
+            //    fade.FadeOutFlag();
+            //    if (fade.GetAlpha() >= 1.0f)
+            //    {
+            //        scene.SceneChange("play");
+            //    }
+            //}
             if (menu.GetSceneFlag())
             {
                 if (!fadeFlag)
@@ -98,7 +113,8 @@ public class SceneTransition : MonoBehaviour {
                 }
             }
         }
-
+        //====================================================================================================
+        //プレイメニューシーンでの処理
         if (SceneManager.GetActiveScene().name == "PlayMenuScene")
         {
             if (Input.GetButtonDown("AButton") && sceneFlagMenu == false)
@@ -115,7 +131,8 @@ public class SceneTransition : MonoBehaviour {
                 scene.SceneChange("select");
             }
         }
-
+        //====================================================================================================
+        // タイトルシーン以外での処理
         if (SceneManager.GetActiveScene().name != "TitleScene")
         {
             if (fade.GetAlpha() >= 1.0f && fadeFlag == true)

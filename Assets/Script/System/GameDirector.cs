@@ -95,7 +95,8 @@ public class GameDirector : MonoBehaviour
         player1Controller.CanControll = false;
         player2Controller.CanControll = false;
 
-        player2Controller.SetDirection();
+        player1Controller.Direction = 1;
+        player2Controller.Direction = 2;
 
         //comboScript.NoneCombo();
     }
@@ -114,6 +115,11 @@ public class GameDirector : MonoBehaviour
                 icon.sprite = playerIcon[1];
                 plate.sprite = names[1];
                 charcter.name = "Hikari";
+                break;
+            case "Xion(Clone)":
+                icon.sprite = playerIcon[3];
+                plate.sprite = names[3];
+                charcter.name = "Xion";
                 break;
         }
     }
