@@ -24,7 +24,7 @@ public class CameraWork : MonoBehaviour
         cam = GetComponent<Camera>();
     }
 
-    void LateUpdate()
+    void Update()
     {
         float p1PosX = player1.transform.position.x + player1.transform.GetChild(2).localPosition.z * player1.GetComponent<PlayerController>().Direction;
         float p2PosX = player2.transform.position.x + player2.transform.GetChild(2).localPosition.z * player2.GetComponent<PlayerController>().Direction; ;
