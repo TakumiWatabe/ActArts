@@ -13,6 +13,7 @@ public class StartGameAnime : MonoBehaviour {
     [SerializeField]
     AudioClip clip;
     bool sound;
+    bool startFlag;
     // Use this for initialization
     void Start () {
         audio = GetComponent<AudioSource>();
@@ -30,6 +31,7 @@ public class StartGameAnime : MonoBehaviour {
     void Update () {
         if ((selectPlayer1.GetP1Frag() == false) && (selectPlayer2.GetP2Frag() == false))
         {
+            startFlag = true;
             if(sound)
             {
                 audio.Play();
@@ -47,6 +49,7 @@ public class StartGameAnime : MonoBehaviour {
         }
         else
         {
+            startFlag = false;
             sound = true;
             this.transform.localPosition = new Vector3(-800, -125, 0);
             image.color = new Color(255, 255, 255, 0);
@@ -58,5 +61,9 @@ public class StartGameAnime : MonoBehaviour {
             alpha = 255;
         }
 
+    }
+    public bool GetStartFlag()
+    {
+        return startFlag;
     }
 }

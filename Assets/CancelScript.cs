@@ -13,8 +13,12 @@ public class CancelScript : MonoBehaviour {
     AudioSource audio;
     [SerializeField]
     AudioClip start;
+    GameObject player1;
+    GameObject player2;
     // Use this for initialization
     void Start () {
+        player1 = GameObject.Find("P1Image");
+        player2 = GameObject.Find("P2Image");
         audio = GetComponent<AudioSource>();
         selectPlayer1 = GameObject.Find("P1Image").GetComponent<CharacterSelect>();
         selectPlayer2 = GameObject.Find("P2Image").GetComponent<CharacterSelect>();
@@ -32,11 +36,11 @@ public class CancelScript : MonoBehaviour {
                 audio.Play();
                 enterFlag = false;
             }
-
         }
         // どちらかがまだ選択していない
         else
         {
+
             enterFlag = true;
         }
     }

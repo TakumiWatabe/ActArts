@@ -72,7 +72,9 @@ public class CharacterSelect : MonoBehaviour
     private Vector2 iconPos1;
     private Vector2 iconPos2;
     private bool stayFlag;
-    private CancelScript enter; 
+    private CancelScript enter;
+    private bool controlFlag;
+    private StartGameAnime start;
     void Start()
     {
         //Resourcesからモデルを拝借
@@ -85,6 +87,7 @@ public class CharacterSelect : MonoBehaviour
 
         frame1 = GameObject.FindGameObjectWithTag("frame1");
         frame2 = GameObject.FindGameObjectWithTag("frame2");
+        start = GameObject.Find("StartImage").GetComponent<StartGameAnime>();
         gameData = GameObject.Find("GameSystem").GetComponent<DataRetention>();
         sceneFlag1 = true;
         sceneFlag2 = true;
@@ -94,6 +97,7 @@ public class CharacterSelect : MonoBehaviour
         rect = GetComponent<RectTransform>();
         menuFlag = GameObject.Find("SelectSceneObj").GetComponent<MenuEvent>();
         enter = GameObject.Find("SelectSceneObj").GetComponent<CancelScript>();
+        controlFlag = true;
         player_One = GameObject.FindGameObjectWithTag("icon1");
         player_Two = GameObject.FindGameObjectWithTag("icon2");
         //　オフセット値をアイコンのサイズの半分で設定
@@ -112,12 +116,14 @@ public class CharacterSelect : MonoBehaviour
             // アケコン
             if (controllerName == "Arcade Stick (MadCatz FightStick Neo)")
             {
-                PVPcontrol("Arcade");
+                if (enter.GetEnterFlag() != false)
+                    PVPcontrol("Arcade");
             }
             // XBOXコントローラ
             else
             {
-                PVPcontrol("Xbox");
+                if (enter.GetEnterFlag() != false)
+                    PVPcontrol("Xbox");
             }
         }
 //=====================================================================================================================
@@ -126,11 +132,13 @@ public class CharacterSelect : MonoBehaviour
         {
             if (controllerName == "Arcade Stick (MadCatz FightStick Neo)")
             {
-                PVCcontrol("Arcade");
+                if (enter.GetEnterFlag() != false)
+                    PVCcontrol("Arcade");
             }
             else
             {
-                PVCcontrol("Xbox");
+                if (enter.GetEnterFlag() != false)
+                    PVCcontrol("Xbox");
             }
 
         }
@@ -349,7 +357,8 @@ public class CharacterSelect : MonoBehaviour
                         iconPos1 = player_One.transform.localPosition;
                         iconPos2 = player_Two.transform.localPosition;
                     }
-                    IconMove(controllerName, GamePad.Index.One, player_One, name);
+                    if (start.GetStartFlag() == false)
+                        IconMove(controllerName, GamePad.Index.One, player_One, name);
                 }
             }
             pvcCount = 0;
@@ -372,10 +381,12 @@ public class CharacterSelect : MonoBehaviour
                         if (Input.GetButtonDown("AButton") && controller == -1)
                         {
                             controlFlag2P = false;
+                            controlFlag = false;
                             CreateModel("player2");
                         }
                         // アイコンの移動処理
-                        IconMove(controllerName, GamePad.Index.One, player_Two, name);
+                        if (start.GetStartFlag() == false)
+                            IconMove(controllerName, GamePad.Index.One, player_Two, name);
                     }
                 }
             }
@@ -385,35 +396,34 @@ public class CharacterSelect : MonoBehaviour
                 sceneFlag2 = false;
             }
         }
-        if (enter.GetEnterFlag() != false)
+        
+        if (!controlFlag2P)
         {
-            if (!controlFlag2P)
-            {
 
-                if (GamePad.GetButtonDown(GamePad.Button.X, GamePad.Index.One))
-                {
-                    sceneFlag2 = true;
-                    controlFlag2P = true;
-                    pvcController = 1;
-                    if (pos != iconPos2)
-                        pos = iconPos2;
-                    Destroy(GameObject.Find("player2"));
-                }
-            }
-            else if (!controlFlag1P)
+            if (GamePad.GetButtonDown(GamePad.Button.X, GamePad.Index.One))
             {
-                if (GamePad.GetButtonDown(GamePad.Button.X, GamePad.Index.One))
-                {
-                    sceneFlag1 = true;
-                    controlFlag1P = true;
-                    pvcController = 0;
-                    if (pos != iconPos1)
-                        pos = iconPos1;
-                    Destroy(GameObject.Find("player1"));
-                }
+                sceneFlag2 = true;
+                controlFlag2P = true;
+                pvcController = 1;
+                if (pos != iconPos2)
+                    pos = iconPos2;
+                Destroy(GameObject.Find("player2"));
             }
-
         }
+        else if (!controlFlag1P)
+        {
+            if (GamePad.GetButtonDown(GamePad.Button.X, GamePad.Index.One))
+            {
+                sceneFlag1 = true;
+                controlFlag1P = true;
+                pvcController = 0;
+                if (pos != iconPos1)
+                    pos = iconPos1;
+                Destroy(GameObject.Find("player1"));
+            }
+        }
+
+        
 
         if (controller == 2 && pvcController == 1)
         {
@@ -444,7 +454,8 @@ public class CharacterSelect : MonoBehaviour
 
                     }
                     // アイコンの移動処理
-                    IconMove(controllerName, GamePad.Index.One, player_One, name);
+                    if (start.GetStartFlag() == false)
+                        IconMove(controllerName, GamePad.Index.One, player_One, name);
                 }
             }
         }
@@ -466,7 +477,8 @@ public class CharacterSelect : MonoBehaviour
 
                     }
                     // アイコンの移動処理
-                    IconMove(controllerName, GamePad.Index.Two, player_Two, name);
+                    if (start.GetStartFlag() == false)
+                        IconMove(controllerName, GamePad.Index.Two, player_Two, name);
                 }
 
             }

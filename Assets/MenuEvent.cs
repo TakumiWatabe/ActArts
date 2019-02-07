@@ -18,7 +18,7 @@ public class MenuEvent : MonoBehaviour {
     private bool menuFlag;
     private bool sceneFlag;
     private int controllerNum = 0;
-
+    private CancelScript enter;
     private AudioSource audio;
     [SerializeField]
     private AudioClip dicideSE;
@@ -29,7 +29,7 @@ public class MenuEvent : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-
+        enter = GameObject.Find("SelectSceneObj").GetComponent<CancelScript>();
         if (this.GetComponent<AudioSource>() != null) audio = this.GetComponent<AudioSource>();
 
         controllerName = Input.GetJoystickNames()[0];
@@ -43,63 +43,65 @@ public class MenuEvent : MonoBehaviour {
 
     // Update is called once per frame
     void Update () {
-        if (returnMenu.activeSelf)
+        if (enter.GetEnterFlag() == true)
         {
-            //戻るメニューを消す
-            if (GamePad.GetButtonDown(GamePad.Button.B, GamePad.Index.One))
+            if (returnMenu.activeSelf)
             {
-                controllerNum = 0;
-                returnMenu.SetActive(false);
-                menuFlag = false;
-                audio.PlayOneShot(cancelSE, 1.0f);
+                //戻るメニューを消す
+                if (GamePad.GetButtonDown(GamePad.Button.B, GamePad.Index.One))
+                {
+                    controllerNum = 0;
+                    returnMenu.SetActive(false);
+                    menuFlag = false;
+                    audio.PlayOneShot(cancelSE, 1.0f);
+                }
+                else if (GamePad.GetButtonDown(GamePad.Button.B, GamePad.Index.Two))
+                {
+                    controllerNum = 0;
+                    returnMenu.SetActive(false);
+                    menuFlag = false;
+                    audio.PlayOneShot(cancelSE, 1.0f);
+                }
             }
-            else if(GamePad.GetButtonDown(GamePad.Button.B,GamePad.Index.Two))
-            {
-                controllerNum = 0;
-                returnMenu.SetActive(false);
-                menuFlag = false;
-                audio.PlayOneShot(cancelSE, 1.0f);
-            }
-        }
-        else
-        {
-            //戻るメニューを開く
-            if (GamePad.GetButtonDown(GamePad.Button.B, GamePad.Index.One))
-            {
-                controllerNum = 1;
-                returnMenu.SetActive(true);
-                menuFlag = true;
-                audio.PlayOneShot(dicideSE, 1.0f);
-            }
-            else if (GamePad.GetButtonDown(GamePad.Button.B, GamePad.Index.Two))
-            {
-                controllerNum = 2;
-                returnMenu.SetActive(true);
-                menuFlag = true;
-                audio.PlayOneShot(dicideSE, 1.0f);
-            }
-        }
-        //メニューを開いていたら操作する
-        if (menuFlag)
-        {
-            //XBOXコントローラーの時
-            if (controllerName == "")
-            {
-                if (controllerNum == 1)
-                    MenuMove(controllerName, GamePad.Index.One);
-                else if (controllerNum == 2)
-                    MenuMove(controllerName, GamePad.Index.Two);
-            }
-            //アケコンの時
             else
             {
-                if (controllerNum == 1)
-                    MenuMove(controllerName, GamePad.Index.One);
-                else if (controllerNum == 2)
-                    MenuMove(controllerName, GamePad.Index.Two);
+                //戻るメニューを開く
+                if (GamePad.GetButtonDown(GamePad.Button.B, GamePad.Index.One))
+                {
+                    controllerNum = 1;
+                    returnMenu.SetActive(true);
+                    menuFlag = true;
+                    audio.PlayOneShot(dicideSE, 1.0f);
+                }
+                else if (GamePad.GetButtonDown(GamePad.Button.B, GamePad.Index.Two))
+                {
+                    controllerNum = 2;
+                    returnMenu.SetActive(true);
+                    menuFlag = true;
+                    audio.PlayOneShot(dicideSE, 1.0f);
+                }
+            }
+            //メニューを開いていたら操作する
+            if (menuFlag)
+            {
+                //XBOXコントローラーの時
+                if (controllerName == "")
+                {
+                    if (controllerNum == 1)
+                        MenuMove(controllerName, GamePad.Index.One);
+                    else if (controllerNum == 2)
+                        MenuMove(controllerName, GamePad.Index.Two);
+                }
+                //アケコンの時
+                else
+                {
+                    if (controllerNum == 1)
+                        MenuMove(controllerName, GamePad.Index.One);
+                    else if (controllerNum == 2)
+                        MenuMove(controllerName, GamePad.Index.Two);
+                }
             }
         }
-
     }
     void MoveImage(int num)
     {
