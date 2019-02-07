@@ -13,6 +13,7 @@ public class GameDirector : MonoBehaviour
 
     //HPスクリプト
     HPDirectorScript HP1, HP2;
+    GuardScript Guard1, Guard2;
     //初期位置
     Vector3 initPos1, initPos2;
 
@@ -69,6 +70,9 @@ public class GameDirector : MonoBehaviour
         HP1 = player1.GetComponent<HPDirectorScript>();
         HP2 = player2.GetComponent<HPDirectorScript>();
 
+        Guard1 = player1.GetComponent<GuardScript>();
+        Guard2 = player2.GetComponent<GuardScript>();
+
         initPos1 = player1.transform.position;
         initPos2 = player2.transform.position;
         player1.transform.position = initPos1;
@@ -87,6 +91,9 @@ public class GameDirector : MonoBehaviour
         HP1.DamageScale = new Vector3(1, 1, 1);
         HP2.HPScale = new Vector3(1, 1, 1);
         HP2.DamageScale = new Vector3(1, 1, 1);
+
+        Guard1.Initialise();
+        Guard2.Initialise();
 
         player1.transform.position = initPos1;
         player2.transform.position = initPos2;

@@ -153,6 +153,9 @@ public class Play : MonoBehaviour
                     SceneManager.LoadScene(SMane.Scenes("Result"));
                 }
 
+                //ラウンドを進める
+                if (!Finish.GetDraw) { rounds += 1; }
+
                 Round.Initialize();
                 Fight.Initialize();
                 Finish.Initialize();
@@ -167,8 +170,6 @@ public class Play : MonoBehaviour
                 fade.FFlag = false;
                 timer.ResetGameTimer();
                 soundPlayed = false;
-                //ラウンドを進める
-                if (Finish.GetDraw) { rounds += 1; }
             }
         }
     }
