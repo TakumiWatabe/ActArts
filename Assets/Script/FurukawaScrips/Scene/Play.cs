@@ -92,7 +92,7 @@ public class Play : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(rounds);
+        //Debug.Log(rounds);
 
         //シーン開始時のフェードアウト
         if (disF)
