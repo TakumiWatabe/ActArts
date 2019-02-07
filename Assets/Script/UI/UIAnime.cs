@@ -21,7 +21,8 @@ public class UIAnime : MonoBehaviour {
     // Use this for initialization
     void Start()
     {
-        image = GameObject.Find("Startchar").GetComponent<Image>();
+        if (SceneManager.GetActiveScene().name == "SelectScene")
+            image = GameObject.Find("Startchar").GetComponent<Image>();
         animeFlag = 0;
         if (SceneManager.GetActiveScene().name == "TitleScene")
         {
