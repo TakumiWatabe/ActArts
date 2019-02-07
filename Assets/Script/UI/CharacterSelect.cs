@@ -209,8 +209,6 @@ public class CharacterSelect : MonoBehaviour
             if (GetCharName() == "Random")
             {
                 rnd = UnityEngine.Random.Range(0, 6);
-                //全部のモデルが追加されたらランダムにする
-                rnd = 1;
                 player_One.transform.localPosition = frame1.transform.localPosition = RandomChar(rnd);
                 ChangeName(rnd);
             }
@@ -231,8 +229,6 @@ public class CharacterSelect : MonoBehaviour
             if (GetCharName() == "Random")
             {
                 rnd = UnityEngine.Random.Range(0, 6);
-                //全部のモデルが追加されたらランダムにする
-                rnd = 0;
                 player_Two.transform.localPosition = frame2.transform.localPosition = RandomChar(rnd);
                 ChangeName(rnd);
             }
@@ -256,7 +252,6 @@ public class CharacterSelect : MonoBehaviour
             pos += new Vector2(GamePad.GetAxis(GamePad.Axis.LeftStick, num).x * iconSpeed, GamePad.GetAxis(GamePad.Axis.LeftStick, num).y * iconSpeed * -1) * Time.deltaTime;
             //　アイコン位置を設定
             player.transform.localPosition = pos;
-            Debug.Log("Arcade");
         }
         else if (name == "Xbox")
         {
@@ -269,8 +264,6 @@ public class CharacterSelect : MonoBehaviour
             pos += new Vector2(GamePad.GetAxis(GamePad.Axis.LeftStick, num).x * iconSpeed, GamePad.GetAxis(GamePad.Axis.LeftStick, num).y * iconSpeed) * Time.deltaTime;
             //　アイコン位置を設定
             player.transform.localPosition = pos;
-            Debug.Log("Xbox");
-
         }
     }
     public GameObject GenerateChar(GameObject obj)
@@ -325,10 +318,10 @@ public class CharacterSelect : MonoBehaviour
                 charName = "Xion";
                 break;
             case 4:
-                charName = "Mari";
+                charName = "Chloe";
                 break;
             case 5:
-                charName = "Chloe";
+                charName = "Mari";
                 break;
             default:
                 break;

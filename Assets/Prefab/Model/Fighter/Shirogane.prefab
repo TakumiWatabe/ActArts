@@ -4348,7 +4348,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isTest: 0
-  walkSpeed: 0.03
+  walkSpeed: 0.025
   dashSpeed: 0.08
   state: Stand
   jumpSpeed: 0.15
@@ -4400,7 +4400,8 @@ MonoBehaviour:
   time: 5
   guardEffect: {fileID: 1776427504632426, guid: a8ba1e7cb95e66d4aa5a79d0a5200d6a,
     type: 2}
-  explodeHadouEffect: {fileID: 0}
+  explodeHadouEffect: {fileID: 1358002621736402, guid: 1527aa5404b242540becba7d19a4bb51,
+    type: 2}
 --- !u!114 &114128248543032140
 MonoBehaviour:
   m_ObjectHideFlags: 1
