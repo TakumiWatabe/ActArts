@@ -795,7 +795,20 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-            if (animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1 && animator.GetInteger("Special") != 0)
+            if (animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1 && animator.GetInteger("Special") != 0 && transform.GetChild(2).localPosition.y > 0.0f)
+            {
+                float posX = transform.position.x + transform.GetChild(2).localPosition.z * direction;
+                float posY = transform.GetChild(2).localPosition.y;
+                transform.position = new Vector3(posX, posY, transform.position.z);
+                animator.SetInteger("Special", 0);
+                this.transform.GetChild(2).localPosition = new Vector3(0.0f, 0.0f, 0.0f);
+
+                nowGravity = -jumpSpeed;
+                jumpCount++;
+                state = "Jump";
+                animator.SetBool("Punch", false);
+            }
+            else if (animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1 && animator.GetInteger("Special") != 0)
             {
                 float posX = transform.position.x + transform.GetChild(2).localPosition.z * direction;
                 transform.position = new Vector3(posX, transform.position.y, transform.position.z);

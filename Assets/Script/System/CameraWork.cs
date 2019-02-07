@@ -26,9 +26,11 @@ public class CameraWork : MonoBehaviour
 
     void Update()
     {
-        if ((player1.transform.position.x + player2.transform.position.x) / 2f >= -3.6f && (player1.transform.position.x + player2.transform.position.x) / 2f <= 3.6f)
+        float p1PosX = player1.transform.position.x + player1.transform.GetChild(2).localPosition.z * player1.GetComponent<PlayerController>().Direction;
+        float p2PosX = player2.transform.position.x + player2.transform.GetChild(2).localPosition.z * player2.GetComponent<PlayerController>().Direction; ;
+        if ((p1PosX + p2PosX) / 2f >= -3.6f && (p1PosX + p2PosX) / 2f <= 3.6f)
         {
-            cameraPos = (player1.transform.position.x + player2.transform.position.x) / 2f;
+            cameraPos = (p1PosX + p2PosX) / 2f;
         }
 
         if (cameraPos < -3.6f)

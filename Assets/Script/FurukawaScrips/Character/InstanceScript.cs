@@ -14,13 +14,21 @@ public class InstanceScript : MonoBehaviour {
     [SerializeField]
     private List<GameObject> charcter;
 
+    [SerializeField]
+    private int P1charNum = 0;
+    [SerializeField]
+    private int P2charNum = 0;
+
     //キャラクターの名前を格納する変数
     private InstantFighter[] fight = new InstantFighter[2];
-    private string[] names = new string[4]
+    private string[] names = new string[7]
     {
         "Aoi" ,
         "Hikari" ,
         "Xion",
+        "Chloe" ,
+        "Mari" ,
+        "Shirogane",
         "none"
     };
 
@@ -77,6 +85,15 @@ public class InstanceScript : MonoBehaviour {
                     case "Xion":
                         CreateChar(i, 2);
                         break;
+                    case "Chloe":
+                        CreateChar(i, 3);
+                        break;
+                    case "Mari":
+                        CreateChar(i, 4);
+                        break;
+                    case "Shirogane":
+                        CreateChar(i, 5);
+                        break;
                     default:
                         fight[i].fighter = null;
                         fight[i].playerTag = 0;
@@ -85,8 +102,16 @@ public class InstanceScript : MonoBehaviour {
             }
             else
             {
-                //デバッグ用に先頭のキャラを登録
-                CreateChar(i, 0);
+                if (i == 0)
+                {
+                    //デバッグ用に先頭のキャラを登録
+                    CreateChar(i, P1charNum);
+                }
+                else
+                {
+                    //デバッグ用に先頭のキャラを登録
+                    CreateChar(i, P2charNum);
+                }
             }
 
             if (fight[i].fighter != null)
