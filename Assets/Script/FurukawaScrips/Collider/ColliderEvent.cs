@@ -1019,7 +1019,7 @@ public class ColliderEvent : MonoBehaviour {
         AtkColliderActive(0);
         SetBoxState(HitBox[0],
             new Vector3(0, 0.7f, 0),
-            new Vector3(CSizeZ, 0, 0));
+            new Vector3(CSizeZ, 1, 1));
     }
 
     //ガード
@@ -1034,17 +1034,32 @@ public class ColliderEvent : MonoBehaviour {
     }
 
     //波動
-    void C_HadouCollid()
+    void C_HadouCollid1()
     {
-        HitColliderActive(0);
+        HitColliderActive(1);
+        AtkColliderActive(0);
+        SetBoxState(HitBox[0],
+            new Vector3(0, 0.7f, 0),
+            new Vector3(CSizeZ, 1, 1));
+        atkType = ValueScript.AtkVal.HADOUKEN;
+    }
+    void C_HadouCollid2()
+    {
+        HitColliderActive(2);
         AtkColliderActive(1);
+        SetBoxState(HitBox[0],
+            new Vector3(0, -0.2f, -0.3f),
+            new Vector3(CSizeZ, 0.6f, 1.5f));
+        SetBoxState(HitBox[1],
+            new Vector3(0, -0.35f, -0.2f),
+            new Vector3(CSizeZ, 1, 0.7f));
+
         SetBoxState(AtkBox[0],
         new Vector3(0, 1, 0.5f),
         new Vector3(CSizeZ, 0.2f, 0.7f));
-        atkType = ValueScript.AtkVal.HADOUKEN;
     }
 
-    void C_HadouCollid2()
+    void C_HadouCollid3()
     {
         HitColliderActive(2);
         AtkColliderActive(0);
@@ -1055,7 +1070,7 @@ public class ColliderEvent : MonoBehaviour {
             new Vector3(0, 0.8f, 0.2f),
             new Vector3(CSizeZ, 1, 0.6f));
     }
-    void C_HadouCollid3()
+    void C_HadouCollid4()
     {
         HitColliderActive(1);
         AtkColliderActive(0);
