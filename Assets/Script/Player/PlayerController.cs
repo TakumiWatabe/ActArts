@@ -804,6 +804,10 @@ public class PlayerController : MonoBehaviour
                 animator.SetInteger("Special", 0);
                 this.transform.GetChild(2).localPosition = new Vector3(0.0f, 0.0f, 0.0f);
 
+                //必殺技を打った後に向きを修正
+                SetDirection();
+                transform.localScale = new Vector3(transform.localScale.x, transform.localScale.y, direction);
+
                 nowGravity = -jumpSpeed;
                 jumpCount++;
                 state = "Jump";
