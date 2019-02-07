@@ -16,7 +16,7 @@ public class ArtsStateScript : MonoBehaviour {
         public int atkLev;          //攻撃レベル
         public int blockStun;       //ガードしたときに行動ができるようになるまでのフレーム
         public int hitStun;         //技を食らったときに行動ができるようになるまでのフレーム
-        //public int guardDamage;     //攻撃をガードしたときのダメージ量
+        public int guardDamage;     //攻撃をガードしたときのダメージ量
     };
 
     //CSV読み込みオブジェクト
@@ -63,7 +63,7 @@ public class ArtsStateScript : MonoBehaviour {
             AS[i].atkLev = artsData[csv.Skills[i]].attackLevel;
             AS[i].blockStun = artsData[csv.Skills[i]].blockStun;
             AS[i].hitStun = artsData[csv.Skills[i]].hitStun;
-            //AS[i].guardDamage = artsData[csv.Skills[i]].guardDamage;
+            AS[i].guardDamage = artsData[csv.Skills[i]].guardDamage;
         }
     }
 
@@ -75,5 +75,5 @@ public class ArtsStateScript : MonoBehaviour {
     public int AtkLev(int ID) { return arts[ID].atkLev; }
     public int BlockStun(int ID) { return arts[ID].blockStun; }
     public int HitStun(int ID) { return arts[ID].hitStun; }
-    //public int GuardDanage(int ID) { return arts[ID].guardDamage; }
+    public int GuardDanage(int ID) { return arts[ID].guardDamage; }
 }
