@@ -2966,7 +2966,7 @@ public class ColliderEvent : MonoBehaviour {
         AtkColliderActive(0);
 
         SetBoxState(HitBox[0],
-            new Vector3(transform.parent.GetChild(3).transform.position.x, 0.7f, transform.parent.GetChild(3).transform.position.x),
+            new Vector3(0, 0.7f, 0),
             new Vector3(CSizeZ, 1.5f, 0.55f));
     }
     void XBasicHadouCollider2()
@@ -2975,11 +2975,11 @@ public class ColliderEvent : MonoBehaviour {
         AtkColliderActive(1);
 
         SetBoxState(HitBox[0],
-            new Vector3(transform.parent.GetChild(3).transform.position.x, 0.7f, transform.parent.GetChild(3).transform.position.x),
+            new Vector3(0, 0.7f, 0),
             new Vector3(CSizeZ, 0.3f, 0.55f));
 
         SetBoxState(AtkBox[0],
-            new Vector3(transform.parent.GetChild(3).transform.position.x, 1.2f, transform.parent.GetChild(3).transform.position.x + 0.56f),
+            new Vector3(0, 1.2f, 0.56f),
             new Vector3(CSizeZ, 0.6f, 0.6f));
     }
     void XBasicHadouCollider3()
@@ -3540,10 +3540,10 @@ public class ColliderEvent : MonoBehaviour {
         AtkColliderActive(1);
 
         SetBoxState(HitBox[0],
-            new Vector3(transform.parent.GetChild(3).transform.position.x, 0.4f, 0.1f + transform.parent.GetChild(3).transform.position.x),
+            new Vector3(0, 0.4f, 0.1f),
             new Vector3(CSizeZ, 0.8f, 0.5f));
-        SetBoxState(AtkBox[1],
-            new Vector3(transform.parent.GetChild(3).transform.position.x, 1.2f, 0.6f + transform.parent.GetChild(3).transform.position.x),
+        SetBoxState(AtkBox[0],
+            new Vector3(0, 1.2f, 0.6f),
             new Vector3(CSizeZ, 0.3f, 0.7f));
     }
     void XBasicShoruCollider3()
@@ -3553,7 +3553,7 @@ public class ColliderEvent : MonoBehaviour {
         AtkColliderActive(0);
 
         SetBoxState(HitBox[0],
-            new Vector3(transform.parent.GetChild(3).transform.position.x, 0.6f, 0.1f),
+            new Vector3(0, 0.6f, 0.1f),
             new Vector3(CSizeZ, 1.2f, 0.5f));
     }
     void XBasicShoruCollider4()
