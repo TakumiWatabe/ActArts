@@ -72,6 +72,8 @@ public class ColliderEvent : MonoBehaviour {
     {
         HitColliderActive(0);
         AtkColliderActive(0);
+
+        atkType = ValueScript.AtkVal.SYORYUKEN;
     }
     void S_ShoryuCollidH2()
     {
@@ -164,6 +166,8 @@ public class ColliderEvent : MonoBehaviour {
             new Vector3(0.0f, -0.12f, 0.0f),
             new Vector3(0.53f, 1.57f, 0.25f),
             new Vector3(0.0f, -145.0f, 0.0f));
+
+        atkType = ValueScript.AtkVal.KICK_JUMP;
     }
     void S_StrongJumpAttackCollidH2()
     {
@@ -192,6 +196,8 @@ public class ColliderEvent : MonoBehaviour {
             new Vector3(0.0f, -0.13f, 0.0f),
             new Vector3(0.53f, 1.6f, 0.25f),
             new Vector3(0.0f, -145.0f, 0.0f));
+
+        atkType = ValueScript.AtkVal.PUNCH_JUMP;
     }
     void S_WeekJumpAttackCollidH2()
     {
@@ -228,6 +234,8 @@ public class ColliderEvent : MonoBehaviour {
             new Vector3(0.07f, -0.09f, 0.0f),
             new Vector3(0.75f, 0.59f, 0.25f),
             new Vector3(0.0f, -145.0f, 0.0f));
+
+        atkType = ValueScript.AtkVal.KICK_SIT;
     }
     void S_StrongSitAttackCollidH2()
     {
@@ -273,6 +281,8 @@ public class ColliderEvent : MonoBehaviour {
             new Vector3(0.07f, -0.09f, 0.0f),
             new Vector3(0.75f, 0.59f, 0.25f),
             new Vector3(0.0f, -145.0f, 0.0f));
+
+        atkType = ValueScript.AtkVal.PUNCH_SIT;
     }
     void S_WeekSitAttackCollidA()
     {
@@ -296,6 +306,8 @@ public class ColliderEvent : MonoBehaviour {
             new Vector3(0.0f, -0.49f, 0.0f),
             new Vector3(0.63f, 0.92f, 0.25f),
             new Vector3(0.0f, -145.0f, 0.0f));
+
+        atkType = ValueScript.AtkVal.KICK;
     }
     void S_StrongAttackCollidH2()
     {
@@ -364,6 +376,8 @@ public class ColliderEvent : MonoBehaviour {
             new Vector3(0.03f, -0.39f, 0.0f),
             new Vector3(0.68f, 0.99f, 0.25f),
             new Vector3(0.0f, -145.0f, 0.0f));
+
+        atkType = ValueScript.AtkVal.PUNCH;
     }
     void S_WeekAttackCollid2()
     {

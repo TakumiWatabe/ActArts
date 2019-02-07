@@ -80,7 +80,7 @@ public class CharacterSelect : MonoBehaviour
         hikariModel = (GameObject)Resources.Load("Model/Hikari");
         xionModel = (GameObject)Resources.Load("Model/Xion");
         chloeModel = (GameObject)Resources.Load("Model/Chloe");
-        shiroganeModel = (GameObject)Resources.Load("Model/Xion");
+        shiroganeModel = (GameObject)Resources.Load("Model/Shirogane");
         mariModel = (GameObject)Resources.Load("Model/Mari");
 
         frame1 = GameObject.FindGameObjectWithTag("frame1");
