@@ -48,9 +48,13 @@ public class Play : MonoBehaviour
     private List<AudioClip> sounds = new List<AudioClip>();
     private bool soundPlayed = false;
 
+    [SerializeField]
+    GameObject loadCanvas;
+
     // Use this for initialization
     void Start()
     {
+        loadCanvas.SetActive(true);
         audio = this.GetComponent<AudioSource>();
         fade = this.GetComponent<SceneFade>();
         timer = butDir.GetComponent<TimerScript>();
@@ -134,13 +138,13 @@ public class Play : MonoBehaviour
                     {
                         if (intentions[i].IsTrain)
                         {
-                            GameObject.Find("LoadCanvas").SetActive(true);
+                            loadCanvas.SetActive(true);
                             intentions[i].LearningSpeed = 5;
                             return;
                         }
                     }
 
-                    GameObject.Find("LoadCanvas").SetActive(false);
+                    loadCanvas.SetActive(false);
                     GetGame.ResetGame(gameImage);
                     for (int i = 0; i < intentions.Count; i++)
                     {
