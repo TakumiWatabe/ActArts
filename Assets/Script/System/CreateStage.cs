@@ -14,7 +14,7 @@ public class CreateStage : MonoBehaviour {
     GameObject mainStage;
 	// Use this for initialization
 	void Start () {
-        rnd = Random.Range(1, 4);
+        rnd = 3;
         if (GameObject.FindGameObjectWithTag("stage") == null)
         {
             ChoiceStage(rnd);
