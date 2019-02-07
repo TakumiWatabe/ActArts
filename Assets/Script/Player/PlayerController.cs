@@ -386,6 +386,7 @@ public class PlayerController : MonoBehaviour
         animator.SetInteger("Move", 0);
         animator.SetInteger("Special", 0);
         animator.SetBool("Guard", false);
+        animator.SetBool("StandGuard", false);
         animator.SetBool("Sit", false);
         animator.SetBool("Punch", false);
         animator.SetBool("Kick", false);
@@ -1091,7 +1092,6 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     void SitGuard()
     {
-
         gameObject.transform.position = new Vector3(gameObject.transform.position.x, 0, 0);
         finalMove = new Vector3(0, 0, 0);
         animator.SetBool("StandGuard", false);
