@@ -162,10 +162,8 @@ public class SceneTransition : MonoBehaviour {
         {
             fade.FadeOutFlag();
         }
-        Debug.Log(fade.GetAlpha());
         if (fade.GetAlpha() >= 1.0f)
         {
-            Debug.Log("１２３");
             scene.SceneChange(name);
 
         }

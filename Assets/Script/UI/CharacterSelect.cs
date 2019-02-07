@@ -252,7 +252,6 @@ public class CharacterSelect : MonoBehaviour
             pos += new Vector2(GamePad.GetAxis(GamePad.Axis.LeftStick, num).x * iconSpeed, GamePad.GetAxis(GamePad.Axis.LeftStick, num).y * iconSpeed * -1) * Time.deltaTime;
             //　アイコン位置を設定
             player.transform.localPosition = pos;
-            Debug.Log("Arcade");
         }
         else if (name == "Xbox")
         {
@@ -265,8 +264,6 @@ public class CharacterSelect : MonoBehaviour
             pos += new Vector2(GamePad.GetAxis(GamePad.Axis.LeftStick, num).x * iconSpeed, GamePad.GetAxis(GamePad.Axis.LeftStick, num).y * iconSpeed) * Time.deltaTime;
             //　アイコン位置を設定
             player.transform.localPosition = pos;
-            Debug.Log("Xbox");
-
         }
     }
     public GameObject GenerateChar(GameObject obj)
