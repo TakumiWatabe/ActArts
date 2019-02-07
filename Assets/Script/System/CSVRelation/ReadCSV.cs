@@ -22,6 +22,7 @@ public class ReadCSV : MonoBehaviour
         public int recovery;
         public int blockStun;
         public int hitStun;
+        //public int guardDamage;
     }
 
     // CSVデータを文字列型２次元配列に変換する
@@ -69,6 +70,7 @@ public class ReadCSV : MonoBehaviour
             cd.recovery = int.Parse(splitedData[8]);
             cd.blockStun = int.Parse(splitedData[10]);
             cd.hitStun = int.Parse(splitedData[11]);
+            //cd.guardDamage = int.Parse(splitedData[12]);
 
             cdata.Add(cd.skill,cd);
 
@@ -95,6 +97,7 @@ public class ReadCSV : MonoBehaviour
             Debug.Log(array[key].skill + " : 立ち直り　 : " + array[key].recovery);
             Debug.Log(array[key].skill + " : ガード硬直 : " + array[key].blockStun);
             Debug.Log(array[key].skill + " : ヒット硬直 : " + array[key].hitStun);
+            //Debug.Log(array[key].skill + " ; ガードダメージ : " + array[key].guardDamage);
         }
     }
 
