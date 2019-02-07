@@ -183,8 +183,8 @@ public class TestChar : MonoBehaviour
                     if(successedGuard)
                     {
                         //ダメージ分ガードゲージを減らす
-                        GScript.hitGuard(ASScriptEne.Damage((int)CEventEne.GetType));
-                        //GScript.hitGuard(ASScriptEne.GuardDanage((int)CEventEne.GetType));
+                        //GScript.hitGuard(ASScriptEne.Damage((int)CEventEne.GetType));
+                        GScript.hitGuard(ASScriptEne.GuardDanage((int)CEventEne.GetType));
                         Vector3 effectPos = transform.position;
                         effectPos.y += 1.0f;
                         Instantiate(guardEffect, effectPos, Quaternion.identity);
@@ -211,7 +211,8 @@ public class TestChar : MonoBehaviour
                             Pcont.AnimatorPlayer.SetBool("Guard", true);
                             Pcont.State = "StandGuard";
                             //ダメージ分ガードゲージを減らす
-                            GScript.hitGuard(ASScriptEne.Damage((int)CEventEne.GetType));
+                            //GScript.hitGuard(ASScriptEne.Damage((int)CEventEne.GetType));
+                            GScript.hitGuard(ASScriptEne.GuardDanage((int)CEventEne.GetType));
                             Vector3 effectPos = transform.position;
                             effectPos.y += 1.0f;
                             Instantiate(guardEffect, effectPos, Quaternion.identity);
@@ -230,7 +231,8 @@ public class TestChar : MonoBehaviour
                             Pcont.AnimatorPlayer.SetBool("Guard", true);
                             Pcont.State = "SitGuard";
                             //ダメージ分ガードゲージを減らす
-                            GScript.hitGuard(ASScriptEne.Damage((int)CEventEne.GetType));
+                            //GScript.hitGuard(ASScriptEne.Damage((int)CEventEne.GetType));
+                            GScript.hitGuard(ASScriptEne.GuardDanage((int)CEventEne.GetType));
                             Pcont.GuardDamage(ASScriptEne.BlockStun((int)CEventEne.GetType));
                             Vector3 effectPos = transform.position;
                             effectPos.y += 1.0f;
