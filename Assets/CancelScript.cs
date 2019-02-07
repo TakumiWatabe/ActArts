@@ -25,6 +25,7 @@ public class CancelScript : MonoBehaviour {
             if (GamePad.GetButtonDown(GamePad.Button.Start, GamePad.Index.One))
             {
                 enterFlag = false;
+                Debug.Log("押した");
             }
 
         }

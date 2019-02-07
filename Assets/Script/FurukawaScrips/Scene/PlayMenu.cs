@@ -14,6 +14,7 @@ public class PlayMenu : MonoBehaviour {
 
     private SceneMane SMana;
     private SceneFade SFade;
+    private TextAnim TAnim;
     DataRetention datums;
 
     //選択肢の画像
@@ -21,6 +22,8 @@ public class PlayMenu : MonoBehaviour {
     private Image[] Choice = new Image[3];
     [SerializeField]
     private Text[] Description = new Text[3];
+    [SerializeField]
+    private Image select;
 
     //選択時の色
     private Color brightColor = new Color(1, 1, 1, 1);
@@ -35,6 +38,9 @@ public class PlayMenu : MonoBehaviour {
     private string controllerName = "";
 
     private bool fade = false;
+    [SerializeField, Range(1, 10)]
+    private float speedRot = 0.1f;
+    private float moveSped = 90;
 
     AudioSource audio;
 
@@ -50,24 +56,33 @@ public class PlayMenu : MonoBehaviour {
 
         SMana = manager.GetComponent<SceneMane>();
         SFade = manager.GetComponent<SceneFade>();
+        TAnim = this.GetComponent<TextAnim>();
         datums = GameObject.Find("GameSystem").GetComponent<DataRetention>();
 
         SFade.ImageAlpha = 1;
     }
-	
-	// Update is called once per frame
-	void Update ()
+
+    // Update is called once per frame
+    void FixedUpdate ()
     {
         //フェードアウト
         SFade.FadeOut();
+        select.transform.Rotate(0, 0, speedRot);
 
-        //選択肢移動
-        selectMove();
-        //選択肢画像の明暗処理
-        lightAndDark();
+        if (!fade)
+        {
+            //選択肢移動
+            selectMove();
+            //選択肢画像の明暗処理
+            lightAndDark();
+        }
+	}
+
+    void Update()
+    {
         //シーン遷移
         changeScene();
-	}
+    }
 
     //コントローラー判別
     private void selectMove()
@@ -97,25 +112,29 @@ public class PlayMenu : MonoBehaviour {
         var dpad = GamePad.Axis.Dpad;
 
         //上
-        if ((GamePad.GetAxis(stick, p1Con).y > 0 || GamePad.GetAxis(dpad, p1Con).y > 0) && !moveflag)
+        if ((GamePad.GetAxis(stick, p1Con).y > 0 || GamePad.GetAxis(dpad, p1Con).y < 0) && !moveflag)
         {
             moveflag = true;
             if (selectNum != 0)
             {
+                TAnim.Initialize();
                 //番号を戻す
                 selectNum--;
+                select.transform.localPosition += new Vector3(0, moveSped, 0);
                 audio.PlayOneShot(cursorSE, 1.0f);
             }
         }
 
         //下
-        if ((GamePad.GetAxis(stick, p1Con).y < 0 || GamePad.GetAxis(dpad, p1Con).y < 0) && !moveflag)
+        if ((GamePad.GetAxis(stick, p1Con).y < 0 || GamePad.GetAxis(dpad, p1Con).y > 0) && !moveflag)
         {
             moveflag = true;
             if (selectNum != 2)
             {
+                TAnim.Initialize();
                 //番号を進める
                 selectNum++;
+                select.transform.localPosition += new Vector3(0, -moveSped, 0);
                 audio.PlayOneShot(cursorSE, 1.0f);
             }
         }
@@ -130,6 +149,7 @@ public class PlayMenu : MonoBehaviour {
     //画像の明暗処理
     private void lightAndDark()
     {
+        TAnim.DisplayAnim(selectNum);
         for (int i = 0; i < Choice.Length; i++)
         {
             //選択肢を黒くする
