@@ -102,18 +102,18 @@ public class Result : MonoBehaviour {
         if (controllerName != "Arcade Stick (MadCatz FightStick Neo)")
         {
             //上下移動
-            stickVal();
+            stickVal(true);
         }
         //アーケードコントローラー
         else
         {
             //上下移動
-            stickVal();
+            stickVal(false);
         }
     }
 
     //選択肢の移動
-    private void stickVal()
+    private void stickVal(bool controller)
     {
         //1Pコントローラー
         var p1Con = GamePad.Index.One;
@@ -122,30 +122,62 @@ public class Result : MonoBehaviour {
         //十字キー
         var dpad = GamePad.Axis.Dpad;
 
-        //上
-        if ((GamePad.GetAxis(stick, p1Con).y > 0 || GamePad.GetAxis(dpad, p1Con).y < 0) && !moveflag)
+        if (controller)
         {
-            moveflag = true;
-            if (selectNum != 0)
+            //上
+            if ((GamePad.GetAxis(stick, p1Con).y > 0 || GamePad.GetAxis(dpad, p1Con).y > 0) && !moveflag)
             {
-                //番号を戻す
-                selectNum--;
-                cursor.transform.localPosition += new Vector3(0, moveSpeed, 0);
-                audio.PlayOneShot(cursorSE, 1.0f);
+                moveflag = true;
+                if (selectNum != 0)
+                {
+                    //番号を戻す
+                    selectNum--;
+                    cursor.transform.localPosition += new Vector3(0, moveSpeed, 0);
+                    audio.PlayOneShot(cursorSE, 1.0f);
+                }
+            }
+
+            //下
+            if ((GamePad.GetAxis(stick, p1Con).y < 0 || GamePad.GetAxis(dpad, p1Con).y < 0) && !moveflag)
+            {
+                moveflag = true;
+                if (selectNum != 2)
+                {
+                    //番号を進める
+                    selectNum++;
+                    cursor.transform.localPosition += new Vector3(0, -moveSpeed, 0);
+                    audio.PlayOneShot(cursorSE, 1.0f);
+                }
             }
         }
-
-        //下
-        if ((GamePad.GetAxis(stick, p1Con).y < 0 || GamePad.GetAxis(dpad, p1Con).y > 0) && !moveflag)
+        else
         {
-            moveflag = true;
-            if (selectNum != 2)
+            //上
+            if ((GamePad.GetAxis(stick, p1Con).y < 0 || GamePad.GetAxis(dpad, p1Con).y < 0) && !moveflag)
             {
-                //番号を進める
-                selectNum++;
-                cursor.transform.localPosition += new Vector3(0, -moveSpeed, 0);
-                audio.PlayOneShot(cursorSE, 1.0f);
+                moveflag = true;
+                if (selectNum != 0)
+                {
+                    //番号を戻す
+                    selectNum--;
+                    cursor.transform.localPosition += new Vector3(0, moveSpeed, 0);
+                    audio.PlayOneShot(cursorSE, 1.0f);
+                }
             }
+
+            //下
+            if ((GamePad.GetAxis(stick, p1Con).y > 0 || GamePad.GetAxis(dpad, p1Con).y > 0) && !moveflag)
+            {
+                moveflag = true;
+                if (selectNum != 2)
+                {
+                    //番号を進める
+                    selectNum++;
+                    cursor.transform.localPosition += new Vector3(0, -moveSpeed, 0);
+                    audio.PlayOneShot(cursorSE, 1.0f);
+                }
+            }
+
         }
 
         //動かしていないなら
@@ -204,10 +236,13 @@ public class Result : MonoBehaviour {
     {
         if(Input.GetButtonDown("AButton"))
         {
-            fade = true;
-            SFadeScene.FFlag = true;
-            audio.Stop();
-            audio.PlayOneShot(dicideSE, 1.0f);
+            if (SFadeScene.ImageAlpha <= 0)
+            {
+                fade = true;
+                SFadeScene.FFlag = true;
+                audio.Stop();
+                audio.PlayOneShot(dicideSE, 1.0f);
+            }
         }
 
         if(fade)
