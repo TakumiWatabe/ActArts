@@ -5,7 +5,6 @@ using UnityEngine.UI;
 
 public class GameDirector : MonoBehaviour
 {
-
     //キャラクターの初期状態を設定するスクリプト
 
     //プレイヤー
@@ -120,6 +119,21 @@ public class GameDirector : MonoBehaviour
                 icon.sprite = playerIcon[3];
                 plate.sprite = names[3];
                 charcter.name = "Xion";
+                break;
+            case "Shirogane(Clone)":
+                icon.sprite = playerIcon[2];
+                plate.sprite = names[2];
+                charcter.name = "Shirogane";
+                break;
+            case "Chloe(Clone)":
+                icon.sprite = playerIcon[4];
+                plate.sprite = names[4];
+                charcter.name = "Chloe";
+                break;
+            case "Mari(Clone)":
+                icon.sprite = playerIcon[5];
+                plate.sprite = names[5];
+                charcter.name = "Mari";
                 break;
         }
     }
