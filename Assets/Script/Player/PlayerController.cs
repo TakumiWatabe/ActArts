@@ -814,6 +814,7 @@ public class PlayerController : MonoBehaviour
                 float posX = transform.position.x + transform.GetChild(2).localPosition.z * direction;
                 transform.position = new Vector3(posX, transform.position.y, transform.position.z);
                 animator.SetInteger("Special", 0);
+                this.transform.GetChild(2).localPosition = new Vector3(0.0f, 0.0f, 0.0f);
                 state = "Stand";
             }
 
