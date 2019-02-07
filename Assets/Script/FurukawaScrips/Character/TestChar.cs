@@ -184,6 +184,7 @@ public class TestChar : MonoBehaviour
                     {
                         //ダメージ分ガードゲージを減らす
                         GScript.hitGuard(ASScriptEne.Damage((int)CEventEne.GetType));
+                        //GScript.hitGuard(ASScriptEne.GuardDanage((int)CEventEne.GetType));
                         Vector3 effectPos = transform.position;
                         effectPos.y += 1.0f;
                         Instantiate(guardEffect, effectPos, Quaternion.identity);

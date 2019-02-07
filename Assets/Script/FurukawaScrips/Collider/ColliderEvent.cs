@@ -1361,8 +1361,8 @@ public class ColliderEvent : MonoBehaviour {
             new Vector3(0, 0.8f, 0.2f),
             new Vector3(CSizeZ, 1.4f, 0.5f));
         SetBoxState(AtkBox[0],
-            new Vector3(0, 0.85f, 1),
-            new Vector3(CSizeZ, 0.2f, 0.6f));
+            new Vector3(0, 0.85f, 0.9f),
+            new Vector3(CSizeZ, 0.2f, 0.9f));
     }
     void C_StrengthCollid4()
     {
@@ -1372,8 +1372,8 @@ public class ColliderEvent : MonoBehaviour {
             new Vector3(0, 0.8f, 0.2f),
             new Vector3(CSizeZ, 1.4f, 0.5f));
         SetBoxState(HitBox[1],
-            new Vector3(0, 0.85f, 1),
-            new Vector3(CSizeZ, 0.2f, 0.6f));
+            new Vector3(0, 0.85f, 0.9f),
+            new Vector3(CSizeZ, 0.2f, 0.9f));
     }
     void C_StrengthCollid5()
     {
