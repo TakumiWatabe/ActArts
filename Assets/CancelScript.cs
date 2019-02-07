@@ -10,11 +10,16 @@ public class CancelScript : MonoBehaviour {
     bool enterFlag;
     bool timerFlag;
     float timer;
+    AudioSource audio;
+    [SerializeField]
+    AudioClip start;
     // Use this for initialization
     void Start () {
+        audio = GetComponent<AudioSource>();
         selectPlayer1 = GameObject.Find("P1Image").GetComponent<CharacterSelect>();
         selectPlayer2 = GameObject.Find("P2Image").GetComponent<CharacterSelect>();
         enterFlag = true;
+        audio.clip = start;
     }
 
     // Update is called once per frame
@@ -24,8 +29,8 @@ public class CancelScript : MonoBehaviour {
         {
             if (GamePad.GetButtonDown(GamePad.Button.Start, GamePad.Index.One))
             {
+                audio.Play();
                 enterFlag = false;
-                Debug.Log("押した");
             }
 
         }
