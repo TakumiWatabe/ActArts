@@ -68,6 +68,7 @@ public class SetEffectScript : MonoBehaviour {
                 effectMid.GetComponent<ParticleSystem>().Play();
                 break;
             case 3:
+            case 4:
                 effectStr.transform.position = pos;
                 effectStr.GetComponent<ParticleSystem>().Play();
                 break;
