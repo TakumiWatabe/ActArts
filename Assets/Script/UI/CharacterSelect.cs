@@ -209,8 +209,6 @@ public class CharacterSelect : MonoBehaviour
             if (GetCharName() == "Random")
             {
                 rnd = UnityEngine.Random.Range(0, 6);
-                //全部のモデルが追加されたらランダムにする
-                rnd = 1;
                 player_One.transform.localPosition = frame1.transform.localPosition = RandomChar(rnd);
                 ChangeName(rnd);
             }
@@ -231,8 +229,6 @@ public class CharacterSelect : MonoBehaviour
             if (GetCharName() == "Random")
             {
                 rnd = UnityEngine.Random.Range(0, 6);
-                //全部のモデルが追加されたらランダムにする
-                rnd = 0;
                 player_Two.transform.localPosition = frame2.transform.localPosition = RandomChar(rnd);
                 ChangeName(rnd);
             }
@@ -325,10 +321,10 @@ public class CharacterSelect : MonoBehaviour
                 charName = "Xion";
                 break;
             case 4:
-                charName = "Mari";
+                charName = "Chloe";
                 break;
             case 5:
-                charName = "Chloe";
+                charName = "Mari";
                 break;
             default:
                 break;
