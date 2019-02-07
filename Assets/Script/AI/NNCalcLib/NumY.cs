@@ -117,7 +117,7 @@ public class NumY {
         }
         else
         {
-            Debug.Log("Error : Argument size does not match.");
+            //Debug.Log("Error : Argument size does not match.");
         }
 
         NumYArray returnArray = new NumYArray(array);

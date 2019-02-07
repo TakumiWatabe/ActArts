@@ -48,7 +48,7 @@ public class GuardScript : MonoBehaviour {
     //ダメージをガード値に反映
     public void hitGuard(int damage)
     {
-        Debug.Log("防いでいます");
+        //Debug.Log("防いでいます");
         f = true;
         nowGuard = nowGuard - damage;
         nowGuard = Mathf.Clamp(nowGuard, 0, maxGuard);

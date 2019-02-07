@@ -422,7 +422,7 @@ public class PlayerCommand : MonoBehaviour {
                             playerController.State = "Special";
                             specialDirection = playerController.Direction;
                             HistoryClear();
-                            Debug.Log("昇龍拳");
+                            //Debug.Log("昇龍拳");
                             playerController.SetDirection();
                             playerController.NowGravity = 0.0f;
                             //nowGravity = 0;

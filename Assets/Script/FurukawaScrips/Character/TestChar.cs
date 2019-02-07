@@ -310,7 +310,7 @@ public class TestChar : MonoBehaviour
             Instantiate(explodeHadouEffect, transform.position, Quaternion.identity);
 
             //飛び道具を消す
-            Debug.Log(Pcont.fightEnemy.GetComponent<PlayerController>().GetHadou.name);
+            //Debug.Log(Pcont.fightEnemy.GetComponent<PlayerController>().GetHadou.name);
             Destroy(Pcont.fightEnemy.GetComponent<PlayerController>().GetHadou);
         }
     }

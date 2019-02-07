@@ -162,7 +162,7 @@ public class PlayerController : MonoBehaviour
 
 
         enemyScript = enemy.GetComponent<PlayerController>();
-        Debug.Log(enemy.tag);
+        //Debug.Log(enemy.tag);
 
         if (gameObject.GetComponent<EnemyAI>() != null) gameObject.GetComponent<EnemyAI>().Initialize();
 
