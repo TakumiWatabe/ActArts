@@ -30,12 +30,10 @@ public class ColliderReact : MonoBehaviour {
 
                 //判定の衝突位置を取得
                 hitPoint = other.ClosestPointOnBounds(this.transform.position);
-
             }
         }
     }
 
-    
 
     void Awake()
     {
