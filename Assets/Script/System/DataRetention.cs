@@ -12,7 +12,7 @@ public class DataRetention : MonoBehaviour {
         SIZE
     }
 
-    private int mode = 1;
+    private int mode = 0;
 
     private string[] fightName = new string[2];
     private string winner;
