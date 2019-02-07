@@ -1149,16 +1149,28 @@ public class PlayerController : MonoBehaviour
             animator.SetBool("GuardCrash", false);
             animator.SetInteger("Damage", dmg);
 
+            float posX = transform.position.x + transform.GetChild(2).localPosition.z * direction;
+            float posY = transform.GetChild(2).position.y;
+            transform.position = new Vector3(posX, posY, transform.position.z);
+            this.transform.GetChild(2).localPosition = new Vector3(0.0f, 0.0f, 0.0f);
+
             if (jumpCount == 0)
             {
                 state = "Damage";
             }
-            else
+            else if(transform.position.y > 0.0f)
             {
                 //state = "JumpingDamage";
                 state = "BlowOff";
                 animator.SetBool("Jump", true);
                 nowGravity = 0;
+            }
+            else
+            {
+                ////state = "JumpingDamage";
+                //state = "BlowOff";
+                //animator.SetBool("Jump", true);
+                //nowGravity = 0;
             }
 
             if (atkLevel >= 3)
