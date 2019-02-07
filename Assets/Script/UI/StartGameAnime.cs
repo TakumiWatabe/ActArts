@@ -9,20 +9,32 @@ public class StartGameAnime : MonoBehaviour {
     float speed;
     float alpha;
     Image image;
+    AudioSource audio;
+    [SerializeField]
+    AudioClip clip;
+    bool sound;
     // Use this for initialization
     void Start () {
+        audio = GetComponent<AudioSource>();
         image = GetComponent<Image>();
         selectPlayer1 = GameObject.Find("P1Image").GetComponent<CharacterSelect>();
         selectPlayer2 = GameObject.Find("P2Image").GetComponent<CharacterSelect>();
         enter = GameObject.Find("SelectSceneObj").GetComponent<CancelScript>();
         speed = 0;
         alpha = 0;
+        audio.clip = clip;
+        sound = true;
     }
 
     // Update is called once per frame
     void Update () {
         if ((selectPlayer1.GetP1Frag() == false) && (selectPlayer2.GetP2Frag() == false))
         {
+            if(sound)
+            {
+                audio.Play();
+                sound = false;
+            }
             if (transform.localPosition.x < 0f)
                 speed = 100f;
             else
@@ -35,6 +47,7 @@ public class StartGameAnime : MonoBehaviour {
         }
         else
         {
+            sound = true;
             this.transform.localPosition = new Vector3(-800, -125, 0);
             image.color = new Color(255, 255, 255, 0);
             speed = 0;
