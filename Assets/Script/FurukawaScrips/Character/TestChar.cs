@@ -153,7 +153,7 @@ public class TestChar : MonoBehaviour
                                 }
                                 else if (Pcont.fightEnemy.GetComponent<PlayerController>().ControllerName == "AI")
                                 {
-                                    AI.JudgResult("Damaged", "");
+                                    Pcont.fightEnemy.GetComponent<EnemyAI>().JudgResult("Damaged", "");
                                 }
                             }
                         }
@@ -174,7 +174,7 @@ public class TestChar : MonoBehaviour
                                 }
                                 else if (Pcont.fightEnemy.GetComponent<PlayerController>().ControllerName == "AI")
                                 {
-                                    AI.JudgResult("Damaged", "");
+                                    Pcont.fightEnemy.GetComponent<EnemyAI>().JudgResult("Damaged", "");
                                 }
                             }
                         }
@@ -193,7 +193,7 @@ public class TestChar : MonoBehaviour
                         }
                         else if (Pcont.fightEnemy.GetComponent<PlayerController>().ControllerName == "AI")
                         {
-                            AI.JudgResult("WasGuarded", Pcont.State);
+                            Pcont.fightEnemy.GetComponent<EnemyAI>().JudgResult("WasGuarded", Pcont.State);
                         }
                     }
 
@@ -220,7 +220,7 @@ public class TestChar : MonoBehaviour
                             }
                             else if (Pcont.fightEnemy.GetComponent<PlayerController>().ControllerName == "AI")
                             {
-                                AI.JudgResult("WasGuarded", Pcont.State);
+                                Pcont.fightEnemy.GetComponent<EnemyAI>().JudgResult("WasGuarded", Pcont.State);
                             }
                         }
                         else if (Pcont.InputDKey == 1 && (Pcont.State == "Stand" || Pcont.State == "Sit"))
@@ -240,7 +240,7 @@ public class TestChar : MonoBehaviour
                             }
                             else if (Pcont.fightEnemy.GetComponent<PlayerController>().ControllerName == "AI")
                             {
-                                AI.JudgResult("WasGuarded", Pcont.State);
+                                Pcont.fightEnemy.GetComponent<EnemyAI>().JudgResult("WasGuarded", Pcont.State);
                             }
                         }
                     }
@@ -257,7 +257,7 @@ public class TestChar : MonoBehaviour
                         }
                         else if (Pcont.fightEnemy.GetComponent<PlayerController>().ControllerName == "AI")
                         {
-                            AI.JudgResult("Damaged", "");
+                            Pcont.fightEnemy.GetComponent<EnemyAI>().JudgResult("Damaged", "");
                         }
                     }
 
