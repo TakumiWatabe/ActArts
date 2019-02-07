@@ -65,6 +65,7 @@ public class SceneTransition : MonoBehaviour {
 //#elif UNITY_STANDALONE
 //                Application.Quit();
 //#endif
+            //AIの初期化
         }
         //====================================================================================================
         // タイトルシーンでの処理
