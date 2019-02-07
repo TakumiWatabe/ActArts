@@ -19,7 +19,7 @@ public class ResultChar : MonoBehaviour {
     private string winName;
     private GameObject winner;
 
-    void Start()
+    void Awake()
     {
         datas = GameObject.Find("GameSystem").GetComponent<DataRetention>();
 

@@ -8,7 +8,7 @@ public class AnimtorDirector : MonoBehaviour {
     private GameObject instance;
     private ResultChar RChar;
     //プレイヤー
-    private GameObject player;
+    private GameObject winner;
     //アニメーター
     private Animator animator;
     //アニメーターの状態
@@ -19,9 +19,9 @@ public class AnimtorDirector : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         RChar = instance.GetComponent<ResultChar>();
-        player = RChar.GetWinner;
-        //animatorコンポーネントをaddしanimatorControllerをセットする
-        animator = player.GetComponent<Animator>();
+        winner = RChar.GetWinner;
+        //animatorをセットする
+        animator = winner.GetComponent<Animator>();
 	}
 	
 	// Update is called once per frame
