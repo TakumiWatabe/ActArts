@@ -1164,7 +1164,6 @@ GameObject:
   - component: {fileID: 4921458372460138}
   - component: {fileID: 114641015783269278}
   - component: {fileID: 114900506386255464}
-  - component: {fileID: 95621026759031974}
   - component: {fileID: 114679341256679406}
   - component: {fileID: 114631266928532508}
   - component: {fileID: 114817904874424886}
@@ -8087,23 +8086,6 @@ Avatar:
     4237631837: Root/Global/Position/J_Bip_C_Hips/J_Bip_C_Spine/J_Bip_C_Chest/J_Bip_C_UpperChest/J_Bip_C_Neck/J_Bip_C_Head/HairJoint-5e784232-233f-4061-8194-8f591be00b81/HairJoint-51d33840-0f98-4d36-a192-5faae8750315
     4243795141: Root/Global/Position/J_Bip_C_Hips/J_Bip_C_Spine/J_Bip_C_Chest/J_Bip_C_UpperChest/J_Bip_R_Shoulder/J_Bip_R_UpperArm/J_Bip_R_LowerArm/J_Bip_R_Hand/J_Bip_R_Middle1/J_Bip_R_Middle2/J_Bip_R_Middle3
     4266572859: Root/Global/Position/J_Bip_C_Hips/J_Bip_C_Spine/J_Bip_C_Chest/J_Bip_C_UpperChest/J_Bip_L_Shoulder/J_Bip_L_UpperArm/J_Bip_L_LowerArm/J_Bip_L_Hand/J_Bip_L_Little1/J_Bip_L_Little2
---- !u!95 &95621026759031974
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1394751174783290}
-  m_Enabled: 1
-  m_Avatar: {fileID: 90058481113959256}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
 --- !u!114 &114029686082641800
 MonoBehaviour:
   m_ObjectHideFlags: 1

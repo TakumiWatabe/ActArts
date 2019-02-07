@@ -74,6 +74,10 @@ public class Play : MonoBehaviour
 
         intentions.Add(GameObject.Find("AoiIntentionObj").GetComponent<AIIntention>());
         intentions.Add(GameObject.Find("HikariIntentionObj").GetComponent<AIIntention>());
+        intentions.Add(GameObject.Find("XionIntentionObj").GetComponent<AIIntention>());
+        intentions.Add(GameObject.Find("ChloeIntentionObj").GetComponent<AIIntention>());
+        intentions.Add(GameObject.Find("MariIntentionObj").GetComponent<AIIntention>());
+        intentions.Add(GameObject.Find("ShiroganeIntentionObj").GetComponent<AIIntention>());
 
         fade.ImageAlpha = 1;
 
@@ -130,13 +134,18 @@ public class Play : MonoBehaviour
                     {
                         if (intentions[i].IsTrain)
                         {
+                            GameObject.Find("LoadCanvas").SetActive(true);
                             intentions[i].LearningSpeed = 5;
                             return;
                         }
                     }
+
+                    GameObject.Find("LoadCanvas").SetActive(false);
                     GetGame.ResetGame(gameImage);
-                    GameObject.Find("AoiIntentionObj").GetComponent<AIIntention>().Learning(false);
-                    GameObject.Find("HikariIntentionObj").GetComponent<AIIntention>().Learning(false);
+                    for (int i = 0; i < intentions.Count; i++)
+                    {
+                        intentions[i].Learning(false);
+                    }
                     SceneManager.LoadScene(SMane.Scenes("Result"));
                 }
 
