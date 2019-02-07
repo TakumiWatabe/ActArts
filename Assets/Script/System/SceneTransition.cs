@@ -75,7 +75,7 @@ public class SceneTransition : MonoBehaviour {
             {
                 if (Input.anyKeyDown)
                 {
-                    Debug.Log("シーン");
+
                     sceneFlag = false;
                     audio.Stop();
                     audio.PlayOneShot(dicideSE, 1.0f);
