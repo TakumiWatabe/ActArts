@@ -96,4 +96,9 @@ public class GuardScript : MonoBehaviour {
         get { return f; }
         set { f = value; }
     }
+
+    public void Initialise()
+    {
+        nowGuard = maxGuard;
+    }
 }

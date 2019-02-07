@@ -320,7 +320,7 @@ public class PlayerController : MonoBehaviour
         FinallyMove();
         CheckGuard();
 
-        if (playerCommand.ControllerName == "AI") Debug.Log(gameObject.name + "STATE:" + state);
+        //if (playerCommand.ControllerName == "AI") Debug.Log(gameObject.name + "STATE:" + state);
 
     }
 

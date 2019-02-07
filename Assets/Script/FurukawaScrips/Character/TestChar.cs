@@ -328,7 +328,7 @@ public class TestChar : MonoBehaviour
         {
             if (GScript.NowGuardVal < 1000 && GScript.NowGuardVal > 0)
             {
-                Debug.Log("リジェネ発動");
+
                 //ガード値を徐々に回復
                 GScript.guardRegene();
             }
