@@ -81,15 +81,11 @@ public class Play : MonoBehaviour
         sounds.Add(round2);
         sounds.Add(round3);
     }
-
-    private void Initialize()
-    {
-
-    }
-
     // Update is called once per frame
     void Update()
     {
+        Debug.Log(rounds);
+
         //シーン開始時のフェードアウト
         if (disF)
         {
@@ -159,7 +155,7 @@ public class Play : MonoBehaviour
                 timer.ResetGameTimer();
                 soundPlayed = false;
                 //ラウンドを進める
-                if (!Finish.GetDraw) { rounds += 1; }
+                if (Finish.GetDraw) { rounds += 1; }
             }
         }
     }
