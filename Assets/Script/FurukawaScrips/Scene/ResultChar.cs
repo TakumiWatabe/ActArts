@@ -47,11 +47,20 @@ public class ResultChar : MonoBehaviour {
                 case "Xion":
                     CreateChar(2);
                     break;
+                case "Shirogane":
+                    CreateChar(3);
+                    break;
+                case "Chloe":
+                    CreateChar(4);
+                    break;
+                case "Mari":
+                    CreateChar(5);
+                    break;
             }
         }
         else
         {
-            CreateChar(0);
+            CreateChar(5);
         }
     }
 

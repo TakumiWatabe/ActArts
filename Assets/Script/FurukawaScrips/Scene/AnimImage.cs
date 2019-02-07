@@ -23,7 +23,7 @@ public class AnimImage : MonoBehaviour {
 
     private float moveSpeed = 25f;
     private float overLineR = 0;
-    private float overLineW = 200;
+    private float overLineW = 210;
 
     private Vector3 minScale;
     private Vector3 maxScale = new Vector3(3, 3, 3);
