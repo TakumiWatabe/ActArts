@@ -336,7 +336,7 @@ public class PlayerController : MonoBehaviour
 
         //animator.SetInteger("Damage", 0);
         //ジャンプしているときに地面に触っておらず一定時間経過していたら終了
-        bool jumpEnd = gameObject.transform.position.y <= 0 && jumpCount > jumpTime;
+        bool jumpEnd = gameObject.transform.position.y <= 0 && jumpCount > jumpTime || jumpCount > 150;
         if (jumpEnd)
         {
             jumpCount = 0;

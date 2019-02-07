@@ -4624,21 +4624,21 @@ AnimationClip:
   m_GenerateMotionCurves: 0
   m_Events:
   - time: 0
-    functionName: XBasePunchCollider1
+    functionName: XBasicCollide
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
   - time: 0.083333336
-    functionName: XBasePunchCollider2
+    functionName: XBasePunchCollider1
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
   - time: 0.2
-    functionName: XBasePunchCollider1
+    functionName: XBasicCollide
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
